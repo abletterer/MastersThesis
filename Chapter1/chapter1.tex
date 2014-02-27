@@ -60,14 +60,14 @@ manière d'attacher les points de l'espace à une surface.
     où \( \tilde{\mathcal{N}}(u,v) \) est le vecteur normal au point
     \( (u,v) \) de la surface déformée \( \tilde{X} \)
   \end{itemize}
-\item{\textbf{Outil étoilé :}} Un polygone de forme étoilée est un
-  polygone contenant, en son intérieur, une région dite "étoilée". On
+\item{\textbf{Surface étoilée :}} Un polyèdre de forme étoilée est un
+  polyèdre contenant, en son intérieur, une région dite "étoilée". On
   définit une région étoilée comme étant une région depuis laquelle un
   rayon émis dans n'importe qu'elle direction n'intersecte le bord du
   polygone qu'une seule fois. Cette propriété est utile dans le
   domaine de la déformation car elle permet d'obtenir une unique
-  paramétrisation en coordonnées polaires des points de l'espace
-  \cite{JL00}.
+  paramétrisation en coordonnées polaires des points de l'espace,
+  comme proposé par \cite{JL00}.
   \begin{itemize}
   \item{\textit{Création de l'outil de déformation :}} L'utilisateur
     définit une surface \( S \), représentant un polyèdre étoilé. il
@@ -83,7 +83,24 @@ manière d'attacher les points de l'espace à une surface.
   \item{\textit{L'outil est modifié :}} Une surface de destination \(
     \tilde{S} \), avec un centre \( \tilde{O} \), est définie.
   \item{\textit{L'espace est déformé :}} La déformation se fait en
-    construisant un rayon partant de \( \tilde{O} \)
+    construisant un rayon partant de \( \tilde{O} \) avec la même
+    direction \( U \), on peut ainsi obtenir l'intersection \(
+    \tilde{P} \) entre le rayon et le bord de \( \tilde{S} \). Le
+    point déformé \( \tilde{X} \) est placé à la même distance
+    relative entre \( \tilde{O} \) et \( \tilde{P} \).
+  \end{itemize}
+\item{\textbf{Maillage triangulaire :}} Une autre idée est d'utiliser
+  un maillage triangulaire simple pour appliquer des déformations aux
+  points de l'espace. \cite{KO03} a été le premier à utiliser ce genre
+  d'outil. Il définit que les triangles du maillage contribuent à
+  déformer une zone de l'espace proche en réalisant une moyenne
+  pondérée, qu'ils ont une sphère d'influence avec une densité
+  linéaire et sont disposés de manière assez générale.
+  \begin{itemize}
+  \item{\textit{Création de l'outil de déformation :}}
+  \item{\textit{Association des points de l'espace à l'outil :}}
+  \item{\textit{L'outil est modifié :}}
+  \item{\textit{L'espace est déformé :}}
   \end{itemize}
 \end{itemize}
 
