@@ -1,0 +1,96 @@
+% \pagebreak[4]
+% \hspace*{1cm}
+% \pagebreak[4]
+% \hspace*{1cm}
+% \pagebreak[4]
+
+\chapter{Outils multidimensionnels}
+
+\graphicspath{{Chapter1/Chapter1Figs/PNG/}{Chapter1/Chapter1Figs/PDF/}{Chapter1/Chapter1Figs/}}
+
+Ce chapitre réalise un état de l'art des différentes déformations
+spatiales, tout en les comparant, dans chaque dimension, selon des critères
+de souplesse, facilité d'utilisation, efficacité (en complexité) et
+exactitude. Ce classement va nous permettre de choisir le meilleur
+outil pour chaque dimension, afin d'obtenir à la fin une sélection de
+4 outils de dimensions différentes sur lesquels nous allons nous baser
+pour réaliser les mélanges.
+
+\section{Déformation à base de volumes}
+
+\section{Déformation à base de surfaces}
+La difficulté des déformations à base de surfaces réside dans la
+manière d'attacher les points de l'espace à une surface.
+
+\begin{itemize}
+\item{\textbf{Carreau paramétrique :}} \cite{JLQ96} a été le premier à
+  proposer une solution, celle d'utiliser un carreau B-spline sur
+  lequel sont projetés les points de l'espace, le long de la normale au
+  plan du carreau. Ainsi pour déformer l'espace, l'utilisateur n'a plu
+  qu'à déformer les points de contrôle du carreau.
+  \begin{itemize}
+  \item{\textit{Création de l'outil de déformation :}} Les points de
+    contrôle du carreau initial \( \mathcal{S}(u,v) \) sont disposés
+    sur le plan XZ (Y=1). Ce carreau définit une région déformable
+    délimitée par les bords du carreau (en X et en Z) et s'étendant à
+    l'infini en Y.
+  \item{\textit{Association des points de l'espace à l'outil :}} Pour
+    chaque point de l'espace \( X = (x,y,z) \) se situant dans la
+    région contenue, des coordonnées paramétriques \( U = (u,v,w) \)
+    sont obtenues par calcul de la projection \( X_p \) du point \( X
+    \) sur le carreau le long de la normale à ce dernier. \( (u,v) \)
+    est obtenu par méthode numérique de façon à ce que \(
+    \mathcal{S}(u,v) = X_p \), et \( w \) correspond à la distance de
+    \( X \) à \( X_p \). On obtient donc :
+    \begin{equation}
+      X = \mathcal{S}(u,v) + w \cdot \mathcal{N}(u,v)
+    \end{equation}
+    où \( \mathcal{N}(u,v) \) est le vecteur normal au point \( (u,v)
+    \) sur la surface \( \mathcal{S} \).
+  \item{\textit{L'outil est modifié :}} Les points de contrôle sont
+    déplacés aux positions choisies par l'utilisateur, formant un
+    nouveau carreau \( \tilde{\mathcal{S}} \).
+  \item{\textit{L'espace est déformé :}} Les coordonnées paramétriques
+    calculées pour chaque point de l'espace sont invariantes par
+    déformation, ainsi les nouvelles positions sont obtenues en
+    appliquant :
+    \begin{equation}
+      \tilde{X} = \tilde{\mathcal{S}}(u,v) + w \cdot \tilde{\mathcal{N}}(u,v)
+    \end{equation}
+    où \( \tilde{\mathcal{N}}(u,v) \) est le vecteur normal au point
+    \( (u,v) \) de la surface déformée \( \tilde{X} \)
+  \end{itemize}
+\item{\textbf{Outil étoilé :}} Un polygone de forme étoilée est un
+  polygone contenant, en son intérieur, une région dite "étoilée". On
+  définit une région étoilée comme étant une région depuis laquelle un
+  rayon émis dans n'importe qu'elle direction n'intersecte le bord du
+  polygone qu'une seule fois. Cette propriété est utile dans le
+  domaine de la déformation car elle permet d'obtenir une unique
+  paramétrisation en coordonnées polaires des points de l'espace \cite{JL00}.
+  \begin{itemize}
+  \item{\textit{Création de l'outil de déformation :}} L'utilisateur
+    définit une surface \( S \), représentant un polyèdre étoilé. il
+    définit un centre \( O \) situé dans la partie étoilée du
+    polyèdre. La surface peut avoir n'importe qu'elle représentation,
+    à partir du moment ou celle-ci permet de réaliser des tests
+    d'intersection entre un rayon et le bord de la surface.
+  \item{\textit{Association des points de l'espace à l'outil :}} Un
+    rayon est construit, partant de \( O \) passant par un point de
+    l'espace \( X \) et intersectant le bord de \( S \). La direction
+    du rayon \( U \) et le ratio de distances de \( O \) à \( X \) et
+    de \( O \) à \( P \) sont enregistrés.
+  \item{\textit{L'outil est modifié :}} Une surface de destination \(
+    \tilde{S} \)
+  \end{itemize}
+\end{itemize}
+
+\section{Déformation à base de courbes}
+
+\section{Déformation à base de points}
+% ------------------------------------------------------------------------
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../thesis"
+%%% End: 

@@ -1,0 +1,24 @@
+% \pagebreak[4]
+% \hspace*{1cm}
+% \pagebreak[4]
+% \hspace*{1cm}
+% \pagebreak[4]
+
+\chapter{Mélange d'outils}
+
+    \graphicspath{{Chapter1/Chapter1Figs/PNG/}{Chapter1/Chapter1Figs/PDF/}{Chapter1/Chapter1Figs/}}
+
+\section{Etat de l'art}
+On peut citer \cite{JBPS11} comme étant le premier a avoir proposé une méthode permettant de mélanger différents outils de déformation de différentes dimensions. 
+C'est sur celui-ci que nous avons commencé à travailler car la méthode nous semblait proche de ce que nous souhaitions réaliser. Une lecture plus approfondie de l'article nous a fait nous rendre compte que le fonctionnement n'était pas celui que nous souhaitions. 
+En effet, s'il semble s'appuyer sur des outils ayant des dimensions différentes en fonction des zones à déformer, la gestion interne repose uniquement sur des déformations d'outils de dimension 0 (points). 
+L'aspect "multidimensionnel" est donc uniquement présent pour imposer des contraintes sur les calculs de coordonnées.
+
+\cite{GPCP13} quant à lui, propose une méthode permettant le mélange d'outil de dimension 2 (surfaces). Nous nous sommes intéressés à cet article de par sa récente publication (2013), sa proximité avec \cite{Hur12}, un travail réalisé par un étudiant en Master ISI en 2012, et de l'utilisation de cages de déformation, le modèle semblant le plus pertinent parmi les outils de dimension 2.
+% ------------------------------------------------------------------------
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../thesis"
+%%% End: 
