@@ -9,7 +9,7 @@
 \graphicspath{{Chapter1/Chapter1Figs/PNG/}{Chapter1/Chapter1Figs/PDF/}{Chapter1/Chapter1Figs/}}
 
 Ce chapitre réalise un état de l'art des différentes déformations
-spatiales, tout en les comparant, dans chaque dimension, selon des critères
+spatiales, d'après \cite{GB08}, tout en les comparant, dans chaque dimension, selon des critères
 de souplesse, facilité d'utilisation, efficacité (en complexité) et
 exactitude. Ce classement va nous permettre de choisir le meilleur
 outil pour chaque dimension, afin d'obtenir à la fin une sélection de
@@ -25,9 +25,9 @@ manière d'attacher les points de l'espace à une surface.
 \begin{itemize}
 \item{\textbf{Carreau paramétrique :}} \cite{JLQ96} a été le premier à
   proposer une solution, celle d'utiliser un carreau B-spline sur
-  lequel sont projetés les points de l'espace, le long de la normale au
-  plan du carreau. Ainsi pour déformer l'espace, l'utilisateur n'a plu
-  qu'à déformer les points de contrôle du carreau.
+  lequel sont projetés les points de l'espace, le long de la normale
+  au plan du carreau. Ainsi pour déformer l'espace, l'utilisateur n'a
+  plu qu'à déformer les points de contrôle du carreau.
   \begin{itemize}
   \item{\textit{Création de l'outil de déformation :}} Les points de
     contrôle du carreau initial \( \mathcal{S}(u,v) \) sont disposés
@@ -66,7 +66,8 @@ manière d'attacher les points de l'espace à une surface.
   rayon émis dans n'importe qu'elle direction n'intersecte le bord du
   polygone qu'une seule fois. Cette propriété est utile dans le
   domaine de la déformation car elle permet d'obtenir une unique
-  paramétrisation en coordonnées polaires des points de l'espace \cite{JL00}.
+  paramétrisation en coordonnées polaires des points de l'espace
+  \cite{JL00}.
   \begin{itemize}
   \item{\textit{Création de l'outil de déformation :}} L'utilisateur
     définit une surface \( S \), représentant un polyèdre étoilé. il
@@ -80,7 +81,9 @@ manière d'attacher les points de l'espace à une surface.
     du rayon \( U \) et le ratio de distances de \( O \) à \( X \) et
     de \( O \) à \( P \) sont enregistrés.
   \item{\textit{L'outil est modifié :}} Une surface de destination \(
-    \tilde{S} \)
+    \tilde{S} \), avec un centre \( \tilde{O} \), est définie.
+  \item{\textit{L'espace est déformé :}} La déformation se fait en
+    construisant un rayon partant de \( \tilde{O} \)
   \end{itemize}
 \end{itemize}
 
