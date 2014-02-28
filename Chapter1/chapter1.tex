@@ -62,12 +62,12 @@ manière d'attacher les points de l'espace à une surface.
   \end{itemize}
 \item{\textbf{Surface étoilée :}} Un polyèdre de forme étoilée est un
   polyèdre contenant, en son intérieur, une région dite "étoilée". On
-  définit une région étoilée comme étant une région depuis laquelle un
-  rayon émis dans n'importe qu'elle direction n'intersecte le bord du
-  polygone qu'une seule fois. Cette propriété est utile dans le
-  domaine de la déformation car elle permet d'obtenir une unique
-  paramétrisation en coordonnées polaires des points de l'espace,
-  comme proposé par \cite{JL00}.
+  définit une région étoilée d'un polygone comme étant une région
+  depuis laquelle un rayon émis dans n'importe qu'elle direction
+  n'intersecte le bord du polygone qu'une seule fois. Cette propriété
+  est utile dans le domaine de la déformation car elle permet
+  d'obtenir une unique paramétrisation en coordonnées polaires des
+  points de l'espace, comme proposé par \cite{JL00}.
   \begin{itemize}
   \item{\textit{Création de l'outil de déformation :}} L'utilisateur
     définit une surface \( S \), représentant un polyèdre étoilé. il
@@ -94,13 +94,42 @@ manière d'attacher les points de l'espace à une surface.
   points de l'espace. \cite{KO03} a été le premier à utiliser ce genre
   d'outil. Il définit que les triangles du maillage contribuent à
   déformer une zone de l'espace proche en réalisant une moyenne
-  pondérée, qu'ils ont une sphère d'influence avec une densité
-  linéaire et sont disposés de manière assez générale.
+  pondérée, qu'ils influent sur une zone sphérique autour d'eux. Les
+  triangles peuvent être disposés de façon assez générale.
   \begin{itemize}
-  \item{\textit{Création de l'outil de déformation :}}
-  \item{\textit{Association des points de l'espace à l'outil :}}
-  \item{\textit{L'outil est modifié :}}
-  \item{\textit{L'espace est déformé :}}
+  \item{\textit{Création de l'outil de déformation :}} L'utilisateur
+    place un certain nombre de triangles, ils n'ont pas besoin d'être
+    connexes et peuvent s'intersecter. La seule restriction est qu'ils
+    ne soient pas dégénérés.
+  \item{\textit{Association des points de l'espace à l'outil :}} Un
+    système de coordonnées est associé à chaque triangle, un sommet
+    est choisi pour être l'origine \( O_i \), les deux arêtes
+    incidentes à ce sommet sont les axes \( U_i \) et \( V_i \) et la
+    normale du triangle est le dernier axe, \( W_i \). On peut noter
+    que le système de coordonnées n'est pas orthogonal, sauf dans le
+    cas d'un triangle rectangle. On associe à chaque point de l'espace
+    des coordonnées paramétriques \( U = (u_i,v_i,w_i) \) locales à
+    chaque triangle ainsi qu'un poids \( k_i \), qui décroit de façon
+    linéaire dans une sphère d'influence autour de chaque triangle,
+    dont la taille varie en fonction de la taille du triangle.
+  \item{\textit{L'outil est modifié :}} Les triangles sont modifiés,
+    soit en déplaçant des sommets des triangles, soit en déplaçant des
+    points de l'espace et en recalculant la position des triangles
+    (par reverse-engineering) pour enfin déplacer le reste des points
+    de l'espace.
+  \item{\textit{L'espace est déformé :}} Encore une fois, les coordonnées
+    paramétriques calculées sont invariantes par déformation, on peut
+    donc calculer la nouvelle position des points de l'espace par
+    rapport à chaque triangle :
+    \begin{equation}
+      \tilde{X}_i = \tilde{O}_i + u_i\tilde{U}_i + v_i\tilde{V}_i +
+      w_i\tilde{W}_i
+    \end{equation}
+ Au final, la position d'un point de l'espace est calculée comme une
+ combinaison linéaire des coordonnées associées à chaque triangle :
+    \begin{equation}
+      \tilde{X} = \sum_i \frac{k_i\tilde{X}_i}{\sum_i k_i}
+    \end{equation}
   \end{itemize}
 \end{itemize}
 
@@ -108,7 +137,6 @@ manière d'attacher les points de l'espace à une surface.
 
 \section{Déformation à base de points}
 % ------------------------------------------------------------------------
-
 
 %%% Local Variables: 
 %%% mode: latex
