@@ -8,29 +8,41 @@
 
 \graphicspath{{Chapter2/Chapter2Figs/PNG/}{Chapter2/Chapter2Figs/PDF/}{Chapter2/Chapter2Figs/}}
 
-    \section{Etat de l'art}
-    On peut citer \cite{JBPS11} comme étant le premier a avoir proposé
-    une méthode permettant de mélanger différents outils de
-    déformation de différentes dimensions.  C'est sur celui-ci que
-    nous avons commencé à travailler car la méthode nous semblait
-    proche de ce que nous souhaitions réaliser. Une lecture plus
-    approfondie de l'article nous a fait nous rendre compte que le
-    fonctionnement n'était pas celui que nous souhaitions.  En effet,
-    s'il semble s'appuyer sur des outils ayant des dimensions
-    différentes en fonction des zones à déformer, la gestion interne
-    repose uniquement sur des déformations d'outils de dimension 0
-    (points).  L'aspect "multidimensionnel" est donc uniquement
-    présent pour imposer des contraintes sur les calculs de
-    coordonnées.
+La déformation à base de cage est une déformation dite globale,
+c'est-à-dire que le déplacement d'un des sommets de contrôle de la
+cage influe sur l'ensemble des points de l'espace, même de façon
+infinitésimale. De ce fait, il est nécessaire de calculer des
+coordonnées pour chaque point de l'espace par rapport à l'ensemble des
+sommets de la cage. La précision des déplacements est liée au nombre
+de sommets de la cage, en effet, plus la cage contient de sommets,
+plus les points de l'espace vont pouvoir être déplacés de façon
+précise. On voit donc directement apparaitre un problème important, la
+précision d'une déformation est liée au nombre de sommets de la cage,
 
-    \cite{GPCP13} quant à lui, propose une méthode permettant le
-    mélange d'outil de dimension 2 (surfaces). Nous nous sommes
-    intéressés à cet article de par sa récente publication (2013), sa
-    proximité avec \cite{Hur12}, un travail réalisé par un étudiant en
-    Master ISI en 2012, et de l'utilisation de cages de déformation,
-    le modèle semblant le plus pertinent parmi les outils de dimension
-    2.
-    % ------------------------------------------------------------------------
+\section{Etat de l'art}
+On peut citer \cite{JBPS11} comme étant le premier a avoir proposé une
+méthode permettant de mélanger différents outils de déformation de
+différentes dimensions.  C'est sur celui-ci que nous avons commencé à
+travailler car la méthode nous semblait proche de ce que nous
+souhaitions réaliser. Une lecture plus approfondie de l'article nous a
+fait nous rendre compte que le fonctionnement n'était pas celui que
+nous souhaitions.  En effet, s'il semble s'appuyer sur des outils
+ayant des dimensions différentes en fonction des zones à déformer, la
+gestion interne repose uniquement sur des déformations d'outils de
+dimension 0 (points).  L'aspect "multidimensionnel" est donc
+uniquement présent pour imposer des contraintes sur les calculs de
+coordonnées. De plus, les calculs réalisés lors de l'assocation des
+points de l'espace aux sommets des outils nécessitent une
+discrétisation de l'espace, ce qui est une méthode que l'on souhaitait
+éviter, du fait de la complexité importante en temps de calcul.
+
+\cite{GPCP13} quant à lui, propose une méthode permettant le mélange
+d'outil de dimension 2 (surfaces). Nous nous sommes intéressés à cet
+article de par sa récente publication (2013), sa proximité avec
+\cite{Hur12}, un travail réalisé par un étudiant en Master ISI en
+2012, et de l'utilisation de cages de déformation, le modèle semblant
+le plus pertinent parmi les outils de dimension 2.
+% ------------------------------------------------------------------------
 
 
 %%% Local Variables: 
