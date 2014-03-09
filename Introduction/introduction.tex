@@ -1,32 +1,55 @@
 %%% Thesis Introduction --------------------------------------------------
 \chapter{Introduction}
-\ifpdf
-\graphicspath{{Introduction/IntroductionFigs/PNG/}{Introduction/IntroductionFigs/PDF/}{Introduction/IntroductionFigs/}}
-\else
-\graphicspath{{Introduction/IntroductionFigs/EPS/}{Introduction/IntroductionFigs/}}
-\fi
+
+\graphicspath{ {Introduction/IntroductionFigs/PNG/}
+  {Introduction/IntroductionFigs/PDF/}
+  {Introduction/IntroductionFigs/} }
 
 La modélisation géométrique a permis, dans un premier temps, de
 représenter des modèles virtuels.  Mais le besoin d'éditer ces modèles
 a amené la modélisation géométrique a évoluer et à instaurer des
 outils permettant de modifier ces modèles.  Ainsi sont nés les outils
-de "déformation". Dans le cadre de notre travail, nous ne nous sommes
-que penchés sur les déformations dites "spatiales"
+de \textit{déformation}. Dans le cadre de notre travail, nous ne nous
+sommes uniquement intéressés aux déformations dites
+\textit{spatiales}.
 
 La déformation spatiale consiste à déformer un objet en modifiant son
 espace ambiant.  On notera \cite{Bar84} et \cite{SP86} comme étant les
-premiers à avoir introduit ce type de déformation.  Ce procédé a un
-avantage considérable, la modification de l'espace.  En effet comme la
+premiers à avoir introduit ce type de déformation. Ce procédé a un
+avantage considérable, la modification de l'espace. En effet comme la
 déformation est réalisée sur chaque point de l'espace de façon
 indépendante, elle n'est pas liée à la représentation interne de
-l'objet.
+l'objet. Cette propriété est essentielle, car elle permet d'assurer
+que, peu importe la topologie existante entre les points de l'espace à
+déformer, une même déformation de l'outil déformera l'espace de la
+même manière.
+\\
 
 La première partie de ce travail a consisté en la réalisation d'un
-mélange de différents outils de déformation.  En parallèle, une étude
-a été faite sur les différents outils de déformation, basé sur
-\cite{GB08}, pour déterminer le meilleur outil associé à chaque
-dimension (point, courbe, surface, volume).
+mélange de multiples outils de déformation. En parallèle, une étude a
+été faite sur les outils de déformation de différentes dimensions,
+basé sur \cite{GB08}, pour déterminer le meilleur outil associé à
+chaque dimension (point, courbe, surface, volume).  La dernière partie
+se concentrera plus particulièrement sur des modèles virtuels. Il
+s'agira de fournir une génération automatique d'un outil
+multi-dimensionnel de déformation associé à un modèle, en segmentant
+ce dernier et en associant à chacune de ses segmentations l'outil le
+plus adapté à la forme de la segmentation.
+\\
 
+Beaucoup de méthodes existent pour déformer des points de l'espace,
+mais ont des caractéristiques différentes les unes des autres. Que ce
+soit au niveau de la complexité au temps de pose de l'outil, de la
+forme de la déformation engendrée par la modification de l'outil, ou
+encore de l'élégance et de la simplicité du modèle mathématique
+sous-jacent. Il n'existe aujourd'hui aucune technique permettant de
+combiner les forces de chacune de ses méthodes.
+\\
+
+Tout au long de ce travail, nos choix seront motivés par la volonté de
+fournir un outil permettant de déformer des points de l'espace de
+manière interactive et fluide, et d'obtenir des formulations
+mathématiques simples et claires.
 %%% ----------------------------------------------------------------------
 
 
