@@ -50,20 +50,39 @@ des dimensions différentes en fonction des zones à déformer, la
 gestion interne repose uniquement sur des déformations d'outils de
 dimension 0 (points). L'aspect "multidimensionnel" est donc uniquement
 présent pour imposer des contraintes supplémentaires sur les calculs
-de coordonnées. Par exemple pour des points reliés par une arête, les
+de coordonnées. Par exemple pour des sommets reliés par une arête
+l'article définit que les poids (permettant le calcul des coordonnées)
+évoluent de façon linéaire le long de cette arête. De plus, cette
+méthode passe par une minimisation de l'énergie laplacienne,
+nécessitant une discrétisation de l'espace. Or c'est quelque chose que
+nous souhaiterions éviter, à cause du temps de calcul requis par ces
+opérations.
 
 \cite{GPCP13} quant à lui, propose une méthode permettant le mélange
 d'outil de même dimension, en s'intéressant particulièrement aux cas
-des surfaces, à travers les déformations à base de cage. Nous nous
+des surfaces, à travers les déformations à base de cage.  Nous nous
 sommes intéressés à cet article de par sa récente publication (2013),
 sa proximité avec \cite{Hur12}, un travail réalisé par un étudiant en
 Master ISI en 2012, et de l'utilisation de cages de déformation, le
-modèle semblant le plus pertinent parmi les outils de dimension
-2. L'idée est de réaliser un assemblage de différentes cages collées
+modèle semblant le plus pertinent parmi les outils de dimension 2.
+L'idée est de réaliser un assemblage de différentes cages collées
 ensembles le long de leurs arêtes et de considérer les coordonnées
 d'un point de l'espace non seulement par rapport à sa cage
 \textit{propre} (à comprendre la cage englobant le point de l'espace)
-mais aussi par rapport aux cages adjacentes à celle-ci.
+mais aussi par rapport aux cages adjacentes à celle-ci.  La méthode de
+cet article propose au premier abord une formulation très claire. La
+position d'un point de l'espace n'est plus simplement constituée d'une
+combinaison linéaire des positions des sommets de sa cage propre, mais
+un mélange entre les coordonnées calculées par rapport à la cage
+propre et par rapport aux différentes cages \textit{jointure}.
+L'article définit une cage jointure comme l'ensemble des cages
+incidentes à un sommet de la cage propre.  L'avantage de ce genre de
+méthode est de localiser les déformations en les limitant au voisinage
+de la cage incidente au sommet déplacé.  On peut donc avoir jusqu'à
+$n$ coordonnées différentes pour un même point de l'espace, où $n$
+correspond au nombre de sommets de la cage propre. Ce qui au final
+fait un peu perdre un des intérêts de la méthode, à savoir la
+réduction de la complexité en temps de calcul.
 % ------------------------------------------------------------------------
 
 
