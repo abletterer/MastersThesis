@@ -10,28 +10,47 @@
   {Chapter2/Chapter2Figs/PDF/} {Chapter2/Chapter2Figs/} }
 
 Chaque dimension d'outil permet de déformer l'espace d'une autre
-manière. Les points et courbes sont plus adaptés aux déformations par
-rapport à un axe (rotation, torsion, fuselage). Les surfaces et
-volumes sont, quant à eux, utilisés lors de déformations plus
-générales. Pourtant, sur le même ensensemble de points, un utilisateur
-pourrait souhaiter réaliser des opérations relevant à la fois des
-points et courbes, ainsi que 
+manière. Les points et courbes sont plus adaptés aux déformations
+réalisées par rapport à un axe (rotation, torsion, fuselage). Les
+surfaces et volumes sont, quant à eux, utilisés lors de déformations
+plus générales.
+
+Pourtant, sur le même ensemble de points, un utilisateur pourrait
+souhaiter réaliser des déformations par rapport à un axe, mais aussi
+plus générales. Aussi, les techniques les plus utilisées ces dernières
+années, les \textit{cages de déformation} par exemple, définissent des
+déformations \textit{globales}. Une déformation est dite globale
+lorsque la modification d'un des sommets de contrôle de l'outil influe
+sur l'ensemble des points de l'espace, même de façon
+infinitésimale. Il est donc nécessaire de calculer des coordonnées
+pour chaque point de l'espace par rapport à tous les sommets de
+l'outil. De plus, pour réaliser des déformations sur des zones
+précises, il faut que l'outil soit composé d'un grand nombre de
+sommets, afin de diminuer l'influence des sommets les plus éloignés de
+ces zones. On peut donc dire qu'il existe un lien entre la précision
+d'une déformation et le nombre de sommets de l'outil associé. Or plus
+il y a de sommets composant l'outil, plus le temps de calcul des
+coordonnées sera important. Il n'est donc pas possible de réaliser des
+déformations sur des zones très précises, sans avoir à calculer de
+coordonnées pour tous les points de l'espace.
+
+C'est sur cette problématique que les idées de mélange d'outils ont
+été introduites.
 
 \section{Etat de l'art}
 
 On peut citer \cite{JBPS11} comme étant le premier a avoir proposé une
-méthode permettant de mélanger différents outils de déformation de
+méthode permettant de mélanger plusieurs outils de déformation de
 différentes dimensions.  C'est sur celui-ci que nous avons commencé à
 travailler car la méthode nous semblait proche de ce que nous
 souhaitions réaliser. Une lecture plus approfondie de l'article nous a
 fait nous rendre compte que le fonctionnement n'était pas celui que
-nous souhaitions.  En effet, s'il semble s'appuyer sur des outils
-ayant des dimensions différentes en fonction des zones à déformer, la
+nous souhaitions. En effet, s'il semble s'appuyer sur des outils ayant
+des dimensions différentes en fonction des zones à déformer, la
 gestion interne repose uniquement sur des déformations d'outils de
-dimension 0 (points).  L'aspect "multidimensionnel" est donc
-uniquement présent pour imposer des contraintes sur les calculs de
-coordonnées.
-
+dimension 0 (points). L'aspect "multidimensionnel" est donc uniquement
+présent pour imposer des contraintes supplémentaires sur les calculs
+de coordonnées. Par exemple pour des points reliés par une arête, les
 
 \cite{GPCP13} quant à lui, propose une méthode permettant le mélange
 d'outil de même dimension, en s'intéressant particulièrement aux cas
