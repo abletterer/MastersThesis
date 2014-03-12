@@ -9,12 +9,13 @@
 \graphicspath{{Chapter1/Chapter1Figs/PNG/}{Chapter1/Chapter1Figs/PDF/}{Chapter1/Chapter1Figs/}}
 
 Ce chapitre réalise un état de l'art des différentes déformations
-spatiales, d'après \cite{GB08}, tout en les comparant, dans chaque dimension, selon des critères
-de souplesse, facilité d'utilisation, efficacité (en complexité) et
-exactitude. Ce classement va nous permettre de choisir le meilleur
-outil pour chaque dimension, afin d'obtenir à la fin une sélection de
-4 outils de dimensions différentes sur lesquels nous allons nous baser
-pour réaliser les mélanges.
+spatiales, d'après \cite{GB08}, tout en les comparant, dans chaque
+dimension, selon des critères de souplesse, facilité d'utilisation,
+efficacité (en complexité) et exactitude. Ce classement va nous
+permettre de choisir le meilleur outil associé à chaque dimension,
+afin d'obtenir à la fin une sélection de 4 outils de dimensions
+différentes sur lesquels nous allons nous baser pour réaliser les
+mélanges.
 
 \section{Déformation à base de volumes}
 
@@ -26,40 +27,50 @@ manière d'attacher les points de l'espace à une surface.
 \item{\textbf{Carreau paramétrique :}} \cite{JLQ96} a été le premier à
   proposer une solution, celle d'utiliser un carreau B-spline sur
   lequel sont projetés les points de l'espace, le long de la normale
-  au plan du carreau. Ainsi pour déformer l'espace, l'utilisateur n'a
-  plu qu'à déformer les points de contrôle du carreau.
-  \begin{itemize}
-  \item{\textit{Création de l'outil de déformation :}} Les points de
-    contrôle du carreau initial \( \mathcal{S}(u,v) \) sont disposés
-    sur le plan XZ (Y=1). Ce carreau définit une région déformable
-    délimitée par les bords du carreau (en X et en Z) et s'étendant à
-    l'infini en Y.
-  \item{\textit{Association des points de l'espace à l'outil :}} Pour
-    chaque point de l'espace \( X = (x,y,z) \) se situant dans la
-    région contenue, des coordonnées paramétriques \( U = (u,v,w) \)
-    sont obtenues par calcul de la projection \( X_p \) du point \( X
-    \) sur le carreau le long de la normale à ce dernier. \( (u,v) \)
-    est obtenu par méthode numérique de façon à ce que \(
-    \mathcal{S}(u,v) = X_p \), et \( w \) correspond à la distance de
-    \( X \) à \( X_p \). On obtient donc :
-    \begin{equation}
-      X = \mathcal{S}(u,v) + w \cdot \mathcal{N}(u,v)
-    \end{equation}
-    où \( \mathcal{N}(u,v) \) est le vecteur normal au point \( (u,v)
-    \) sur la surface \( \mathcal{S} \).
-  \item{\textit{L'outil est modifié :}} Les points de contrôle sont
-    déplacés aux positions choisies par l'utilisateur, formant un
-    nouveau carreau \( \tilde{\mathcal{S}} \).
-  \item{\textit{L'espace est déformé :}} Les coordonnées paramétriques
-    calculées pour chaque point de l'espace sont invariantes par
-    déformation, ainsi les nouvelles positions sont obtenues en
-    appliquant :
-    \begin{equation}
-      \tilde{X} = \tilde{\mathcal{S}}(u,v) + w \cdot \tilde{\mathcal{N}}(u,v)
-    \end{equation}
-    où \( \tilde{\mathcal{N}}(u,v) \) est le vecteur normal au point
-    \( (u,v) \) de la surface déformée \( \tilde{X} \)
-  \end{itemize}
+  au plan du carreau, dans l'espace paramétrique du carreau. Ainsi
+  pour déformer l'espace, l'utilisateur n'a plus qu'à déformer les
+  points de contrôle du carreau. Les points de l'espace sont
+  repositionnés grâce à leurs coordonnées paramétriques (précédemment
+  calculées) et "reprojetés" le long de la normale au carreau déformé.
+  % \begin{itemize}
+  % \item{\textit{Création de l'outil de déformation :}} Les points de
+  %   contrôle du carreau initial \( \mathcal{S}(u,v) \) sont disposés
+  %   sur le plan XZ (Y=1). Ce carreau définit une région déformable
+  %   délimitée par les bords du carreau (en X et en Z) et s'étendant
+  %   à
+  %   l'infini en Y.
+  % \item{\textit{Association des points de l'espace à l'outil :}}
+  %   Pour
+  %   chaque point de l'espace \( X = (x,y,z) \) se situant dans la
+  %   région contenue, des coordonnées paramétriques \( U = (u,v,w) \)
+  %   sont obtenues par calcul de la projection \( X_p \) du point \(
+  %   X
+  %   \) sur le carreau le long de la normale à ce dernier. \( (u,v)
+  %   \)
+  %   est obtenu par méthode numérique de façon à ce que \(
+  %   \mathcal{S}(u,v) = X_p \), et \( w \) correspond à la distance
+  %   de
+  %   \( X \) à \( X_p \). On obtient donc :
+  %   \begin{equation}
+  %     X = \mathcal{S}(u,v) + w \cdot \mathcal{N}(u,v)
+  %   \end{equation}
+  %   où \( \mathcal{N}(u,v) \) est le vecteur normal au point \(
+  %   (u,v)
+  %   \) sur la surface \( \mathcal{S} \).
+  % \item{\textit{L'outil est modifié :}} Les points de contrôle sont
+  %   déplacés aux positions choisies par l'utilisateur, formant un
+  %   nouveau carreau \( \tilde{\mathcal{S}} \).
+  % \item{\textit{L'espace est déformé :}} Les coordonnées
+  %   paramétriques
+  %   calculées pour chaque point de l'espace sont invariantes par
+  %   déformation, ainsi les nouvelles positions sont obtenues en
+  %   appliquant :
+  %   \begin{equation}
+  %     \tilde{X} = \tilde{\mathcal{S}}(u,v) + w \cdot \tilde{\mathcal{N}}(u,v)
+  %   \end{equation}
+  %   où \( \tilde{\mathcal{N}}(u,v) \) est le vecteur normal au point
+  %   \( (u,v) \) de la surface déformée \( \tilde{X} \)
+  % \end{itemize}
 \item{\textbf{Surface étoilée :}} Un polyèdre de forme étoilée est un
   polyèdre contenant, en son intérieur, une région dite "étoilée". On
   définit une région étoilée d'un polygone comme étant une région
@@ -68,69 +79,105 @@ manière d'attacher les points de l'espace à une surface.
   est utile dans le domaine de la déformation car elle permet
   d'obtenir une unique paramétrisation en coordonnées polaires des
   points de l'espace, comme proposé par \cite{JL00}.
-  \begin{itemize}
-  \item{\textit{Création de l'outil de déformation :}} L'utilisateur
-    définit une surface \( S \), représentant un polyèdre étoilé. il
-    définit un centre \( O \) situé dans la partie étoilée du
-    polyèdre. La surface peut avoir n'importe qu'elle représentation,
-    à partir du moment ou celle-ci permet de réaliser des tests
-    d'intersection entre un rayon et le bord de la surface.
-  \item{\textit{Association des points de l'espace à l'outil :}} Un
-    rayon est construit, partant de \( O \) passant par un point de
-    l'espace \( X \) et intersectant le bord de \( S \). La direction
-    du rayon \( U \) et le ratio de distances de \( O \) à \( X \) et
-    de \( O \) à \( P \) sont enregistrés.
-  \item{\textit{L'outil est modifié :}} Une surface de destination \(
-    \tilde{S} \), avec un centre \( \tilde{O} \), est définie.
-  \item{\textit{L'espace est déformé :}} La déformation se fait en
-    construisant un rayon partant de \( \tilde{O} \) avec la même
-    direction \( U \), on peut ainsi obtenir l'intersection \(
-    \tilde{P} \) entre le rayon et le bord de \( \tilde{S} \). Le
-    point déformé \( \tilde{X} \) est placé à la même distance
-    relative entre \( \tilde{O} \) et \( \tilde{P} \).
-  \end{itemize}
+  % \begin{itemize}
+  % \item{\textit{Création de l'outil de déformation :}} L'utilisateur
+  %   définit une surface \( S \), représentant un polyèdre étoilé. il
+  %   définit un centre \( O \) situé dans la partie étoilée du
+  %   polyèdre. La surface peut avoir n'importe qu'elle
+  %   représentation,
+  %   à partir du moment ou celle-ci permet de réaliser des tests
+  %   d'intersection entre un rayon et le bord de la surface.
+  % \item{\textit{Association des points de l'espace à l'outil :}} Un
+  %   rayon est construit, partant de \( O \) passant par un point de
+  %   l'espace \( X \) et intersectant le bord de \( S \). La
+  %   direction
+  %   du rayon \( U \) et le ratio de distances de \( O \) à \( X \)
+  %   et
+  %   de \( O \) à \( P \) sont enregistrés.
+  % \item{\textit{L'outil est modifié :}} Une surface de destination
+  %   \(
+  %   \tilde{S} \), avec un centre \( \tilde{O} \), est définie.
+  % \item{\textit{L'espace est déformé :}} La déformation se fait en
+  %   construisant un rayon partant de \( \tilde{O} \) avec la même
+  %   direction \( U \), on peut ainsi obtenir l'intersection \(
+  %   \tilde{P} \) entre le rayon et le bord de \( \tilde{S} \). Le
+  %   point déformé \( \tilde{X} \) est placé à la même distance
+  %   relative entre \( \tilde{O} \) et \( \tilde{P} \).
+  % \end{itemize}
 \item{\textbf{Maillage triangulaire :}} Une autre idée est d'utiliser
   un maillage triangulaire simple pour appliquer des déformations aux
   points de l'espace. \cite{KO03} a été le premier à utiliser ce genre
   d'outil. Il définit que les triangles du maillage contribuent à
   déformer une zone de l'espace proche en réalisant une moyenne
-  pondérée, qu'ils influent sur une zone sphérique autour d'eux. Les
-  triangles peuvent être disposés de façon assez générale.
-  \begin{itemize}
-  \item{\textit{Création de l'outil de déformation :}} L'utilisateur
-    place un certain nombre de triangles, ils n'ont pas besoin d'être
-    connexes et peuvent s'intersecter. La seule restriction est qu'ils
-    ne soient pas dégénérés.
-  \item{\textit{Association des points de l'espace à l'outil :}} Un
-    système de coordonnées est associé à chaque triangle, un sommet
-    est choisi pour être l'origine \( O_i \), les deux arêtes
-    incidentes à ce sommet sont les axes \( U_i \) et \( V_i \) et la
-    normale du triangle est le dernier axe, \( W_i \). On peut noter
-    que le système de coordonnées n'est pas orthogonal, sauf dans le
-    cas d'un triangle rectangle. On associe à chaque point de l'espace
-    des coordonnées paramétriques \( U = (u_i,v_i,w_i) \) locales à
-    chaque triangle ainsi qu'un poids \( k_i \), qui décroit de façon
-    linéaire dans une sphère d'influence autour de chaque triangle,
-    dont la taille varie en fonction de la taille du triangle.
-  \item{\textit{L'outil est modifié :}} Les triangles sont modifiés,
-    soit en déplaçant des sommets des triangles, soit en déplaçant des
-    points de l'espace et en recalculant la position des triangles
-    (par reverse-engineering) pour enfin déplacer le reste des points
-    de l'espace.
-  \item{\textit{L'espace est déformé :}} Encore une fois, les coordonnées
-    paramétriques calculées sont invariantes par déformation, on peut
-    donc calculer la nouvelle position des points de l'espace par
-    rapport à chaque triangle :
-    \begin{equation}
-      \tilde{X}_i = \tilde{O}_i + u_i\tilde{U}_i + v_i\tilde{V}_i +
-      w_i\tilde{W}_i
-    \end{equation}
- Au final, la position d'un point de l'espace est calculée comme une
- combinaison linéaire des coordonnées associées à chaque triangle :
-    \begin{equation}
-      \tilde{X} = \sum_i \frac{k_i\tilde{X}_i}{\sum_i k_i}
-    \end{equation}
-  \end{itemize}
+  pondérée, et que chacun d'entre eux influent sur une zone sphérique
+  autour d'eux. L'avantage de cette technique est de permettre une
+  configuration assez générale des triangles (non nécessairement
+  connexes), à partir du moment où ceux-ci ne sont pas dégénérés
+  (sommets distincts).
+  % \begin{itemize}
+  % \item{\textit{Création de l'outil de déformation :}} L'utilisateur
+  %   place un certain nombre de triangles, ils n'ont pas besoin
+  %   d'être
+  %   connexes et peuvent s'intersecter. La seule restriction est
+  %   qu'ils
+  %   ne soient pas dégénérés.
+  % \item{\textit{Association des points de l'espace à l'outil :}} Un
+  %   système de coordonnées est associé à chaque triangle, un sommet
+  %   est choisi pour être l'origine \( O_i \), les deux arêtes
+  %   incidentes à ce sommet sont les axes \( U_i \) et \( V_i \) et
+  %   la
+  %   normale du triangle est le dernier axe, \( W_i \). On peut noter
+  %   que le système de coordonnées n'est pas orthogonal, sauf dans le
+  %   cas d'un triangle rectangle. On associe à chaque point de
+  %   l'espace
+  %   des coordonnées paramétriques \( U = (u_i,v_i,w_i) \) locales à
+  %   chaque triangle ainsi qu'un poids \( k_i \), qui décroit de
+  %   façon
+  %   linéaire dans une sphère d'influence autour de chaque triangle,
+  %   dont la taille varie en fonction de la taille du triangle.
+  % \item{\textit{L'outil est modifié :}} Les triangles sont modifiés,
+  %   soit en déplaçant des sommets des triangles, soit en déplaçant
+  %   des
+  %   points de l'espace et en recalculant la position des triangles
+  %   (par reverse-engineering) pour enfin déplacer le reste des
+  %   points
+  %   de l'espace.
+  % \item{\textit{L'espace est déformé :}} Encore une fois, les
+  %   coordonnées paramétriques calculées sont invariantes par
+  %   déformation, on peut donc calculer la nouvelle position des
+  %   points
+  %   de l'espace par rapport à chaque triangle :
+  %   \begin{equation}
+  %     \tilde{X}_i = \tilde{O}_i + u_i\tilde{U}_i + v_i\tilde{V}_i +
+  %     w_i\tilde{W}_i
+  %   \end{equation}
+  %   Au final, la position d'un point de l'espace est calculée comme
+  %   une combinaison linéaire des coordonnées associées à chaque
+  %   triangle :
+  %   \begin{equation}
+  %     \tilde{X} = \sum_i \frac{k_i\tilde{X}_i}{\sum_i k_i}
+  %   \end{equation}
+  % \end{itemize}
+\item{\textbf{Cage :}} L'outil le plus utilisé ces dernières années en
+  terme de déformation spatiale. Un polygone de contrôle (quelconque)
+  est créé et permet de définir des coordonnées paramétriques pour
+  points de l'espace par rapport aux sommets du polygone. Pour
+  calculer ces coordonnées, il existe plusieurs méthodes, mais
+  dérivent toutes des coordonnées barycentriques généralisées. Les
+  coordonnées barycentriques généralisées sont une extension des
+  coordonnés barycentriques afin de permettre de calculer des
+  coordonnées non pas par rapport à un simplexe (triangle en dimension
+  2), mais par rapport à n'importe quelle cellule (polygone quelconque
+  en dimension 2).
+
+  On définit les positions des points de l'espace $p$ comme étant une
+  combinaison linéaire des positions des sommets du polygone de
+  contrôle $v_i$.
+  \begin{equation}
+    p = \sum_{i=0}^n w_iv_i
+  \end{equation}
+  Où $w_i$ correspond au poids associé au sommet $v_i$ pour le point
+  $p$.
 \end{itemize}
 
 \section{Déformation à base de courbes}
