@@ -158,17 +158,17 @@ manière d'attacher les points de l'espace à une surface.
   %     \tilde{X} = \sum_i \frac{k_i\tilde{X}_i}{\sum_i k_i}
   %   \end{equation}
   % \end{itemize}
-\item{\textbf{Cage :}} La cage est outil le plus utilisé ces dernières années en
-  terme de déformation spatiale. Un polygone de contrôle (quelconque)
-  est créé et permet de définir des coordonnées paramétriques pour les
-  points de l'espace par rapport aux sommets du polygone. Pour
-  calculer ces coordonnées, il existe plusieurs méthodes, mais
-  dérivent toutes des coordonnées barycentriques généralisées. Les
-  coordonnées barycentriques généralisées sont une extension des
-  coordonnés barycentriques afin de permettre de calculer des
-  coordonnées non plus par rapport à un simplexe (triangle en dimension
-  2), mais par rapport à n'importe quelle cellule (polygone quelconque
-  en dimension 2).
+\item{\textbf{Cage :}} La cage est outil le plus utilisé ces dernières
+  années en terme de déformation spatiale. Un polygone de contrôle
+  (quelconque) est créé et permet de définir des coordonnées
+  paramétriques pour les points de l'espace par rapport aux sommets du
+  polygone. Pour calculer ces coordonnées, il existe plusieurs
+  méthodes, mais dérivent toutes des coordonnées barycentriques
+  généralisées. Les coordonnées barycentriques généralisées sont une
+  extension des coordonnés barycentriques afin de permettre de
+  calculer des coordonnées non plus par rapport à un simplexe
+  (triangle en dimension 2), mais par rapport à n'importe quelle
+  cellule (polygone quelconque en dimension 2).
 
   On définit les positions des points de l'espace $p$ comme étant une
   combinaison linéaire des positions des sommets du polygone de
@@ -181,6 +181,9 @@ manière d'attacher les points de l'espace à une surface.
 \end{itemize}
 
 \section{Déformation à base de courbes}
+\begin{itemize}
+\item{\textbf{Déformation par De Casteljau généralisée :}}
+\end{itemize}
 
 \section{Déformation à base de points}
 \begin{itemize}
@@ -199,7 +202,7 @@ manière d'attacher les points de l'espace à une surface.
   des points. Si un point de l'espace est sous l'influence de
   plusieurs contraintes, alors sa nouvelle position correspond à une
   pondération de ces contraintes.
-\item{\textbf{Manipulation directe de déformation de forme libre :}}
+\item{\textbf{Déformation de forme libre par manipulation directe:}}
   Les déformations de forme libre se basent sur la modification de
   sommets appartenant à un treillis pour déformer les points de
   l'espace. \cite{HHK92} quant à lui propose d'interagir avec des
