@@ -158,7 +158,7 @@ manière d'attacher les points de l'espace à une surface.
   %     \tilde{X} = \sum_i \frac{k_i\tilde{X}_i}{\sum_i k_i}
   %   \end{equation}
   % \end{itemize}
-\item{\textbf{Cage :}} L'outil le plus utilisé ces dernières années en
+\item{\textbf{Cage :}} La cage est outil le plus utilisé ces dernières années en
   terme de déformation spatiale. Un polygone de contrôle (quelconque)
   est créé et permet de définir des coordonnées paramétriques pour les
   points de l'espace par rapport aux sommets du polygone. Pour
@@ -183,6 +183,47 @@ manière d'attacher les points de l'espace à une surface.
 \section{Déformation à base de courbes}
 
 \section{Déformation à base de points}
+\begin{itemize}
+\item{\textbf{DOGME :}} \cite{BB91} a introduit une méthode basée sur
+  les contraintes appelée DOGME (Deformation of Geometric Model
+  Editor) afin de remplacer l'interface non-intuitive des treillis
+  utilisés dans les FFD par une manipulation directe des points de
+  l'espace. L'idée est de laisser un utilisateur déplacer un point de
+  l'espace et replacer le voisinage de ce point de façon lisse. On
+  peut comparer cette déformation au fait de pincer un objet et
+  d'étirer cette partie. Pour replacer le voisinage d'un point de
+  l'espace, la méthode se base sur le déplacement de points qu'on
+  appelle "contraintes". Des contraintes, dont la portée de chacune
+  est définie par une zone d'influence, sont associées à chaque point
+  de l'espace et permettent d'approximer au mieux la nouvelle position
+  des points. Si un point de l'espace est sous l'influence de
+  plusieurs contraintes, alors sa nouvelle position correspond à une
+  pondération de ces contraintes.
+\item{\textbf{Manipulation directe de déformation de forme libre :}}
+  Les déformations de forme libre se basent sur la modification de
+  sommets appartenant à un treillis pour déformer les points de
+  l'espace. \cite{HHK92} quant à lui propose d'interagir avec des
+  points de l'espace afin de modifier la forme du treillis en fonction
+  de contraintes associées aux points modifiés.
+\item{\textbf{Déformation de forme libre de Dirichlet :}} Cette
+  technique proposée par \cite{MT97} s'occupe de définir
+  automatiquement les zones d'influence des contraintes à partir d'un
+  ensemble de contraintes, sans intervention utilisateur. Cette
+  technique est à mi-chemin entre une déformation à base de points et
+  à base de volumes, car si l'utilisateur interagit avec des points,
+  la structure interne est constituée d'un groupe de volumes de Bézier
+  (déterminés par une triangulation de Delaunay), et des coordonnées
+  paramétriques sont associées aux points de l'espace, par rapport à
+  ces volumes.
+\item{\textbf{Déformation radiale simple :}} Dans cette méthode, les
+  déformations sont déterminées par un certain nombre de contraintes,
+  chacune définie par un rayon d'influe $r_i$ centré sur un point de
+  contrainte $C_i$ associé à un déplacement $\Delta C_i$. On définit
+  une paramétrisation des points de l'espace uniquement par leur
+  distance aux points de contraintes. De ce fait, les déformations se
+  répandent de façon uniforme dans toutes les directions.
+\end{itemize}
+
 % ------------------------------------------------------------------------
 
 %%% Local Variables: 
