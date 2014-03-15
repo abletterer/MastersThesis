@@ -69,20 +69,41 @@ L'idée est de réaliser un assemblage de différentes cages collées
 ensembles le long de leurs arêtes et de considérer les coordonnées
 d'un point de l'espace non seulement par rapport à sa cage
 \textit{propre} (à comprendre la cage englobant le point de l'espace)
-mais aussi par rapport aux cages adjacentes à celle-ci.  La méthode de
-cet article propose au premier abord une formulation très claire. La
-position d'un point de l'espace n'est plus simplement constituée d'une
-combinaison linéaire des positions des sommets de sa cage propre, mais
-un mélange entre les coordonnées calculées par rapport à la cage
-propre et par rapport aux différentes cages \textit{jointure}.
-L'article définit une cage jointure comme l'union des cages
-incidentes à un sommet de la cage propre.  L'avantage de ce genre de
-méthode est de localiser les déformations en les limitant au voisinage
-de la cage incidente au sommet déplacé.  On peut donc avoir jusqu'à
-$n$ coordonnées différentes pour un même point de l'espace, où $n$
-correspond au nombre de sommets de la cage propre. Ce qui au final
-fait un peu perdre un des intérêts de la méthode, à savoir la
-réduction de la complexité en temps de calcul.
+mais aussi par rapport aux cages adjacentes à celle-ci.
+\\
+
+La méthode de cet article propose au premier abord une formulation
+très claire. Celui-ci définit que la position d'un point de l'espace
+n'est plus simplement constituée d'une combinaison linéaire des
+positions des sommets de sa cage propre, mais résulte d'un mélange
+entre les coordonnées calculées par rapport à la cage propre et aux
+différentes cages \textit{jointure}. Une cage jointure correspond à
+l'union des cages incidentes à un sommet de la cage propre. L'avantage
+de ce genre de méthode est de localiser les déformations en les
+limitant au voisinage de la cage incidente au sommet déplacé. On peut
+donc avoir jusqu'à $n$ coordonnées différentes pour un même point de
+l'espace, où $n$ correspond au nombre de sommets de la cage propre. Ce
+qui au final fait perdre un des intérêts de la méthode, au moins en
+partie, à savoir la réduction de la complexité en temps de calcul.
+
+Cependant cette formulation claire cache d'autres formulations qui
+résultent d'un procédé empirique qui n'est pas expliqué dans
+l'article. Ce qui rend la compréhension de l'utilité de ces
+fonctions assez difficile.
+
+\section{Méthode implémentée}
+Dans un premier temps, nous avons voulu reproduire le cheminement de
+\cite{GPCP13}, pour comprendre quelles étaient les motivations
+derrière l'existence de chaque fonction, car c'est un point qui n'a
+pas été expliqué au travers de l'article. Nous sommes donc partis de
+l'expression globale de l'article :
+\begin{equation}
+  p = (1 - \beta_i) T_i(p)  + \beta_i J_i(p) 
+\end{equation}
+Où $T_i(p)$ et $J_i(p)$ représentent les coordonnées du point p par
+rapport à sa cage propre et sa cage jointure. Pour réduire la
+complexité du nombre de coordonnées qu'il sera nécessaire de
+calculer
 % ------------------------------------------------------------------------
 
 
