@@ -57,6 +57,7 @@ méthode passe par une minimisation de l'énergie laplacienne,
 nécessitant une discrétisation de l'espace. Or c'est quelque chose que
 nous souhaiterions éviter, à cause du temps de calcul requis par ces
 opérations.
+\\
 
 \cite{GPCP13} quant à lui, propose une méthode permettant le mélange
 d'outil de même dimension, en s'intéressant particulièrement aux cas
@@ -70,7 +71,6 @@ ensembles le long de leurs arêtes et de considérer les coordonnées
 d'un point de l'espace non seulement par rapport à sa cage
 \textit{propre} (à comprendre la cage englobant le point de l'espace)
 mais aussi par rapport aux cages adjacentes à celle-ci.
-\\
 
 La méthode de cet article propose au premier abord une formulation
 très claire. Celui-ci définit que la position d'un point de l'espace
@@ -87,23 +87,43 @@ qui au final fait perdre un des intérêts de la méthode, au moins en
 partie, à savoir la réduction de la complexité en temps de calcul.
 
 Cependant cette formulation claire cache d'autres formulations qui
-résultent d'un procédé empirique qui n'est pas expliqué dans
-l'article. Ce qui rend la compréhension de l'utilité de ces
-fonctions assez difficile.
+semblent résulter d'un procédé empirique, dont le cheminement n'est
+pas expliqué dans l'article. Ce qui rend la compréhension de l'utilité
+de ces fonctions assez difficile.
 
 \section{Méthode implémentée}
 Dans un premier temps, nous avons voulu reproduire le cheminement de
 \cite{GPCP13}, pour comprendre quelles étaient les motivations
-derrière l'existence de chaque fonction, car c'est un point qui n'a
-pas été expliqué au travers de l'article. Nous sommes donc partis de
+derrière l'existence de chaque fonction. Nous sommes donc partis de
 l'expression globale de l'article :
 \begin{equation}
   p = (1 - \beta_i) T_i(p)  + \beta_i J_i(p) 
 \end{equation}
 Où $T_i(p)$ et $J_i(p)$ représentent les coordonnées du point p par
-rapport à sa cage propre et sa cage jointure. Pour réduire la
-complexité du nombre de coordonnées qu'il sera nécessaire de
-calculer
+rapport à sa cage propre et sa cage jointure respectivement, et
+$\beta_i$ représente la distance au bord de la cage propre. Pour
+réduire la complexité du nombre de coordonnées qu'il sera nécessaire
+de calculer, nous avons choisi de considérer une unique cage jointure,
+qui résulte de l'union de toutes les cages adjacentes à la cage
+propre. Ainsi, pour chaque point de l'espace le nombre de coordonnées
+à calculer sera de 2 au maximum (une pour la cage propre, et une pour
+la cage de jointure).
+
+Le calcul de $\beta_i$ était proposé par l'article. Il s'agit de juger
+la distance d'un point de l'espace par rapport à chaque arête
+incidente à sa cage propre et à une autre cage. Pour cela, on utilise
+les coordonnées qui ont été calculées par rapport à la cage propre :
+\begin{equation}
+  \beta_{i} = f(1 - \sum \alpha_i)
+\end{equation}
+Où $f(x)$ est une fonction de lissage, permettant de lisser la valeur
+de la distance x.
+
+\begin{equation}
+  f(x) = \frac{1}{2} sin(\pi(\frac{x}{h}-\frac{1}{2}))
+\end{equation}
+Où $h$ représente la zone d'influence de l'arête, ce paramètre permet
+de limiter la zone où le mélange de coordonnées doit être fait.
 % ------------------------------------------------------------------------
 
 
