@@ -95,35 +95,91 @@ de ces fonctions assez difficile.
 Dans un premier temps, nous avons voulu reproduire le cheminement de
 \cite{GPCP13}, pour comprendre quelles étaient les motivations
 derrière l'existence de chaque fonction. Nous sommes donc partis de
-l'expression globale de l'article :
+l'expression globale de l'article, qui exprime la position d'un point
+de l'espace comme étant une pondération des coordonnées de la cage
+propre et de la cage jointure :
 \begin{equation}
   p = (1 - \beta_i) T_i(p)  + \beta_i J_i(p) 
+  \label{MELgen}
 \end{equation}
 Où $T_i(p)$ et $J_i(p)$ représentent les coordonnées du point p par
 rapport à sa cage propre et sa cage jointure respectivement, et
-$\beta_i$ représente la distance au bord de la cage propre. Pour
+$\beta_i$ représente la distance à l'arête $i$ de la cage propre. Pour
 réduire la complexité du nombre de coordonnées qu'il sera nécessaire
-de calculer, nous avons choisi de considérer une unique cage jointure,
-qui résulte de l'union de toutes les cages adjacentes à la cage
-propre. Ainsi, pour chaque point de l'espace le nombre de coordonnées
-à calculer sera de 2 au maximum (une pour la cage propre, et une pour
-la cage de jointure).
+de calculer, nous avons choisi de considérer une unique cage jointure
+pour chaque point de l'espace, qui résulte de l'union de toutes les
+cages incidentes aux sommets de l'arête considérée. Ainsi, pour chaque
+point de l'espace le nombre de coordonnées à calculer sera de 2 au
+maximum (une pour la cage propre, et une pour la cage de jointure).
 
 Le calcul de $\beta_i$ était proposé par l'article. Il s'agit de juger
 la distance d'un point de l'espace par rapport à chaque arête
 incidente à sa cage propre et à une autre cage. Pour cela, on utilise
-les coordonnées qui ont été calculées par rapport à la cage propre :
+les poids qui ont été utilisés lors du calcul de coordonnées par
+rapport à la cage propre. La distance à une arête correspond donc à la
+somme des poids associés à chaque sommet de l'arête :
 \begin{equation}
-  \beta_{i} = f(1 - \sum \alpha_i)
+  \beta_{i} = f(1 - \sum_{v \in E_i} \alpha_i)
 \end{equation}
-Où $f(x)$ est une fonction de lissage, permettant de lisser la valeur
-de la distance x.
+Où $E_i$ correspond à l'arête $i$ de la cage propre et $f(x)$
+correspond à une fonction de lissage, permettant de faire varier la
+taille de la zone d'infuence du mélange, tout en conservant un
+estompement progressif :
 
 \begin{equation}
   f(x) = \frac{1}{2} sin(\pi(\frac{x}{h}-\frac{1}{2}))
 \end{equation}
 Où $h$ représente la zone d'influence de l'arête, ce paramètre permet
-de limiter la zone où le mélange de coordonnées doit être fait.
+de délimiter la zone où le mélange de coordonnées doit être fait
+(figure \ref{MELpar}).
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[scale=0.35]{starCage-0-2}
+    \includegraphics[scale=0.35]{starCage-0-4}
+    \includegraphics[scale=0.35]{starCage-0-6}
+    \caption{Fonction de bordure calculée pour 4 cages (arêtes
+      noires). Les variations de couleur représentent les variations
+      de valeur de $\beta_i$ (la couleur bleu marine représentant une
+      valeur de 1 et la couleur rouge une valeur de 0). En bleu les
+      zones dites "de bordure" (i.e. points de l'espace proches d'une
+      arête incidente à une autre cage). Valeurs de h : 0.2, 0.4 et
+      0.6 pour les images à gauche, au centre et à droite
+      respectivement.}
+    \label{MELpar}
+  \end{center}
+\end{figure}
+
+Comme $0 \leq \beta_i \leq 1$, on peut considérer $\beta_i$ comme le
+pourcentage d'utilisation des coordonnées calculées par rapport à la
+cage propre et par rapport à la cage jointure. D'après l'équation
+\ref{MELgen}, lorsque $\beta_i$ vaut 1 (i.e. $p$ se trouve sur une
+arête de la cage), la position de $p$ dépend uniquement de la
+coordonnée calculée par rapport à la cage jointure $J_i$.
+
+C'est là qu'apparaît le premier problème : Considérons une grille
+constituée de 4 faces, chaque face constituant une cage. Toutes les
+cages sont incidentes à un même sommet $s$. De ce fait, la zone autour
+des arêtes incidentes à ce sommet sera fortement influencée par la
+cage de jointure composée de l'union des 4 cages. Afin que la cage
+jointure reste un polygone, $s$ ne doit pas être considéré comme un
+sommet de la cage de jointure, car il fait partie de l'intérieur de
+celle-ci. L'équation \ref{MELgen} nous indique que les zones les plus
+proches des arêtes (i.e. là ou la valeur de $\beta_i$ vaut 1), ne sont
+influencées que par la cage de jointure. Et que, par conséquent, $s$
+n'avait aucune influence sur ces points.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[scale=0.35]{starCage-jointure}
+    \includegraphics[scale=0.35]{starCage-jointure-deformation}
+    \caption{Les sommets en rouge représentent les sommets de la cage
+      jointure et le sommet en bleu représente le sommet $s$. Les
+      zones en bleu ne sont pas modifiés par la translation de $s$}
+    \label{MELjoi}
+  \end{center}
+\end{figure}
+
 % ------------------------------------------------------------------------
 
 
