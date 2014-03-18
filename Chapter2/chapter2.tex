@@ -91,7 +91,7 @@ semblent résulter d'un procédé empirique, dont le cheminement n'est
 pas expliqué dans l'article. Ce qui rend la compréhension de l'utilité
 de ces fonctions assez difficile.
 
-\section{Méthode implémentée}
+\section{Cheminement de l'article}
 Dans un premier temps, nous avons voulu reproduire le cheminement de
 \cite{GPCP13}, pour comprendre quelles étaient les motivations
 derrière l'existence de chaque fonction. Nous sommes donc partis de
@@ -110,7 +110,7 @@ de calculer, nous avons choisi de considérer une unique cage jointure
 pour chaque point de l'espace, qui résulte de l'union de toutes les
 cages incidentes aux sommets de l'arête considérée. Ainsi, pour chaque
 point de l'espace le nombre de coordonnées à calculer sera de 2 au
-maximum (une pour la cage propre, et une pour la cage de jointure).
+maximum (une pour la cage propre, et une pour la cage jointure).
 
 Le calcul de $\beta_i$ était proposé par l'article. Il s'agit de juger
 la distance d'un point de l'espace par rapport à chaque arête
@@ -161,24 +161,74 @@ C'est là qu'apparaît le premier problème : Considérons une grille
 constituée de 4 faces, chaque face constituant une cage. Toutes les
 cages sont incidentes à un même sommet $s$. De ce fait, la zone autour
 des arêtes incidentes à ce sommet sera fortement influencée par la
-cage de jointure composée de l'union des 4 cages. Afin que la cage
+cage jointure composée de l'union des 4 cages. Afin que la cage
 jointure reste un polygone, $s$ ne doit pas être considéré comme un
-sommet de la cage de jointure, car il fait partie de l'intérieur de
+sommet de la cage jointure, car il fait partie de l'intérieur de
 celle-ci. L'équation \ref{MELgen} nous indique que les zones les plus
 proches des arêtes (i.e. là ou la valeur de $\beta_i$ vaut 1), ne sont
-influencées que par la cage de jointure. Et que, par conséquent, $s$
-n'avait aucune influence sur ces points.
+influencées que par la cage jointure. Et que, par conséquent, $s$ n'a
+aucune influence sur ces points. On peut voir sur la figure
+\ref{MELjoi} que les points les plus proches de $s$ sont en bleu, ce
+qui signifie que $s$ n'a aucune influence (ou une influence très
+minime) sur les points les plus proches, et une plus grande influence
+sur les points plus éloignés. Ce qui est un comportement complètement
+contre-intuitif et la déformation engendrée n'est pas du tout celle
+attendue.
 
 \begin{figure}[h]
   \begin{center}
     \includegraphics[scale=0.35]{starCage-jointure}
     \includegraphics[scale=0.35]{starCage-jointure-deformation}
-    \caption{Les sommets en rouge représentent les sommets de la cage
-      jointure et le sommet en bleu représente le sommet $s$. Les
-      zones en bleu ne sont pas modifiés par la translation de $s$}
+    \caption{Les boules rouges représentent les sommets de la cage
+      jointure et la boule bleue représente le sommet $s$. Les zones
+      en bleu ne sont pas modifiées par la translation de $s$}
     \label{MELjoi}
   \end{center}
 \end{figure}
+
+De la nous voyons la nécessité de rajouter un comportement spécifique
+pour ces fameux sommets à l'intérieur de leur cage jointure. C'est une
+des fonctions proposées par l'article. Ils résolvent ce problème au
+travers de l'expression d'une déformation de type ponctuelle, associée
+au sommet $s$. A partir de là, nous avons compris que la méthode
+proposée \cite{GPCP13} n'était que le résultat d'une suite de
+résolutions de cas spécifiques. Ce qui ne nous intéressait pas
+vraiment, car un de nos critères principaux était l'utilisation d'une
+formulation simple permettant d'exprimer les coordonnées de chaque
+point de façon claire. De plus, cette méthode semblait difficilement
+associable avec une méthode multidimensionnelle, car elle se basait
+sur une fusion d'outils, ce qui semble difficilement réalisable entre
+des outils de différentes dimensions.
+
+Nous pouvons néanmoins relever l'avancée qu'apporte cet article dans
+le domaine des déformations à base de cages. En effet, grâce au
+mélange des diverses cages, la technique a permis de localiser la
+déformation, tout en limitant le nombre de coordonnées à calculer pour
+chaque point de l'espace. De plus, la possibilité d'utiliser
+conjointement plusieurs systèmes de coordonnées différents permet de
+choisir le plus adapté aux différentes déformations à effectuer.
+
+C'est pour ça que la prochaine méthode s'inspire de cet article, en
+ayant en tête cette idée de localisation de la déformation et de
+limitation du temps de calcul des coordonnées.
+
+\section{Méthode élaborée}
+L'idée est de considérer des coordonnées \textit{étendues} pour chaque
+cage, au lieu de considérer des unions de cages, et de réaliser un
+mélange de coordonnées pour les points de l'espace qui sont sous
+l'influence de plusieurs cages. On se base ici sur le fait que les
+coordonnées barycentriques sont aussi définies à l'extérieur du
+polygone de contrôle.
+
+Pour vérifier la possibilité de réalisation d'une telle méthode, nous
+avons commencé par travailler sur un exemple simple, le cage d'une
+cage unique déformant des points de l'espace à la fois à l'intérieur
+et à l'extérieur. Il s'agissait de voir le comportement de la
+déformation, afin de savoir s'il était possible de considérer des
+coordonnées à la fois à l'intérieur et à l'extérieur. Car dans la
+littérature, les coordonnées n'ont été utilisées que pour déformer des
+points à l'intérieur du polygone et jusqu'à son bord.
+
 
 % ------------------------------------------------------------------------
 
