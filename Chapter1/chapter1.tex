@@ -18,6 +18,26 @@ différentes sur lesquels nous allons nous baser pour réaliser les
 mélanges.
 
 \section{Déformation à base de volumes}
+\begin{itemize}
+\item{\textbf{Déformation de forme libre de Bézier :}} \cite{SP86} a
+  eu l'idée de lier la déformation d'un volume paramétrique (qu'on
+  appelle outil) à l'espace contenu à l'intérieur de ce
+  volume. Mathématiquement, il s'agit d'une extension directe des
+  courbes de Bézier au cas 3D. \cite{SP86} a utilisé les polynômes de
+  Bernstein pour définir le volume. Les points de l'espace $X$ sont
+  donc définis comme une somme de points de contrôle $P$,
+  coefficientés par des fonctions de base polynomiale,
+  $\mathcal{N}_r^s$, d'index $r$ et de degré $s$ :
+  \begin{equation}
+    \mathcal{H}(U) = \mathcal{H}(u,v,w) = 
+    \sum_{i=0}^l \sum_{j=0}^m \sum_{k=0}^n
+    \mathcal{N}_i^l(u) \cdot \mathcal{N}_j^m(v) \cdot \mathcal{N}_k^n(w) \cdot P_{i,j,k} = X
+  \end{equation}
+  Où $u,v,w \in [0,1]$ sont les coordonnées paramétriques de chacun
+  des points par rapport à l'outil.
+\item{\textbf{Déformation de forme libre avec contrôle local :}}
+\item{\textbf{Déformation de forme libre avec outil non-cubique :}}
+\end{itemize}
 
 \section{Déformation à base de surfaces}
 La difficulté des déformations à base de surfaces réside dans la
@@ -182,7 +202,14 @@ manière d'attacher les points de l'espace à une surface.
 
 \section{Déformation à base de courbes}
 \begin{itemize}
-\item{\textbf{Déformation par De Casteljau généralisée :}} 
+\item{\textbf{Déformation par De Casteljau généralisée :}} \cite{CR94}
+  a introduit une première version déformation à base de courbes qu'on
+  peut assimiler à une déformation de forme libre restreinte. Mais
+  plus de détails sur cette technique sont donnés par \cite{BE01}.  On
+  peut considérer l'algorithme de De Casteljau comme une déformation
+  des points du segment [0,1] en des points d'une courbe de
+  Bézier. C'est de ce constat que s'est inspiré \cite{CR94}, en
+  considérant cette fois-ci le cube $[0,1]^3$.
 \end{itemize}
 
 \section{Déformation à base de points}
