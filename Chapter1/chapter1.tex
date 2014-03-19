@@ -33,9 +33,18 @@ mélanges.
     \sum_{i=0}^l \sum_{j=0}^m \sum_{k=0}^n
     \mathcal{N}_i^l(u) \cdot \mathcal{N}_j^m(v) \cdot \mathcal{N}_k^n(w) \cdot P_{i,j,k} = X
   \end{equation}
-  Où $u,v,w \in [0,1]$ sont les coordonnées paramétriques de chacun
-  des points par rapport à l'outil.
-\item{\textbf{Déformation de forme libre avec contrôle local :}}
+  Où $u,v,w \in [0,1]$ sont les coordonnées paramétriques d'un point à
+  l'intérieur du volume.
+\item{\textbf{Déformation de forme libre avec contrôle local :}} Les
+  volumes paramétriques souffrent des mêmes problèmes que leurs
+  homologues de dimensions inférieures, à savoir le manque de contrôle
+  local. Pour corriger le problème, une solution naïve est de rajouter
+  des points de contrôle, afin de limiter l'impact de chacun sur
+  l'espace à déformer. Mais cette technique augmente le degré du
+  volume paramétrique, et de ce fait son coût en temps de calcul. Une
+  autre solution est d'utiliser des fonctions définies par
+  morceaux. \cite{GP89} et \cite{Com89} ont choisi de travailler avec
+  des B-splines, car elles sont définies par morceaux naturellement.
 \item{\textbf{Déformation de forme libre avec outil non-cubique :}}
 \end{itemize}
 
