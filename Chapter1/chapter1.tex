@@ -45,7 +45,19 @@ mélanges.
   autre solution est d'utiliser des fonctions définies par
   morceaux. \cite{GP89} et \cite{Com89} ont choisi de travailler avec
   des B-splines, car elles sont définies par morceaux naturellement.
-\item{\textbf{Déformation de forme libre avec outil non-cubique :}}
+\item{\textbf{Déformation de forme libre avec outil non cubique :}}
+  Les déformations de forme libre ont une limitation, celle de la
+  forme de l'outil. En effet, comme les volumes de déformations sont
+  paramétrisés de façon linéaire, ils ont la forme d'un pavé. De ce
+  fait, il n'est pas possible de définir zones plus denses que
+  d'autres. \cite{Coq90} a donc proposé une version étendue des
+  déformations de forme libre, en laissant la possibilité à la
+  création de l'outil de modifier la position de ses sommets avant de
+  l'associer à l'outil. Ce qui a engendré des soucis au niveau du
+  calcul des coordonnées des points de l'espace, qui ne résultaient
+  plus d'une paramétrisation linéaire. De ce fait, le calcul des
+  coordonnées est devenu beaucoup plus coûteux. \cite{BBT97} a donc
+  proposé de considérer des volumes de Bézier tétrahédriques.
 \end{itemize}
 
 \section{Déformation à base de surfaces}
