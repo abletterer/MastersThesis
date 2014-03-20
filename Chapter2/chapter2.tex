@@ -179,34 +179,37 @@ attendue.
   \begin{center}
     \includegraphics[scale=0.35]{starCage-jointure}
     \includegraphics[scale=0.35]{starCage-jointure-deformation}
-    \caption{Les boules rouges représentent les sommets de la cage
-      jointure et la boule bleue représente le sommet $s$. Les zones
-      en bleu ne sont pas modifiées par la translation de $s$}
+    \caption{ A gauche la grille avant déformation et à droite la même
+      grille après déplacement de $s$. Les boules rouges représentent
+      les sommets de la cage jointure et la boule bleue représente le
+      sommet $s$. Les zones en bleu ne sont pas modifiées par la
+      translation de $s$.}
     \label{MELjoi}
   \end{center}
 \end{figure}
 
-De la nous voyons la nécessité de rajouter un comportement spécifique
-pour ces fameux sommets à l'intérieur de leur cage jointure. C'est une
-des fonctions proposées par l'article. Ils résolvent ce problème au
-travers de l'expression d'une déformation de type ponctuelle, associée
-au sommet $s$. A partir de là, nous avons compris que la méthode
-proposée \cite{GPCP13} n'était que le résultat d'une suite de
-résolutions de cas spécifiques. Ce qui ne nous intéressait pas
-vraiment, car un de nos critères principaux était l'utilisation d'une
-formulation simple permettant d'exprimer les coordonnées de chaque
-point de façon claire. De plus, cette méthode semblait difficilement
-associable avec une méthode multidimensionnelle, car elle se basait
-sur une fusion d'outils, ce qui semble difficilement réalisable entre
-des outils de différentes dimensions.
+De là nous voyons la nécessité de rajouter un comportement spécifique
+pour ces fameux sommets qui font partie de l'intérieur de leur cage
+jointure. C'est une des fonctions proposées par l'article. Ils
+résolvent ce problème au travers de l'expression d'une déformation de
+type ponctuelle, associée au sommet $s$. A partir de là, nous avons
+compris que la méthode proposée \cite{GPCP13} n'était que le résultat
+d'une suite de résolutions de cas spécifiques. Ce qui ne nous
+intéressait pas vraiment, car un de nos critères principaux était
+l'utilisation d'une formulation simple permettant d'exprimer les
+coordonnées de chaque point de façon claire. De plus, cette méthode
+semble difficilement associable avec une méthode multidimensionnelle,
+car elle se base sur une fusion d'outils (l'union des cages de
+déformation), ce qui ne semble pas être une méthode directement
+applicable pour des outils de différentes dimensions.
 
 Nous pouvons néanmoins relever l'avancée qu'apporte cet article dans
 le domaine des déformations à base de cages. En effet, grâce au
-mélange des diverses cages, la technique a permis de localiser la
-déformation, tout en limitant le nombre de coordonnées à calculer pour
-chaque point de l'espace. De plus, la possibilité d'utiliser
-conjointement plusieurs systèmes de coordonnées différents permet de
-choisir le plus adapté aux différentes déformations à effectuer.
+mélange de plusieurs cages, les déformations peuvent être locales,
+tout en ayant un faible nombre de sommets composant les cages. De
+plus, la possibilité d'utiliser conjointement plusieurs systèmes de
+coordonnées différents permet de choisir le plus adapté aux
+différentes déformations à effectuer.
 
 C'est pour ça que la prochaine méthode s'inspire de cet article, en
 ayant en tête cette idée de localisation de la déformation et de
@@ -217,18 +220,22 @@ L'idée est de considérer des coordonnées \textit{étendues} pour chaque
 cage, au lieu de considérer des unions de cages, et de réaliser un
 mélange de coordonnées pour les points de l'espace qui sont sous
 l'influence de plusieurs cages. On se base ici sur le fait que les
-coordonnées barycentriques sont aussi définies à l'extérieur du
-polygone de contrôle.
+coordonnées MVC sont définies non seulement à l'intérieur, mais aussi
+à l'extérieur du polygone de contrôle.
 
 Pour vérifier la possibilité de réalisation d'une telle méthode, nous
-avons commencé par travailler sur un exemple simple, le cage d'une
-cage unique déformant des points de l'espace à la fois à l'intérieur
-et à l'extérieur. Il s'agissait de voir le comportement de la
-déformation, afin de savoir s'il était possible de considérer des
-coordonnées à la fois à l'intérieur et à l'extérieur. Car dans la
-littérature, les coordonnées n'ont été utilisées que pour déformer des
-points à l'intérieur du polygone et jusqu'à son bord.
-
+avons commencé par travailler sur un exemple simple, une cage unique
+déformant des points de l'espace à la fois à l'intérieur et à
+l'extérieur grâce aux coordonnées MVC. Il s'agissait de voir le
+comportement de la déformation, afin de savoir s'il était possible de
+calculer des coordonnées à la fois à l'intérieur et à l'extérieur de
+la cage, et si la continuité était préservée lors du passage de
+l'extérieur à l'intérieur. Car dans la littérature, les coordonnées
+n'ont été utilisées que pour déformer des points à l'intérieur du
+polygone et jusqu'à son bord. En l'occurence, la continuité n'est pas
+respectée. Les coordonnées MVC sont $C^\infty$ partout, sauf au niveau
+des sommets du polygone de contrôle, où elles ne sont que $C^0$
+(Corr. 4.8, Prop. 3, \cite{HF06}).
 
 % ------------------------------------------------------------------------
 
