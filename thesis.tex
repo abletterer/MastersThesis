@@ -44,43 +44,44 @@
 
 \begin{document}
 
-%\language{english}
+% \language{english}
 
 % A page with the abstract on including title and author etc may be
 % required to be handed in separately. If this is not so, then comment
-% the below 3 lines (between '\begin{abstractseparte}' and 
-% 'end{abstractseparate}'), normally like a declaration ... needs some more
-% work, mind as environment abstracts creates a new page!
-% \begin{abstractseparate}
-%   \input{Abstract/abstract}
-% \end{abstractseparate}
+% the below 3 lines (between '\begin{abstractseparte}' and
+%   'end{abstractseparate}'), normally like a declaration ... needs
+%   some more work, mind as environment abstracts creates a new page!
+%   \begin{abstractseparate}
+%     \input{Abstract/abstract}
+%   \end{abstractseparate}
 
-% Using the watermark package which is in StyleFiles/
-% and to remove DRAFT COPY ONLY appearing on the top of all pages comment out below line
-%\watermark{DRAFT COPY ONLY}
+%   Using the watermark package which is in StyleFiles/ and to remove
+%   DRAFT COPY ONLY appearing on the top of all pages comment out
+%   below line \watermark{DRAFT COPY ONLY}
 
 \maketitle
 
-%set the number of sectioning levels that get number and appear in the contents
-\setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3}
+% set the number of sectioning levels that get number and appear in
+% the contents
+\setcounter{secnumdepth}{3} \setcounter{tocdepth}{3}
 
 \frontmatter % book mode only
-%\pagenumbering{roman}
-%\include{Dedication/dedication}
-%\include{Acknowledgement/acknowledgement}
-%\include{Abstract/abstract}
+% \pagenumbering{roman}
+% \include{Dedication/dedication}
+% \include{Acknowledgement/acknowledgement}
+% \include{Abstract/abstract}
 
 \tableofcontents
 \addcontentsline{toc}{chapter}{Nomenclature}
 
-%\mainmatter % book mode only
+% \mainmatter % book mode only
 \include{Introduction/introduction}
 
 \mainmatter
 
 \include{Chapter1/chapter1}
 \include{Chapter2/chapter2}
+\include{Conclusions/conclusions}
 
 % \nocite{*}
 
