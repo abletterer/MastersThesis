@@ -100,37 +100,39 @@ de l'espace comme étant une pondération des coordonnées de la cage
 propre et de la cage jointure :
 
 \begin{equation}
-  p = (1 - \beta_i) T_i(p)  + \beta_i J_i(p) 
+  p = \beta T(p)  + (1 - \beta) J(p) 
   \label{MELgen}
 \end{equation}
 
-Où $T_i(p)$ et $J_i(p)$ représentent les coordonnées du point p par
-rapport à sa cage propre et sa cage jointure respectivement, et
-$\beta_i$ représente la distance à l'arête $i$ de la cage propre. Pour
-réduire la complexité du nombre de coordonnées qu'il sera nécessaire
-de calculer, nous avons choisi de considérer une unique cage jointure
+Où $T(p)$ et $J(p)$ représentent les coordonnées du point p par
+rapport à sa cage propre et à sa cage jointure respectivement, et
+$\beta$ représente la distance au bord de la cage propre. Pour réduire
+la complexité du nombre de coordonnées qu'il sera nécessaire de
+calculer, nous avons choisi de considérer une unique cage jointure
 pour chaque point de l'espace, qui résulte de l'union de toutes les
-cages incidentes aux sommets de l'arête considérée. Ainsi, pour chaque
+cages incidentes aux sommets de la cage propre. Ainsi, pour chaque
 point de l'espace le nombre de coordonnées à calculer sera de 2 au
 maximum (une pour la cage propre, et une pour la cage jointure).
 
-Le calcul de $\beta_i$ était proposé par l'article. Il s'agit de juger
+Le calcul de $\beta$ était proposé par l'article. Il s'agit de juger
 la distance d'un point de l'espace par rapport à chaque arête
 incidente à sa cage propre et à une autre cage. Pour cela, on se base
 les poids qui ont été utilisés lors du calcul de coordonnées par
 rapport à la cage propre. La distance à une arête correspond donc au
-complément à 1 de la somme des poids associés à chaque sommet de
-l'arête :
+complément à 1 de la somme des poids associés à chaque sommet des
+arêtes communes à plusieurs cages:
 \begin{equation}
-  \beta_{i} = f(1 - \sum_{v \in E_i} \alpha_i)
+  \beta = f(\prod_{e \in B(c,c_j)} (1 - \sum_{v \in e} \lambda_v))
 \end{equation}
-Où $E_i$ correspond à l'arête $i$ de la cage propre et $f(x)$
-correspond à une fonction de lissage, permettant de faire varier la
-taille de la zone d'infuence du mélange, tout en conservant un
-estompement progressif :
+Où $c_j$ correspond à la cage jointure, $e$ à une arête de $c_j$, $v$
+un sommet de $e$, $\lambda_v$ le poids associé au sommet v et $f(x)$
+est une fonction de lissage (équation \ref{MELlis}), permettant de
+faire varier la taille de la zone d'infuence du mélange, tout en
+conservant un estompement progressif :
 
 \begin{equation}
   f(x) = \frac{1}{2} sin(\pi(\frac{x}{h}-\frac{1}{2}))
+  \label{MELlis}
 \end{equation}
 Où $h$ représente la zone d'influence de l'arête, ce qui permet de
 délimiter la zone où le mélange de coordonnées doit être fait (figure
@@ -143,8 +145,8 @@ délimiter la zone où le mélange de coordonnées doit être fait (figure
     \includegraphics[scale=0.35]{starCage-0-6}
     \caption{Fonction de bordure calculée pour 4 cages (arêtes
       noires). Les variations de couleur représentent les variations
-      de valeur de $\beta_i$ (la couleur bleu marine représentant une
-      valeur de 1 et la couleur rouge une valeur de 0). En bleu les
+      de valeur de $\beta$ (la couleur bleu marine représentant une
+      valeur de 0 et la couleur rouge une valeur de 1). En bleu les
       zones dites "de bordure" (i.e. points de l'espace proches d'une
       arête incidente à une autre cage). Valeurs de h : 0.2, 0.4 et
       0.6 pour les images à gauche, au centre et à droite
@@ -153,14 +155,14 @@ délimiter la zone où le mélange de coordonnées doit être fait (figure
   \end{center}
 \end{figure}
 
-Comme $0 \leq \beta_i \leq 1$, on peut considérer $\beta_i$ comme le
+Comme $0 \leq \beta \leq 1$, on peut considérer $\beta$ comme le
 pourcentage d'utilisation des coordonnées calculées par rapport à la
-cage propre et par rapport à la cage jointure. D'après l'équation
-\ref{MELgen}, lorsque $\beta_i$ vaut 1 (i.e. $p$ se trouve sur une
-arête de la cage), la position de $p$ dépend uniquement de la
-coordonnée calculée par rapport à la cage jointure $J_i$.
+cage propre. D'après l'équation \ref{MELgen}, lorsque $\beta$ vaut 0
+(i.e. $p$ se trouve sur une arête de la cage), la position de $p$
+dépend uniquement de la coordonnée calculée par rapport à la cage
+jointure $c_j$.
 
-C'est là qu'apparaît le premier problème : Considérons une grille
+C'est là qu'apparaît le premier problème : Considérons une grille 2*2
 constituée de 4 faces, chaque face constituant une cage. Toutes les
 cages sont incidentes à un même sommet $s$. De ce fait, la zone autour
 des arêtes incidentes à ce sommet sera fortement influencée par la
@@ -168,15 +170,15 @@ cage jointure composée de l'union des 4 cages. Afin que la cage
 jointure reste un polygone, $s$ ne doit pas être considéré comme un
 sommet de la cage jointure, car il fait partie de l'intérieur de
 celle-ci. L'équation \ref{MELgen} nous indique que les zones les plus
-proches des arêtes (i.e. là ou la valeur de $\beta_i$ vaut 1), ne sont
+proches des arêtes (i.e. là ou la valeur de $\beta$ vaut 1), ne sont
 influencées que par la cage jointure. Et que, par conséquent, $s$ n'a
 aucune influence sur ces points. On peut voir sur la figure
-\ref{MELjoi} que les points les plus proches de $s$ sont en bleu, ce
-qui signifie que $s$ n'a aucune influence (ou une influence très
-minime) sur les points les plus proches, et une plus grande influence
-sur les points plus éloignés. Ce qui est un comportement complètement
-contre-intuitif et la déformation engendrée n'est pas du tout celle
-attendue.
+\ref{MELjoi} que les points les plus proches des arêtes incidentes à
+$s$ sont en bleu, ce qui signifie que $s$ n'a aucune influence (ou une
+influence très faible) sur les points les plus proches de sa position,
+et une plus grande influence sur les points plus éloignés. Ce qui est
+un comportement complètement contre-intuitif et la déformation
+engendrée n'est pas du tout celle attendue.
 
 \begin{figure}[h]
   \begin{center}
@@ -232,32 +234,51 @@ déformant des points de l'espace à la fois à l'intérieur et à
 l'extérieur grâce aux coordonnées MVC. Il s'agissait de voir le
 comportement de la déformation, afin de savoir s'il était possible de
 calculer des coordonnées à la fois à l'intérieur et à l'extérieur de
-la cage, et si la continuité était préservée lors du passage de
-l'extérieur à l'intérieur. Car dans la littérature, les coordonnées
-n'ont été utilisées que pour déformer des points à l'intérieur du
-polygone et jusqu'à son bord.
+la cage, tout en permettant un passage lisse de l'un à l'autre. Car
+dans la littérature, les coordonnées n'ont été utilisées que pour
+déformer des points à l'intérieur du polygone et jusqu'à son bord.
 
-En l'occurence, la continuité n'est pas respectée. Les coordonnées MVC
-sont $C^\infty$ partout, sauf au niveau des sommets du polygone de
-contrôle, où elles ne sont que $C^0$ (Corr. 4.8, Prop. 3,
-\cite{HF06}). De plus, à l'extérieur de la cage, on peut constater que
-les coordoonées ne s'estompent pas. Ceci est dû à la partition de
-l'unité, qui est un axiome des coordonnées barycentriques
-généralisées. Il est dû à la normalisation des poids associés à chaque
-sommet (équation \ref{MELnor}).
+Il se trouve que les coordonnées MVC sont $C^\infty$ partout, sauf au
+niveau des sommets du polygone de contrôle, où elles ne sont que $C^0$
+(Corr. 4.8, Prop. 3, \cite{HF06}). De plus, à l'extérieur de la cage,
+on peut constater que les coordonnées ne s'estompent pas. Ceci est dû
+à la partition de l'unité, qui est une propriété des coordonnées
+barycentriques généralisées. Il est induit par la normalisation des
+poids associés à chaque sommet (équation \ref{MELnor}).
 
 \begin{equation}
-  w_i(p) = \frac{\lambda_i(p)}{\sum_{j=0}^n \lambda_j(p)}
+  \lambda_i(p) = \frac{w_i(p)}{\sum_{j=0}^n w_j(p)}
   \label{MELnor}
 \end{equation}
 
 Cet axiome définit que la somme des poids associés à chaque sommet de
-la cage doit valoir 1 (équation \ref{MELsum}).
+la cage, pour un point $p$ donné, doit valoir 1 (équation
+\ref{MELsum}).
 
 \begin{equation}
-  \sum_{i=0}^n w_i(p) = 1
+  \sum_{i=0}^n \lambda_i(p) = 1
   \label{MELsum}
 \end{equation}
+
+Pour expliquer en quoi cela pose un problème, regardons la
+construction des coordonnées MVC pour un point $p$ donné. Dans un
+premier temps on évalue l'influence de chaque sommet $v_i$, dont le
+calcul se fait par rapport au sommet voisins $v_{i-1}$ et $v_{i+1}$ :
+
+\begin{equation}
+  w_i = \frac{tan(\alpha_{i-1}/2) + tan(\alpha_{i}/2)}{\|v_i - p\|}
+\end{equation}
+
+Où $w_i$ représente le poids associé au sommet $v_i$ et $\alpha_i$
+l'angle en $p$ du triangle $[p,v_i,v_{i+1}]$. Les $w_i$ sont ensuite
+normalisés (équation \ref{MELnor}). Le problème est lié à la
+normalisation, car quand on éloigne un point $p$ de la cage, si les
+$w_i$ tendent vers 0 quand la distance $\|v_i - p\|$ tend vers
+l'infini, leur somme aussi tend vers 0. De ce fait, les points
+extrémement éloignés de la cage seront aussi fortement influencés par
+les déformations appliquées sur la cage. On voit donc la nécessité de
+définir des zones d'influence autour de chaque cage, afin de limiter
+leur champ d'action.
 
 % ------------------------------------------------------------------------
 
