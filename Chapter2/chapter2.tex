@@ -98,10 +98,12 @@ derrière l'existence de chaque fonction. Nous sommes donc partis de
 l'expression globale de l'article, qui exprime la position d'un point
 de l'espace comme étant une pondération des coordonnées de la cage
 propre et de la cage jointure :
+
 \begin{equation}
   p = (1 - \beta_i) T_i(p)  + \beta_i J_i(p) 
   \label{MELgen}
 \end{equation}
+
 Où $T_i(p)$ et $J_i(p)$ représentent les coordonnées du point p par
 rapport à sa cage propre et sa cage jointure respectivement, et
 $\beta_i$ représente la distance à l'arête $i$ de la cage propre. Pour
@@ -114,10 +116,11 @@ maximum (une pour la cage propre, et une pour la cage jointure).
 
 Le calcul de $\beta_i$ était proposé par l'article. Il s'agit de juger
 la distance d'un point de l'espace par rapport à chaque arête
-incidente à sa cage propre et à une autre cage. Pour cela, on utilise
+incidente à sa cage propre et à une autre cage. Pour cela, on se base
 les poids qui ont été utilisés lors du calcul de coordonnées par
-rapport à la cage propre. La distance à une arête correspond donc à la
-somme des poids associés à chaque sommet de l'arête :
+rapport à la cage propre. La distance à une arête correspond donc au
+complément à 1 de la somme des poids associés à chaque sommet de
+l'arête :
 \begin{equation}
   \beta_{i} = f(1 - \sum_{v \in E_i} \alpha_i)
 \end{equation}
@@ -129,9 +132,9 @@ estompement progressif :
 \begin{equation}
   f(x) = \frac{1}{2} sin(\pi(\frac{x}{h}-\frac{1}{2}))
 \end{equation}
-Où $h$ représente la zone d'influence de l'arête, ce paramètre permet
-de délimiter la zone où le mélange de coordonnées doit être fait
-(figure \ref{MELpar}).
+Où $h$ représente la zone d'influence de l'arête, ce qui permet de
+délimiter la zone où le mélange de coordonnées doit être fait (figure
+\ref{MELpar}).
 
 \begin{figure}[h]
   \begin{center}
@@ -232,10 +235,29 @@ calculer des coordonnées à la fois à l'intérieur et à l'extérieur de
 la cage, et si la continuité était préservée lors du passage de
 l'extérieur à l'intérieur. Car dans la littérature, les coordonnées
 n'ont été utilisées que pour déformer des points à l'intérieur du
-polygone et jusqu'à son bord. En l'occurence, la continuité n'est pas
-respectée. Les coordonnées MVC sont $C^\infty$ partout, sauf au niveau
-des sommets du polygone de contrôle, où elles ne sont que $C^0$
-(Corr. 4.8, Prop. 3, \cite{HF06}).
+polygone et jusqu'à son bord.
+
+En l'occurence, la continuité n'est pas respectée. Les coordonnées MVC
+sont $C^\infty$ partout, sauf au niveau des sommets du polygone de
+contrôle, où elles ne sont que $C^0$ (Corr. 4.8, Prop. 3,
+\cite{HF06}). De plus, à l'extérieur de la cage, on peut constater que
+les coordoonées ne s'estompent pas. Ceci est dû à la partition de
+l'unité, qui est un axiome des coordonnées barycentriques
+généralisées. Il est dû à la normalisation des poids associés à chaque
+sommet (équation \ref{MELnor}).
+
+\begin{equation}
+  w_i(p) = \frac{\lambda_i(p)}{\sum_{j=0}^n \lambda_j(p)}
+  \label{MELnor}
+\end{equation}
+
+Cet axiome définit que la somme des poids associés à chaque sommet de
+la cage doit valoir 1 (équation \ref{MELsum}).
+
+\begin{equation}
+  \sum_{i=0}^n w_i(p) = 1
+  \label{MELsum}
+\end{equation}
 
 % ------------------------------------------------------------------------
 
