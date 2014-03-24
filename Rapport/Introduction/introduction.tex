@@ -6,12 +6,12 @@
   {Introduction/IntroductionFigs/} }
 
 La modélisation géométrique a permis, dans un premier temps, de
-représenter des modèles virtuels. Mais le besoin d'éditer ces modèles
-a amené la modélisation géométrique a évoluer et à instaurer des
-outils permettant de modifier ces modèles. Ainsi sont nés les outils
-de \textit{déformation}. Dans le cadre de notre travail, nous ne nous
-sommes uniquement intéressés aux déformations dites
-\textit{spatiales}.
+représenter des modèles virtuels. De ce fait, des outils permettant la
+modification de ces modèles se sont directement mis en place, au
+travers du déplacement des différents sommets des modèles. Les
+déformations engendrées étaient liées à la représentation interne de
+l'objet. Mais d'autres types de déformation se sont instaurées par la
+suite, comme la déformation \textit{spatiale}.
 \\
 
 La déformation spatiale consiste à déformer un objet en modifiant son
@@ -27,27 +27,40 @@ même manière.
 \\
 
 La première partie de ce travail consiste en la réalisation d'un
-mélange de multiples outils de déformation, en s'inspirant des travaux
-de \cite{JBPS11} et \cite{GPCP13}. En parallèle, une étude est faite
-sur les outils de déformation de différentes dimensions, basée sur
-\cite{GB08}, pour déterminer le meilleur outil associé à chaque
-dimension (point, courbe, surface, volume). La dernière partie se
-concentre plus particulièrement sur les modèles virtuels. Il s'agit de
-fournir une génération automatique d'un outil multidimensionnel de
-déformation associé à un modèle, en segmentant ce dernier et en
-associant à chacune de ses segmentations l'outil de déformation le
-plus adapté à sa forme.
+mélange de multiples outils de déformation. En parallèle, une étude
+est faite sur les outils de déformation de différentes dimensions,
+pour déterminer le meilleur outil associé à chaque dimension (point,
+courbe, surface, volume). Au final il s'agira de pouvoir obtenir une
+génération automatique d'un outil multidimensionnel de déformation
+associé à un modèle, en segmentant ce dernier et en associant à
+chacune de ses segmentations l'outil de déformation le plus adapté à
+sa forme.
 \\
 
-Beaucoup de méthodes existent pour déformer des points de l'espace,
-mais ont des caractéristiques différentes les unes des autres. Que ce
-soit au niveau de la complexité au temps d'association des points de
-l'espace à l'outil, de la forme de la déformation engendrée par la
-modification de l'outil, ou encore de l'élégance et de la simplicité
-du modèle mathématique sous-jacent. Il n'existe aujourd'hui aucune
-technique permettant de combiner les forces de chacune de ces méthodes
-et de pouvoir en changer de façon interactive.
+On voudrait, pour un même modèle, associer des outils bien précis à
+certaines parties de ce modèle. Prenons le modèle de l'alligator
+(Figure \ref{INTall}), on voudrait ouvrir la bouche de l'alligator,
+élargir son ventre et bouger sa queue, mais ce n'est pas possible avec
+un seul outil. L'idée serait alors d'appliquer des outils différents
+(ou des outils de résolutions différentes) sur différentes zones d'un
+objet, ou plusieurs outils sur une même zone. On se demande alors
+comment mélanger ces outils de façon à ce que les déformations se
+fassent de manière continue.
 \\
+
+De plus, en fonction de la précision de la déformation à appliquer, il
+serait intéressant de pouvoir disposer de plusieurs niveaux de
+résolution pour un même outil, afin de pouvoir utiliser un niveau
+ayant un grain fin lors d'une déformation précise, et un niveau ayant
+un grain plus grossier lors d'une déformation plus globale.
+
+\begin{figure}[h]
+  \includegraphics[scale=0.25]{alligator-avant}
+  \includegraphics[scale=0.25]{alligator-apres}
+  \caption{A gauche le modèle avant déformation et à droite le modèle
+    après déplacement de certains points de contrôle}
+  \label{INTall}
+\end{figure}
 
 Tout au long de ce travail, nos choix ont été motivés par la volonté
 de fournir un outil permettant de déformer des points de l'espace de
