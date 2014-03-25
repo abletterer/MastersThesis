@@ -39,20 +39,29 @@ sa forme.
 
 On voudrait, pour un même modèle, associer des outils bien précis à
 certaines parties de ce modèle. Prenons le modèle de l'alligator
-(Figure \ref{INTall}), on voudrait ouvrir la bouche de l'alligator,
-élargir son ventre et bouger sa queue, mais ce n'est pas possible avec
-un seul outil. L'idée serait alors d'appliquer des outils différents
-(ou des outils de résolutions différentes) sur différentes zones d'un
-objet, ou plusieurs outils sur une même zone. On se demande alors
-comment mélanger ces outils de façon à ce que les déformations se
-fassent de manière continue.
+(Figure \ref{INTall}), on souhaiterait ouvrir la bouche de
+l'alligator, élargir son ventre et bouger sa queue, mais ce n'est pas
+possible avec un seul outil. L'idée serait alors d'appliquer des
+outils différents sur plusieurs zones d'un objet, ou différents outils
+sur une même zone. En reprenant l'exemple de l'alligator, il faudrait,
+pour avoir le comportement décrit plus-haut, associer des points pour
+la queue, des axes pour la bouche et une cage pour le ventre. On se
+demande alors comment mélanger ces outils de façon à ce que les
+déformations se fassent de manière continue (à interpréter tout au
+long du travail par une continuité $C^1$ au moins), et de quelle
+manière délimiter la zone d'influence de chaque outil, afin que la
+déformation appliquée par un outil se fasse dans une zone limitée. De
+plus, il faut s'assurer que tous les outils peuvent définir des
+coordonnées de façon continue dans ces "zones d'influence". En effet,
+car si les outils de déformation de dimension topologique 0 et 1
+(c'est-à-dire points et courbes respectivement) appliquent une
+déformation dans une zone autour d'eux, les outils de dimension 2 et 3
+(surfaces et volumes) ne déforment que la zone de l'espace contenue en
+leur intérieur (ou en leur extérieur) de façon continue, mais le
+passage de l'extérieur à l'intérieur n'est pas continu autour des
+sommets (uniquement $C^0$).
 \\
 
-De plus, en fonction de la précision de la déformation à appliquer, il
-serait intéressant de pouvoir disposer de plusieurs niveaux de
-résolution pour un même outil, afin de pouvoir utiliser un niveau
-ayant un grain fin lors d'une déformation précise, et un niveau ayant
-un grain plus grossier lors d'une déformation plus globale.
 
 \begin{figure}[h]
   \includegraphics[scale=0.25]{alligator-avant}
@@ -61,6 +70,16 @@ un grain plus grossier lors d'une déformation plus globale.
     après déplacement de certains points de contrôle}
   \label{INTall}
 \end{figure}
+
+De plus, en fonction de la précision de la déformation à appliquer, il
+serait intéressant de pouvoir disposer de plusieurs niveaux de
+résolution pour les différents outils utilisés, afin de pouvoir avoir
+un plus grand nombre de degrés de liberté lors d'une déformation
+précise, et un plus faible lors d'une déformation plus globale. Mais
+de ce fait, il faut mettre en place un moyen de faire communiquer les
+différents niveaux de résolution entre eux, comme le modèle proposé
+par \cite{Hur12} concernant les déformation à base de cages.
+\\
 
 Tout au long de ce travail, nos choix ont été motivés par la volonté
 de fournir un outil permettant de déformer des points de l'espace de
