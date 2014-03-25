@@ -22,7 +22,7 @@ déforment l'espace $\mathbb{R}^3$.
 \begin{itemize}
 \item{\textbf{Déformation de forme libre de Bézier :}} \cite{SP86} a
   eu l'idée de lier la déformation d'un volume paramétrique (qu'on
-  appelle outil) à l'espace contenu à l'intérieur de ce
+  appelle \textit{outil}) à l'espace contenu à l'intérieur de ce
   volume. Mathématiquement, il s'agit d'une extension directe des
   courbes de Bézier au cas 3D. \cite{SP86} a utilisé les polynômes de
   Bernstein pour définir le volume. Les points $X$ de l'espace sont
@@ -120,37 +120,38 @@ manière d'attacher les points de l'espace à une surface.
 
 \section{Déformation à base de courbes}
 \begin{itemize}
-\item{\textbf{Déformation par De Casteljau généralisée :}} \cite{CR94}
-  a introduit une première version déformation à base de courbes qu'on
-  peut assimiler à une déformation de forme libre restreinte. Mais
-  plus de détails sur cette technique sont donnés par \cite{BE01}. On
+\item{\textbf{Déformation de De Casteljau généralisée :}} \cite{CR94}
+  ont introduit une première version déformation à base de courbes
+  qu'on peut assimiler à une déformation de forme libre restreinte. On
   peut considérer l'algorithme de De Casteljau comme une déformation
-  des points du segment $[0,1]$ en des points d'une courbe de
+  des points du segment $[0,1]$ en points d'une courbe de
   Bézier. C'est de ce constat que s'est inspiré \cite{CR94}, en
-  considérant cette fois-ci le cube $[0,1]^3$.
+  considérant cette fois-ci le cube $[0,1]^3$. Plus de détails sur
+  cette technique sont donnés par \cite{BE01}.
 \end{itemize}
 
 \section{Déformation à base de points}
 \begin{itemize}
-\item{\textbf{DOGME :}} \cite{BB91} a introduit une méthode basée sur
-  les contraintes appelée DOGME (Deformation of Geometric Model
+\item{\textbf{DOGME :}} \cite{BB91} ont introduit une méthode basée sur
+  les contraintes appelée DOGME (Deformation Of Geometric Model
   Editor) afin de remplacer l'interface non-intuitive des treillis
-  utilisés dans les FFD par une manipulation directe des points de
-  l'espace. L'idée est de laisser un utilisateur déplacer un point de
-  l'espace et replacer le voisinage de ce point de façon lisse. On
-  peut comparer cette déformation au fait de pincer un objet et
-  d'étirer cette partie. Pour replacer le voisinage d'un point de
-  l'espace, la méthode se base sur le déplacement de points qu'on
-  appelle "contraintes". Des contraintes, dont la portée de chacune
-  est définie par une zone d'influence, sont associées à chaque point
-  de l'espace et permettent d'approximer au mieux la nouvelle position
+  utilisés dans les déformations à base de volumes par une
+  manipulation directe des points de l'espace. L'idée est de laisser
+  un utilisateur déplacer un point de l'espace et replacer le
+  voisinage de ce point de façon lisse. On peut comparer cette
+  déformation au fait de pincer un objet et d'étirer cette
+  partie. Pour replacer le voisinage d'un point de l'espace, la
+  méthode se base sur le déplacement de points qu'on appelle
+  "contraintes". Des contraintes, dont la portée de chacune est
+  définie par une zone d'influence, sont associées à chaque point de
+  l'espace et permettent d'approximer au mieux la nouvelle position
   des points. Si un point de l'espace est sous l'influence de
   plusieurs contraintes, alors sa nouvelle position correspond à une
   pondération de ces contraintes.
 \item{\textbf{Déformation de forme libre par manipulation directe:}}
   Les déformations de forme libre se basent sur la modification de
   sommets appartenant à un treillis pour déformer les points de
-  l'espace. \cite{HHK92} quant à lui propose d'interagir avec des
+  l'espace. \cite{HHK92}, quant à eux, proposent d'interagir avec des
   points de l'espace afin de modifier la forme du treillis en fonction
   de contraintes associées aux points modifiés.
 \item{\textbf{Déformation de forme libre de Dirichlet :}} Cette
