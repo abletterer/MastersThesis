@@ -9,28 +9,36 @@
 \graphicspath{ {Chapter2/Chapter2Figs/PNG/}
   {Chapter2/Chapter2Figs/PDF/} {Chapter2/Chapter2Figs/} }
 
-Chaque dimension d'outil permet de déformer l'espace d'une autre
-manière. Les points et courbes sont plus adaptés aux déformations
-réalisées par rapport à un axe (rotation, torsion, fuselage). Les
-surfaces et volumes sont, quant à eux, utilisés lors de déformations
-plus générales.
+Avant de commencer, précisons juste quelques notions par liées aux
+déformations à base de cage:
+\begin{itemize}
+\item{\textit{Coordonnée :}} On définit la coordonnée d'un point comme
+  étant une combinaison linéaire pondérée des positions sommets de sa
+  cage.\\
+\end{itemize}
+
+Chaque dimension d'outil permet de déformer l'espace de façon plus ou
+moins locale. Les points et courbes sont plus adaptés aux déformations
+locale, c'est-à-dire ne modifiant pas tout l'espace. Les surfaces et
+volumes sont, quant à eux, utilisés lors de déformations plus
+globales, modifiant tout l'espace contenu en leur intérieur.
 
 Pourtant, sur le même ensemble de points, un utilisateur pourrait
-souhaiter réaliser des déformations par rapport à un axe, mais aussi
-plus générales. Aussi, les techniques les plus utilisées ces dernières
-années, les \textit{cages de déformation} par exemple, définissent des
-déformations \textit{globales}. Une déformation est dite globale
+souhaiter réaliser des déformations à la fois locales et
+globales. Aussi, les techniques les plus utilisées ces dernières
+années, à savoir les \textit{déformations à base de cage}, définissent
+des déformations \textit{globales}. Une déformation est dite globale
 lorsque la modification d'un des sommets de contrôle de l'outil influe
 sur l'ensemble des points de l'espace, même de façon
-infinitésimale. Il est donc nécessaire de calculer des coordonnées
-pour chaque point de l'espace par rapport à tous les sommets de
-l'outil. De plus, pour réaliser des déformations sur des zones
-précises, il faut que l'outil soit composé d'un grand nombre de
-sommets, afin de diminuer l'influence des sommets les plus éloignés de
-ces zones. On peut donc dire qu'il existe un lien entre la précision
-d'une déformation et le nombre de sommets de l'outil associé. Or plus
-il y a de sommets composant l'outil, plus le temps de calcul des
-coordonnées sera important. Il n'est donc pas possible de réaliser des
+infinitésimale. Il est nécessaire de calculer une coordonnée pour
+chaque point de l'espace par rapport à tous les sommets de l'outil. De
+plus, pour réaliser des déformations sur des zones précises, il faut
+que l'outil soit composé d'un grand nombre de sommets, afin de
+diminuer l'influence des sommets les plus éloignés de ces zones. On
+peut donc dire qu'il existe un lien entre la précision d'une
+déformation et le nombre de sommets de l'outil associé. Or plus il y a
+de sommets composant l'outil, plus le temps de calcul des coordonnées
+sera important. Il n'est donc pas possible de réaliser des
 déformations sur des zones très précises, sans avoir à calculer de
 coordonnées pour tous les points de l'espace.
 
@@ -39,7 +47,7 @@ C'est sur cette problématique que les idées de mélange d'outils ont
 
 \section{Etat de l'art}
 
-On peut citer \cite{JBPS11} comme étant le premier a avoir proposé une
+On peut citer \cite{JBPS11} comme étant le premier à avoir proposé une
 méthode permettant de mélanger plusieurs outils de déformation de
 différentes dimensions.  C'est sur celui-ci que nous avons commencé à
 travailler car la méthode nous semblait proche de ce que nous
@@ -67,24 +75,25 @@ sa proximité avec \cite{Hur12}, un travail réalisé par un étudiant en
 Master ISI en 2012, et de l'utilisation de cages de déformation, le
 modèle semblant le plus pertinent parmi les outils de dimension 2.
 L'idée est de réaliser un assemblage de différentes cages collées
-ensembles le long de leurs arêtes et de considérer les coordonnées
-d'un point de l'espace non seulement par rapport à sa cage
-\textit{propre} (à comprendre la cage englobant le point de l'espace)
-mais aussi par rapport aux cages adjacentes à celle-ci.
+ensemble le long de leurs arêtes et de considérer les coordonnées d'un
+point de l'espace non seulement par rapport à sa cage \textit{propre}
+(à comprendre la cage englobant le point de l'espace) mais aussi par
+rapport aux cages adjacentes à celle-ci.
 
 La méthode de cet article propose au premier abord une formulation
-très claire. Celui-ci définit que la position d'un point de l'espace
+très simple. Celui-ci définit que la position d'un point de l'espace
 n'est plus simplement constituée d'une combinaison linéaire des
-positions des sommets de sa cage propre, mais résulte d'un mélange
-entre les coordonnées calculées par rapport à la cage propre et aux
-différentes cages \textit{jointure}. Une cage jointure correspond à
-l'union des cages incidentes à un sommet de la cage propre. L'avantage
-de ce genre de méthode est de localiser les déformations en les
-limitant au voisinage de la cage incidente au sommet déplacé. On peut
-donc avoir jusqu'à $n$ coordonnées différentes pour un même point de
-l'espace, où $n$ correspond au nombre de sommets de la cage propre. Ce
-qui au final fait perdre un des intérêts de la méthode, au moins en
-partie, à savoir la réduction de la complexité en temps de calcul.
+positions des sommets de sa cage propre, mais résulte d'une
+interpolation linéaire entre les coordonnées calculées par rapport à
+la cage propre et aux différentes cages \textit{jointure}. Une cage
+jointure correspond à l'union des cages incidentes à un sommet de la
+cage propre. L'avantage de ce genre de méthode est de localiser les
+déformations en les limitant au voisinage de la cage incidente au
+sommet déplacé. On peut donc avoir jusqu'à $n$ coordonnées différentes
+pour un même point de l'espace, où $n$ correspond au nombre de sommets
+de la cage propre. Ce qui au final fait perdre un des intérêts de la
+méthode, au moins en partie, à savoir la réduction de la complexité en
+temps de calcul.
 
 Cependant cette formulation claire cache d'autres formulations qui
 semblent résulter d'un procédé empirique, dont le cheminement n'est
