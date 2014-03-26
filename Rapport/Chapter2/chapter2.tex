@@ -128,19 +128,31 @@ maximum (une pour la cage propre, et une pour la cage jointure).
 
 Le calcul de $\beta~$ était proposé par l'article. Il s'agit de juger
 la distance d'un point de l'espace par rapport à chaque arête
-incidente à sa cage propre et à une autre cage. Pour cela, on se base
-les poids qui ont été utilisés lors du calcul de coordonnées par
-rapport à la cage propre. La distance à une arête correspond donc au
-complément à 1 de la somme des poids associés à chaque sommet des
-arêtes communes à plusieurs cages:
+incidente à sa cage propre et à une autre cage. Pour éviter de
+calculer des distances euclidiennes, l'article propose de se baser sur
+la coordonnée calculée pour chaque point $p$ par rapport aux sommets
+de sa cage propre. Comme nous l'avons expliqué au début, la coordonnée
+d'un point $p$ par rapport à une cage est calculée comme étant une
+combinaison linéaire pondérée des positions des sommets de cette
+cage. De ce fait, on peut considérer la distance de $p$ à un sommet de
+la cage comme étant le poids qui a été associé à ce sommet lors du
+calcul de la coordonée. Et par extension, on peut considérer la
+distance de $p$ à une arête comme étant liée à la somme des poids
+associés aux sommets incidents de cette arête. Plus précisément, plus
+on est proche d'une arête, plus la somme des poids associés sommets
+incidents à cette arête va être proche de 1. A l'inverse, plus on est
+loin d'une arête, plus la somme des poids associés aux sommets de
+cette arête va être proche de 0. La distance à une arête correspond
+donc au complément à 1 de la somme des poids associés à chaque sommet
+des arêtes incidentes à plusieurs cages :
 \begin{equation}
-  \beta~ = f(\prod_{e \in B(c,c_j)} (1 - \sum_{v \in e} \lambda_v))
+  d_e~ = (1 - \sum_{v \in e} \lambda_v))
 \end{equation}
-Où $c_j$ correspond à la cage jointure, $e$ à une arête de $c_j$, $v$
-un sommet de $e$, $\lambda_v$ le poids associé au sommet v et $f(x)$
-est une fonction de lissage (équation \ref{MELlis}), permettant de
-faire varier la taille de la zone d'infuence du mélange, tout en
-conservant un estompement progressif :
+Où $e$ correspond à une arête, $v$ un sommet de $e$, $\lambda_v$ le
+poids associé au sommet v et $f(x)$ est une fonction de lissage
+(équation \ref{MELlis}), permettant de faire varier la taille de la
+zone d'infuence du mélange, tout en conservant un estompement
+progressif :
 
 \begin{equation}
   f(x) = \frac{1}{2} sin(\pi(\frac{x}{h}-\frac{1}{2})) + \frac{1}{2}
@@ -148,54 +160,59 @@ conservant un estompement progressif :
 \end{equation}
 Où $h$ représente la zone d'influence de l'arête, ce qui permet de
 délimiter la zone où le mélange de coordonnées doit être fait (figure
-\ref{MELpar}).
+\ref{MELpar}), tout en conservant un estompement progressif.
 
-\begin{figure}
+\begin{figure}[h]
   \begin{center}
     \begin{tikzpicture}
-      \begin{axis}[colormap/bluered]
-        \addplot gnuplot[scatter, samples=24, domain=0:0.6,
-        mark=*]{1/2.*sin(pi*(x/0.6-1/2.))+1/2.};
+      \begin{axis}[colormap/bluered, width=0.37\textwidth,
+        height=0.3\textwidth]
+        \addplot gnuplot[scatter, samples=500, domain=0:0.2, mark=*,
+        mark size=0.5]{1/2.*sin(pi*(x/0.2-1/2.))+1/2.};
 
-        \addplot gnuplot[scatter, samples=16, domain=0.6:1,
-        mark=*]{1};
-
-        \draw ({axis cs:0.6,0}|-{rel axis cs:0,0}) -- ({axis
-          cs:0.6,0}|-{rel axis cs:0,1}) node[near start,right] {$h =
-          0.6$}; ;
-      \end{axis}
-    \end{tikzpicture}
-    \begin{tikzpicture}
-      \begin{axis}[colormap/bluered]
-        \addplot gnuplot[scatter, samples=24, domain=0:0.4,
-        mark=*]{1/2.*sin(pi*(x/0.4-1/2.))+1/2.};
-
-        \addplot gnuplot[scatter, samples=24, domain=0.4:1,
-        mark=*]{1};
-
-        \draw ({axis cs:0.4,0}|-{rel axis cs:0,0}) -- ({axis
-          cs:0.4,0}|-{rel axis cs:0,1}) node[near start,right] {$h =
-          0.4$}; ;
-      \end{axis}
-    \end{tikzpicture} \begin{tikzpicture}
-      \begin{axis}[colormap/bluered]
-        \addplot gnuplot[scatter, samples=24, domain=0:0.2,
-        mark=*]{1/2.*sin(pi*(x/0.2-1/2.))+1/2.};
-
-        \addplot gnuplot[scatter, samples=24, domain=0.2:1,
-        mark=*]{1};
+        \addplot gnuplot[scatter, samples=500, domain=0.2:1, mark=*,
+        mark size=0.5]{1};
 
         \draw ({axis cs:0.2,0}|-{rel axis cs:0,0}) -- ({axis
           cs:0.2,0}|-{rel axis cs:0,1}) node[near start,right] {$h =
           0.2$}; ;
       \end{axis}
     \end{tikzpicture}
-    \caption{Visualisation de la fonction f(x)}
+    \begin{tikzpicture}
+      \begin{axis}[colormap/bluered, width=0.37\textwidth,
+        height=0.3\textwidth]
+        \addplot gnuplot[scatter, samples=500, domain=0:0.4, mark=*,
+        mark size=0.5]{1/2.*sin(pi*(x/0.4-1/2.))+1/2.};
+
+        \addplot gnuplot[scatter, samples=500, domain=0.4:1, mark=*,
+        mark size=0.5]{1};
+
+        \draw ({axis cs:0.4,0}|-{rel axis cs:0,0}) -- ({axis
+          cs:0.4,0}|-{rel axis cs:0,1}) node[near start,right] {$h =
+          0.4$}; ;
+      \end{axis}
+    \end{tikzpicture}
+    \begin{tikzpicture}
+      \begin{axis}[colormap/bluered, width=0.37\textwidth,
+        height=0.3\textwidth]
+        \addplot gnuplot[scatter, samples=300, domain=0:0.6, mark=*,
+        mark size=0.5]{1/2.*sin(pi*(x/0.6-1/2.))+1/2.};
+
+        \addplot gnuplot[scatter, samples=300, domain=0.6:1, mark=*,
+        mark size=0.5]{1};
+
+        \draw ({axis cs:0.6,0}|-{rel axis cs:0,0}) -- ({axis
+          cs:0.6,0}|-{rel axis cs:0,1}) node[near start,right] {$h =
+          0.6$}; ;
+      \end{axis}
+    \end{tikzpicture}
+    \caption{Visualisation de la fonction f(x) pour différentes
+      valeurs de h}
     \label{MELfon}
   \end{center}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
   \begin{center}
     \includegraphics[scale=0.35]{starCage-0-2}
     \includegraphics[scale=0.35]{starCage-0-4}
@@ -227,14 +244,14 @@ cage jointure composée de l'union des 4 cages. Afin que la cage
 jointure reste un polygone, $s$ ne doit pas être considéré comme un
 sommet de la cage jointure, car il fait partie de l'intérieur de
 celle-ci. L'équation \ref{MELgen} nous indique que les zones les plus
-proches des arêtes (i.e. là ou la valeur de $\beta~$ vaut 1), ne sont
+proches des arêtes (i.e. là ou la valeur de $\beta~$ vaut 0), ne sont
 influencées que par la cage jointure. Et que, par conséquent, $s$ n'a
 aucune influence sur ces points. On peut voir sur la figure
 \ref{MELjoi} que les points les plus proches des arêtes incidentes à
-$s$ sont en bleu, ce qui signifie que $s$ n'a aucune influence (ou une
-influence très faible) sur les points les plus proches de sa position,
-et une plus grande influence sur les points plus éloignés. Ce qui est
-un comportement complètement contre-intuitif et la déformation
+$s$ sont en bleu marine, ce qui signifie que $s$ n'a aucune influence
+(ou une influence très faible) sur les points les plus proches de sa
+position et une plus grande influence sur les points plus éloignés. Ce
+qui est un comportement complètement contre-intuitif et la déformation
 engendrée n'est pas du tout celle attendue.
 
 \begin{figure}[h]
@@ -253,8 +270,8 @@ engendrée n'est pas du tout celle attendue.
 De là nous voyons la nécessité de rajouter un comportement spécifique
 pour ces fameux sommets qui font partie de l'intérieur de leur cage
 jointure. C'est une des fonctions proposées par l'article. Ils
-résolvent ce problème au travers de l'expression d'une déformation de
-type ponctuelle, associée au sommet $s$. A partir de là, nous avons
+résolvent ce problème au travers de l'expression d'une déformation à
+base de points, associée au sommet $s$. A partir de là, nous avons
 compris que la méthode proposée \cite{GPCP13} n'était que le résultat
 d'une suite de résolutions de cas spécifiques. Ce qui ne nous
 intéressait pas vraiment, car un de nos critères principaux était
