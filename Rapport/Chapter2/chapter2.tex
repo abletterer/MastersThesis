@@ -9,7 +9,7 @@
 \graphicspath{ {Chapter2/Chapter2Figs/PNG/}
   {Chapter2/Chapter2Figs/PDF/} {Chapter2/Chapter2Figs/} }
 
-Avant de commencer, précisons juste quelques notions par liées aux
+Avant de commencer, précisons juste quelques notions liées aux
 déformations à base de cage:
 \begin{itemize}
 \item{\textit{Coordonnée :}} On définit la coordonnée d'un point comme
@@ -22,52 +22,54 @@ déformations à base de cage:
 
 Chaque dimension d'outil permet de déformer l'espace de façon plus ou
 moins locale. Les points et courbes sont plus adaptés aux déformations
-locale, c'est-à-dire ne modifiant pas tout l'espace. Les surfaces et
-volumes sont, quant à eux, utilisés lors de déformations plus
-globales, modifiant tout l'espace contenu en leur intérieur.
+locales, c'est-à-dire ne modifiant qu'une certaine zone de
+l'espace. Les surfaces et volumes sont, quant à eux, utilisés lors de
+déformations plus globales, modifiant tout l'espace contenu en leur
+intérieur.
 
 Pourtant, sur le même ensemble de points, un utilisateur pourrait
-souhaiter réaliser des déformations à la fois locales et
-globales. Aussi, les techniques les plus utilisées ces dernières
-années, à savoir les \textit{déformations à base de cage}, définissent
-des déformations \textit{globales}. Une déformation est dite globale
-lorsque la modification d'un des sommets de contrôle de l'outil influe
-sur l'ensemble des points de l'espace, même de façon
-infinitésimale. Il est nécessaire de calculer une coordonnée pour
-chaque point de l'espace par rapport à tous les sommets de l'outil. De
-plus, pour réaliser des déformations sur des zones précises, il faut
-que l'outil soit composé d'un grand nombre de sommets, afin de
-diminuer l'influence des sommets les plus éloignés de ces zones. On
-peut donc dire qu'il existe un lien entre la précision d'une
-déformation et le nombre de sommets de l'outil associé. Or plus il y a
-de sommets composant l'outil, plus le temps de calcul des coordonnées
-sera important. Il n'est donc pas possible de réaliser des
-déformations sur des zones très précises, sans avoir à calculer de
-coordonnées pour tous les points de l'espace.
+souhaiter réaliser des déformations à la fois locales et globales. Les
+techniques les plus utilisées ces dernières années, à savoir les
+\textit{déformations à base de cage}, définissent des déformations
+\textit{globales}. Une déformation est dite globale lorsque la
+modification d'un des sommets de contrôle de l'outil influe sur
+l'ensemble des points de l'espace, même de façon infinitésimale. Il
+est donc nécessaire de calculer une coordonnée pour chaque point de
+l'espace par rapport à tous les sommets de l'outil. De plus, pour
+réaliser des déformations sur des zones précises, il faut que l'outil
+soit composé d'un grand nombre de sommets, afin de diminuer
+l'influence des sommets les plus éloignés de ces zones. On peut donc
+dire qu'il existe un lien entre la précision d'une déformation et le
+nombre de sommets de l'outil associé. Or plus il y a de sommets
+composant l'outil, plus le temps de calcul des coordonnées sera
+important. Il n'est donc pas possible de réaliser des déformations sur
+des zones très précises, sans avoir à calculer de coordonnées pour
+tous les points de l'espace.
 
 C'est sur cette problématique que les idées de mélange d'outils ont
-été introduites.
+été introduites. Pour simplifier la compréhension des déformations
+appliquées, nous ne nous concentrons que dans le cas d'outils
+déformant l'espace $\mathbb{R}^2$.
 
 \section{Etat de l'art}
 
-On peut citer \cite{JBPS11} comme étant le premier à avoir proposé une
-méthode permettant de mélanger plusieurs outils de déformation de
-différentes dimensions.  C'est sur celui-ci que nous avons commencé à
+On peut citer \cite{JBPS11} comme étant les premiers à avoir proposé
+une méthode permettant de mélanger plusieurs outils de déformation de
+différentes dimensions. C'est sur celui-ci que nous avons commencé à
 travailler car la méthode nous semblait proche de ce que nous
 souhaitions réaliser. Une lecture plus approfondie de l'article nous a
 fait nous rendre compte que le fonctionnement n'était pas celui que
-nous souhaitions. En effet, s'il semble s'appuyer sur des outils ayant
-des dimensions différentes en fonction des zones à déformer, la
+nous souhaitions. En effet, s'ils semblent s'appuyer sur des outils
+ayant des dimensions différentes en fonction des zones à déformer, la
 gestion interne repose uniquement sur des déformations d'outils de
-dimension 0 (points). L'aspect "multidimensionnel" est donc uniquement
-présent pour imposer des contraintes supplémentaires sur les calculs
-de coordonnées. Par exemple pour des sommets reliés par une arête
-l'article définit que les poids (permettant le calcul des coordonnées)
-évoluent de façon linéaire le long de cette arête. De plus, cette
-méthode passe par une minimisation de l'énergie laplacienne,
-nécessitant une discrétisation de l'espace. Or c'est quelque chose que
-nous souhaiterions éviter, à cause du temps de calcul requis par ces
-opérations.
+dimension topologique 0 (points). L'aspect "multidimensionnel" est
+donc uniquement présent pour imposer des contraintes supplémentaires
+sur les calculs de coordonnées. Par exemple pour des sommets reliés
+par une arête l'article définit que les poids évoluent de façon
+linéaire le long de cette arête. De plus, cette méthode passe par une
+minimisation de l'énergie laplacienne, nécessitant une discrétisation
+de l'espace. Or c'est quelque chose que nous souhaiterions éviter, à
+cause du temps de calcul requis par ces opérations.
 \\
 
 \cite{GPCP13} quant à lui, propose une méthode permettant le mélange
@@ -76,12 +78,13 @@ des surfaces, à travers les déformations à base de cage.  Nous nous
 sommes intéressés à cet article de par sa récente publication (2013),
 sa proximité avec \cite{Hur12}, un travail réalisé par un étudiant en
 Master ISI en 2012, et de l'utilisation de cages de déformation, le
-modèle semblant le plus pertinent parmi les outils de dimension 2.
-L'idée est de réaliser un assemblage de différentes cages collées
-ensemble le long de leurs arêtes et de considérer les coordonnées d'un
-point de l'espace non seulement par rapport à sa cage \textit{propre}
-(à comprendre la cage englobant le point de l'espace) mais aussi par
-rapport aux cages adjacentes à celle-ci.
+modèle semblant le plus pertinent parmi les outils de dimension
+topologique 2 (surfaces). L'idée est de réaliser un assemblage de
+différentes cages collées ensemble le long de leurs arêtes et de
+considérer les coordonnées d'un point de l'espace non seulement par
+rapport à sa cage \textit{propre} (à comprendre la cage englobant le
+point de l'espace) mais aussi par rapport aux cages adjacentes à
+celle-ci.
 
 La méthode de cet article propose au premier abord une formulation
 très simple. Celui-ci définit que la position d'un point de l'espace
@@ -92,24 +95,26 @@ la cage propre et aux différentes cages \textit{jointure}. Une cage
 jointure correspond à l'union des cages incidentes à un sommet de la
 cage propre. L'avantage de ce genre de méthode est de localiser les
 déformations en les limitant au voisinage de la cage incidente au
-sommet déplacé. On peut donc avoir jusqu'à $n$ coordonnées différentes
-pour un même point de l'espace, où $n$ correspond au nombre de sommets
-de la cage propre. Ce qui au final fait perdre un des intérêts de la
-méthode, au moins en partie, à savoir la réduction de la complexité en
-temps de calcul.
+sommet déplacé. Mais en contrepartie on peut avoir jusqu'à $n$
+coordonnées différentes pour un même point de l'espace, où $n$
+correspond au nombre de sommets de la cage propre. Car possiblement il
+se peut que tous les sommets d'une cage soient incidents à d'autres
+cages. Ce qui au final fait perdre un des intérêts de la méthode, au
+moins en partie, à savoir la réduction de la complexité en temps de
+calcul des coordonnées.
 
-Cependant cette formulation cache d'autres formulations qui semblent
-résulter d'un procédé empirique, dont le cheminement n'est pas
-expliqué dans l'article. Ce qui rend la compréhension de l'utilité de
-ces fonctions assez difficile.
+Mais cette formulation cache d'autres fonctions qui semblent résulter
+d'un procédé empirique, dont le cheminement n'est pas expliqué dans
+l'article. Ce qui rend la compréhension de l'utilité de ces fonctions
+assez difficile.
 
 \section{Cheminement de l'article}
 Dans un premier temps, nous avons voulu reproduire le cheminement de
 \cite{GPCP13}, pour comprendre quelles étaient les motivations
-derrière l'existence de chaque fonction. Nous sommes donc partis de
-l'expression globale de l'article, qui exprime la position d'un point
-de l'espace comme étant une pondération des coordonnées de la cage
-propre et de la cage jointure :
+derrière l'existence de chaque fonction. Nous nous sommes donc basés
+sur la formulation globale décrite par l'article, qui exprime la
+position d'un point de l'espace comme étant une pondération des
+coordonnées de la cage propre et de la cage jointure :
 
 \begin{equation}
   p = \beta~ T(p)  + (1 - \beta~) J(p) 
@@ -122,37 +127,39 @@ $\beta~$ représente la distance au bord de la cage propre. Pour
 réduire la complexité du nombre de coordonnées qu'il sera nécessaire
 de calculer, nous avons choisi de considérer une unique cage jointure
 pour chaque point de l'espace, qui résulte de l'union de toutes les
-cages incidentes aux sommets de la cage propre. Ainsi, pour chaque
-point de l'espace le nombre de coordonnées à calculer sera de 2 au
-maximum (une pour la cage propre, et une pour la cage jointure).
+cages incidentes aux sommets de la cage propre (autrement dit, notre
+cage jointure correspond à l'union des cages jointures définies par
+\cite{GPCP13}). Ainsi, pour chaque point de l'espace le nombre de
+coordonnées à calculer sera de 2 au maximum (une pour la cage propre,
+et une pour l'éventuelle cage jointure).
 
 Le calcul de $\beta~$ était proposé par l'article. Il s'agit de juger
-la distance d'un point de l'espace par rapport à chaque arête
-incidente à sa cage propre et à une autre cage. Pour éviter de
-calculer des distances euclidiennes, l'article propose de se baser sur
-la coordonnée calculée pour chaque point $p$ par rapport aux sommets
-de sa cage propre. Comme nous l'avons expliqué au début, la coordonnée
-d'un point $p$ par rapport à une cage est calculée comme étant une
-combinaison linéaire pondérée des positions des sommets de cette
-cage. De ce fait, on peut considérer la distance de $p$ à un sommet de
-la cage comme étant le poids qui a été associé à ce sommet lors du
-calcul de la coordonée. Et par extension, on peut considérer la
-distance de $p$ à une arête comme étant liée à la somme des poids
-associés aux sommets incidents de cette arête. Plus précisément, plus
-on est proche d'une arête, plus la somme des poids associés sommets
-incidents à cette arête va être proche de 1. A l'inverse, plus on est
-loin d'une arête, plus la somme des poids associés aux sommets de
-cette arête va être proche de 0. La distance à une arête correspond
-donc au complément à 1 de la somme des poids associés à chaque sommet
-des arêtes incidentes à plusieurs cages :
+la distance d'un point de l'espace par rapport à chaque arête à la
+fois incidente à sa cage propre et à une autre cage. Pour éviter de
+devoir calculer des distances euclidiennes, l'article propose de se
+baser sur la coordonnée calculée pour chaque point $p$ par rapport aux
+sommets de sa cage propre. Comme nous l'avons expliqué au début, la
+coordonnée d'un point $p$ par rapport à une cage est calculée comme
+étant une combinaison linéaire pondérée des positions des sommets de
+cette cage. De ce fait, on peut considérer la distance de $p$ à un
+sommet de la cage comme étant liée au poids qui a été associé à ce
+sommet lors du calcul de la coordonnée. Et par extension, on peut
+considérer la distance de $p$ à une arête comme étant liée à la somme
+des poids associés aux sommets incidents de cette arête. Plus
+précisément, plus on est proche d'une arête, plus la somme des poids
+associés aux sommets incidents à cette arête va être proche de 1. A
+l'inverse, plus on est loin d'une arête, plus la somme des poids
+associés aux sommets de cette arête va être proche de 0. La distance à
+une arête correspond donc au complément à 1 de la somme des poids
+associés à chaque sommet des arêtes incidentes à plusieurs cages :
 
 \begin{equation}
   d_e~ = (1 - \sum_{v \in e} \lambda_v)
 \end{equation}
 
 Où $e$ correspond à une arête, $v$ un sommet de $e$ et $\lambda_v$ le
-poids associé au sommet v. L'article considère $\beta~$ comme étant le
-produit de la distance de $p$ à chaque arête de la cage propre qui
+poids associé au sommet v. L'article calcule donc $\beta~$ comme étant
+le produit de la distance de $p$ à chaque arête de la cage propre qui
 sont aussi incidentes à d'autres cages :
 
 \begin{equation}
@@ -255,21 +262,20 @@ cage jointure composée de l'union des 4 cages. Afin que la cage
 jointure reste un polygone, $s$ ne doit pas être considéré comme un
 sommet de la cage jointure, car il fait partie de l'intérieur de
 celle-ci. L'équation \ref{MELgen} nous indique que les zones les plus
-proches des arêtes (i.e. là ou la valeur de $\beta~$ vaut 0), ne sont
-influencées que par la cage jointure. Et que, par conséquent, $s$ n'a
-aucune influence sur ces points. On peut voir sur la figure
-\ref{MELjoi} que les points les plus proches des arêtes incidentes à
-$s$ sont en bleu marine, ce qui signifie que $s$ n'a aucune influence
-(ou une influence très faible) sur les points les plus proches de sa
-position et une plus grande influence sur les points plus éloignés. Ce
-qui est un comportement complètement contre-intuitif et la déformation
+proches des arêtes ne sont influencées que par la cage jointure. Et
+que, par conséquent, $s$ n'a aucune influence sur ces points. On peut
+voir sur la figure \ref{MELjoi} que les points les plus proches des
+arêtes incidentes à $s$ sont en bleu marine, ce qui signifie que $s$
+n'a aucune influence (ou une influence très faible) sur ces points les
+et une plus grande influence sur les points plus éloignés. Ce qui est
+un comportement complètement contre-intuitif et la déformation
 engendrée n'est pas du tout celle attendue.
 
 \begin{figure}[h]
   \begin{center}
     \includegraphics[scale=0.35]{starCage-jointure}
     \includegraphics[scale=0.35]{starCage-jointure-deformation}
-    \caption{ A gauche la grille avant déformation et à droite la même
+    \caption{A gauche la grille avant déformation et à droite la même
       grille après déplacement de $s$. Les boules rouges représentent
       les sommets de la cage jointure et la boule bleue représente le
       sommet $s$. Les zones en bleu ne sont pas modifiées par la
@@ -290,8 +296,8 @@ l'utilisation d'une formulation simple permettant d'exprimer les
 coordonnées de chaque point de façon claire. De plus, cette méthode
 semble difficilement associable avec une méthode multidimensionnelle,
 car elle se base sur une fusion d'outils (l'union des cages de
-déformation), ce qui ne semble pas être une méthode directement
-applicable pour des outils de différentes dimensions.
+déformation), ce qui ne semble pas être directement applicable pour
+des outils de différentes dimensions.
 
 Nous pouvons néanmoins relever l'avancée qu'apporte cet article dans
 le domaine des déformations à base de cages. En effet, grâce au
@@ -315,7 +321,7 @@ coordonnées MVC sont définies non seulement à l'intérieur, mais aussi
 
 Pour vérifier la possibilité de réalisation d'une telle méthode, nous
 avons commencé par travailler sur un exemple simple, une cage unique
-déformant des points de l'espace à la fois à l'intérieur et à
+déformant les points de l'espace à la fois à l'intérieur et à
 l'extérieur grâce aux coordonnées MVC. Il s'agissait de voir le
 comportement de la déformation, afin de savoir s'il était possible de
 calculer des coordonnées à la fois à l'intérieur et à l'extérieur de
@@ -328,17 +334,17 @@ niveau des sommets du polygone de contrôle, où elles ne sont que $C^0$
 (Corr. 4.8, Prop. 3, \cite{HF06}). De plus, à l'extérieur de la cage,
 on peut constater que les coordonnées ne s'estompent pas. Ceci est dû
 à la partition de l'unité, qui est une propriété des coordonnées
-barycentriques généralisées. Il est induit par la normalisation des
-poids associés à chaque sommet (Equation \ref{MELnor}).
+barycentriques généralisées. Cette propriété est induite par la
+normalisation des poids associés à chaque sommet (Equation
+\ref{MELnor}).
 
 \begin{equation}
   \lambda_i(p) = \frac{w_i(p)}{\sum_{j=0}^n w_j(p)}
   \label{MELnor}
 \end{equation}
 
-Cette propriété définit que la somme des poids associés à chaque
-sommet de la cage, pour un point $p$ donné, doit valoir 1 (Equation
-\ref{MELsum}) :
+Cela définit que la somme des poids associés à chaque sommet de la
+cage, pour un point $p$ donné, doit valoir 1 (Equation \ref{MELsum}) :
 
 \begin{equation}
   \sum_{i=0}^n \lambda_i(p) = 1
@@ -354,7 +360,9 @@ calcul se fait par rapport au sommet voisins $v_{i-1}$ et $v_{i+1}$ :
   w_i(p) = \frac{tan(\alpha_{i-1}(p)/2) + tan(\alpha_{i}(p)/2)}{\|v_i - p\|}
 \end{equation}
 
-
+Où $w_i(p)$ représente le poids associé au sommet $v_i$ pour le point
+$p$ et $\alpha_i(p)$ l'angle en $p$ du triangle $[p,v_i,v_{i+1}]$
+(Figure \ref{MELmvc}).
 
 \begin{figure}[h]
   \begin{center}
@@ -392,22 +400,21 @@ calcul se fait par rapport au sommet voisins $v_{i-1}$ et $v_{i+1}$ :
         \rput(3.8434374,1.926875){\large $p$}
       \end{pspicture}
     }
+    \caption{Visualisation du calcul de la coordonnée du point $p$ par
+      rapport au sommet $v_i$}
     \label{MELmvc}
-    \caption{Visualisation du calcul de la coordonnée $w_i(p)$}
   \end{center}
 \end{figure}
 
-Où $w_i(p)$ représente le poids associé au sommet $v_i$ pour le point
-$p$ et $\alpha_i(p)$ l'angle en $p$ du triangle $[p,v_i,v_{i+1}]$
-(Figure \ref{MELmvc}). Les $w_i$ sont ensuite normalisés (Equation
-\ref{MELnor}), afin d'obtenir des poids contenus dans le domaine
-[0,1]. Le problème est lié à cette normalisation, car quand on éloigne
-un point $p$ de la cage, si les $w_i(p)$ tendent vers 0 quand la
-distance $\|v_i - p\|$ tend vers l'infini, leur somme aussi tend vers
-0. De ce fait, les points extrémement éloignés de la cage seront aussi
-fortement influencés par les déformations appliquées sur la cage. On
-voit donc la nécessité de définir des zones d'influence autour de
-chaque cage, afin de limiter leur champ d'action.
+Les $w_i$ sont ensuite normalisés (Equation \ref{MELnor}), afin
+d'obtenir des poids contenus dans le domaine [0,1]. Le problème est
+lié à cette normalisation, car quand on éloigne un point $p$ de la
+cage, si les $w_i(p)$ tendent vers 0 quand la distance $\|v_i - p\|$
+tend vers l'infini, leur somme aussi tend vers 0. De ce fait, les
+points extrémement éloignés de la cage seront aussi fortement
+influencés par les déformations appliquées sur la cage. On voit donc
+la nécessité de définir des zones d'influence autour de chaque cage,
+afin de limiter leur champ d'action.
 
 % ------------------------------------------------------------------------
 
