@@ -14,11 +14,16 @@ dimension, selon des critères de souplesse, facilité d'utilisation,
 efficacité (en complexité) et exactitude. Ce classement va nous
 permettre de choisir le meilleur outil associé à chaque dimension,
 afin d'obtenir à la fin une sélection de 4 outils de dimensions
-différentes sur lesquels nous allons nous baser pour réaliser les
+différentes sur laquelle nous allons nous baser pour réaliser les
 mélanges. L'ensemble des outils que nous considérons dans ce chapitre
 déforment l'espace $\mathbb{R}^3$.
 
 \section{Déformation à base de volumes}
+Les déformations à base de volumes sont définies à partir d'un
+treillis de points de contrôle. Ces points peuvent être considérées
+comme des poignées que l'on peut déplacer et qui vont modifier la
+position des points de l'espace.
+
 \begin{itemize}
 \item{\textbf{Déformation de forme libre de Bézier :}} \cite{SP86} a
   eu l'idée de lier la déformation d'un volume paramétrique (qu'on
@@ -49,16 +54,17 @@ déforment l'espace $\mathbb{R}^3$.
 \item{\textbf{Déformation de forme libre avec outil non cubique :}}
   Les déformations de forme libre ont une grosse limitation, celle de
   la forme de l'outil. En effet, comme les volumes de déformations
-  sont paramétrisés de façon linéaire, ils ont la forme d'un pavé. De
-  ce fait, il n'est pas possible de définir zones plus denses que
-  d'autres. \cite{Coq90} a donc proposé une version étendue des
+  sont paramétrisés de façon linéaire et qu'ils sont composés de cube,
+  la forme globale correspond à un pavé. De ce fait, il n'est pas
+  possible de donner la même forme à l'outil que celle de l'objet à
+  déformer. \cite{Coq90} a donc proposé une version étendue des
   déformations de forme libre, en laissant la possibilité lors de la
   création de l'outil de modifier la position de ses sommets avant de
   l'associer à l'outil. Ce qui a engendré des soucis au niveau du
   calcul des coordonnées des points de l'espace, qui ne résultaient
   plus d'une paramétrisation linéaire. De ce fait, le calcul des
   coordonnées est devenu beaucoup plus coûteux. \cite{BBT97} ont donc
-  proposé de considérer des volumes de Bézier tétraédriques et
+  proposé de considérer des volumes de Bézier tétraédriques tandis que
   \cite{MJ96} se sont plutôt intéressés aux volumes de subdivision de
   topologie quelconque.
 \end{itemize}
@@ -87,25 +93,26 @@ manière d'attacher les points de l'espace à une surface.
   points de l'espace, comme proposé par \cite{JL00}.
 \item{\textbf{Maillage triangulaire :}} Une autre idée est d'utiliser
   un maillage triangulaire simple pour appliquer des déformations aux
-  points de l'espace. \cite{KO03} a été le premier à utiliser ce genre
-  d'outil. Il définit que les triangles du maillage contribuent à
-  déformer une zone de l'espace proche en réalisant une moyenne
-  pondérée, et que chacun d'entre eux influent sur une zone sphérique
-  autour d'eux. L'avantage de cette technique est de permettre une
-  configuration assez générale des triangles (non nécessairement
-  connexes), à partir du moment où ceux-ci ne sont pas dégénérés
-  (triangle composé de 3 sommets distincts).
-\item{\textbf{Cage :}} La cage est outil surfacique le plus utilisé ces dernières
-  années en terme de déformation spatiale. Son utilisation est
-  notamment dûe aux travaux de \cite{JSW05} et de \cite{HF06} qui ont utilisé les
-  \textit{Mean Value Coordinates} définie par \cite{Flo03} et
-  \cite{FKR05} (lors de déformations dans $\mathbb{R}^3$). Un polyèdre
-  de contrôle (quelconque) est créé et permet de définir des
-  coordonnées paramétriques pour les points de l'espace par rapport
-  aux sommets de ce polyèdre. Pour calculer ces coordonnées, il existe
-  plusieurs méthodes, mais toutes dérivent des coordonnées
-  barycentriques généralisées. Ces dernières sont une extension des
-  coordonnés barycentriques afin de permettre de calculer des
+  points de l'espace. \cite{KO03} ont été les premiers à utiliser ce
+  genre d'outil. Ils définissent que les triangles du maillage
+  contribuent à déformer une zone de l'espace proche en réalisant une
+  moyenne pondérée, et que chacun d'entre eux influent sur une zone
+  sphérique autour d'eux. L'avantage de cette technique est de
+  permettre une configuration assez générale des triangles (non
+  nécessairement connexes), à partir du moment où ceux-ci ne sont pas
+  dégénérés (les triangles doivent être composés de 3 sommets
+  distincts).
+\item{\textbf{Cage :}} La cage est outil surfacique le plus utilisé
+  ces dernières années en terme de déformation spatiale. Son
+  utilisation est notamment dûe aux travaux de \cite{JSW05} et de
+  \cite{HF06} qui ont utilisé les \textit{Mean Value Coordinates}
+  définie par \cite{Flo03} et \cite{FKR05} (lors de déformations dans
+  $\mathbb{R}^3$). Un polyèdre de contrôle (quelconque) est créé et
+  permet de définir des coordonnées paramétriques pour les points de
+  l'espace par rapport aux sommets de ce polyèdre. Pour calculer ces
+  coordonnées, il existe plusieurs méthodes, mais toutes dérivent des
+  coordonnées barycentriques généralisées. Ces dernières sont une
+  extension des coordonnés barycentriques permettant de calculer des
   coordonnées non plus par rapport à un simplexe (tétraèdre en
   dimension 3), mais par rapport à n'importe quelle cellule (polyèdre
   quelconque en dimension 3). On définit la position d'un points $p$
@@ -114,8 +121,8 @@ manière d'attacher les points de l'espace à une surface.
   \begin{equation}
     p = \sum_{i=0}^n \lambda_iv_i
   \end{equation}
-  Où $lambda_i$ correspond au poids associé au sommet $v_i$ pour le point
-  $p$. Le calcul de ce poids est donné par \cite{FKR05}.
+  Où $\lambda_i$ correspond au poids associé au sommet $v_i$ pour le
+  point $p$. Le calcul de ce poids est donné par \cite{FKR05}.
 \end{itemize}
 
 \section{Déformation à base de courbes}
@@ -125,15 +132,15 @@ manière d'attacher les points de l'espace à une surface.
   qu'on peut assimiler à une déformation de forme libre restreinte. On
   peut considérer l'algorithme de De Casteljau comme une déformation
   des points du segment $[0,1]$ en points d'une courbe de
-  Bézier. C'est de ce constat que s'est inspiré \cite{CR94}, en
+  Bézier. C'est de ce constat que se sont inspirés \cite{CR94}, en
   considérant cette fois-ci le cube $[0,1]^3$. Plus de détails sur
   cette technique sont donnés par \cite{BE01}.
 \end{itemize}
 
 \section{Déformation à base de points}
 \begin{itemize}
-\item{\textbf{DOGME :}} \cite{BB91} ont introduit une méthode basée sur
-  les contraintes appelée DOGME (Deformation Of Geometric Model
+\item{\textbf{DOGME :}} \cite{BB91} ont introduit une méthode basée
+  sur les contraintes appelée DOGME (Deformation Of Geometric Model
   Editor) afin de remplacer l'interface non-intuitive des treillis
   utilisés dans les déformations à base de volumes par une
   manipulation directe des points de l'espace. L'idée est de laisser
@@ -147,7 +154,7 @@ manière d'attacher les points de l'espace à une surface.
   l'espace et permettent d'approximer au mieux la nouvelle position
   des points. Si un point de l'espace est sous l'influence de
   plusieurs contraintes, alors sa nouvelle position correspond à une
-  pondération de ces contraintes.
+  pondération de celles-ci.
 \item{\textbf{Déformation de forme libre par manipulation directe:}}
   Les déformations de forme libre se basent sur la modification de
   sommets appartenant à un treillis pour déformer les points de
@@ -157,29 +164,30 @@ manière d'attacher les points de l'espace à une surface.
 \item{\textbf{Déformation de forme libre de Dirichlet :}} Cette
   technique proposée par \cite{MT97} s'occupe de définir
   automatiquement les zones d'influence des contraintes à partir d'un
-  ensemble de contraintes, sans intervention utilisateur. Cette
-  technique est à mi-chemin entre une déformation à base de points et
-  à base de volumes, car si l'utilisateur interagit avec des points,
-  la structure interne est constituée d'un groupe de volumes de Bézier
+  ensemble de contraintes, sans intervention utilisateur. Elle se
+  trouve à mi-chemin entre une déformation à base de points et à base
+  de volumes, car si l'utilisateur interagit avec des points, la
+  structure interne est constituée d'un groupe de volumes de Bézier
   (déterminés par une tétraédrisation de Delaunay), et des coordonnées
   paramétriques sont associées aux points de l'espace, par rapport à
   ces volumes.
 \item{\textbf{Déformation radiale simple :}} Dans cette méthode, les
   déformations sont déterminées par un certain nombre de contraintes,
-  chacune définie par un rayon d'influe $r_i$ centré sur un point de
-  contrainte $C_i$ associé à un déplacement $\Delta C_i$. On définit
-  une paramétrisation des points de l'espace uniquement par leur
-  distance aux points de contraintes. De ce fait, les déformations se
-  répandent de façon uniforme dans toutes les directions. Il est
-  important de noter que ce modèle est juste une restriction des
-  possibilités de déformation proposées par DOGME, en considérant le
-  cas le plus simple avec des zones d'influence sphériques autour des
-  contraintes.
+  chacune définie par un rayon $r_i$ (permettant de faire varier la
+  zone d'influence) centré sur un point de contrainte $C_i$ associé à
+  un déplacement $\Delta C_i$. On définit une paramétrisation des
+  points de l'espace uniquement par leur distance aux points de
+  contraintes. De ce fait, les déformations se répandent de façon
+  uniforme dans toutes les directions. Il est important de noter que
+  ce modèle est juste une restriction des possibilités de déformation
+  proposées par DOGME, en considérant le cas le plus simple avec des
+  zones d'influence sphériques autour des contraintes.
 \end{itemize}
 
 % ------------------------------------------------------------------------
 
 %%% Local Variables: 
 %%% mode: latex
+%%% LaTeX-command: "latex -shell-escape"
 %%% TeX-master: "../thesis"
 %%% End: 
