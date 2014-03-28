@@ -9,11 +9,16 @@
 \documentclass[xcolor=x11names,compress]{beamer}
 
 %% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{graphicx} \usepackage{tikz}
+\usepackage{graphicx} \usepackage{tikz} \usetikzlibrary{snakes}
 \usetikzlibrary{decorations.fractals}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[frenchb]{babel} \usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel} 
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{lastpage}
+
 %% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \useoutertheme[subsection=false,shadow]{miniframes}
 \useinnertheme{default} \usefonttheme{serif} \usepackage{palatino}
@@ -38,7 +43,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\author{Arnaud Bletterer - Université de Strasbourg}
+\author{Arnaud Bletterer - UDS} \title{Outils multidimensionnels de
+  déformation}
 
 \newcommand\mytext{Outils multidimensionnels de déformation}
 
@@ -48,13 +54,18 @@
   \end{beamercolorbox}%
 
 
+
+
+
+
   \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}%
-      \mytext
+      \inserttitle
+      
     \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm
-      plus1fil]{footlinecolor}%
-      \usebeamerfont{author in
-        head/foot}\insertauthor\hfill\insertpagenumber
+
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}%
+      \usebeamerfont{author in head/foot}\insertauthor\hfill 
+      \insertpagenumber /\pageref{LastPage}
     \end{beamercolorbox}}%
   \vskip0pt%
 } \makeatletter
@@ -91,15 +102,15 @@
 \section{\scshape Etat de l'art}
 \subsection{frame}
 \begin{frame}{frame}
-\begin{itemize}
-\item Item A
-\item Item B
-\begin{itemize}
-\item Subitem 1
-\item Subtem 2
-\end{itemize}
-\item Item C
-\end{itemize}
+  \begin{itemize}
+  \item Item A
+  \item Item B
+    \begin{itemize}
+    \item Subitem 1
+    \item Subtem 2
+    \end{itemize}
+  \item Item C
+  \end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
