@@ -8,7 +8,7 @@
 
 \graphicspath{{Chapter1/Chapter1Figs/PNG/}{Chapter1/Chapter1Figs/PDF/}{Chapter1/Chapter1Figs/}}
 
-Ce chapitre réalise un état de l'art des différentes déformations
+Ce chapitre propose un état de l'art sur les différentes déformations
 spatiales, d'après \cite{GB08}, tout en les comparant, dans chaque
 dimension, selon des critères de souplesse, facilité d'utilisation,
 efficacité (en complexité) et exactitude. Ce classement va nous
@@ -25,22 +25,22 @@ comme des poignées que l'on peut déplacer et qui vont modifier la
 position des points de l'espace.
 
 \begin{itemize}
-\item{\textbf{Déformation de forme libre de Bézier :}} \cite{SP86} a
+\item{\textbf{Déformation de forme libre de Bézier :}} \cite{SP86} ont
   eu l'idée de lier la déformation d'un volume paramétrique (qu'on
   appelle \textit{outil}) à l'espace contenu à l'intérieur de ce
   volume. Mathématiquement, il s'agit d'une extension directe des
-  courbes de Bézier au cas 3D. \cite{SP86} a utilisé les polynômes de
+  courbes de Bézier au cas 3D. Ils ont utilisé les polynômes de
   Bernstein pour définir le volume. Les points $X$ de l'espace sont
-  donc définis comme une somme de points $P$ de contrôle,
-  coefficientés par des fonctions de base polynomiale,
-  $\mathcal{N}_r^s$, d'index $r$ et de degré $s$ :
+  donc définis comme une somme de points $P$ de contrôle, pondérés par
+  des fonctions de base polynomiale, $\mathcal{N}_r^s$, d'index $r$ et
+  de degré $s$ :
   \begin{equation}
     \mathcal{H}(U) = \mathcal{H}(u,v,w) = 
     \sum_{i=0}^l \sum_{j=0}^m \sum_{k=0}^n
     \mathcal{N}_i^l(u) \cdot \mathcal{N}_j^m(v) \cdot \mathcal{N}_k^n(w) \cdot P_{i,j,k} = X
   \end{equation}
-  Où $u,v,w \in [0,1]$ sont les coordonnées paramétriques d'un point à
-  l'intérieur du volume.
+  où $u,v,w \in [0,1]$ sont les coordonnées paramétriques d'un point
+  $X$ à l'intérieur du volume.
 \item{\textbf{Déformation de forme libre avec contrôle local :}} Les
   volumes paramétriques souffrent des mêmes problèmes que leurs
   homologues de dimensions inférieures, à savoir le manque de contrôle
@@ -106,7 +106,7 @@ manière d'attacher les points de l'espace à une surface.
   ces dernières années en terme de déformation spatiale. Son
   utilisation est notamment dûe aux travaux de \cite{JSW05} et de
   \cite{HF06} qui ont utilisé les \textit{Mean Value Coordinates}
-  définie par \cite{Flo03} et \cite{FKR05} (lors de déformations dans
+  définies par \cite{Flo03} et \cite{FKR05} (lors de déformations dans
   $\mathbb{R}^3$). Un polyèdre de contrôle (quelconque) est créé et
   permet de définir des coordonnées paramétriques pour les points de
   l'espace par rapport aux sommets de ce polyèdre. Pour calculer ces

@@ -45,7 +45,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[usenames, dvipsnames]{color}
 \usepackage[perpage]{footmisc}
-\usepackage[square, numbers]{natbib}
+\usepackage[square, numbers, authoryear]{natbib}
 \usepackage{ifthen}
 \usepackage{ifpdf}
 
