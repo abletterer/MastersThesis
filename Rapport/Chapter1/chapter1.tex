@@ -44,29 +44,30 @@ position des points de l'espace.
 \item{\textbf{Déformation de forme libre avec contrôle local :}} Les
   volumes paramétriques souffrent des mêmes problèmes que leurs
   homologues de dimensions inférieures, à savoir le manque de contrôle
-  local. Pour corriger le problème, une solution naïve est de rajouter
-  des points de contrôle, afin de limiter l'impact de chacun sur
-  l'espace à déformer. Mais cette technique augmente le degré du
-  volume paramétrique, et de ce fait son coût en temps de calcul. Une
-  autre solution est d'utiliser des fonctions définies par
+  local. Pour corriger le problème, une solution naïve consiste à
+  rajouter des points de contrôle, afin de limiter l'impact de chacun
+  d'entre eux sur l'espace à déformer. Mais cette technique augmente
+  le degré du volume paramétrique et ainsi son coût en temps de
+  calcul. Une autre solution est d'utiliser des fonctions définies par
   morceaux. \cite{GP89} et \cite{Com89} ont choisi de travailler avec
   des B-splines, car elles sont définies par morceaux naturellement.
 \item{\textbf{Déformation de forme libre avec outil non cubique :}}
   Les déformations de forme libre ont une grosse limitation, celle de
   la forme de l'outil. En effet, comme les volumes de déformations
-  sont paramétrisés de façon linéaire et qu'ils sont composés de cube,
-  la forme globale correspond à un pavé. De ce fait, il n'est pas
-  possible de donner la même forme à l'outil que celle de l'objet à
-  déformer. \cite{Coq90} a donc proposé une version étendue des
-  déformations de forme libre, en laissant la possibilité lors de la
-  création de l'outil de modifier la position de ses sommets avant de
-  l'associer à l'outil. Ce qui a engendré des soucis au niveau du
-  calcul des coordonnées des points de l'espace, qui ne résultaient
-  plus d'une paramétrisation linéaire. De ce fait, le calcul des
-  coordonnées est devenu beaucoup plus coûteux. \cite{BBT97} ont donc
-  proposé de considérer des volumes de Bézier tétraédriques tandis que
-  \cite{MJ96} se sont plutôt intéressés aux volumes de subdivision de
-  topologie quelconque.
+  sont paramétrisés de façon linéaire et qu'ils sont composés de
+  cubes, la forme globale correspond à un pavé. Par conséquent, il
+  n'est pas possible de donner la même forme à l'outil que celle de
+  l'objet à déformer sans diminuer la taille de chaque cube et en
+  augmentant leur nombre. \cite{Coq90} a donc proposé une version
+  étendue des déformations de forme libre, en laissant la possibilité
+  lors de la création de l'outil de modifier la position de ses
+  sommets avant de l'associer à l'outil. Ce qui a engendré des soucis
+  au niveau du calcul des coordonnées des points de l'espace, qui ne
+  résultaient plus d'une paramétrisation linéaire. Le calcul des
+  coordonnées est donc devenu beaucoup plus coûteux. \cite{BBT97} ont
+  donc proposé de considérer des volumes de Bézier tétraédriques
+  tandis que \cite{MJ96} se sont plutôt intéressés aux volumes de
+  subdivision de topologie quelconque.
 \end{itemize}
 
 \section{Déformation à base de surfaces}
@@ -78,19 +79,54 @@ manière d'attacher les points de l'espace à une surface.
   premiers à proposer une solution, celle d'utiliser un carreau
   B-spline sur lequel sont projetés les points de l'espace, le long de
   la normale au plan du carreau, dans l'espace paramétrique du
-  carreau. Ainsi pour déformer l'espace, l'utilisateur n'a plus qu'à
-  déformer les points de contrôle du carreau. Les points de l'espace
-  sont repositionnés grâce à leurs coordonnées paramétriques
-  (précédemment calculées) et "reprojetés" le long de la normale au
-  carreau déformé.
+  carreau. Ainsi pour déformer l'espace, l'utilisateur déplace les
+  différents points de contrôle. Les points de l'espace sont
+  repositionnés grâce à leurs coordonnées paramétriques (précédemment
+  calculées) et "reprojetés" le long de la normale au carreau déformé.
 \item{\textbf{Surface étoilée :}} Un polyèdre de forme étoilée est un
   polyèdre contenant, en son intérieur, une région dite "étoilée". On
   définit une région étoilée d'un polyèdre comme étant une région
   depuis laquelle un rayon émis dans n'importe qu'elle direction
-  n'intersecte le bord du polyèdre qu'une seule fois. Cette propriété
-  est utile dans le domaine de la déformation car elle permet
-  d'obtenir une unique paramétrisation en coordonnées polaires des
-  points de l'espace, comme proposé par \cite{JL00}.
+  n'intersecte le bord du polyèdre qu'une seule fois (Figure
+  \ref{SUReto}). Cette propriété est utile dans le domaine de la
+  déformation car elle permet d'obtenir une unique paramétrisation en
+  coordonnées polaires des points de l'espace, comme proposé par
+  \cite{JL00}.
+
+  \begin{figure}[h]
+    \begin{center}
+      \scalebox{0.5} % Change this value to rescale the drawing.
+      {
+        \begin{pspicture}(0,-5.227397)(8.74465,5.227397)
+          \definecolor{color23b}{rgb}{0.7176470588235294,0.0,0.12549019607843137}
+          \definecolor{color23}{rgb}{0.7176470588235294,0.0,0.13333333333333333}
+          \definecolor{color13}{rgb}{0.00392156862745098,0.00392156862745098,0.00392156862745098}
+          \psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm
+          0.16cm](0.8075776,3.7196715)(3.7675776,-3.0003273)
+          \psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm
+          0.16cm](8.687577,0.6796716)(0.6875776,-3.2003274)
+          \psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm
+          0.16cm](0.8075776,3.7596717)(5.9275775,3.2396717)
+          \psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm
+          0.16cm](8.667578,0.6996716)(3.7475777,3.9196715)
+          \psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm
+          0.16cm](0.0275776,-1.1003284)(6.4075775,2.3196716)
+          \psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm
+          0.16cm](1.6875776,1.6796716)(1.9275776,-3.0403273)
+          \psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm
+          0.16cm](5.587578,5.159672)(7.0668874,0.378305)
+          \psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm
+          0.16cm](4.0616465,-5.0348096)(6.387474,2.6586375)
+          \pspolygon[linewidth=0.1,linecolor=color23,fillstyle=solid,fillcolor=color23b](2.3875775,0.1596716)(6.2477846,2.2099302)(5.2966785,-0.9603284)(3.2970715,-1.9403284)(2.3875775,0.1596716)
+          \pspolygon[linewidth=0.1,linecolor=color13](0.8160028,3.7282884)(2.6309054,3.5735292)(5.571329,5.177397)(6.528022,2.1103518)(8.69465,0.6612438)(5.304018,-0.9707618)(4.023738,-5.177397)(0.0,-4.9944997)(0.028138,-1.125521)(1.7726955,-0.196966)(1.6882817,1.6601434)(0.8160028,3.7282884)
+        \end{pspicture}
+      }
+      \caption{En rouge la région étoilée d'un polygone représenté par
+        son bord, en noir (en 2D).}
+      \label{SUReto}
+    \end{center}
+  \end{figure}
+
 \item{\textbf{Maillage triangulaire :}} Une autre idée est d'utiliser
   un maillage triangulaire simple pour appliquer des déformations aux
   points de l'espace. \cite{KO03} ont été les premiers à utiliser ce
@@ -102,7 +138,7 @@ manière d'attacher les points de l'espace à une surface.
   nécessairement connexes), à partir du moment où ceux-ci ne sont pas
   dégénérés (les triangles doivent être composés de 3 sommets
   distincts).
-\item{\textbf{Cage :}} La cage est outil surfacique le plus utilisé
+\item{\textbf{Cage :}} La cage est l'outil surfacique le plus utilisé
   ces dernières années en terme de déformation spatiale. Son
   utilisation est notamment dûe aux travaux de \cite{JSW05} et de
   \cite{HF06} qui ont utilisé les \textit{Mean Value Coordinates}
@@ -110,19 +146,40 @@ manière d'attacher les points de l'espace à une surface.
   $\mathbb{R}^3$). Un polyèdre de contrôle (quelconque) est créé et
   permet de définir des coordonnées paramétriques pour les points de
   l'espace par rapport aux sommets de ce polyèdre. Pour calculer ces
-  coordonnées, il existe plusieurs méthodes, mais toutes dérivent des
-  coordonnées barycentriques généralisées. Ces dernières sont une
-  extension des coordonnés barycentriques permettant de calculer des
-  coordonnées non plus par rapport à un simplexe (tétraèdre en
-  dimension 3), mais par rapport à n'importe quelle cellule (polyèdre
-  quelconque en dimension 3). On définit la position d'un points $p$
-  de l'espace comme étant une combinaison linéaire des positions des
-  sommets $v_i$ du polyèdre de contrôle.
+  coordonnées, il existe plusieurs méthodes, mais toutes sont tirées
+  des coordonnées barycentriques généralisées (Figure
+  \ref{SURcoo}). Ces dernières sont une extension des coordonnés
+  barycentriques permettant de calculer des coordonnées non plus par
+  rapport à un simplexe (tétraèdre en dimension 3), mais par rapport à
+  n'importe quelle cellule (polyèdre quelconque en dimension 3). On
+  définit la position d'un points $p$ de l'espace comme étant une
+  combinaison linéaire des positions des sommets $v_i$ du polyèdre de
+  contrôle.
   \begin{equation}
     p = \sum_{i=0}^n \lambda_iv_i
   \end{equation}
   Où $\lambda_i$ correspond au poids associé au sommet $v_i$ pour le
   point $p$. Le calcul de ce poids est donné par \cite{FKR05}.
+
+  \begin{figure}[h]
+    \begin{center}
+      \begin{tabular}{|l|c|c|c|}
+        \hline
+        Coordonnées & MVC & Green & Harmoniques \\
+        \hline
+        Références & & & \\
+        \hline
+        Domaine & & & \\
+        \hline
+        Continuité & & & \\
+        \hline
+      \end{tabular}
+      \caption{Comparaison des principales méthodes de calcul des
+        coordonnées}
+      \label{SURcoo}
+    \end{center}
+  \end{figure}
+
 \end{itemize}
 
 \section{Déformation à base de courbes}
@@ -143,18 +200,18 @@ manière d'attacher les points de l'espace à une surface.
   sur les contraintes appelée DOGME (Deformation Of Geometric Model
   Editor) afin de remplacer l'interface non-intuitive des treillis
   utilisés dans les déformations à base de volumes par une
-  manipulation directe des points de l'espace. L'idée est de laisser
-  un utilisateur déplacer un point de l'espace et replacer le
-  voisinage de ce point de façon lisse. On peut comparer cette
-  déformation au fait de pincer un objet et d'étirer cette
-  partie. Pour replacer le voisinage d'un point de l'espace, la
-  méthode se base sur le déplacement de points qu'on appelle
-  "contraintes". Des contraintes, dont la portée de chacune est
-  définie par une zone d'influence, sont associées à chaque point de
-  l'espace et permettent d'approximer au mieux la nouvelle position
-  des points. Si un point de l'espace est sous l'influence de
-  plusieurs contraintes, alors sa nouvelle position correspond à une
-  pondération de celles-ci.
+  manipulation directe des points de l'espace. L'idée est de permettre
+  à un utilisateur de déplacer un point de l'espace et de déformer son
+  voisinage géométrique en conséquence de façon lisse. On peut
+  comparer cette déformation au fait de pincer un objet pour étirer la
+  zone avoisinant la partie pincée. Pour replacer le voisinage d'un
+  point de l'espace, la méthode se base sur le déplacement de points
+  qu'on appelle "contraintes". Des contraintes, dont la portée de
+  chacune est définie par une zone d'influence, sont associées à
+  chaque point de l'espace et permettent d'approcher au mieux la
+  nouvelle position des points. Si un point de l'espace est sous
+  l'influence de plusieurs contraintes, alors sa nouvelle position
+  correspond à une pondération de celles-ci.
 \item{\textbf{Déformation de forme libre par manipulation directe:}}
   Les déformations de forme libre se basent sur la modification de
   sommets appartenant à un treillis pour déformer les points de
@@ -176,13 +233,30 @@ manière d'attacher les points de l'espace à une surface.
   chacune définie par un rayon $r_i$ (permettant de faire varier la
   zone d'influence) centré sur un point de contrainte $C_i$ associé à
   un déplacement $\Delta C_i$. On définit une paramétrisation des
-  points de l'espace uniquement par leur distance aux points de
+  points de l'espace uniquement par la distance de chacun aux points de
   contraintes. De ce fait, les déformations se répandent de façon
   uniforme dans toutes les directions. Il est important de noter que
   ce modèle est juste une restriction des possibilités de déformation
   proposées par DOGME, en considérant le cas le plus simple avec des
   zones d'influence sphériques autour des contraintes.
 \end{itemize}
+
+\begin{figure}[h]
+  \begin{center}
+    \begin{tabular}{|l|c|c|c|}
+      \hline
+      Coordonnées & MVC & Green & Harmoniques \\
+      \hline
+      Références & & & \\
+      \hline
+      Domaine & & & \\
+      \hline
+      Continuité & & & \\
+      \hline
+    \end{tabular}
+    \caption{Comparaison des différents outils existants d'après \cite{GB08}}
+  \end{center}
+\end{figure}
 
 % ------------------------------------------------------------------------
 
