@@ -9,8 +9,7 @@
 \documentclass[xcolor=x11names,compress]{beamer}
 
 %% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{graphicx} \usepackage{tikz} \usetikzlibrary{snakes}
-\usetikzlibrary{decorations.fractals}
+\usepackage{graphicx}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[frenchb]{babel} 
@@ -18,6 +17,12 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage{lastpage}
+
+\usepackage[numbers]{natbib}
+\newcommand{\newblock}{}
+
+\usepackage{caption}
+\captionsetup{figurename=}
 
 %% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \useoutertheme[subsection=false,shadow]{miniframes}
@@ -53,14 +58,8 @@
   \begin{beamercolorbox}[wd=\paperwidth,ht=1ex,dp=0ex,center]{footlinerule}
   \end{beamercolorbox}%
 
-
-
-
-
-
   \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}%
       \inserttitle
-      
     \end{beamercolorbox}%
 
     \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}%
@@ -72,6 +71,7 @@
 
 \begin{document}
 
+\graphicspath{{PresentationFigs/}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,9 +79,11 @@
 \begin{frame}
   \title{Outils multidimensionnels de déformation\\~\\
 
-    \begin{figure}[h]
-      \includegraphics[scale=0.3]{UDS-logo.pdf}~~~~~
-      \includegraphics[scale=0.26]{icube-logo.jpg}
+    \begin{figure}
+      \begin{center}
+      \includegraphics[scale=0.3]{uds-logo.pdf}~~~~~~~~~
+      \includegraphics[scale=0.15]{icube-logo.jpg}
+      \end{center}
     \end{figure}
   } \date{\vspace{0.5cm} \today }
 
@@ -93,15 +95,22 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Introduction}
+\begin{frame}{Sommaire}
   \tableofcontents
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Etat de l'art}
-\subsection{frame}
-\begin{frame}{frame}
+\subsection{Introduction}
+\begin{frame}{}
+  \begin{figure}[h]
+    \begin{center}
+      \includegraphics[scale=0.2]{alligator-avant.png}
+      \includegraphics[scale=0.2]{alligator-apres.png}
+    \end{center}
+\caption{Image de \citet{JBPS11}}
+  \end{figure}
   \begin{itemize}
   \item Item A
   \item Item B
@@ -113,32 +122,10 @@
   \end{itemize}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{frame}
-\begin{frame}{frame 2}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{frame}
-\begin{frame}{frame 3}
-
-\end{frame}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Méthode implémentée}
-\subsection{frame}
-\begin{frame}{frame}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{frame}
 \begin{frame}{frame}
 
@@ -151,22 +138,12 @@
 
 \end{frame}
 
-\begin{frame}
-  \frametitle{Références} \footnotesize{
-    \begin{thebibliography}{99} % Bibliography
+\begin{frame}{References}
 
-    \bibitem{AutomaticGeneration}[Chuhua X., Hongwei L., Shuming G.]
-      \newblock \textit{Automatic Generation of Coarse Bounding Cages
-        from Dense Meshes} \newblock \textit{IEEE International on
-        Shape Modeling and Applications, p.21-27, 2009}.
+\bibliographystyle{plainnat}
 
-    \bibitem{CageHierarchique}[Hurstel A.]  \newblock
-      \textit{Déformation par cages hiérarchiques} \newblock
-      \textit{Mémoire de Master Informatique, Université de
-        Strasbourg, 2012}
+\bibliography{../Rapport/References/references.bib}
 
-\end{thebibliography}
-}
 \end{frame}
 
 \end{document}
