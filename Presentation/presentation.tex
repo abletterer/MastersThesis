@@ -12,17 +12,18 @@
 \usepackage{graphicx}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[frenchb]{babel} 
+\usepackage[frenchb]{babel}
 
 \usepackage[utf8]{inputenc}
 
 \usepackage{lastpage}
 
-\usepackage[numbers]{natbib}
-\newcommand{\newblock}{}
+\usepackage[numbers]{natbib} \newcommand{\newblock}{}
 
 \usepackage{caption}
 \captionsetup{figurename=}
+
+\usepackage{pgffor}
 
 %% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \useoutertheme[subsection=false,shadow]{miniframes}
@@ -53,25 +54,37 @@
 
 \newcommand\mytext{Outils multidimensionnels de déformation}
 
+\graphicspath{{PresentationFigs/}}
+
 \makeatother \setbeamertemplate{footline} {%
   \leavevmode
   \begin{beamercolorbox}[wd=\paperwidth,ht=1ex,dp=0ex,center]{footlinerule}
   \end{beamercolorbox}%
+
+  \hbox{\begin{beamercolorbox}[wd=1\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}%
+      \count1 = \inserttotalframenumber
+      \count3 = \paperwidth
+      \divide\count3 by \count1
+
+      \foreach \n in
+      {\insertpagenumber,...,\count1}{\hskip \count1 px}
+      \includegraphics[scale=0.05, viewport=0 65 0 0]{alligator-ouvert}
+   
+    \end{beamercolorbox}
+  }
 
   \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}%
       \inserttitle
     \end{beamercolorbox}%
 
     \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}%
-      \usebeamerfont{author in head/foot}\insertauthor\hfill 
-      \insertpagenumber /\pageref{LastPage}
+      \usebeamerfont{author in head/foot}\insertauthor\hfill
+      \insertpagenumber /\inserttotalframenumber
     \end{beamercolorbox}}%
   \vskip0pt%
 } \makeatletter
 
 \begin{document}
-
-\graphicspath{{PresentationFigs/}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -81,8 +94,8 @@
 
     \begin{figure}
       \begin{center}
-      \includegraphics[scale=0.3]{uds-logo.pdf}~~~~~~~~~
-      \includegraphics[scale=0.15]{icube-logo.jpg}
+      \includegraphics[scale=0.3]{uds-logo}~~~~~~~~~
+      \includegraphics[scale=0.15]{icube-logo}
       \end{center}
     \end{figure}
   } \date{\vspace{0.5cm} \today }
@@ -140,10 +153,9 @@
 
 \begin{frame}{References}
 
-\bibliographystyle{plainnat}
-
 \bibliography{../Rapport/References/references.bib}
 
 \end{frame}
+
 
 \end{document}
