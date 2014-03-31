@@ -160,26 +160,6 @@ manière d'attacher les points de l'espace à une surface.
   \end{equation}
   Où $\lambda_i$ correspond au poids associé au sommet $v_i$ pour le
   point $p$. Le calcul de ce poids est donné par \cite{FKR05}.
-
-  \begin{figure}[h]
-    \begin{center}
-      \begin{tabular}{|l|c|c|c|}
-        \hline
-        Coordonnées & MVC & Green & Harmoniques \\
-        \hline
-        Références & & & \\
-        \hline
-        Domaine & & & \\
-        \hline
-        Continuité & & & \\
-        \hline
-      \end{tabular}
-      \caption{Comparaison des principales méthodes de calcul des
-        coordonnées}
-      \label{SURcoo}
-    \end{center}
-  \end{figure}
-
 \end{itemize}
 
 \section{Déformation à base de courbes}
@@ -191,7 +171,8 @@ manière d'attacher les points de l'espace à une surface.
   des points du segment $[0,1]$ en points d'une courbe de
   Bézier. C'est de ce constat que se sont inspirés \cite{CR94}, en
   considérant cette fois-ci le cube $[0,1]^3$. Plus de détails sur
-  cette technique sont donnés par \cite{BE01}.
+  cette technique sont donnés par \cite{BE01}. Cette technique peut se
+  généraliser au cas des surfaces et volumes.
 \end{itemize}
 
 \section{Déformation à base de points}
@@ -233,8 +214,8 @@ manière d'attacher les points de l'espace à une surface.
   chacune définie par un rayon $r_i$ (permettant de faire varier la
   zone d'influence) centré sur un point de contrainte $C_i$ associé à
   un déplacement $\Delta C_i$. On définit une paramétrisation des
-  points de l'espace uniquement par la distance de chacun aux points de
-  contraintes. De ce fait, les déformations se répandent de façon
+  points de l'espace uniquement par la distance de chacun aux points
+  de contraintes. De ce fait, les déformations se répandent de façon
   uniforme dans toutes les directions. Il est important de noter que
   ce modèle est juste une restriction des possibilités de déformation
   proposées par DOGME, en considérant le cas le plus simple avec des
@@ -245,16 +226,38 @@ manière d'attacher les points de l'espace à une surface.
   \begin{center}
     \begin{tabular}{|l|c|c|c|}
       \hline
-      Coordonnées & MVC & Green & Harmoniques \\
+      \textbf{Outil} & \textbf{Type d'outil} & \textbf{Déformation} & \textbf{Forme du bord} \\
       \hline
-      Références & & & \\
       \hline
-      Domaine & & & \\
+      Bézier & V & Globale & Cubique\\
       \hline
-      Continuité & & & \\
+      Contrôle local & V & Locale & Cubique\\
+      \hline
+      Outil non-cubique & V & Locale & Libre\\
+      \hline
+      \hline
+      Carreau paramétrique & S & Globale & Rectangulaire\\
+      \hline
+      Surface étoilée & S & Globale & /\\
+      \hline
+      Maillage triangulaire & S & Locale & Union de sphères\\
+      \hline
+      Cage & S & Globale & Libre\\
+      \hline
+      \hline
+      De Casteljau généralisée & C/S/V & Globale & Limitée sur certains axes\\
+      \hline
+      DOGME & P/C & Locale & Cubique\\
+      \hline
+      Manipulation directe & P/C & Locale & Cubique\\
+      \hline
+      Dirichlet & P & Locale & Sphérique\\
+      \hline
+      Radiale simple & P/C & Locale & Polyèdre convexe\\
       \hline
     \end{tabular}
-    \caption{Comparaison des différents outils existants d'après \cite{GB08}}
+    \caption{Comparaison des différents outils existants (d'après
+      \cite{GB08})}
   \end{center}
 \end{figure}
 
