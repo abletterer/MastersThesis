@@ -36,7 +36,11 @@
 \setbeamerfont{frametitle}{shape=\scshape}
 \setbeamerfont{footline}{shape=\scshape}
 
-\setbeamercolor*{lower separation line head}{bg=DeepSkyBlue4}
+\definecolor{MRed}{HTML}{8B0000}
+\definecolor{MGreen}{HTML}{008B00}
+\definecolor{MBlue}{HTML}{00688B}
+
+\setbeamercolor*{lower separation line head}{bg=MBlue}
 \setbeamercolor*{normal text}{fg=black,bg=white}
 \setbeamercolor*{alerted text}{fg=red} \setbeamercolor*{example
   text}{fg=black} \setbeamercolor*{structure}{fg=black}
@@ -44,20 +48,32 @@
 \setbeamercolor*{palette tertiary}{fg=black,bg=black!10}
 \setbeamercolor*{palette quaternary}{fg=black,bg=black!10}
 
-\setbeamercolor{footlinerule}{bg=DeepSkyBlue4}
+\setbeamercolor{footlinerule}{bg=MBlue}
 \setbeamercolor*{footlinecolor}{bg=black!10}
+
+\setbeamercolor{block title}{use=structure,fg=white,bg=MBlue!75!black}
+\setbeamercolor{block body}{use=structure,fg=black,bg=MBlue!20!white}
+
+\setbeamercolor{block title example}{use=structure,fg=white,bg=MGreen!75!black}
+\setbeamercolor{block body example}{use=structure,fg=black,bg=MGreen!20!white}
+
+\setbeamercolor{block title alert}{use=structure,fg=white,bg=MRed!75!black}
+\setbeamercolor{block body alert}{use=structure,fg=black,bg=MRed!20!white}
 
 \renewcommand{\(}{\begin{columns}} \renewcommand{\)}{\end{columns}}
 \newcommand{\<}[1]{\begin{column}{#1}} \renewcommand{\>}{\end{column}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\author{Arnaud Bletterer - UDS} \title{Outils multidimensionnels de
+\author{Arnaud Bletterer} \title{Outils multidimensionnels de
   déformation}
 
 \newcommand\mytext{Outils multidimensionnels de déformation}
 
 \graphicspath{{PresentationFigs/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \makeatother \setbeamertemplate{footline} {%
   \leavevmode
@@ -84,6 +100,9 @@
     \end{beamercolorbox}}%
   \vskip0pt%
 } \makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
@@ -124,30 +143,37 @@
     \item Comportements différents
     \end{itemize}
   \end{itemize}
-  ... de manière automatique ...
+  De manière automatique
   \begin{itemize}
   \item Identifier les parties d'un objet
   \end{itemize}
-  ... et paramétrable.
+  Et paramétrable
   \begin{itemize}
   \item
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Création d'un outil multidimensionnel}
-  Mélanger les sous-outils
-  \begin{itemize}
-  \item Déformation continue ($C^1$ au moins)
-  \item Limiter les zones d'influence
-  \item Moyen de communication
-  \end{itemize}
-  \begin{figure}[h]
-    \begin{center}
-      \includegraphics[scale=0.2]{alligator-avant.png}
-      \includegraphics[scale=0.2]{alligator-apres.png}
-    \end{center}
-    \caption{Image de \citet{JBPS11}}
-  \end{figure}
+  \begin{block}{Mélanger les sous-outils}
+    \begin{itemize}
+    \item Déformation continue ($C^1$ au moins)
+    \item Délimiter les zones d'influence
+    \item Moyen de communication
+    \end{itemize}
+  \end{block}
+  \begin{alertblock}{}
+  \end{alertblock}
+  % \begin{figure}[h]
+  %   \begin{center}
+  %     \includegraphics[scale=0.2]{alligator-avant.png}
+  %     \includegraphics[scale=0.2]{alligator-apres.png}
+  %   \end{center}
+  %   \caption{Image de \citet{JBPS11}}
+  % \end{figure}
+\end{frame}
+
+\begin{frame}{De manière automatique}
+  \
 \end{frame}
 
 
