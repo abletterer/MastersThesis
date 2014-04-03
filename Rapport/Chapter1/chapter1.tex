@@ -15,59 +15,61 @@ efficacité (en complexité) et exactitude. Ce classement va nous
 permettre de choisir le meilleur outil associé à chaque dimension,
 afin d'obtenir à la fin une sélection de 4 outils de dimensions
 différentes sur laquelle nous allons nous baser pour réaliser les
-mélanges. L'ensemble des outils que nous considérons dans ce chapitre
-déforment l'espace $\mathbb{R}^3$.
+mélanges. Les outils présentés fonctionnent aussi bien dans
+$\mathbb{R}^2$ que dans $\mathbb{R}^3$, mais dans ce chapitre nous
+nous concentrons sur des déformations affectant l'espace
+$\mathbb{R}^3$.
+
+Tous ces outils ont différentes caractéristiques, comme par exemple la
+dimension topologique de l'outil (point, courbe, surface, volume) ou
+de la zone de l'espace qu'il déforme (limitée spatialement ou
+globale). On dit qu'une déformation est globale lorsqu'un le
+déplacement d'un sommet de l'outil influe sur l'ensemble des points de
+l'espace.
 
 \section{Déformation à base de volumes}
-Les déformations à base de volumes sont définies à partir d'un
-treillis de points de contrôle. Ces points peuvent être considérées
-comme des poignées que l'on peut déplacer et qui vont modifier la
-position des points de l'espace.
+Les déformations à base de volumes sont définies à partir d'une grille
+3D de points de contrôle. Ces points peuvent être considérées comme
+des poignées que l'on peut déplacer et qui vont modifier la position
+des points de l'espace.
 
 \begin{itemize}
 \item{\textbf{Déformation de forme libre de Bézier :}} \cite{SP86} ont
-  eu l'idée de lier la déformation d'un volume paramétrique (qu'on
-  appelle \textit{outil}) à l'espace contenu à l'intérieur de ce
-  volume. Mathématiquement, il s'agit d'une extension directe des
-  courbes de Bézier au cas 3D. Ils ont utilisé les polynômes de
-  Bernstein pour définir le volume. Les points $X$ de l'espace sont
-  donc définis comme une somme de points $P$ de contrôle, pondérés par
-  des fonctions de base polynomiale, $\mathcal{N}_r^s$, d'index $r$ et
-  de degré $s$ :
-  \begin{equation}
-    \mathcal{H}(U) = \mathcal{H}(u,v,w) = 
-    \sum_{i=0}^l \sum_{j=0}^m \sum_{k=0}^n
-    \mathcal{N}_i^l(u) \cdot \mathcal{N}_j^m(v) \cdot \mathcal{N}_k^n(w) \cdot P_{i,j,k} = X
-  \end{equation}
-  où $u,v,w \in [0,1]$ sont les coordonnées paramétriques d'un point
-  $X$ à l'intérieur du volume.
+  eu l'idée de lier la déformation d'un volume paramétrique à l'espace
+  contenu à l'intérieur de ce volume. Mathématiquement, il s'agit
+  d'une extension directe des courbes de Bézier au cas 3D. Ils ont
+  utilisé les polynômes de Bernstein pour définir le volume. Ce
+  modèle, donnant une forme parallépipédique au volume, permet
+  d'obtenir une paramétrisation des coordonnées des points de l'espace
+  presque automatiquement. Cette technique déforme l'espace de façon
+  globale.
 \item{\textbf{Déformation de forme libre avec contrôle local :}} Les
   volumes paramétriques souffrent des mêmes problèmes que leurs
-  homologues de dimensions inférieures, à savoir le manque de contrôle
-  local. Pour corriger le problème, une solution naïve consiste à
-  rajouter des points de contrôle, afin de limiter l'impact de chacun
-  d'entre eux sur l'espace à déformer. Mais cette technique augmente
-  le degré du volume paramétrique et ainsi son coût en temps de
-  calcul. Une autre solution est d'utiliser des fonctions définies par
+  homologues de dimensions inférieures (surface et courbes
+  paramétriques), à savoir le manque de contrôle local. Pour corriger
+  le problème, une solution naïve consiste à rajouter des points de
+  contrôle, afin de réduire l'impact de chacun d'entre eux sur
+  l'espace à déformer. Mais cette technique augmente le degré du
+  volume paramétrique et ainsi son coût en temps de calcul. Une autre
+  solution est d'utiliser des fonctions définies par
   morceaux. \cite{GP89} et \cite{Com89} ont choisi de travailler avec
-  des B-splines, car elles sont définies par morceaux naturellement.
-\item{\textbf{Déformation de forme libre avec outil non cubique :}}
-  Les déformations de forme libre ont une grosse limitation, celle de
-  la forme de l'outil. En effet, comme les volumes de déformations
-  sont paramétrisés de façon linéaire et qu'ils sont composés de
-  cubes, la forme globale correspond à un pavé. Par conséquent, il
-  n'est pas possible de donner la même forme à l'outil que celle de
-  l'objet à déformer sans diminuer la taille de chaque cube et en
-  augmentant leur nombre. \cite{Coq90} a donc proposé une version
-  étendue des déformations de forme libre, en laissant la possibilité
-  lors de la création de l'outil de modifier la position de ses
-  sommets avant de l'associer à l'outil. Ce qui a engendré des soucis
-  au niveau du calcul des coordonnées des points de l'espace, qui ne
-  résultaient plus d'une paramétrisation linéaire. Le calcul des
-  coordonnées est donc devenu beaucoup plus coûteux. \cite{BBT97} ont
-  donc proposé de considérer des volumes de Bézier tétraédriques
-  tandis que \cite{MJ96} se sont plutôt intéressés aux volumes de
-  subdivision de topologie quelconque.
+  des B-splines, car elles sont définies naturellement par
+  morceaux. Ce choix rend la déformation limitée spatialement.
+\item{\textbf{Déformation de forme libre avec outil non
+      parallélépipédique :}} Les déformations de forme libre ont une
+  grosse limitation, celle de la forme de l'outil. En effet, comme les
+  volumes de déformations sont uniquement composés de cubes alignés
+  sur les axes du repère de l'espace, la forme globale correspond à un
+  pavé. Par conséquent, il n'est pas possible d'obtenir un outil qui
+  épouse la forme de l'objet à déformer. \cite{Coq90} a donc proposé
+  une version étendue des déformations de forme libre, en laissant la
+  possibilité lors de la création de l'outil de modifier la position
+  de ses sommets avant de l'associer à l'outil. Le calcul des
+  coordonnées de l'objet par rapport à l'outil n'est donc plus
+  trivial, il est devenu beaucoup plus coûteux. \cite{BBT97} ont
+  proposé de considérer des volumes de Bézier tétraédriques tandis que
+  \cite{MJ96} se sont plutôt intéressés aux volumes de subdivision de
+  topologie quelconque.
 \end{itemize}
 
 \section{Déformation à base de surfaces}
@@ -82,16 +84,19 @@ manière d'attacher les points de l'espace à une surface.
   carreau. Ainsi pour déformer l'espace, l'utilisateur déplace les
   différents points de contrôle. Les points de l'espace sont
   repositionnés grâce à leurs coordonnées paramétriques (précédemment
-  calculées) et "reprojetés" le long de la normale au carreau déformé.
+  calculées) et "reprojetés" le long de la normale au carreau
+  déformé. De même que pour les volumes paramétriques, cette technique
+  déforme l'espace de façon globale.
 \item{\textbf{Surface étoilée :}} Un polyèdre de forme étoilée est un
-  polyèdre contenant, en son intérieur, une région dite "étoilée". On
-  définit une région étoilée d'un polyèdre comme étant une région
-  depuis laquelle un rayon émis dans n'importe qu'elle direction
+  polyèdre contenant, en son intérieur, une région qu'on appelle le
+  \textit{noyau}. On définit le noyau d'un polyèdre comme étant la
+  région depuis laquelle un rayon émis dans n'importe quelle direction
   n'intersecte le bord du polyèdre qu'une seule fois (Figure
-  \ref{SUReto}). Cette propriété est utile dans le domaine de la
-  déformation car elle permet d'obtenir une unique paramétrisation en
-  coordonnées polaires des points de l'espace, comme proposé par
-  \cite{JL00}.
+  \ref{SUReto}, représenté en 2D). Cette propriété est utile dans le
+  domaine de la déformation car elle permet d'obtenir une unique
+  paramétrisation en coordonnées polaires des points de l'espace,
+  comme proposé par \cite{JL00}. Cette technique déforme aussi
+  l'espace de façon globale.
 
   \begin{figure}[h]
     \begin{center}
@@ -121,8 +126,8 @@ manière d'attacher les points de l'espace à une surface.
           \pspolygon[linewidth=0.1,linecolor=color13](0.8160028,3.7282884)(2.6309054,3.5735292)(5.571329,5.177397)(6.528022,2.1103518)(8.69465,0.6612438)(5.304018,-0.9707618)(4.023738,-5.177397)(0.0,-4.9944997)(0.028138,-1.125521)(1.7726955,-0.196966)(1.6882817,1.6601434)(0.8160028,3.7282884)
         \end{pspicture}
       }
-      \caption{En rouge la région étoilée d'un polygone représenté par
-        son bord, en noir (en 2D).}
+      \caption{En rouge le noyau d'un polygone de forme étoilée
+        représenté par son bord, en noir (en 2D).}
       \label{SUReto}
     \end{center}
   \end{figure}
@@ -131,55 +136,64 @@ manière d'attacher les points de l'espace à une surface.
   un maillage triangulaire simple pour appliquer des déformations aux
   points de l'espace. \cite{KO03} ont été les premiers à utiliser ce
   genre d'outil. Ils définissent que les triangles du maillage
-  contribuent à déformer une zone de l'espace proche en réalisant une
-  moyenne pondérée, et que chacun d'entre eux influent sur une zone
-  sphérique autour d'eux. L'avantage de cette technique est de
+  contribuent à déformer une zone sphérique autour de chacun d'entre
+  eux. Les triangles définissent des coordonnées paramétriques pour
+  les points de l'espace se trouvant dans leur zone d'influence, en
+  fonction de leur distance au triangle. La position des points de
+  l'espace se trouvant à l'intersection de plusieurs zones d'influence
+  résultent d'une moyenne pondérée des coordonnées calculées par
+  rapport à chaque triangle. L'avantage de cette technique est de
   permettre une configuration assez générale des triangles (non
   nécessairement connexes), à partir du moment où ceux-ci ne sont pas
   dégénérés (les triangles doivent être composés de 3 sommets
-  distincts).
+  distincts). La déformation engendrée par le déplacement du sommet
+  d'un triangle est limitée spatialement par la zone d'influence
+  définie autour de ce triangle.
 \item{\textbf{Cage :}} La cage est l'outil surfacique le plus utilisé
   ces dernières années en terme de déformation spatiale. Son
   utilisation est notamment dûe aux travaux de \cite{JSW05} et de
   \cite{HF06} qui ont utilisé les \textit{Mean Value Coordinates}
   définies par \cite{Flo03} et \cite{FKR05} (lors de déformations dans
-  $\mathbb{R}^3$). Un polyèdre de contrôle (quelconque) est créé et
-  permet de définir des coordonnées paramétriques pour les points de
-  l'espace par rapport aux sommets de ce polyèdre. Pour calculer ces
-  coordonnées, il existe plusieurs méthodes, mais toutes sont tirées
-  des coordonnées barycentriques généralisées (Figure
-  \ref{SURcoo}). Ces dernières sont une extension des coordonnés
-  barycentriques permettant de calculer des coordonnées non plus par
-  rapport à un simplexe (tétraèdre en dimension 3), mais par rapport à
-  n'importe quelle cellule (polyèdre quelconque en dimension 3). On
-  définit la position d'un points $p$ de l'espace comme étant une
-  combinaison linéaire des positions des sommets $v_i$ du polyèdre de
-  contrôle.
+  $\mathbb{R}^3$). Un maillage surfacique triangulaire quelconque est
+  créé et permet de définir des coordonnées paramétriques pour les
+  points de l'espace par rapport aux sommets de ce maillage. Pour
+  calculer ces coordonnées, il existe plusieurs méthodes, mais toutes
+  sont issues des coordonnées barycentriques généralisées. Ces
+  dernières sont une extension des coordonnés barycentriques
+  permettant de calculer des coordonnées non plus par rapport à un
+  simplexe (tétraèdre en dimension 3), mais par rapport à n'importe
+  quelle cellule (polyèdre quelconque en dimension 3). On définit la
+  position d'un points $p$ de l'espace comme étant une combinaison
+  linéaire des positions des sommets $v_i$ du polyèdre de contrôle.
   \begin{equation}
     p = \sum_{i=0}^n \lambda_iv_i
   \end{equation}
   Où $\lambda_i$ correspond au poids associé au sommet $v_i$ pour le
-  point $p$. Le calcul de ce poids est donné par \cite{FKR05}.
+  point $p$. Cette formule nous indique que la déformation est
+  globale.
 \end{itemize}
 
 \section{Déformation à base de courbes}
-\begin{itemize}
-\item{\textbf{Déformation de De Casteljau généralisée :}} \cite{CR94}
-  ont introduit une première version déformation à base de courbes
-  qu'on peut assimiler à une déformation de forme libre restreinte. On
-  peut considérer l'algorithme de De Casteljau comme une déformation
-  des points du segment $[0,1]$ en points d'une courbe de
-  Bézier. C'est de ce constat que se sont inspirés \cite{CR94}, en
-  considérant cette fois-ci le cube $[0,1]^3$. Plus de détails sur
-  cette technique sont donnés par \cite{BE01}. Cette technique peut se
-  généraliser au cas des surfaces et volumes.
-\end{itemize}
+L'étude étant encore en cours, l'analyse des outils de déformation à
+base de courbes n'est pas terminée. Leur explication sera donnée au
+rapport final.
 
 \section{Déformation à base de points}
 \begin{itemize}
+\item{\textbf{Déformation radiale simple :}} Dans cette méthode, les
+  déformations sont déterminées par un certain nombre de contraintes,
+  chacune définie par un rayon $r_i$ (permettant de faire varier la
+  zone d'influence) centré sur un point de contrainte $C_i$ associé à
+  un déplacement $\Delta C_i$. On définit une paramétrisation des
+  points de l'espace uniquement par la distance de chacun aux points
+  de contraintes. De ce fait, les déformations se répandent de façon
+  uniforme dans toutes les directions. Il est important de noter que
+  ce modèle est juste une restriction des possibilités de déformation
+  proposées par la technique suivante, en considérant le cas le plus
+  simple avec des zones d'influence sphériques autour des contraintes.
 \item{\textbf{DOGME :}} \cite{BB91} ont introduit une méthode basée
   sur les contraintes appelée DOGME (Deformation Of Geometric Model
-  Editor) afin de remplacer l'interface non-intuitive des treillis
+  Editor) afin de remplacer l'interface non-intuitive des grilles
   utilisés dans les déformations à base de volumes par une
   manipulation directe des points de l'espace. L'idée est de permettre
   à un utilisateur de déplacer un point de l'espace et de déformer son
@@ -193,33 +207,6 @@ manière d'attacher les points de l'espace à une surface.
   nouvelle position des points. Si un point de l'espace est sous
   l'influence de plusieurs contraintes, alors sa nouvelle position
   correspond à une pondération de celles-ci.
-\item{\textbf{Déformation de forme libre par manipulation directe:}}
-  Les déformations de forme libre se basent sur la modification de
-  sommets appartenant à un treillis pour déformer les points de
-  l'espace. \cite{HHK92}, quant à eux, proposent d'interagir avec des
-  points de l'espace afin de modifier la forme du treillis en fonction
-  de contraintes associées aux points modifiés.
-\item{\textbf{Déformation de forme libre de Dirichlet :}} Cette
-  technique proposée par \cite{MT97} s'occupe de définir
-  automatiquement les zones d'influence des contraintes à partir d'un
-  ensemble de contraintes, sans intervention utilisateur. Elle se
-  trouve à mi-chemin entre une déformation à base de points et à base
-  de volumes, car si l'utilisateur interagit avec des points, la
-  structure interne est constituée d'un groupe de volumes de Bézier
-  (déterminés par une tétraédrisation de Delaunay), et des coordonnées
-  paramétriques sont associées aux points de l'espace, par rapport à
-  ces volumes.
-\item{\textbf{Déformation radiale simple :}} Dans cette méthode, les
-  déformations sont déterminées par un certain nombre de contraintes,
-  chacune définie par un rayon $r_i$ (permettant de faire varier la
-  zone d'influence) centré sur un point de contrainte $C_i$ associé à
-  un déplacement $\Delta C_i$. On définit une paramétrisation des
-  points de l'espace uniquement par la distance de chacun aux points
-  de contraintes. De ce fait, les déformations se répandent de façon
-  uniforme dans toutes les directions. Il est important de noter que
-  ce modèle est juste une restriction des possibilités de déformation
-  proposées par DOGME, en considérant le cas le plus simple avec des
-  zones d'influence sphériques autour des contraintes.
 \end{itemize}
 
 \begin{figure}[h]
@@ -233,7 +220,7 @@ manière d'attacher les points de l'espace à une surface.
       \hline
       Contrôle local & V & Locale & Cubique\\
       \hline
-      Outil non-cubique & V & Locale & Libre\\
+      Non-parallélépipédique & V & Locale & Libre\\
       \hline
       \hline
       Carreau paramétrique & S & Globale & Rectangulaire\\
@@ -245,15 +232,9 @@ manière d'attacher les points de l'espace à une surface.
       Cage & S & Globale & Libre\\
       \hline
       \hline
-      De Casteljau généralisée & C/S/V & Globale & Limitée sur certains axes\\
+      Radiale simple & P/C & Locale & Polyèdre convexe\\
       \hline
       DOGME & P/C & Locale & Cubique\\
-      \hline
-      Manipulation directe & P/C & Locale & Cubique\\
-      \hline
-      Dirichlet & P & Locale & Sphérique\\
-      \hline
-      Radiale simple & P/C & Locale & Polyèdre convexe\\
       \hline
     \end{tabular}
     \caption{Comparaison des différents outils existants (d'après
