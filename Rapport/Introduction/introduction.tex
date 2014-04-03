@@ -73,14 +73,15 @@ par le déplacement des sommets de l'outil axial.
   \label{INTall}
 \end{figure}
 
-De plus, en fonction de la précision de la déformation à appliquer, il
-serait intéressant de pouvoir disposer de plusieurs niveaux de
-résolution pour les différents outils utilisés, afin de pouvoir avoir
-un plus grand nombre de degrés de liberté lors d'une déformation
-précise, et un plus faible lors d'une déformation plus globale. Mais
-de ce fait, il faut mettre en place un moyen de faire communiquer les
-différents niveaux de résolution entre eux, comme le modèle proposé
-par \cite{Hur12} concernant les déformation à base de cages.
+La finesse d'une déformation est dépendante du nombre de degrés de
+liberté de l'outil, mais de même, la complexité en temps de calcul de
+l'association de l'outil à l'objet en est aussi dépendante. Partant de
+ce principe là, il serait intéressant de disposer de plusieurs niveaux
+de résolutions d'un même outil, afin de pouvoir choisir le niveau de
+résolution le plus adapté à la déformation à appliquer. Mais cela
+implique la mise en place d'un moyen de communication entre les
+différents niveaux de résolution, comme le modèle proposé par
+\cite{Hur12} concernant les déformation de cages hiérarchiques.
 \\
 
 Tout au long de ce travail, nos contraintes sont de fournir un outil
