@@ -187,10 +187,14 @@ rapport final.
   un déplacement $\Delta C_i$. On définit une paramétrisation des
   points de l'espace uniquement par la distance de chacun aux points
   de contraintes. De ce fait, les déformations se répandent de façon
-  uniforme dans toutes les directions. Il est important de noter que
-  ce modèle est juste une restriction des possibilités de déformation
-  proposées par la technique suivante, en considérant le cas le plus
-  simple avec des zones d'influence sphériques autour des contraintes.
+  uniforme dans toutes les directions. \cite{BR94} ont développé
+  Scodef (Simple Constrained Deformations), le premier outil utilisant
+  cette technique. La déformation appliquée par le déplacement d'un
+  point de contrainte est limitée à la zone sphérique autour de ce
+  point. Il est important de noter que ce modèle est juste une
+  restriction des possibilités de déformation proposées par la
+  technique suivante, en considérant le cas le plus simple avec des
+  zones d'influence sphériques autour des contraintes.
 \item{\textbf{DOGME :}} \cite{BB91} ont introduit une méthode basée
   sur les contraintes appelée DOGME (Deformation Of Geometric Model
   Editor) afin de remplacer l'interface non-intuitive des grilles
@@ -206,7 +210,9 @@ rapport final.
   chaque point de l'espace et permettent d'approcher au mieux la
   nouvelle position des points. Si un point de l'espace est sous
   l'influence de plusieurs contraintes, alors sa nouvelle position
-  correspond à une pondération de celles-ci.
+  correspond à une pondération de celles-ci. De même que pour la
+  déformation radiale simple, la déformation est locale, car chaque
+  contrainte agit uniquement dans sa zone d'influence.
 \end{itemize}
 
 \begin{figure}[h]
@@ -232,7 +238,7 @@ rapport final.
       Cage & S & Globale & Libre\\
       \hline
       \hline
-      Radiale simple & P/C & Locale & Polyèdre convexe\\
+      Radiale simple & P/C & Locale & Union de sphères\\
       \hline
       DOGME & P/C & Locale & Cubique\\
       \hline
