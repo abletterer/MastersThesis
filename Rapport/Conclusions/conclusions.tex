@@ -9,13 +9,17 @@
 % \def\baselinestretch{1.66}
 
 Les prochaines semaines seront consacrées à l'étude de \cite{LS08} qui
-permettrait de définir des coordonnées MVC interpolant non seulement les
-positions des sommets du polygone de contrôle, mais aussi les dérivées
-premières (tangentes) en ces sommets. . Quand le mélange de plusieurs
-cages sera possible, nous nous consacrerons à l'extension aux outils
-de différentes dimensions. De ce fait nous jugerons les outils les
-mieux adaptés (pour chaque dimension) à mélanger avec les cages de
-déformation.
+permettrait de définir des coordonnées MVC interpolant non seulement
+les positions des sommets du polygone de contrôle, mais aussi les
+dérivées premières (tangentes) en ces sommets. Cette méthode
+permettrait de corriger les soucis de dérivabilité de la fonction
+résultant de la déformation, en rendant la déformation $C^1$ dans tout
+le domaine.
+
+Quand le mélange de plusieurs cages sera possible, nous nous
+consacrerons à l'extension aux outils de différentes dimensions. De ce
+fait nous jugerons les outils les mieux adaptés (pour chaque
+dimension) à mélanger avec les cages de déformation.
 
 %%% ----------------------------------------------------------------------
 
@@ -23,5 +27,6 @@ déformation.
 
 %%% Local Variables: 
 %%% mode: latex
+%%% LaTeX-command: "latex -shell-escape"
 %%% TeX-master: "../thesis"
 %%% End: 

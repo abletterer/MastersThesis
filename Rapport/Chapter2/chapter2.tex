@@ -382,14 +382,20 @@ progressif de l'influence des coordonnées calculées) autour de chaque
 cage, afin de limiter leur champ d'action.
 
 Il existe aussi des problèmes avec les différentes méthodes de calcul
-des coordonnées, car si les \textit{MVC} et les \textit{GC} (définies
-par \cite{LLC08}) sont définis dans $\mathbb{R}^2$, la fonction
-résultant de la déformation n'est pas dérivable sur tout le domaine
-(Figure \ref{SURcoo}). De ce fait, des artefacts apparaissent au
-niveau des points de l'espace se situant aux alentours des sommets de
-la cage. Ce problème n'est pas encore réglé au moment de l'écriture de
-ce rapport, mais c'est le sujet des recherches et réflexions
-actuelles.
+des coordonnées. Premièrement, contrairement à la technique proposée
+par \cite{GPCP13}, notre méthode ne pourrait pas utiliser de
+\textit{HC} (Coordonnées Harmoniques, définies par \cite{JMDGS07}),
+car celles-ci ne sont pas définies à l'extérieur de la cage. Ce n'est
+pas un problème en soit, car cette technique nécessite une
+discrétisation de l'espace, or la minimisation du temps de calcul des coordonnées est
+une de nos contraintes. Concernant les \textit{MVC} et les \textit{GC}
+(Coordonnées de Green, définies par \cite{LLC08}), si elles sont bien
+définies dans $\mathbb{R}^2$, la fonction résultant de la déformation
+n'est pas dérivable sur tout le domaine (Figure \ref{SURcoo}). De ce
+fait, des artefacts apparaissent au niveau des points de l'espace se
+situant à proximité des sommets de la cage. Ce problème n'est pas
+encore réglé au moment de l'écriture de ce rapport, mais c'est le
+sujet des recherches et réflexions actuelles.
 
 \begin{figure}[h]
   \begin{center}
@@ -410,7 +416,8 @@ actuelles.
       & \textcolor{OliveGreen}{$C^\infty$} \\
       \hline
     \end{tabular}
-    \caption{Continuité des coordonnées (d'après \cite{GPCP13})}
+    \caption{Continuité de différentes méthodes de calcul des
+      coordonnées (d'après \cite{GPCP13})}
     \label{SURcoo}
   \end{center}
 \end{figure}
