@@ -149,22 +149,33 @@ manière d'attacher les points de l'espace à une surface.
   distincts). La déformation engendrée par le déplacement du sommet
   d'un triangle est limitée spatialement par la zone d'influence
   définie autour de ce triangle.
-\item{\textbf{Cage :}} La cage est l'outil surfacique le plus utilisé
-  ces dernières années en terme de déformation spatiale. Son
-  utilisation est notamment dûe aux travaux de \cite{JSW05} et de
-  \cite{HF06} qui ont utilisé les \textit{Mean Value Coordinates}
-  définies par \cite{Flo03} et \cite{FKR05} (lors de déformations dans
-  $\mathbb{R}^3$). Un maillage surfacique triangulaire quelconque est
-  créé et permet de définir des coordonnées paramétriques pour les
-  points de l'espace par rapport aux sommets de ce maillage. Pour
-  calculer ces coordonnées, il existe plusieurs méthodes, mais toutes
-  sont issues des coordonnées barycentriques généralisées. Ces
-  dernières sont une extension des coordonnés barycentriques
-  permettant de calculer des coordonnées non plus par rapport à un
-  simplexe (tétraèdre en dimension 3), mais par rapport à n'importe
-  quelle cellule (polyèdre quelconque en dimension 3). On définit la
-  position d'un points $p$ de l'espace comme étant une combinaison
-  linéaire des positions des sommets $v_i$ du polyèdre de contrôle.
+\item{\textbf{Cage :}} Avant de commencer, précisons juste quelques
+  notions :
+  \begin{itemize}
+  \item{\textit{Position :}} On définit la position d'un point comme
+    étant une combinaison linéaire pondérée des positions sommets de
+    sa cage.
+  \item{\textit{Coordonnée :}} On appelle coordonnée la pondération
+    associée à un sommet de la cage lors du calcul de la position d'un
+    point de l'espace.\\
+  \end{itemize}
+
+  La cage est l'outil surfacique le plus utilisé ces dernières années
+  en terme de déformation spatiale. Son utilisation est notamment dûe
+  aux travaux de \cite{JSW05} et de \cite{HF06} qui ont utilisé les
+  \textit{Mean Value Coordinates} définies par \cite{Flo03} et
+  \cite{FKR05} (lors de déformations dans $\mathbb{R}^3$). Un maillage
+  surfacique triangulaire quelconque est créé et permet de définir des
+  coordonnées paramétriques pour les points de l'espace par rapport
+  aux sommets de ce maillage. Pour calculer ces coordonnées, il existe
+  plusieurs méthodes, mais toutes sont issues des coordonnées
+  barycentriques généralisées. Ces dernières sont une extension des
+  coordonnés barycentriques permettant de calculer des coordonnées non
+  plus par rapport à un simplexe (tétraèdre en dimension 3), mais par
+  rapport à n'importe quelle cellule (polyèdre quelconque en dimension
+  3). On définit la position d'un points $p$ de l'espace comme étant
+  une combinaison linéaire des positions des sommets $v_i$ du polyèdre
+  de contrôle.
   \begin{equation}
     p = \sum_{i=0}^n \lambda_iv_i
   \end{equation}
@@ -222,25 +233,25 @@ rapport final.
       \textbf{Outil} & \textbf{Type d'outil} & \textbf{Déformation} & \textbf{Forme du bord} \\
       \hline
       \hline
-      Bézier & V & Globale & Cubique\\
+      Bézier & Volume & Globale & Cubique\\
       \hline
-      Contrôle local & V & Locale & Cubique\\
+      Contrôle local & Volume & Locale & Cubique\\
       \hline
-      Non-parallélépipédique & V & Locale & Libre\\
-      \hline
-      \hline
-      Carreau paramétrique & S & Globale & Rectangulaire\\
-      \hline
-      Surface étoilée & S & Globale & /\\
-      \hline
-      Maillage triangulaire & S & Locale & Union de sphères\\
-      \hline
-      Cage & S & Globale & Libre\\
+      Non-parallélépipédique & Volume & Locale & Libre\\
       \hline
       \hline
-      Radiale simple & P/C & Locale & Union de sphères\\
+      Carreau paramétrique & Surface & Globale & Rectangulaire\\
       \hline
-      DOGME & P/C & Locale & Cubique\\
+      Surface étoilée & Surface & Globale & /\\
+      \hline
+      Maillage triangulaire & Surface & Locale & Union de sphères\\
+      \hline
+      Cage & Surface & Globale & Libre\\
+      \hline
+      \hline
+      Radiale simple & Point & Locale & Union de sphères\\
+      \hline
+      DOGME & Point & Locale & Cubique\\
       \hline
     \end{tabular}
     \caption{Comparaison des différents outils existants (d'après
