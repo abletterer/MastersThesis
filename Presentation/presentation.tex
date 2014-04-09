@@ -18,14 +18,14 @@
 
 \usepackage{lastpage}
 
-\usepackage[round]{natbib} \newcommand{\newblock}{}
+\usepackage[round]{natbib}
 
 \usepackage{caption}
 \captionsetup{figurename=}
 
 \usepackage{pgffor} \usepackage{fp} \usepackage{tikz}
 
-\usepackage{appendixnumberbeamer}
+\usepackage{appendixnumberbeamer} \usepackage{tikz}
 
 %% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \useoutertheme[subsection=false,shadow]{miniframes}
@@ -36,8 +36,7 @@
 \setbeamerfont{frametitle}{shape=\scshape}
 \setbeamerfont{footline}{shape=\scshape}
 
-\definecolor{MRed}{HTML}{8B0000}
-\definecolor{MGreen}{HTML}{008B00}
+\definecolor{MRed}{HTML}{8B0000} \definecolor{MGreen}{HTML}{008B00}
 \definecolor{MBlue}{HTML}{00688B}
 
 \setbeamercolor*{lower separation line head}{bg=MBlue}
@@ -54,11 +53,15 @@
 \setbeamercolor{block title}{use=structure,fg=white,bg=MBlue!75!black}
 \setbeamercolor{block body}{use=structure,fg=black,bg=MBlue!20!white}
 
-\setbeamercolor{block title example}{use=structure,fg=white,bg=MGreen!75!black}
-\setbeamercolor{block body example}{use=structure,fg=black,bg=MGreen!20!white}
+\setbeamercolor{block title
+  example}{use=structure,fg=white,bg=MGreen!75!black}
+\setbeamercolor{block body
+  example}{use=structure,fg=black,bg=MGreen!20!white}
 
-\setbeamercolor{block title alert}{use=structure,fg=white,bg=MRed!75!black}
-\setbeamercolor{block body alert}{use=structure,fg=black,bg=MRed!20!white}
+\setbeamercolor{block title
+  alerted}{use=structure,fg=white,bg=MRed!75!black}
+\setbeamercolor{block body
+  alerted}{use=structure,fg=black,bg=MRed!20!white}
 
 \renewcommand{\(}{\begin{columns}} \renewcommand{\)}{\end{columns}}
 \newcommand{\<}[1]{\begin{column}{#1}} \renewcommand{\>}{\end{column}}
@@ -68,7 +71,7 @@
 \author{Arnaud Bletterer} \title{Outils multidimensionnels de
   déformation}
 
-\newcommand\mytext{Outils multidimensionnels de déformation}
+\newcommand{\mytext}{Outils multidimensionnels de déformation}
 
 \graphicspath{{PresentationFigs/}}
 
@@ -134,40 +137,48 @@
 \section{\scshape Etat de l'art}
 \subsection{Introduction}
 
-\begin{frame}{Introduction}
-  Création d'un outil multidimensionnel
+\begin{frame}{Contexte}
+  Déformation spatiale
   \begin{itemize}
-  \item Ensemble de sous-outils :
+  \item Indépendant de la représentation interne
+  \item Manipulation à l'aide d'un outil
     \begin{itemize}
-    \item Dimensions/Résolutions différentes
-    \item Comportements différents
+    \item Discrétisé en cellules (point, courbe, surface, volume)
+    \item Manipulation directe des points de contrôle
+    \item Différentes caractéristiques (résolution, zone d'influence)
     \end{itemize}
   \end{itemize}
-  De manière automatique
+\end{frame}
+
+\begin{frame}{Introduction}
   \begin{itemize}
-  \item Identifier les segments d'un objet
-  \end{itemize}
-  Et paramétrable
-  \begin{itemize}
-  \item 
+  \item Création d'un outil multidimensionnel
+  \item De manière automatique
+  \item Et paramétrable
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Création d'un outil multidimensionnel}
-  \begin{block}{Mélanger les sous-outils}
+  \begin{block}{Mélanger plusieurs outils}
     \begin{itemize}
-    \item Déformation continue ($C^1$ au moins)
-    \item Délimiter les zones d'influence
-    \item Moyen de communication
+    \item Différentes dimensions/résolutions
+    \item Déformation lisse (au moins $C^1$)
     \end{itemize}
   \end{block}
-  % \begin{figure}[h]
-  %   \begin{center}
-  %     \includegraphics[scale=0.2]{alligator-avant.png}
-  %     \includegraphics[scale=0.2]{alligator-apres.png}
-  %   \end{center}
-  %   \caption{Image de \citet{JBPS11}}
-  % \end{figure}
+  \begin{alertblock}{Problèmes}
+    \setbeamercolor{itemize item}{fg=MRed}
+    \begin{itemize}
+    \item Finesse de la déformation liée au nombre de DDL
+    \item Comment faire communiquer les différents outils?
+    \end{itemize}
+  \end{alertblock}
+  \begin{figure}[h]
+    \begin{center}
+      \includegraphics[scale=0.15]{alligator-avant.png}
+      \includegraphics[scale=0.15]{alligator-apres.png}
+    \end{center}
+    \caption{Image de \cite{JBPS11}}
+  \end{figure}
 \end{frame}
 
 \begin{frame}{De manière automatique}
@@ -194,7 +205,6 @@
 \begin{frame}{Continuité}
 
 \end{frame}
-
 
 \appendix
 
