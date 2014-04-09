@@ -181,22 +181,84 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{De manière automatique}
-  \begin{block}{Associer les outils adaptés}
-    \begin{itemize}
-    \item Découper un modèle
-    \item
-    \end{itemize}
-  \end{block}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\scshape Introduction}
+\subsection{Outils multidimensionnels}
+\begin{frame}{Outils multidimensionnels}
+
+
+  \begin{figure}[h]
+    \begin{center}
+      \begin{tabular}{|l|c|c|c|}
+        \hline
+        \textbf{Outil} & \textbf{Dim.} & \textbf{Type Def.} & \textbf{Forme du bord} \\
+        \hline
+        \hline
+        Bézier & V & Globale & Cubique\\
+        \hline
+        Contrôle local & V & Locale & Cubique\\
+        \hline
+        Non-parallélépipédique & V & Locale & Libre\\
+        \hline
+        \hline
+        Carreau paramétrique & S & Globale & Rectangulaire\\
+        \hline
+        Surface étoilée & S & Globale & /\\
+        \hline
+        Maillage triangulaire & S & Locale & Union de sphères\\
+        \hline
+        Cage & S & Globale & Libre\\
+        \hline
+        \hline
+        Radiale simple & P & Locale & Union de sphères\\
+        \hline
+        DOGME & P & Locale & Cubique\\
+        \hline
+      \end{tabular}
+      \caption{Outils existants (\cite{GB08})}
+    \end{center}
+  \end{figure}
 \end{frame}
 
+\subsection{Mélange d'outils}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\scshape Méthode implémentée}
-\subsection{frame}
-\begin{frame}{frame}
+\begin{frame}{Etat de l'art}
+  \begin{itemize}
+  \item \textit{Bounded Biharmonic Weights for Real-Time Deformation}
+    \cite{JBPS11}
+  \item \textit{*Cages: A Multilevel, Multi-cage-based System for Mesh
+      Deformation} \cite{GPCP13}
+  \end{itemize}
+\end{frame}
 
+\begin{frame}{Bounded Biharmonic Weights}
+  \begin{itemize}
+  \item Mélange d'outils de différentes dimensions
+  \item Associer manuellement plusieurs outils sur différentes zones
+    d'un même objet
+    \begin{alertblock}{Points négatifs : }
+      \begin{itemize}
+      \item Déformation à base de points
+      \item Contraintes sur le calcul des coordonnées
+      \item Calcul des coordonnées par diffusion (importante
+        complexité en temps)
+      \end{itemize}
+    \end{alertblock}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{*Cages}
+  \begin{itemize}
+  \item Mélange de cages de déformation
+  \item Coordonnées par rapport à une cage \textit{propre} et plusieurs cages \textit{jointure}
+  \end{itemize}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.07]{joinCages}
+\end{center}
+\end{figure}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
