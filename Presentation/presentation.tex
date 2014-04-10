@@ -186,7 +186,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Introduction}
 \subsection{Outils multidimensionnels}
-\begin{frame}{Outils multidimensionnels}
+\begin{frame}{Outils existants}
 
 
   \begin{figure}[h]
@@ -217,7 +217,7 @@
         DOGME & P & Locale & Cubique\\
         \hline
       \end{tabular}
-      \caption{Outils existants (\cite{GB08})}
+      \caption{D'après \cite{GB08}}
     \end{center}
   \end{figure}
 \end{frame}
@@ -226,10 +226,10 @@
 
 \begin{frame}{Etat de l'art}
   \begin{itemize}
-  \item \textit{Bounded Biharmonic Weights for Real-Time Deformation}
-    \cite{JBPS11}
-  \item \textit{*Cages: A Multilevel, Multi-cage-based System for Mesh
-      Deformation} \cite{GPCP13}
+  \item Bounded Biharmonic Weights for Real-Time Deformation
+    $_{\text{\cite{JBPS11}}}$
+  \item *Cages: A Multilevel, Multi-cage-based System for Mesh
+      Deformation $_{\text{\cite{GPCP13}}}$
   \end{itemize}
 \end{frame}
 
@@ -238,12 +238,12 @@
   \item Mélange d'outils de différentes dimensions
   \item Associer manuellement plusieurs outils sur différentes zones
     d'un même objet
+  \item Méthode d'optimisation globale
     \begin{alertblock}{Points négatifs : }
       \begin{itemize}
       \item Déformation à base de points
       \item Contraintes sur le calcul des coordonnées
-      \item Calcul des coordonnées par diffusion (importante
-        complexité en temps)
+      \item Calcul des coordonnées par diffusion
       \end{itemize}
     \end{alertblock}
   \end{itemize}
@@ -252,20 +252,66 @@
 \begin{frame}{*Cages}
   \begin{itemize}
   \item Mélange de cages de déformation
-  \item Coordonnées par rapport à une cage \textit{propre} et plusieurs cages \textit{jointure}
+  \item Coordonnées par rapport à une cage \textit{propre} et
+    plusieurs cages \textit{jointure}
   \end{itemize}
-\begin{figure}[h]
-\begin{center}
-\includegraphics[scale=0.07]{joinCages}
-\end{center}
-\end{figure}
+  \begin{figure}[h]
+    \begin{center}
+      \includegraphics[scale=0.07]{joinCages}
+    \end{center}
+    \caption{Image de \cite{GPCP13}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{*Cages}
+  \begin{alertblock}{Problèmes}
+    \setbeamercolor{itemize item}{fg=MRed}
+    \begin{itemize}
+    \item Nombreuses fonctions imbriquées
+    \item Utilisation de fonctions harmoniques
+    \end{itemize}
+  \end{alertblock}
+  \begin{exampleblock}{A retenir}
+    \setbeamercolor{itemize item}{fg=MGreen}
+    \begin{itemize}
+    \item Déformations localisées et lisses
+    \item Différentes méthodes de calcul des coordonnées
+    \end{itemize}
+  \end{exampleblock}
+  %% ARBORESCENCE DE FONCTION STARCAGE
+\end{frame}
+
+\begin{frame}{Méthode proposée}
+  \begin{block}{Proposition}
+    \begin{itemize}
+    \item Considérer des coordonnées \textit{étendues}
+    \item Zone d'influence autour d'une cage
+    \end{itemize}
+  \end{block}
+  \begin{alertblock}{Points clés}
+    \setbeamercolor{itemize item}{fg=MRed}
+    \begin{itemize}
+    \item Coordonnées MVC seulement $C^0$ autour des sommets
+    \item Mélanger les différentes positions calculées de façon lisse
+    \end{itemize}
+  \end{alertblock}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\scshape Continuité}
-\begin{frame}{Continuité}
-
+\section{\scshape Conclusion}
+\begin{frame}{Suite du stage}
+\begin{block}{A court terme}
+\begin{itemize}
+\item Amélioration de la continuité des MVC $_{(\text{\cite{LS08}})}$
+\item Etude des outils à base de courbes
+\end{itemize}
+\end{block}
+\begin{block}{A "long" terme}
+\begin{itemize}
+\item Généralisation de la technique de mélange aux outils de différentes dimensions
+\end{itemize}
+\end{block}
 \end{frame}
 
 \appendix
