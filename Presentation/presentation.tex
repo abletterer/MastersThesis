@@ -199,7 +199,7 @@ citestyle=authoryear]{biblatex}
     \setbeamercolor{itemize item}{fg=MRed}
     \begin{itemize}
     \item Finesse d'une déformation liée au nombre de DDL
-    \item Interaction pénible avec certains outils
+    \item Déformation difficile avec certains outils
     \end{itemize}
   \end{alertblock}
   \begin{figure}[h]
@@ -284,6 +284,7 @@ citestyle=authoryear]{biblatex}
     d'un même objet
   \item Méthode d'optimisation globale
     \begin{alertblock}{Points négatifs : }
+      \setbeamercolor{itemize subitem}{fg=MRed}
       \begin{itemize}
       \item Déformation à base de points
       \item Contraintes sur le calcul des coordonnées
@@ -367,16 +368,20 @@ citestyle=authoryear]{biblatex}
 \end{frame}
 
 \section{\scshape Méthode proposée}
+\subsection{}
 
 \begin{frame}{Méthode proposée}
   \begin{block}{Idée}
     \begin{itemize}
-    \item Considérer des coordonnées \textit{étendues}
+    \item Coordonnées barycentriques sont définies dans $\mathbb{R}^2$
     \item Zone d'influence autour d'une cage
     \item Estompement progressif des poids au bord de cette zone
     \item Mélanger les coordoonnées aux zones de rencontre
     \end{itemize}
   \end{block}
+\begin{figure}[h]
+\includegraphics[scale=0.2]{bordure-cage}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Méthode proposée}
@@ -392,18 +397,19 @@ citestyle=authoryear]{biblatex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Suite du stage}
+\subsection{}
 \begin{frame}{Suite du stage}
   A court terme
   \begin{itemize}
-  \item Amélioration de la continuité des MVC
+  \item Corriger les problèmes de continuité des MVC
     $_{(\text{\cite{LS08}})}$
-  \item Communication entre les différents niveaux de résolution
   \item Etude des outils à base de courbes
   \end{itemize}
   A "long" terme
   \begin{itemize}
   \item Généralisation de la technique de mélange aux outils de
     différentes dimensions
+  \item
   \end{itemize}
 \end{frame}
 
