@@ -10,6 +10,16 @@
 
 %% General document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{graphicx}
+
+\usepackage{xcolor}
+
+\usepackage{pgffor} 
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.callouts}
+
+\usepackage{pgfplots}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[frenchb]{babel}
@@ -18,14 +28,15 @@
 
 \usepackage{lastpage}
 
-\usepackage[round]{natbib}
+\usepackage[natbib=true, bibstyle=authoryear,
+citestyle=authoryear]{biblatex}
 
 \usepackage{caption}
 \captionsetup{figurename=}
 
-\usepackage{pgffor} \usepackage{fp} \usepackage{tikz}
+\usepackage{appendixnumberbeamer}
 
-\usepackage{appendixnumberbeamer} \usepackage{tikz}
+\resetcounteronoverlays{lstnumber}
 
 %% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \useoutertheme[subsection=false,shadow]{miniframes}
@@ -83,23 +94,24 @@
   \begin{beamercolorbox}[wd=\paperwidth,ht=1ex,dp=0ex,center]{footlinerule}
   \end{beamercolorbox}%
 
-  % \hbox{\begin{beamercolorbox}[wd=1\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}%
-  %   \count1 = \linewidth
-  %   \divide\count1 by \inserttotalframenumber
 
-  %   \foreach \n in {1,...,\insertpagenumber}{\hskip1.\count1}
-  %   \includegraphics[scale=0.06, viewport= 600 200 0 0]{cgogn}
+
+  \hbox{\begin{beamercolorbox}[wd=1\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}%
+      \count1 = \linewidth \divide\count1 by \inserttotalframenumber
+
+      \foreach \n in {1,...,\insertframenumber}{\hskip1.\count1}
+      \includegraphics[scale=0.06, viewport= 400 200 0 0]{cgogn}
    
-  % \end{beamercolorbox}
-  % }
+  \end{beamercolorbox}
+}
 
-  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}%
-      \inserttitle
-    \end{beamercolorbox}%
+\hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}%
+    \inserttitle
+  \end{beamercolorbox}%
 
     \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}%
       \usebeamerfont{author in head/foot}\insertauthor\hfill
-      \insertpagenumber /\inserttotalframenumber
+      \insertframenumber /\inserttotalframenumber
     \end{beamercolorbox}}%
   \vskip0pt%
 } \makeatletter
@@ -107,11 +119,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\highlightR}[1]{%
+  \colorbox{MRed!50}{$\displaystyle#1$}} \newcommand{\highlightB}[1]{%
+  \colorbox{MBlue!50}{$\displaystyle#1$}}
+\newcommand{\highlightG}[1]{%
+  \colorbox{MGreen!50}{$\displaystyle#1$}}
+\newcommand{\highlightO}[1]{%
+  \colorbox{orange!50}{$\displaystyle#1$}}
+\newcommand{\highlightV}[1]{%
+  \colorbox{violet!50}{$\displaystyle#1$}}
+\newcommand{\highlightGR}[1]{%
+  \colorbox{gray!50}{$\displaystyle#1$}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliography{../Rapport/References/references.bib}
 \begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\scshape Introduction}
 \begin{frame}
   \title{Outils multidimensionnels de déformation\\~\\
 
@@ -134,14 +162,14 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\scshape Etat de l'art}
+\section{\scshape Introduction}
 \subsection{Introduction}
 
 \begin{frame}{Contexte}
   \begin{itemize}
   \item Objet
     \begin{itemize}
-    \item Discrétisé en cellules (point, courbe, surface, volume)
+    \item Discrétisé en cellules (sommet, arête, face, volume)
     \end{itemize}
   \item Déformation spatiale
     \begin{itemize}
@@ -167,36 +195,44 @@
 \end{frame}
 
 \begin{frame}{Création d'un outil multidimensionnel}
+  \begin{alertblock}{Problèmes}
+    \setbeamercolor{itemize item}{fg=MRed}
+    \begin{itemize}
+    \item Finesse d'une déformation liée au nombre de DDL
+    \item Interaction pénible avec certains outils
+    \end{itemize}
+  \end{alertblock}
+  \begin{figure}[h]
+    \begin{center}
+      \includegraphics[scale=0.15]{alligator-ferme}
+      \includegraphics[scale=0.15]{alligator-ouvert}
+    \end{center}
+    \caption{\cite{JBPS11}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Création d'un outil multidimensionnel}
   \begin{block}{Mélanger plusieurs outils}
     \begin{itemize}
     \item Différentes dimensions/résolutions
     \item Déformation lisse (au moins $C^1$)
     \end{itemize}
   \end{block}
-  \begin{alertblock}{Problèmes}
-    \setbeamercolor{itemize item}{fg=MRed}
-    \begin{itemize}
-    \item Finesse de la déformation liée au nombre de DDL
-    \item Comment faire communiquer les différents outils?
-    \end{itemize}
-  \end{alertblock}
   \begin{figure}[h]
     \begin{center}
-      \includegraphics[scale=0.15]{alligator-avant.png}
-      \includegraphics[scale=0.15]{alligator-apres.png}
+      \includegraphics[scale=0.15]{alligator-avant}
+      \includegraphics[scale=0.15]{alligator-apres}
     \end{center}
-    \caption{Image de \cite{JBPS11}}
+    \caption{\cite{JBPS11}}
   \end{figure}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\scshape Introduction}
+\section{\scshape Etat de l'art}
 \subsection{Outils existants}
 \begin{frame}{Outils existants}
-
-
   \begin{figure}[h]
     \begin{center}
       \begin{tabular}{|l|c|c|c|}
@@ -237,7 +273,7 @@
   \item Bounded Biharmonic Weights for Real-Time Deformation
     $_{\text{\cite{JBPS11}}}$
   \item *Cages: A Multilevel, Multi-cage-based System for Mesh
-      Deformation $_{\text{\cite{GPCP13}}}$
+    Deformation $_{\text{\cite{GPCP13}}}$
   \end{itemize}
 \end{frame}
 
@@ -267,8 +303,50 @@
     \begin{center}
       \includegraphics[scale=0.07]{joinCages}
     \end{center}
-    \caption{Image de \cite{GPCP13}}
+    \caption{\cite{GPCP13}}
   \end{figure}
+\end{frame}
+
+\setbeamercovered{transparent}
+
+\begin{frame}{*Cages}
+  \fontsize{8pt}{7.2}\selectfont
+  \begin{equation}
+    S_{c_i}(p) = b_{c_i}(p) T_{c_i}(p) + (1-b_{c_i}(p)) \highlightR{J_{c_i}(p)}
+  \end{equation}
+  \pause
+  \begin{equation}
+    \highlightR{J_{c_i}(p)} = \sum_{v \in B_{c_i}} \highlightB{W(v,p)}{~} L(v,p)
+  \end{equation}
+  \pause
+  \begin{equation}
+    \highlightB{W(v,p)} = \highlightG{\Omega(v,p)}{~} \highlightGR{I(v,p)}
+  \end{equation}  
+  \pause
+  \begin{equation}
+    \highlightG{\Omega(v,p)} = \prod_{t \in F(jc(v), v)} \highlightO{f_h} \left( \frac
+      {\highlightV{d_{jc(v)}(t,p)}} {d_{jc(v)}(t,v)} \right)
+  \end{equation}
+  \pause
+  \begin{equation}
+    \highlightO{f_h(x)} = \frac{1}{2} \sin(\pi(\frac{x}{h}-\frac{1}{2}))
+  \end{equation}
+    \begin{tikzpicture}[remember picture,overlay]
+      \begin{axis}[colormap/bluered, width=0.37\textwidth,
+        height=0.3\textwidth]
+        \addplot gnuplot[scatter, samples=300, domain=0:1, mark=*,
+        mark size=0.5]{1/2.*sin(pi*(x-1/2.))+1/2.};
+      \end{axis} node[midway]
+    \end{tikzpicture}
+\pause
+  \begin{equation}
+    \highlightV{d_c(t,p)} = 1 - \sum_{u \in V(t)} w_c(u,p)
+  \end{equation}
+  \pause
+  \begin{equation}
+    \highlightGR{I(v,p)} = \prod_{u \in Int(jc(v)) -\{v\}} f_h \left( \frac
+      {1-\Omega(u,p)} {1-\Omega(u,v)} \right)
+  \end{equation}
 \end{frame}
 
 \begin{frame}{*Cages}
@@ -286,16 +364,22 @@
     \item Différentes méthodes de calcul des coordonnées
     \end{itemize}
   \end{exampleblock}
-  %% ARBORESCENCE DE FONCTION STARCAGE
 \end{frame}
 
+\section{\scshape Méthode proposée}
+
 \begin{frame}{Méthode proposée}
-  \begin{block}{Proposition}
+  \begin{block}{Idée}
     \begin{itemize}
     \item Considérer des coordonnées \textit{étendues}
     \item Zone d'influence autour d'une cage
+    \item Estompement progressif des poids au bord de cette zone
+    \item Mélanger les coordoonnées aux zones de rencontre
     \end{itemize}
   \end{block}
+\end{frame}
+
+\begin{frame}{Méthode proposée}
   \begin{alertblock}{Points clés}
     \setbeamercolor{itemize item}{fg=MRed}
     \begin{itemize}
@@ -307,26 +391,27 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\scshape Conclusion}
+\section{\scshape Suite du stage}
 \begin{frame}{Suite du stage}
-A court terme
-\begin{itemize}
-\item Amélioration de la continuité des MVC $_{(\text{\cite{LS08}})}$
-\item Communication entre les différents niveaux de résolution
-\item Etude des outils à base de courbes
-\end{itemize}
-A "long" terme
-\begin{itemize}
-\item Généralisation de la technique de mélange aux outils de différentes dimensions
-\end{itemize}
+  A court terme
+  \begin{itemize}
+  \item Amélioration de la continuité des MVC
+    $_{(\text{\cite{LS08}})}$
+  \item Communication entre les différents niveaux de résolution
+  \item Etude des outils à base de courbes
+  \end{itemize}
+  A "long" terme
+  \begin{itemize}
+  \item Généralisation de la technique de mélange aux outils de
+    différentes dimensions
+  \end{itemize}
 \end{frame}
 
 \appendix
 
-\begin{frame}<beamer:0>
-\bibliographystyle{plainnat}
-\bibliography{../Rapport/References/references.bib}
-\end{frame}
-
-
 \end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% LaTeX-command: "latex -shell-escape"
+%%% End: 
