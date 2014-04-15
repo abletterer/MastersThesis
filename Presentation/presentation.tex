@@ -149,21 +149,14 @@ citestyle=authoryear]{biblatex}
         \includegraphics[scale=0.15]{icube-logo}
       \end{center}
     \end{figure}
-  }
-  \author{Arnaud Bletterer \\
-    \textit{Université de Strasbourg} \vspace{-0.5cm}\date{\today} } \titlepage
+  } \author{Arnaud Bletterer \\ \textit{Université de Strasbourg}
+    \vspace{-0.5cm} \date{\today} } \titlepage
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Sommaire}
-  \tableofcontents
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Introduction}
-\subsection{Introduction}
 
 \begin{frame}{Contexte}
   \begin{itemize}
@@ -173,24 +166,16 @@ citestyle=authoryear]{biblatex}
     \end{itemize}
   \item Déformation spatiale
     \begin{itemize}
-    \item Indépendant de la représentation interne
     \item Déformation de l'espace ambiant
     \item Manipulation à l'aide d'un outil
       \begin{itemize}
       \item Un outil est un objet
       \item Manipulation directe des points de contrôle
-      \item Différentes caractéristiques (résolution, zone
+      \item Différentes caractéristiques (dimension, résolution, zone
         d'influence)
       \end{itemize}
+    \item Indépendante de la représentation interne
     \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Introduction}
-  \begin{itemize}
-  \item Création d'un outil multidimensionnel
-  \item De manière automatique
-  \item Et paramétrable
   \end{itemize}
 \end{frame}
 
@@ -199,6 +184,7 @@ citestyle=authoryear]{biblatex}
     \setbeamercolor{itemize item}{fg=MRed}
     \begin{itemize}
     \item Finesse d'une déformation liée au nombre de DDL
+    \item Complexité en temps de calcul liée au nombre de DDL
     \item Déformation difficile avec certains outils
     \end{itemize}
   \end{alertblock}
@@ -207,7 +193,7 @@ citestyle=authoryear]{biblatex}
       \includegraphics[scale=0.15]{alligator-ferme}
       \includegraphics[scale=0.15]{alligator-ouvert}
     \end{center}
-    \caption{\cite{JBPS11}}
+    \caption{\citep{JBPS11}}
   \end{figure}
 \end{frame}
 
@@ -216,6 +202,7 @@ citestyle=authoryear]{biblatex}
     \begin{itemize}
     \item Différentes dimensions/résolutions
     \item Déformation lisse (au moins $C^1$)
+    \item Choisir l'outil le plus adapté aux déformations à appliquer
     \end{itemize}
   \end{block}
   \begin{figure}[h]
@@ -223,7 +210,7 @@ citestyle=authoryear]{biblatex}
       \includegraphics[scale=0.15]{alligator-avant}
       \includegraphics[scale=0.15]{alligator-apres}
     \end{center}
-    \caption{\cite{JBPS11}}
+    \caption{\citep{JBPS11}}
   \end{figure}
 \end{frame}
 
@@ -231,7 +218,7 @@ citestyle=authoryear]{biblatex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Etat de l'art}
-\subsection{Outils existants}
+
 \begin{frame}{Outils existants}
   \begin{figure}[h]
     \begin{center}
@@ -261,23 +248,21 @@ citestyle=authoryear]{biblatex}
         DOGME & P & Locale & Cubique\\
         \hline
       \end{tabular}
-      \caption{D'après \cite{GB08}}
+      \caption{\citep{GB08}}
     \end{center}
   \end{figure}
 \end{frame}
 
-\subsection{Mélange d'outils}
-
 \begin{frame}{Etat de l'art}
   \begin{itemize}
   \item Bounded Biharmonic Weights for Real-Time Deformation
-    $_{\text{\cite{JBPS11}}}$
+    $_{\text{\citep{JBPS11}}}$
   \item *Cages: A Multilevel, Multi-cage-based System for Mesh
-    Deformation $_{\text{\cite{GPCP13}}}$
+    Deformation $_{\text{\citep{GPCP13}}}$
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Bounded Biharmonic Weights}
+\begin{frame}{Bounded Biharmonic Weights $_{\text{\citep{JBPS11}}}$}
   \begin{itemize}
   \item Mélange d'outils de différentes dimensions
   \item Associer manuellement plusieurs outils sur différentes zones
@@ -294,23 +279,66 @@ citestyle=authoryear]{biblatex}
   \end{itemize}
 \end{frame}
 
-\begin{frame}{*Cages}
+\begin{frame}{Déformation à base de cages}
   \begin{itemize}
-  \item Mélange de cages de déformation
-  \item Coordonnées par rapport à une cage \textit{propre} et
-    plusieurs cages \textit{jointure}
+\item $_{\text{\citep{JSW05}}}$ $_{\text{\citep{HF06}}}$
+  \item Déformation globale
+  \item Forme épousant celle de l'objet à déformer
+  \end{itemize}
+  \begin{equation}
+    T(p) = \sum^n_{i=1} \lambda(c_i,p) \cdot c_i
+  \end{equation}
+  Où : \\
+  $\lambda(c_i,p)$ est la coordonnée du point $p$ par rapport au
+  sommet $c_i$
+\end{frame}
+
+\begin{frame}{Déformation à base de cages}
+\begin{itemize}
+\item Plusieurs méthodes de calcul (MVC, GC, HC)
+\end{itemize}
+\begin{figure}[h]
+  \begin{center}
+    \begin{tabular}{|l|c|c|c|}
+      \hline
+      \textbf{Domaine} & MVC & Harmoniques & Green\\
+      \hline
+      \textbf{Intérieur} & $\highlightG{C^\infty}$
+      & $\highlightG{C^\infty} $
+      & $\highlightG{C^\infty}$ \\
+      \hline
+      \textbf{Bord} & $\highlightR{C^0}$
+      & $\highlightR{C^0}$
+      & $\highlightR{C^0}$ \\
+      \hline
+      \textbf{Extérieur} & $\highlightG{C^\infty}$
+      & $\highlightR{C^0}$
+      & $\highlightG{C^\infty}$ \\
+      \hline
+    \end{tabular}
+    \caption{\citep{GPCP13}}
+  \end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}{*Cages $_{\text{\citep{GPCP13}}}$}
+  \begin{itemize}
+  \item Position d'un point définie par rapport à une cage
+    \textit{propre} et plusieurs cages \textit{jointure}
+  \item Cage \textit{jointure} est l'union des cages incidentes à un
+    sommet de la cage \textit{propre}
   \end{itemize}
   \begin{figure}[h]
     \begin{center}
       \includegraphics[scale=0.07]{joinCages}
     \end{center}
-    \caption{\cite{GPCP13}}
+    \caption{\citep{GPCP13}}
   \end{figure}
 \end{frame}
 
 \setbeamercovered{transparent}
 
-\begin{frame}{*Cages}
+\begin{frame}{*Cages $_{\text{\citep{GPCP13}}}$}
   \fontsize{8pt}{7.2}\selectfont
   \begin{equation}
     S_{c_i}(p) = b_{c_i}(p) T_{c_i}(p) + (1-b_{c_i}(p)) \highlightR{J_{c_i}(p)}
@@ -332,16 +360,16 @@ citestyle=authoryear]{biblatex}
   \begin{equation}
     \highlightO{f_h(x)} = \frac{1}{2} \sin(\pi(\frac{x}{h}-\frac{1}{2}))
   \end{equation}
-    \begin{tikzpicture}[remember picture,overlay]
-      \begin{axis}[colormap/bluered, width=0.37\textwidth,
-        height=0.3\textwidth]
-        \addplot gnuplot[scatter, samples=300, domain=0:1, mark=*,
-        mark size=0.5]{1/2.*sin(pi*(x-1/2.))+1/2.};
-      \end{axis} node[midway]
-    \end{tikzpicture}
-\pause
+  \begin{tikzpicture}[remember picture,overlay]
+    \begin{axis}[colormap/bluered, width=0.37\textwidth,
+      height=0.3\textwidth]
+      \addplot gnuplot[scatter, samples=300, domain=0:1, mark=*, mark
+      size=0.5]{1/2.*sin(pi*(x-1/2.))+1/2.};
+    \end{axis} node[midway]
+  \end{tikzpicture}
+  \pause
   \begin{equation}
-    \highlightV{d_c(t,p)} = 1 - \sum_{u \in V(t)} w_c(u,p)
+    \highlightV{d_c(t,p)} = 1 - \sum_{u \in V(t)} \lambda_c(u,p)
   \end{equation}
   \pause
   \begin{equation}
@@ -350,15 +378,15 @@ citestyle=authoryear]{biblatex}
   \end{equation}
 \end{frame}
 
-\begin{frame}{*Cages}
-  \begin{alertblock}{Problèmes}
+\begin{frame}{*Cages $_{\text{\citep{GPCP13}}}$}
+  \begin{alertblock}{Points négatifs :}
     \setbeamercolor{itemize item}{fg=MRed}
     \begin{itemize}
     \item Nombreuses fonctions imbriquées
-    \item Utilisation de fonctions harmoniques
+    \item Utilisation de coordonnées harmoniques
     \end{itemize}
   \end{alertblock}
-  \begin{exampleblock}{A retenir}
+  \begin{exampleblock}{A retenir :}
     \setbeamercolor{itemize item}{fg=MGreen}
     \begin{itemize}
     \item Déformations localisées et lisses
@@ -368,20 +396,19 @@ citestyle=authoryear]{biblatex}
 \end{frame}
 
 \section{\scshape Méthode proposée}
-\subsection{}
 
 \begin{frame}{Méthode proposée}
   \begin{block}{Idée}
     \begin{itemize}
     \item Coordonnées barycentriques sont définies dans $\mathbb{R}^2$
     \item Zone d'influence autour d'une cage
-    \item Estompement progressif des poids au bord de cette zone
+    \item Estompement progressif des coordonnées au bord
     \item Mélanger les coordoonnées aux zones de rencontre
     \end{itemize}
   \end{block}
-\begin{figure}[h]
-\includegraphics[scale=0.2]{bordure-cage}
-\end{figure}
+  \begin{figure}[h]
+    \includegraphics[scale=0.2]{bordure-cage}
+  \end{figure}
 \end{frame}
 
 \begin{frame}{Méthode proposée}
@@ -397,20 +424,25 @@ citestyle=authoryear]{biblatex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Suite du stage}
-\subsection{}
 \begin{frame}{Suite du stage}
   A court terme
   \begin{itemize}
   \item Corriger les problèmes de continuité des MVC
-    $_{(\text{\cite{LS08}})}$
+    $_{\text{\citep{LS08}}}$
   \item Etude des outils à base de courbes
   \end{itemize}
   A "long" terme
   \begin{itemize}
+  \item Gestion des différents niveaux de résolution $_{\text{\citep{Hur12}}}$
   \item Généralisation de la technique de mélange aux outils de
     différentes dimensions
-  \item
   \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+\begin{center}
+\huge Merci de votre attention.
+\end{center}
 \end{frame}
 
 \appendix
