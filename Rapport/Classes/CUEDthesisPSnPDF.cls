@@ -43,14 +43,16 @@
 \usepackage{eucal}
 \usepackage[frenchb]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage[usenames, dvipsnames]{color}
+\usepackage[T1]{fontenc}
+\usepackage[usenames, dvipsnames]{xcolor}
 \usepackage[perpage]{footmisc}
 \usepackage[square, numbers, authoryear]{natbib}
 \usepackage{ifthen}
 \usepackage{ifpdf}
-\usepackage{auto-pst-pdf, pstricks}
+\usepackage{pstricks}
 \usepackage{etex}
-
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.10}
 
 %Bibliography
 %uncomment next line to change bibliography name to references for Book document class
@@ -165,7 +167,7 @@
 \renewcommand{\sectionmark}[1]{}
 \fancyhf{}
 \fancyhead[RO]{\bfseries\rightmark}
-\fancyhead[LE]{\bfseries\leftmark}
+\fancyhead[L]{\bfseries\leftmark}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.5pt}
 \renewcommand{\footrulewidth}{0pt}

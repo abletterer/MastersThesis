@@ -1,0 +1,29 @@
+%!TEX program = xelatex
+\documentclass{article}
+\usepackage{pstricks}
+
+% preview must come after any pstricks package!
+\usepackage[active,tightpage]{preview}
+\PreviewBorder=0pt\relax
+
+% Either
+\PreviewEnvironment{pspicture}
+% or
+%\PreviewEnvironment{pspicture*}
+
+\begin{document}
+\begin{pspicture}(0,-5.2273965)(8.74465,5.227397)
+\definecolor{color23b}{rgb}{0.7176470588235294,0.0,0.12549019607843137}
+\definecolor{color23}{rgb}{0.7176470588235294,0.0,0.13333333333333333}
+\definecolor{color13}{rgb}{0.00392156862745098,0.00392156862745098,0.00392156862745098}
+\psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm 0.16cm](0.8075776,3.7196715)(3.7675776,-3.0003273)
+\psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm 0.16cm](8.687577,0.6796716)(0.6875776,-3.2003274)
+\psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm 0.16cm](0.8075776,3.7596717)(5.9275775,3.2396717)
+\psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm 0.16cm](8.667578,0.6996716)(3.7475777,3.9196715)
+\psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm 0.16cm](0.0275776,-1.1003284)(6.4075775,2.3196716)
+\psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm 0.16cm](1.6875776,1.6796716)(1.9275776,-3.0403273)
+\psline[linewidth=0.05cm,linestyle=dashed,dash=0.16cm 0.16cm](5.587578,5.159672)(7.0668874,0.378305)
+\pspolygon[linewidth=0.1,linecolor=color23,fillstyle=solid,fillcolor=color23b](2.3875775,0.1596716)(6.2477846,2.2099302)(5.2966785,-0.9603284)(3.2970715,-1.9403284)(2.3875775,0.1596716)
+\pspolygon[linewidth=0.1,linecolor=color13](0.8160028,3.7282884)(2.6309054,3.5735292)(5.571329,5.177397)(6.528022,2.1103518)(8.69465,0.6612438)(5.304018,-0.9707618)(4.023738,-5.177397)(0.0,-4.9944997)(0.028138,-1.125521)(1.7726955,-0.196966)(1.6882817,1.6601434)(0.8160028,3.7282884)
+\end{pspicture} 
+\end{document}

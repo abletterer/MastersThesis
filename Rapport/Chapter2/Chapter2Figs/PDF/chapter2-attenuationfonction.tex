@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage[pdftex,active,tightpage]{preview}
+\setlength\PreviewBorder{2mm}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.10}
+
+\begin{document}
+\begin{preview}
+    \begin{tikzpicture}
+      \begin{axis}[
+      	colormap/bluered,
+        width=0.37\textwidth,
+        xmin=0,     % start the diagram at this x-coordinate
+        xmax=1,    % end   the diagram at this x-coordinate
+        ymin=0,     % start the diagram at this y-coordinate
+        ymax=1   % end   the diagram at this y-coordinate
+      ]
+        \addplot[samples=200] {(cos(pi*(deg(x+1.)))+1.)/2.};
+      \end{axis}
+    \end{tikzpicture}
+    \begin{tikzpicture}
+      \begin{axis}[
+        width=0.37\textwidth,
+        xmin=0,     % start the diagram at this x-coordinate
+        xmax=1,    % end   the diagram at this x-coordinate
+        ymin=0,     % start the diagram at this y-coordinate
+        ymax=1   % end   the diagram at this y-coordinate
+      ]
+        \addplot[samples=200, domain=0:0.6] {(cos(pi*(deg(x/0.6+1.)))+1.)/2.};
+      \end{axis}
+    \end{tikzpicture}
+    \begin{tikzpicture}
+      \begin{axis}[
+        width=0.37\textwidth,
+        xmin=0,     % start the diagram at this x-coordinate
+        xmax=1,    % end   the diagram at this x-coordinate
+        ymin=0,     % start the diagram at this y-coordinate
+        ymax=1   % end   the diagram at this y-coordinate
+      ]
+        \addplot[samples=200, domain=0:0.2] {(cos(pi*(deg(x/0.2+1.)))+1.)/2.};
+      \end{axis}
+    \end{tikzpicture}
+\end{preview}
+\end{document}

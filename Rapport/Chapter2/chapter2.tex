@@ -1,4 +1,5 @@
-% -*- root: ../thesis.tex -*- 
+%!TEX root = ../thesis.tex
+
 % \pagebreak[4]
 % \hspace*{1cm}
 % \pagebreak[4]
@@ -157,7 +158,7 @@ domaine [0,h] (Figure \ref{MELfon}).
       noires). Les variations de couleur représentent les variations
       de valeur de $\beta$ (la couleur bleu marine représentant une
       valeur de 0 et la couleur rouge une valeur de 1). En bleu les
-      zones dites ``de bordure'' (i.e. points de l'espace proches d'une
+      zones dites "de bordure" (i.e. points de l'espace proches d'une
       arête incidente à une autre cage). Valeurs de h : 0.2, 0.4 et
       0.6 pour les images à gauche, au centre et à droite
       respectivement.}
@@ -167,48 +168,7 @@ domaine [0,h] (Figure \ref{MELfon}).
 
 \begin{figure}[ht]
   \begin{center}
-    \begin{tikzpicture}
-      \begin{axis}[colormap/bluered, width=0.37\textwidth,
-        height=0.3\textwidth]
-        \addplot gnuplot[scatter, samples=500, domain=0:0.2, mark=*,
-        mark size=0.5]{1/2.*sin(pi*(x/0.2-1/2.))+1/2.};
-
-        \addplot gnuplot[scatter, samples=500, domain=0.2:1, mark=*,
-        mark size=0.5]{1};
-
-        \draw ({axis cs:0.2,0}|-{rel axis cs:0,0}) -- ({axis
-          cs:0.2,0}|-{rel axis cs:0,1}) node[near start,right] {$h =
-          0.2$};
-      \end{axis}
-    \end{tikzpicture}
-    \begin{tikzpicture}
-      \begin{axis}[colormap/bluered, width=0.37\textwidth,
-        height=0.3\textwidth]
-        \addplot gnuplot[scatter, samples=500, domain=0:0.4, mark=*,
-        mark size=0.5]{1/2.*sin(pi*(x/0.4-1/2.))+1/2.};
-
-        \addplot gnuplot[scatter, samples=500, domain=0.4:1, mark=*,
-        mark size=0.5]{1};
-
-        \draw ({axis cs:0.4,0}|-{rel axis cs:0,0}) -- ({axis
-          cs:0.4,0}|-{rel axis cs:0,1}) node[near start,right] {$h =
-          0.4$};
-      \end{axis}
-    \end{tikzpicture}
-    \begin{tikzpicture}
-      \begin{axis}[colormap/bluered, width=0.37\textwidth,
-        height=0.3\textwidth]
-        \addplot gnuplot[scatter, samples=300, domain=0:0.6, mark=*,
-        mark size=0.5]{1/2.*sin(pi*(x/0.6-1/2.))+1/2.};
-
-        \addplot gnuplot[scatter, samples=300, domain=0.6:1, mark=*,
-        mark size=0.5]{1};
-
-        \draw ({axis cs:0.6,0}|-{rel axis cs:0,0}) -- ({axis
-          cs:0.6,0}|-{rel axis cs:0,1}) node[near start,right] {$h =
-          0.6$};
-      \end{axis}
-    \end{tikzpicture}
+    \includegraphics{chapter2-attenuationfonction}
     \caption{Visualisation de la fonction f(x) pour différentes
       valeurs de h}
     \label{MELfon}
@@ -331,40 +291,7 @@ triangle $[p,v_i,v_{i+1}]$ (Figure \ref{MELmvc}).
 
 \begin{figure}[ht]
   \begin{center}
-    \scalebox{1} % Change this value to rescale the drawing.
-    {
-      \begin{pspicture}(0,-3.771875)(7.3034377,3.751875)
-        \psdots[dotsize=0.2](2.1,3.631875)
-        \psdots[dotsize=0.2](0.1,1.731875)
-        \psdots[dotsize=0.2](1.68,0.411875)
-        \psdots[dotsize=0.2](2.3,-3.128125)
-        \psdots[dotsize=0.2](6.68,-1.748125)
-        \psdots[dotsize=0.2](6.02,3.071875)
-        \psdots[dotsize=0.2](3.78,1.391875)
-        \psline[linewidth=0.04cm](2.32,-3.148125)(1.68,0.431875)
-        \psline[linewidth=0.04cm](2.32,-3.128125)(6.72,-1.728125)
-        \psline[linewidth=0.04cm](1.66,0.431875)(0.08,1.731875)
-        \psline[linewidth=0.04cm](0.08,1.711875)(2.1,3.651875)
-        \psline[linewidth=0.04cm](3.78,1.371875)(2.12,3.611875)
-        \psline[linewidth=0.04cm](3.8,1.391875)(6.0,3.051875)
-        \psline[linewidth=0.04cm](6.68,-1.768125)(6.04,3.071875)
-        \psline[linewidth=0.04cm](2.1,3.631875)(5.98,3.091875)
-        \psline[linewidth=0.04cm](3.78,1.371875)(6.68,-1.748125)
-        \psline[linewidth=0.04cm](2.3,-3.168125)(3.78,1.371875)
-        \psline[linewidth=0.04cm](1.7,0.391875)(3.76,1.351875)
-        \psline[linewidth=0.04cm](0.1,1.711875)(3.82,1.391875)
-        \rput{-135.0}(5.4728017,4.9906588){\psarc[linewidth=0.04](3.77,1.361875){0.5515433}{27.758541}{174.64418}}
-        \usefont{T1}{ptm}{m}{n} \rput(2.2734375,-3.493125){\large
-          $v_{i-1}$} \usefont{T1}{ptm}{m}{n}
-        \rput(6.6734376,-2.213125){\large $v_i$}
-        \usefont{T1}{ptm}{m}{n} \rput(5.9734373,3.486875){\large
-          $v_{i+1}$} \usefont{T1}{ptm}{m}{n}
-        \rput(3.9634376,0.366875){\large $\alpha_{i-1}$}
-        \usefont{T1}{ptm}{m}{n} \rput(4.7234373,1.346875){\large
-          $\alpha_i$} \usefont{T1}{ptm}{m}{n}
-        \rput(3.8434374,1.926875){\large $p$}
-      \end{pspicture}
-    }
+    \includegraphics{chapter2-pstricks}
     \caption{Visualisation du calcul de la coordonnée du point $p$ par
       rapport au sommet $v_i$}
     \label{MELmvc}
