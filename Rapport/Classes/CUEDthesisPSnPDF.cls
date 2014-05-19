@@ -48,6 +48,8 @@
 \usepackage[square, numbers, authoryear]{natbib}
 \usepackage{ifthen}
 \usepackage{ifpdf}
+\usepackage{auto-pst-pdf, pstricks}
+\usepackage{etex}
 
 
 %Bibliography
@@ -99,7 +101,7 @@
                  hyperindex = true,
                  hyperfigures
                  ]{hyperref} 
-    \usepackage[pdftex]{graphicx}
+    %\usepackage[pdftex]{graphicx}
     \DeclareGraphicsExtensions{.png, .jpg, .pdf}
 
     \pdfcompresslevel=9
