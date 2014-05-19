@@ -7,32 +7,28 @@
   {Introduction/IntroductionFigs/PDF/}
   {Introduction/IntroductionFigs/} }
 
-La modélisation géométrique a permis, dans un premier temps, de
-représenter des objets virtuels. Ces objets peuvent être de natures
-différentes, comme les surface paramétriques ou les maillages. Pour
-notre part, nous nous intéressons aux objets discrétisés en cellules
-(sommet, arêtes, faces, volumes). Une déformation naïve consiste à
-déplacer des sommets d'un objet. Mais d'autres types de déformations,
-plus élaborés, se sont instaurés. Ils sont pour la plupart propres à
-une représentation spécifique d'un objet, mais d'autres comme la
-déformation \textit{spatiale}, font abstraction de ces
-représentations. C'est sur ce type de déformation que nous nous sommes
-intéressés.
-\\
-
-La déformation spatiale consiste à déformer un objet en modifiant son
-espace ambiant au travers de la modification d'un outil. Cet outil est
-lui même un objet discrétisé en cellules et les modifications qu'on
-peut lui appliquer sont réalisées au travers du déplacement de ses
-sommets. Cet outil a des caractéristiques spécifiques, comme sa
-dimension, la zone de l'espace qu'il déforme (limitée spatialement ou
-globale). On notera \cite{Bar84} et \cite{SP86} comme étant les
-premiers à avoir introduit ce type de déformation. Ce procédé a un
-avantage considérable, car comme la déformation est réalisée sur
-chaque point de l'espace de façon indépendante, elle n'est pas liée à
-la représentation interne de l'objet. C'est-à-dire qu'une même
-déformation de l'outil déformera l'espace de la même manière.
-\\
+La modélisation géométrique a permis, dans un premier temps, de représenter
+des objets virtuels. Ces objets peuvent être de natures différentes, comme les
+surface paramétriques ou les maillages. Pour notre part, nous nous sommes
+intéressés aux maillages, qui représente une discrétisation de l'espace sous
+forme de cellules (sommets, arêtes, faces, volumes). Une méthode déformation
+naïve consiste à déplacer des sommets d'un maillage. Mais d'autres types de
+déformations, plus élaborés, se sont instaurés. Ils sont pour la plupart
+propres à une représentation spécifique d'un maillage, mais d'autres, comme la
+déformation \textit{spatiale}, font abstraction de ces représentations. Nous
+nous sommes intéressés à ce type de déformation. Durant le reste du rapport, nous
+appellerons \textit{objet} un maillage auquel nous appliquons une déformation.\\
+	
+La déformation spatiale consiste à déformer un objet en modifiant son espace
+ambiant au travers de la modification d'un outil. Cet outil est un object et
+les modifications qu'on peut lui appliquer sont réalisées au travers du
+déplacement de ses sommets. Cet outil a des caractéristiques spécifiques,
+comme sa dimension (sommet, arête, face, volume), la zone de l'espace qu'il
+déforme (limitée spatialement ou globale) et sa résolution (nombre de
+sommets). On notera \cite{Bar84} et \cite{SP86} comme étant les premiers à
+avoir introduit ce type de déformation. L'avantage de ce procédé par rapport
+aux méthodes déjà existantes a été de pouvoir réaliser des déformations
+indépendantes de la représentation de l'objet à déformer.
 
 Le but de ce travail est de permettre à un utilisateur d'obtenir un
 outil de déformation s'adaptant à ses besoins, en générant de façon
