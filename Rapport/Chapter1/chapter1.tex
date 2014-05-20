@@ -10,97 +10,94 @@
 
 \graphicspath{{Chapter1/Chapter1Figs/PNG/}{Chapter1/Chapter1Figs/PDF/}{Chapter1/Chapter1Figs/}}
 
-Ce chapitre propose un état de l'art sur les différentes déformations
-spatiales, d'après \cite{GB08}, tout en les comparant, dans chaque
-dimension, selon des critères de souplesse, facilité d'utilisation,
-efficacité (en complexité) et exactitude. Ce classement va nous
-permettre de choisir le meilleur outil associé à chaque dimension,
-afin d'obtenir à la fin une sélection de 4 outils de dimensions
-différentes sur laquelle nous allons nous baser pour réaliser les
-mélanges. Les outils présentés fonctionnent aussi bien dans
-$\mathbb{R}^2$ que dans $\mathbb{R}^3$, mais dans ce chapitre nous
-nous concentrons sur des déformations affectant l'espace
+Ce chapitre propose un état de l'art sur les différentes outils de déformation
+spatiale, d'après le travail de \cite{GB08}. Les outils présentés
+fonctionnent aussi bien dans $\mathbb{R}^2$ que dans $\mathbb{R}^3$, mais dans
+ce chapitre nous considèrerons des déformations affectant l'espace
 $\mathbb{R}^3$.
 
-Tous ces outils ont différentes caractéristiques, comme par exemple la
-dimension topologique de l'outil (point, courbe, surface, volume) ou
-de la zone de l'espace qu'il déforme (limitée spatialement ou
-globale). On dit qu'une déformation est globale lorsqu'un le
-déplacement d'un sommet de l'outil influe sur l'ensemble des points de
-l'espace.
+Tous ces outils ont différentes caractéristiques, comme par exemple la dimension
+(point, courbe, surface, volume), la zone de l'espace qu'ils déforment (limitée
+spatialement ou globale) ou encore leur résolution (nombre de points de contrôle
+qui les composent). On dit qu'une déformation est globale lorsqu'un le
+déplacement d'un sommet de l'outil influe sur l'ensemble des points de l'espace.
+
+Ces caractéristiques nous permettent de classer les outils et d'en sélectionner
+certains. Cette sélection a pour but d'établir une base sur laquelle partir lors
+de la mise en place d'une méthode de mélange des déformations engendrées par les
+différents outils.
 
 \section{Déformation à base de volumes}
-Les déformations à base de volumes sont définies à partir d'une grille
-3D de points de contrôle. Ces points peuvent être considérées comme
-des poignées que l'on peut déplacer et qui vont modifier la position
-des points de l'espace.
+
+Les déformations à base de volumes sont définies à partir d'une grille 3D de
+points de contrôle. Ces points peuvent être considérées comme des poignées que
+l'on peut déplacer et qui vont modifier la position des points de l'espace.
 
 \begin{itemize}
-\item{\textbf{Déformation de forme libre de Bézier :}} \cite{SP86} ont
-  eu l'idée de lier la déformation d'un volume paramétrique à l'espace
-  contenu à l'intérieur de ce volume. Mathématiquement, il s'agit
-  d'une extension directe des courbes de Bézier au cas 3D. Ils ont
-  utilisé les polynômes de Bernstein pour définir le volume. Ce
-  modèle, donnant une forme parallépipédique au volume, permet
-  d'obtenir une paramétrisation des coordonnées des points de l'espace
-  presque automatiquement. Cette technique déforme l'espace de façon
-  globale.
-\item{\textbf{Déformation de forme libre avec contrôle local :}} Les
-  volumes paramétriques souffrent des mêmes problèmes que leurs
-  homologues de dimensions inférieures (surface et courbes
-  paramétriques), à savoir le manque de contrôle local. Pour corriger
-  le problème, une solution naïve consiste à rajouter des points de
-  contrôle, afin de réduire l'impact de chacun d'entre eux sur
-  l'espace à déformer. Mais cette technique augmente le degré du
-  volume paramétrique et ainsi son coût en temps de calcul. Une autre
-  solution est d'utiliser des fonctions définies par
-  morceaux. \cite{GP89} et \cite{Com89} ont choisi de travailler avec
-  des B-splines, car elles sont définies naturellement par
-  morceaux. Ce choix rend la déformation limitée spatialement.
-\item{\textbf{Déformation de forme libre avec outil non
-      parallélépipédique :}} Les déformations de forme libre ont une
-  grosse limitation, celle de la forme de l'outil. En effet, comme les
-  volumes de déformations sont uniquement composés de cubes alignés
-  sur les axes du repère de l'espace, la forme globale correspond à un
-  pavé. Par conséquent, il n'est pas possible d'obtenir un outil qui
-  épouse la forme de l'objet à déformer. \cite{Coq90} a donc proposé
-  une version étendue des déformations de forme libre, en laissant la
-  possibilité lors de la création de l'outil de modifier la position
-  de ses sommets avant de l'associer à l'outil. Le calcul des
-  coordonnées de l'objet par rapport à l'outil n'est donc plus
-  trivial, il est devenu beaucoup plus coûteux. \cite{BBT97} ont
-  proposé de considérer des volumes de Bézier tétraédriques tandis que
-  \cite{MJ96} se sont plutôt intéressés aux volumes de subdivision de
-  topologie quelconque.
+
+\item{\textbf{Déformation de forme libre de Bézier :}} \cite{SP86} ont   eu
+l'idée de lier la déformation d'un volume paramétrique à l'espace   contenu à
+l'intérieur de ce volume. Mathématiquement, il s'agit   d'une extension directe
+des courbes de Bézier au cas 3D. Ils ont   utilisé les polynômes de Bernstein
+pour définir le volume. Ce   modèle, donnant une forme parallépipédique au
+volume, permet   d'obtenir une paramétrisation des coordonnées des points de
+l'espace   presque automatiquement. Cette technique déforme l'espace de façon
+globale.
+
+\item{\textbf{Déformation de forme libre avec contrôle local :}} Les   volumes
+paramétriques souffrent des mêmes problèmes que leurs   homologues de dimensions
+inférieures (surface et courbes   paramétriques), à savoir le manque de contrôle
+local. Pour corriger   le problème, une solution naïve consiste à rajouter des
+points de   contrôle, afin de réduire l'impact de chacun d'entre eux sur
+l'espace à déformer. Mais cette technique augmente la résolution du   volume
+paramétrique et ainsi son coût en temps de calcul. Une autre   solution est
+d'utiliser des fonctions définies par   morceaux. \cite{GP89} et \cite{Com89}
+ont choisi de travailler avec   des B-splines, car elles sont définies
+naturellement par   morceaux. Ce choix rend la déformation limitée spatialement.
+
+\item{\textbf{Déformation de forme libre avec outil non       parallélépipédique
+:}} Les déformations de forme libre ont une   grosse limitation, celle de la
+forme de l'outil. En effet, comme les   volumes de déformations sont uniquement
+composés de cubes alignés   sur les axes du repère de l'espace, la forme globale
+correspond à un   pavé. Par conséquent, il n'est pas possible d'obtenir un outil
+qui   épouse la forme de l'objet à déformer. \cite{Coq90} a donc proposé   une
+version étendue des déformations de forme libre, en laissant la   possibilité
+lors de la création de l'outil de modifier la position   de ses sommets avant de
+l'associer à l'outil. Le calcul des   coordonnées de l'objet par rapport à
+l'outil n'est donc plus   trivial, il est devenu beaucoup plus coûteux.
+\cite{BBT97} ont   proposé de considérer des volumes de Bézier tétraédriques
+tandis que   \cite{MJ96} se sont plutôt intéressés aux volumes de subdivision de
+topologie quelconque.
+
 \end{itemize}
 
-\section{Déformation à base de surfaces}
-La difficulté des déformations à base de surfaces réside dans la
-manière d'attacher les points de l'espace à une surface.
+\section{Déformation à base de surfaces} 
+
+La difficulté des déformations à base de surfaces réside dans la manière
+d'attacher les points de l'espace à une surface.
 
 \begin{itemize}
-\item{\textbf{Carreau paramétrique :}} \cite{JLQ96} ont été les
-  premiers à proposer une solution, celle d'utiliser un carreau
-  B-spline sur lequel sont projetés les points de l'espace, le long de
-  la normale au plan du carreau, dans l'espace paramétrique du
-  carreau. Ainsi pour déformer l'espace, l'utilisateur déplace les
-  différents points de contrôle. Les points de l'espace sont
-  repositionnés grâce à leurs coordonnées paramétriques (précédemment
-  calculées) et ``reprojetées'' le long de la normale au carreau
-  déformé. De même que pour les volumes paramétriques, cette technique
-  déforme l'espace de façon globale.
-\item{\textbf{Surface étoilée :}} Un polyèdre de forme étoilée est un
-  polyèdre contenant, en son intérieur, une région qu'on appelle le
-  \textit{noyau}. On définit le noyau d'un polyèdre comme étant la
-  région depuis laquelle un rayon émis dans n'importe quelle direction
-  n'intersecte le bord du polyèdre qu'une seule fois (Figure
-  \ref{SUReto}, représenté en 2D). Cette propriété est utile dans le
-  domaine de la déformation car elle permet d'obtenir une unique
-  paramétrisation en coordonnées polaires des points de l'espace,
-  comme proposé par \cite{JL00}. Cette technique déforme aussi
-  l'espace de façon globale.
 
-  \begin{figure}[h]
+\item{\textbf{Carreau paramétrique :}} \cite{JLQ96} ont été les   premiers à
+proposer une solution, celle d'utiliser un carreau   B-spline sur lequel sont
+projetés les points de l'espace, le long de   la normale au plan du carreau,
+dans l'espace paramétrique du   carreau. Ainsi pour déformer l'espace,
+l'utilisateur déplace les   différents points de contrôle. Les points de
+l'espace sont   repositionnés grâce à leurs coordonnées paramétriques
+(précédemment   calculées) et ``reprojetées'' le long de la normale au carreau
+déformé. De même que pour les volumes paramétriques, cette technique   déforme
+l'espace de façon globale.
+
+\item{\textbf{Surface étoilée :}} Un polyèdre de forme étoilée est un   polyèdre
+contenant, en son intérieur, une région qu'on appelle le   \textit{noyau}. On
+définit le noyau d'un polyèdre comme étant la   région depuis laquelle un rayon
+émis dans n'importe quelle direction   n'intersecte le bord du polyèdre qu'une
+seule fois (Figure   \ref{SUReto}, représenté en 2D). Cette propriété est utile
+dans le   domaine de la déformation car elle permet d'obtenir une unique
+paramétrisation en coordonnées polaires des points de l'espace,   comme proposé
+par \cite{JL00}. Cette technique déforme aussi   l'espace de façon globale.
+
+  \begin{figure}[ht]
     \begin{center}
       \includegraphics[scale=0.5]{chapter1-pstricks.pdf}
       \caption{En rouge le noyau d'un polygone de forme étoilée
@@ -109,101 +106,79 @@ manière d'attacher les points de l'espace à une surface.
     \end{center}
   \end{figure}
 
-\item{\textbf{Maillage triangulaire :}} Une autre idée est d'utiliser
-  un maillage triangulaire simple pour appliquer des déformations aux
-  points de l'espace. \cite{KO03} ont été les premiers à utiliser ce
-  genre d'outil. Ils définissent que les triangles du maillage
-  contribuent à déformer une zone sphérique autour de chacun d'entre
-  eux. Les triangles définissent des coordonnées paramétriques pour
-  les points de l'espace se trouvant dans leur zone d'influence, en
-  fonction de leur distance au triangle. La position des points de
-  l'espace se trouvant à l'intersection de plusieurs zones d'influence
-  résultent d'une moyenne pondérée des coordonnées calculées par
-  rapport à chaque triangle. L'avantage de cette technique est de
-  permettre une configuration assez générale des triangles (non
-  nécessairement connexes), à partir du moment où ceux-ci ne sont pas
-  dégénérés (les triangles doivent être composés de 3 sommets
-  distincts). La déformation engendrée par le déplacement du sommet
-  d'un triangle est limitée spatialement par la zone d'influence
-  définie autour de ce triangle.
-\item{\textbf{Cage :}} Avant de commencer, précisons juste quelques
-  notions :
-  \begin{itemize}
-  \item{\textit{Position :}} On définit la position d'un point comme
-    étant une combinaison linéaire pondérée des positions sommets de
-    sa cage.
-  \item{\textit{Coordonnée :}} On appelle coordonnée la pondération
-    associée à un sommet de la cage lors du calcul de la position d'un
-    point de l'espace.\\
-  \end{itemize}
+\item{\textbf{Maillage triangulaire :}} Une autre idée est d'utiliser   un
+maillage triangulaire simple pour appliquer des déformations aux   points de
+l'espace. \cite{KO03} ont été les premiers à utiliser ce   genre d'outil. Ils
+définissent que les triangles du maillage   contribuent à déformer une zone
+sphérique autour de chacun d'entre   eux. Les triangles définissent des
+coordonnées paramétriques pour   les points de l'espace se trouvant dans leur
+zone d'influence, en   fonction de leur distance au triangle. La position des
+points de   l'espace se trouvant à l'intersection de plusieurs zones d'influence
+résultent d'une moyenne pondérée des coordonnées calculées par   rapport à
+chaque triangle. L'avantage de cette technique est de   permettre une
+configuration assez générale des triangles (non   nécessairement connexes), à
+partir du moment où ceux-ci ne sont pas   dégénérés (les triangles doivent être
+composés de 3 sommets   distincts). La déformation engendrée par le déplacement
+du sommet   d'un triangle est limitée spatialement par la zone d'influence
+définie autour de ce triangle.
 
-  La cage est l'outil surfacique le plus utilisé ces dernières années
-  en terme de déformation spatiale. Son utilisation est notamment dûe
-  aux travaux de \cite{JSW05} et de \cite{HF06} qui ont utilisé les
-  \textit{Mean Value Coordinates} définies par \cite{Flo03} et
-  \cite{FKR05} (lors de déformations dans $\mathbb{R}^3$). Un maillage
-  surfacique triangulaire quelconque est créé et permet de définir des
-  coordonnées paramétriques pour les points de l'espace par rapport
-  aux sommets de ce maillage. Pour calculer ces coordonnées, il existe
-  plusieurs méthodes, mais toutes sont issues des coordonnées
-  barycentriques généralisées. Ces dernières sont une extension des
-  coordonnés barycentriques permettant de calculer des coordonnées non
-  plus par rapport à un simplexe (tétraèdre en dimension 3), mais par
-  rapport à n'importe quelle cellule (polyèdre quelconque en dimension
-  3). On définit la position d'un points $p$ de l'espace comme étant
-  une combinaison linéaire des positions des sommets $v_i$ du polyèdre
-  de contrôle.
-  \begin{equation}
-    p = \sum_{i=0}^n \lambda_iv_i
-  \end{equation}
-  Où $\lambda_i$ correspond au poids associé au sommet $v_i$ pour le
-  point $p$. Cette formule nous indique que la déformation est
-  globale.
+\item{\textbf{Cage :}} La cage est l'outil surfacique le plus utilisé ces
+dernières années en terme de déformation spatiale. Son utilisation est notamment
+dûe aux travaux de \cite{JSW05} et de \cite{HF06} qui ont utilisé les
+\textit{Mean Value Coordinates} définies par \cite{Flo03} et \cite{FKR05}. Un
+maillage surfacique triangulaire quelconque est créé et définit une position
+paramétrique des points de l'espace par rapport aux positions des points de
+contrôle de la cage. Plus de précisions sur cette méthode seront données sur
+cette méthode dans le prochain chapitre.
+
 \end{itemize}
 
-\section{Déformation à base de courbes}
-L'étude étant encore en cours, l'analyse des outils de déformation à
-base de courbes n'est pas terminée. Leur explication sera donnée au
-rapport final.
+\section{Déformation à base de courbes} L'étude étant encore en cours, l'analyse
+des outils de déformation à base de courbes n'est pas terminée. Leur explication
+sera donnée au rapport final.
 
 \section{Déformation à base de points}
+
 \begin{itemize}
+
 \item{\textbf{Déformation radiale simple :}} Dans cette méthode, les
-  déformations sont déterminées par un certain nombre de contraintes,
-  chacune définie par un rayon $r_i$ (permettant de faire varier la
-  zone d'influence) centré sur un point de contrainte $C_i$ associé à
-  un déplacement $\Delta C_i$. On définit une paramétrisation des
-  points de l'espace uniquement par la distance de chacun aux points
-  de contraintes. De ce fait, les déformations se répandent de façon
-  uniforme dans toutes les directions. \cite{BR94} ont développé
-  Scodef (Simple Constrained Deformations), le premier outil utilisant
-  cette technique. La déformation appliquée par le déplacement d'un
-  point de contrainte est limitée à la zone sphérique autour de ce
-  point. Il est important de noter que ce modèle est juste une
-  restriction des possibilités de déformation proposées par la
-  technique suivante, en considérant le cas le plus simple avec des
-  zones d'influence sphériques autour des contraintes.
-\item{\textbf{DOGME :}} \cite{BB91} ont introduit une méthode basée
-  sur les contraintes appelée DOGME (Deformation Of Geometric Model
-  Editor) afin de remplacer l'interface non-intuitive des grilles
-  utilisés dans les déformations à base de volumes par une
-  manipulation directe des points de l'espace. L'idée est de permettre
-  à un utilisateur de déplacer un point de l'espace et de déformer son
-  voisinage géométrique en conséquence de façon lisse. On peut
-  comparer cette déformation au fait de pincer un objet pour étirer la
-  zone avoisinant la partie pincée. Pour replacer le voisinage d'un
-  point de l'espace, la méthode se base sur le déplacement de points
-  qu'on appelle ``contraintes''. Des contraintes, dont la portée de
-  chacune est définie par une zone d'influence, sont associées à
-  chaque point de l'espace et permettent d'approcher au mieux la
-  nouvelle position des points. Si un point de l'espace est sous
-  l'influence de plusieurs contraintes, alors sa nouvelle position
-  correspond à une pondération de celles-ci. De même que pour la
-  déformation radiale simple, la déformation est locale, car chaque
-  contrainte agit uniquement dans sa zone d'influence.
+déformations sont déterminées par un certain nombre de contraintes,   chacune
+définie par un rayon $r_i$ (permettant de faire varier la   zone d'influence)
+centré sur un point de contrainte $C_i$ associé à   un déplacement $\Delta C_i$.
+On définit une paramétrisation des   points de l'espace uniquement par la
+distance de chacun aux points   de contraintes. De ce fait, les déformations se
+répandent de façon   uniforme dans toutes les directions. \cite{BR94} ont
+développé   Scodef (Simple Constrained Deformations), le premier outil utilisant
+cette technique. La déformation appliquée par le déplacement d'un   point de
+contrainte est limitée à la zone sphérique autour de ce   point. Il est
+important de noter que ce modèle est juste une   restriction des possibilités de
+déformation proposées par la   technique suivante, en considérant le cas le plus
+simple avec des   zones d'influence sphériques autour des contraintes.
+
+\item{\textbf{DOGME :}} \cite{BB91} ont introduit une méthode basée   sur les
+contraintes appelée DOGME (Deformation Of Geometric Model   Editor) afin de
+remplacer l'interface non-intuitive des grilles   utilisés dans les déformations
+à base de volumes par une   manipulation directe des points de l'espace. L'idée
+est de permettre   à un utilisateur de déplacer un point de l'espace et de
+déformer son   voisinage géométrique en conséquence de façon lisse. On peut
+comparer cette déformation au fait de pincer un objet pour étirer la   zone
+avoisinant la partie pincée. Pour replacer le voisinage d'un   point de
+l'espace, la méthode se base sur le déplacement de points   qu'on appelle
+"contraintes". Des contraintes, dont la portée de   chacune est définie par une
+zone d'influence, sont associées à   chaque point de l'espace et permettent
+d'approcher au mieux la   nouvelle position des points. Si un point de l'espace
+est sous   l'influence de plusieurs contraintes, alors sa nouvelle position
+correspond à une pondération de celles-ci. De même que pour la   déformation
+radiale simple, la déformation est locale, car chaque   contrainte agit
+uniquement dans sa zone d'influence.
+
 \end{itemize}
 
-\begin{figure}[h]
+\newpage
+
+\section{Comparaison générale}
+
+\begin{figure}[ht]
   \begin{center}
     \begin{tabular}{|l|c|c|c|}
       \hline
@@ -231,15 +206,8 @@ rapport final.
       DOGME & Point & Locale & Cubique\\
       \hline
     \end{tabular}
-    \caption{Comparaison des différents outils existants (d'après
-      \cite{GB08})}
+    \caption{D'après \cite{GB08}}
   \end{center}
 \end{figure}
 
 % ------------------------------------------------------------------------
-
-%%% Local Variables: 
-%%% mode: latex
-%%% LaTeX-command: "latex -shell-escape"
-%%% TeX-master: "../thesis"
-%%% End: 
