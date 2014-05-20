@@ -128,14 +128,15 @@ dûe aux travaux de \cite{JSW05} et de \cite{HF06} qui ont utilisé les
 \textit{Mean Value Coordinates} définies par \cite{Flo03} et \cite{FKR05}. Un
 maillage surfacique triangulaire quelconque est créé et définit une position
 paramétrique des points de l'espace par rapport aux positions des points de
-contrôle de la cage. Plus de précisions sur cette méthode seront données sur
-cette méthode dans le prochain chapitre.
+contrôle de la cage. Plus de précisions sur cette méthode seront données dans le
+prochain chapitre.
 
 \end{itemize}
 
-\section{Déformation à base de courbes} L'étude étant encore en cours, l'analyse
-des outils de déformation à base de courbes n'est pas terminée. Leur explication
-sera donnée au rapport final.
+\section{Déformation à base de courbes} 
+
+L'étude étant encore en cours, l'analyse des outils de déformation à base de
+courbes n'est pas terminée. Leur explication sera donnée au rapport final.
 
 \section{Déformation à base de points}
 
@@ -173,41 +174,3 @@ radiale simple, la déformation est locale, car chaque   contrainte agit
 uniquement dans sa zone d'influence.
 
 \end{itemize}
-
-\newpage
-
-\section{Comparaison générale}
-
-\begin{figure}[ht]
-  \begin{center}
-    \begin{tabular}{|l|c|c|c|}
-      \hline
-      \textbf{Outil} & \textbf{Type d'outil} & \textbf{Déformation} & \textbf{Forme du bord} \\
-      \hline
-      \hline
-      Bézier & Volume & Globale & Cubique\\
-      \hline
-      Contrôle local & Volume & Locale & Cubique\\
-      \hline
-      Non-parallélépipédique & Volume & Locale & Libre\\
-      \hline
-      \hline
-      Carreau paramétrique & Surface & Globale & Rectangulaire\\
-      \hline
-      Surface étoilée & Surface & Globale & /\\
-      \hline
-      Maillage triangulaire & Surface & Locale & Union de sphères\\
-      \hline
-      Cage & Surface & Globale & Libre\\
-      \hline
-      \hline
-      Radiale simple & Point & Locale & Union de sphères\\
-      \hline
-      DOGME & Point & Locale & Cubique\\
-      \hline
-    \end{tabular}
-    \caption{D'après \cite{GB08}}
-  \end{center}
-\end{figure}
-
-% ------------------------------------------------------------------------
