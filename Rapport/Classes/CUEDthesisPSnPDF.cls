@@ -5,7 +5,7 @@
 % Version 1.1 released 14/07/2010
 %-------------------------- identification ---------------------
 %\NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{CUEDthesisPSnPDF}[2010/07/14 v1.1 CUED thesis class]
+\ProvidesClass{Classes/CUEDthesisPSnPDF}[2010/07/14 v1.1 CUED thesis class]
 %-------------------------- initial code -----------------------
 \newif\ifCU@bookmode
 \CU@bookmodetrue
@@ -162,7 +162,7 @@
 \setlength{\marginparwidth}{3cm}
 \setlength{\footskip}{2.36cm}
 
-\pagestyle{fancy}
+\pagestyle{plain}
 \renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\thechapter. #1 }}{}}
 \renewcommand{\sectionmark}[1]{}
 \fancyhf{}

@@ -30,9 +30,7 @@ spatialement ou globale) et sa résolution (nombre de sommets). On notera
 de déformation. L'avantage de ce procédé, par rapport aux méthodes déjà
 existantes, a été de pouvoir réaliser des déformations indépendantes de la
 représentation interne de l'objet à déformer.
-
 \newpage
-
 En pratique, la déformation d'un objet se décompose en 3 étapes :
 \begin{enumerate}  
 
@@ -53,34 +51,33 @@ de déformation. \\
 Ce travail s'inscrit dans une démarche de création d'un nouvel outil de
 déformation. Actuellement, pour déformer un objet, les artistes utilisent un
 seul outil à la fois. Mais les différentes déformations ne peuvent pas toutes
-être réalisées à l'aide des mêmes outils. Cette contrainte force les artistes à
-recréer un nouvel outil lorsque la déformation qu'ils souhaitent appliquer n'est
-pas possible. Cette étape est une tâche qui peut s'avérer longue. En effet il
-est nécessaire de placer les différents points de contrôle de l'outil autour de
-l'objet à déformer, et en fonction de la déformation voulue, leur nombre peut
-devenir très important. Ce nombre de points de contrôle peut rendre le temps
-d'association de l'outil assez important, même si cette étape n'est normalement
-réalisée qu'une seule fois. L'idée serait alors d'avoir un \textit{multi-outil}
-composé de plusieurs \textit{sous-outils} communiquant ensemble et déformant
-chacun différentes zones de l'objet. Aussi, il serait agréable de pouvoir
-générer automatiquement un multi-outil en fonction des caractéristiques de
-l'objet à déformer, afin de simplifier au maximum le travail des artistes. Dans
-la suite de ce travail, nous appelerons \textit{outil multidimensionnel}, un
-multi-outil composé de plusieurs sous-outils de dimensions différents.
+être réalisées à l'aide des mêmes outils. Cette contrainte les force à recréer
+un nouvel outil lorsque la déformation qu'ils souhaitent appliquer n'est pas
+réalisable. Cette étape est une tâche qui peut s'avérer longue et pénible. En
+effet il est nécessaire de placer les différents points de contrôle de l'outil
+autour de l'objet à déformer et, en fonction de la déformation voulue, leur
+nombre peut devenir très important. Or le temps d'association de l'outil avec
+l'objet augmente quand le nombre de points de contrôle augmente. L'idée serait
+alors d'avoir un \textit {multi-outil} composé de plusieurs \textit{sous-outils}
+communiquant ensemble et déformant chacun diverses zones de l'objet. Aussi, il
+serait agréable de pouvoir générer automatiquement un multi-outil en fonction
+des caractéristiques d'un objet à déformer, afin de simplifier au maximum le
+travail des artistes. Dans la suite de ce travail, nous appelerons \textit{outil
+multidimensionnel}, un multi-outil composé de plusieurs sous-outils de
+dimensions différents. \\
 
-Considérons que notre objet soit un alligator (Figure \ref{INTall}), on souhaite
+Considérons que notre objet soit un alligator (Figure \ref{INTall}), on aimerait
 ouvrir la bouche de l'alligator, élargir son ventre et bouger sa queue, mais ces
-déformations sont difficilement réalisables avec un seul outil. Pour obtenir le
-comportement décrit plus-haut, une bonne proposition serait de créer d'associer
-des axes pour la bouche, une cage pour le ventre et des points pour la queue. On
-se demande alors comment mélanger les effets de ces outils de façon à ce que la
-fonction résultant du mélange soit dérivable ($C^1$) et que l'aspect de la
-déformation soit lisse. De plus, il semblerait intuitif d'associer à un outil
-une zone d'influence limitée. Toujours en considérant notre alligator, lors de
-l'ouverture de la bouche, on souhaiterait que le reste du corps ne soit pas
-déformé par le déplacement des sommets de l'outil axial. \\
+déformations sont difficilement réalisables avec un seul et même outil. Pour
+obtenir ce comportement, une bonne proposition serait de créer un outil
+multidimensionnel composé d'axes pour la bouche, d'une cage pour le ventre et de
+points pour la queue. Comment mélanger alors les effets de ces outils de façon à
+ce que l'aspect de la déformation engendrée soit lisse. Il semblerait intuitif
+d'associer une zone d'influence limitée à un sous-outil. Toujours en considérant
+notre alligator, lors de l'ouverture de la bouche, le reste du corps ne devrait
+pas être déformé. \\
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \includegraphics[scale=0.25]{alligator-avant}
   \includegraphics[scale=0.25]{alligator-apres}
   \caption{A gauche l'objet d'origine et à droite le même objet après
@@ -88,28 +85,19 @@ déformé par le déplacement des sommets de l'outil axial. \\
   \label{INTall}
 \end{figure}
 
-Nous avons travaillé sur la création d'un multi-outil de déformation. Nous nous
-sommes concentré sur la création d'un multi-outil composé de plusieurs outils de
-dimension 2 (faces).
+Afin de guider nos choix quant à la sélection des outils à combiner au travers
+d'un multi-outil, nous avons réalisé un état de l'art des outils existants en se
+basant en partie sur le travail de \cite{GB08}. Cette partie doit permettre de
+faire ressortir un outil pour chacune des dimensions (en fonction de leurs
+caractéristiques).
 
-La finesse d'une déformation est dépendante du nombre de degrés de liberté de
-l'outil, mais de même, la complexité en temps de calcul de l'association de
-l'outil à l'objet en est aussi dépendante. Partant de ce principe là, il
-serait intéressant de disposer de plusieurs niveaux de résolutions d'un même
-outil, afin de pouvoir choisir le niveau de résolution le plus adapté à la
-déformation à appliquer. Mais cela implique la mise en place d'un moyen de
-communication entre les différents niveaux de résolution, comme le modèle
-proposé par \cite{Hur12} concernant les déformation de cages hiérarchiques. \\
-
-Tout au long de ce travail, nos contraintes sont de fournir un outil
-permettant de déformer des points de l'espace de manière interactive
-et fluide, ainsi que d'obtenir des formulations mathématiques simples
-et claires.
+Des travaux ont déjà été réalisés sur la partie création d'un multi-outil par
+\cite{JBPS11} et \cite{GPCP13}. Les premiers ont mis en place un outil
+multidimensionnel se basant sur une méthode d'optimisation globale, tandis que
+les autres se sont concentrés sur le mélange d'outils de déformation de
+dimension 2. Notre travail se situe dans le prolongement de \cite{GPCP13}. Les
+points clés sont la minimisation des temps de calcul (tant au niveau du
+temps d'association que du temps de déformation) ainsi que l'élaboration de
+formules mathématiques simples et claires. Ces critères ont guidé nos choix lors
+des différentes étapes de ce travail.
 %%% ----------------------------------------------------------------------
-
-
-%%% Local Variables: 
-%%% mode: latex
-%%% LaTeX-command: "latex -shell-escape"
-%%% TeX-master: "../thesis"
-%%% End: 
