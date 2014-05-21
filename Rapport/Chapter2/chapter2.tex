@@ -58,18 +58,28 @@ déformations plus localisées, mais au prix d'une complexité en temps de calcu
 beaucoup plus importante et d'une discrétisation de l'espace assez fine. \\
 
 Dans la même optique, \cite{LKCL07} proposent une amélioration des Mean Value
-Coordinates qui les rend positives. L'idée derrière cela est de se baser sur un
-test de visibilité pour supprimer les coordonnées négatives. Ils ont pu obtenir
-des résultats similaires à \cite{JMDGS07} mais pour une complexité en temps de
-calcul proche de celle des Mean Value Coordinates. \\
+Coordinates qui les rend positives. L'idée est de se baser sur un test de
+visibilité lors du calcul des coordonnées. Ils ont pu obtenir des résultats
+similaires à \cite{JMDGS07} mais pour une complexité en temps de calcul proche
+de celle des Mean Value Coordinates. \\
 
 \cite{LLC08} ont constaté que les détails de la surface n'étaient pas préservés,
 en particulier lors de déformations importantes. Ce qui les a amené à développer
 une approche considérant plus de données lors de l'association entre la cage et
 l'objet : les Green Coordinates (GC). Au lieu d'utiliser uniquement la position
-des sommets de la cage, les GC utilisent aussi les normales aux faces de la
-cage.
+des sommets de la cage, les Green Coordinates utilisent aussi les normales aux
+faces de la cage.
 
-\section{Avantages}
+\section{Mean Value Coordinates}
+
+Dans le cadre de notre travail, nous avons choisi de travailler avec une seule
+méthode de calcul des coordonnées. Le choix que nous avons fait s'est porté sur
+les Mean Value Coordinates. C'est actuellement la méthode de calcul des
+coordonnées qui a la plus faible complexité en temps de calcul. De plus, ayant
+déjà travaillé sur cette méthode, nous avions déjà fait une première
+implémentation de la méthode. La réutiliser nous permettait de concentrer notre
+travail sur la partie mélange de coordonnées.
+
+\subsection{Calcul des coordonnées}
 
 \section{Limitations}
