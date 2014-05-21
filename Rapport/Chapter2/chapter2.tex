@@ -11,15 +11,57 @@
 \graphicspath{ {Chapter2/Chapter2Figs/PNG/}
   {Chapter2/Chapter2Figs/PDF/} {Chapter2/Chapter2Figs/} }
 
-Le travail qui a été effectué s'est intéressé particulièrement au mélange de
-différents outils de dimension 2 (faces). La technique retenue pour cette
-dimension est celle des déformations à base de cage. Ce choix a été motivé par
-l'efficacité de cette méthode et de son utilisation dans le travail de
-\cite{GPCP13} (un travail similaire à celui que nous avons réalisé).
+Notre travail s'est porté particulièrement sur le mélange de différents outils
+de dimension 2 (faces). La technique retenue pour cette dimension est celle des
+déformations à base de cage. Ce choix a été motivé par l'efficacité de cette
+méthode et de son utilisation dans le travail de \cite{GPCP13} (un travail
+similaire à celui que nous souhaitions réaliser).
+
+Afin de pouvoir rentrer dans les détails des méthodes existantes, ainsi que des
+idées que nous avons eu, une petite introduction aux déformations à base de cage
+est nécessaire. Ces déformations peuvent se faire dans $\mathbb{R}^2$ (la cage
+est un polygone) et dans $\mathbb{R}^3$ (la cage est une surface), mais pour
+simplifier la compréhension de la méthode, nous nous concentrerons sur des
+déformations dans $\mathbb{R}^2$.
 
 \section{Fonctionnement} 
 
-\section{Méthodes de calcul des coordonnées} 
+L'outil permettant de réaliser les déformations est un polygone. Ce polygone
+peut-être de nature quelconque, sous réserve qu'il ne soit pas dégénéré (il doit
+avoir au moins 3 sommets) et qu'il ne comporte pas d'auto-intersection. Par
+la suite l'appelerons le \textit{polygone de contrôle}. L'idée est de définir
+une position paramétrique des sommets d'un objet contenus à l'intérieur du
+polygone de contrôle en fonction de la position de ses sommets. Cette méthode
+permet de déformer un objet uniquement en manipulant les sommets du polygone de
+contrôle, peu importe la complexité de cet objet. Cette déformation est dite
+globale, car un sommet du polygone de contrôle a une influence sur tous les
+points de l'espace (sommets de l'objet) contenus à l'intérieur du polygone. \\
+
+Les premiers travaux travaillant là dessus ont été réalisés par \cite{JSW05} et
+\cite{FKR05} (travaux réalisés simultanément), en utilisant la technique des
+Mean Value Coordinates (MVC) (développée par \cite{Flo03}). Il s'agit de la
+première méthode à avoir appliqué des coordonnées barycentriques généralisées
+pour réaliser des déformations. Les coordonnées barycentriques généralisées
+correspondent à la généralisation du calcul de coordonnées barycentriques, en ne
+considérant plus des coordonnées calculées par rapport à un simplexe (triangle
+dans $\mathbb{R}^2$), mais à une cellule (polygone dans $\mathbb{R}^2$).
+Néanmoins cette méthode comporte un important défaut : les coordonnées calculées
+peuvent être négatives (dans le cas d'un polygone concave par exemple), ce qui
+peut amener à obtenir des résultats contre-intuitifs et ennuyants. \\
+
+\cite{JMDGS07} ont déclaré que l'importance de ce problème devait amener à ne
+pas utiliser cette technique pour l'animation de personnages. A la place, ils
+ont proposé une approche différente, qui ne produisait pas de coordonnées
+négatives : les Harmonic Coordinates (HC). Cette méthode a permis d'obtenir des
+déformations plus localisées, mais au prix d'une complexité en temps de calcul
+beaucoup plus importante et d'une discrétisation de l'espace assez fine.
+
+\cite{LLC08} ont constaté que les détails de la surface n'étaient pas préservés,
+en particulier lors de déformations importantes. Ce qui les a amené à développer
+une approche considérant plus de données lors de l'association entre la cage et
+l'objet : les Green Coordinates (GC). Au lieu d'utiliser uniquement la position
+des sommets de la cage, les GC utilisent aussi les normales aux faces de la
+cage.
 
 \section{Avantages}
 
