@@ -38,6 +38,7 @@
 \usepackage{setspace}
 \usepackage{tocbibind}
 \usepackage{amssymb}
+\usepackage{amsmath}
 %\usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage{eucal}
@@ -53,6 +54,7 @@
 \usepackage{etex}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.10}
+
 
 %Bibliography
 %uncomment next line to change bibliography name to references for Book document class

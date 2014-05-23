@@ -282,16 +282,7 @@ calcul se fait par rapport au sommet voisins $v_{i-1}$ et $v_{i+1}$ :
 
 où $w_i(p)$ représente la coordonnée (avant normalisation) associée au
 sommet $v_i$ pour le point $p$ et $\alpha_i(p)$ l'angle en $p$ du
-triangle $[p,v_i,v_{i+1}]$ (Figure \ref{MELmvc}).
-
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics{chapter3-pstricks}
-    \caption{Visualisation du calcul de la coordonnée du point $p$ par
-      rapport au sommet $v_i$}
-    \label{MELmvc}
-  \end{center}
-\end{figure}
+triangle $[p,v_i,v_{i+1}]$.
 
 Les $w_i$ sont ensuite normalisés (Equation \ref{MELnor}), afin
 d'obtenir des coordonnées contenus dans le domaine [0,1]. Le problème
