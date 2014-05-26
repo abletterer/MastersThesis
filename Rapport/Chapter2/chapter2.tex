@@ -38,8 +38,8 @@ un sommet du polygone de contrôle a une influence sur tous les points de
 l'espace (qui sont les sommets de l'objet) contenus à l'intérieur du polygone.
 \\
 
-Les premiers travaux travaillant là dessus ont été réalisés par \cite{JSW05} 
-\cite{FKR05} (travaux réalisés simultanément), en utilisant la technique des
+Les premiers travaux dans ce domaine ont été réalisés par \cite{JSW05}
+\cite{FKR05} (réalisés simultanément), en utilisant la technique des
 Mean Value Coordinates (MVC) (développée par \cite{Flo03}). Il s'agit de la
 première méthode à avoir appliqué des coordonnées barycentriques généralisées
 pour réaliser des déformations. Les coordonnées barycentriques généralisées
@@ -151,27 +151,82 @@ intéressés particulièrement au travail de \cite{Flo03}.
 
 La motivation derrière ce travail a été d'approximer des fonctions harmoniques.
 Une fonction $u$ définie dans un plan $\Omega$ est dite harmonique si elle est
-$C^2$ satisfait l'équation de Laplace :
+$C^2$ et qu'elle satisfait l'équation de Laplace :
 
 \begin{equation}
   \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0
 \end{equation}
 
-Ces fonctions n'ayant pas de forme analytique, la seule façon d'évaluer sa
-valeur pour un point précis est de l'évaluer sur tout le domaine. Ces
+Ces fonctions n'ayant pas de forme analytique, la seule façon de connaître leur
+valeur en un points précis est de les évaluer sur tout le domaine. Ces
 traitements nécessitent beaucoup de calculs, c'est pour cela que \cite{Flo03} a
 décidé de les approximer au travers de fonctions linéaires définies par morceaux
 sur une triangulation donnée.
 
-Les coordonnnées $w_i$ sont calculés en utilisant la position des sommets $p$,
-$v_i$ et des deux sommets adjacents à $v_i$ : $v_{i-1}$ et $v_{i+1}$.
+La coordonnnée $w_i$ associée au point $p$ est calculée en utilisant la
+position du point $p$, du sommet $v_i$ et des deux sommets adjacents à $v_i$ :
+$v_{i-1}$ et $v_{i+1}$ (Figure \ref{DEFcal}).
 
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics{chapter2-pstricks.pdf}
-    \caption{Méthode de calcul de la coordonnée $w_i$}
+    \includegraphics[scale=0.9]{chapter2-pstricks.pdf}
+    \caption{Méthode de calcul de la coordonnée $w_i$ du point $p$ par rapport
+    au sommet $v_i$}
     \label{DEFcal}
   \end{center}
 \end{figure}
 
+La méthode détermine donc ces coordonnées de la manière suivante :
+
+\begin{equation}
+  w_i = \frac{tan(\alpha_{i-1}/2) + tan(\alpha_i/2)}{\| v_i - p \|}
+\end{equation}
+
+Ces coordonnées sont normalisées :
+
+\begin{equation}
+  \lambda_i = \frac{w_i}{\sum_{j=0}^n w_j}
+\end{equation}
+
+afin d'obtenir la coordonnée MVC du point $p$ par rapport au sommet $v_i$. On
+appelle l'ensemble de ces coordonnées $\{w_0, w_1, ..., w_n\}$ les coordonnées
+MVC du point $p$.
+
+Ces formules sont correctes dans le cas où un point $p$ est strictement inclus à
+l'intérieur du polygone de contrôle. Des problèmes se posent lorsqu'un point de
+l'espace se trouve sur une arête de ce polygone. On peut facilement détecter
+cette situation en regardant la valeur des angles $\alpha_{i-1}$ et $\alpha_i$.
+Quand le point $p$ se situe sur l'arête $[v_i,v_{i+1}]$, l'angle $\alpha_i$ vaut
+$\pi$. Cela induit que $tan(\alpha_i/2)$ tend vers $+\infty$ (Figure
+\ref{DEFinc}).
+
+Les coordonnées barycentriques généralisées définissent que les coordonnées
+calculées varient de façon linéaire le long des arêtes du polygone de contrôle
+et qu'elles respectent la propriété de Lagrange aux sommets du polygone : Si $p
+= v_i$ alors $\lambda_i = 1$ et $\lambda_j = 0 ~\forall~ j \neq i$ 
+
+En utilisant ces propriétés, on peut définir un calcul spécifique pour les
+points se trouvant le long d'une arête. On cherche à savoir quels poids $a$ et
+$b$ associer aux sommets extrémités $A$ et $B$ de l'arête de façon à ce que le point
+$P$ soit leur barycentre.
+
+\begin{equation}
+  P = aA + bB ~,~ \forall a,b > 0 \text{ et } a+b = 1
+\end{equation}
+
+En considérant les vecteurs $AG$ et $GB$
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[scale=0.9]{chapter2-pstricks-2.pdf}
+    \caption{Situation dans laquelle les formules de calcul de coordonnées ne
+    sont plus correctes. $\alpha_i = \pi$ quand $p$ est sur l'arête
+    $[v_i,v_{i+1}]$.}
+    \label{DEFinc}
+  \end{center}
+\end{figure}
+
 \section{Limitations}
+
+Comme expliqué dans l'introduction du chapitre, cette méthode connaît néanmoins
+quelques limitations. Les coordonnées

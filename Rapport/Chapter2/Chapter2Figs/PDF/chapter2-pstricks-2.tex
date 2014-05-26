@@ -1,0 +1,47 @@
+%!TEX program = xelatex
+\documentclass{article}
+\usepackage{pstricks}
+
+% preview must come after any pstricks package!
+\usepackage[active,tightpage]{preview}
+\PreviewBorder=0pt\relax
+
+% Either
+\PreviewEnvironment{pspicture}
+% or
+%\PreviewEnvironment{pspicture*}
+
+\begin{document}
+\begin{pspicture}(0,-3.771875)(10.0703125,3.7459862)
+\psline[linewidth=0.04cm](2.3258889,-3.134014)(6.3352675,0.9763249)
+\psline[linewidth=0.04cm](2.32,-3.128125)(6.72,-1.728125)
+\psline[linewidth=0.04cm](6.68,-1.748125)(6.04,3.091875)
+\psdots[dotsize=0.2](2.1,3.631875)
+\psdots[dotsize=0.2](0.1,1.731875)
+\psdots[dotsize=0.2](1.68,0.411875)
+\psdots[dotsize=0.2](2.3,-3.128125)
+\psdots[dotsize=0.2](6.68,-1.748125)
+\psdots[dotsize=0.2](6.32,0.991875)
+\psline[linewidth=0.04cm](2.32,-3.148125)(1.68,0.431875)
+\psline[linewidth=0.04cm](1.66,0.431875)(0.08,1.731875)
+\psline[linewidth=0.04cm](0.08,1.711875)(2.1,3.651875)
+\psline[linewidth=0.04cm](6.3058887,0.9859861)(2.14,3.591875)
+\psline[linewidth=0.04cm](2.1,3.631875)(5.98,3.091875)
+\psline[linewidth=0.04cm](1.7,0.411875)(6.2458887,0.9459861)
+\psline[linewidth=0.04cm](0.08,1.711875)(6.325889,0.9859861)
+\usefont{T1}{ptm}{m}{n}
+\rput(2.2003126,-3.493125){\large $v_{i-1}$}
+\usefont{T1}{ptm}{m}{n}
+\rput(6.6003127,-2.213125){\large $v_i$}
+\usefont{T1}{ptm}{m}{n}
+\rput(5.9003124,3.486875){\large $v_{i+1}$}
+\usefont{T1}{ptm}{m}{n}
+\rput(5.9703126,0.106875){\large $\alpha_{i-1}$}
+\usefont{T1}{ptm}{m}{n}
+\rput(7.1303124,1.026875){\large $\alpha_i = \pi$}
+\usefont{T1}{ptm}{m}{n}
+\rput(6.0903125,1.366875){\large $p$}
+\rput{-223.11513}(11.235467,-2.9268403){\psarc[linewidth=0.04](6.195889,0.75598645){0.25}{65.49526}{167.81017}}
+\psdots[dotsize=0.2](6.02,3.071875)
+\end{pspicture} 
+\end{document}
