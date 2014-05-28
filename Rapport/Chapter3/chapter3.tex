@@ -64,16 +64,30 @@ création de celles-ci.
 
 Etant donné que les solutions existantes ne correspondaient pas vraiment à ce
 que nous souhaitions, nous avons décidé de travailler sur une autre approche.
-Cette approche n'a pas pour but de remplacer les méthodes existantes, mais
-d'apporter une autre vision au niveau des mélanges d'outils de déformation.
+Cela n'a pas pour but de remplacer les méthodes existantes, mais d'apporter une
+autre vision au niveau des mélanges possibles d'outils de déformation.
 
 \section{Méthode proposée}
 
+La motivation derrière cette méthode se divise en 2 étapes :
+
+\begin{itemize}
+\item Modifier la zone d'influence des déformations à base de cages
+\item Combiner les effets de déformation des différentes cages
+\end{itemize}
+
 La motivation derrière ce travail a été de vouloir utiliser les cages pour
-déformer l'espace contenu non seulement en leur intérieur, mais aussi en leur
-extérieur. Mais cette opération ne peut pas être effectuée directement avec les
-formules proposées par \cite{Flo03}. Il se trouve que la fonction de déformation
-n'est pas dérivable autour des sommets de la cage.
+déformer l'espace contenu non seulement en leur intérieur, mais aussi dans une
+zone autour de celle-ci. Mais cette opération ne peut pas être effectuée
+directement avec les formules proposées par \cite{Flo03}. D'après \cite{HF06}
+les coordonnées MVC $\lambda_i$ sont $C^{\infty}$ partout, sauf aux sommets où
+elles ne sont que $C^0$.
+
+Nous voulons une déformation qui soit $C^{\infty}$ sur tout l'espace. Une
+solution serait de travailler à chercher de nouvelles coordonnées ayant cette
+propriété, mais la difficulté du problème en fait un sujet de recherche en
+soi. A la place, il serait pratique de pouvoir utiliser des outils déjà
+existants. 
 
 % \section{Cheminement de l'article}
 % Dans un premier temps, nous avons voulu reproduire le cheminement de
