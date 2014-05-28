@@ -18,25 +18,25 @@ méthode et de son utilisation dans le travail de \cite{GPCP13} (un travail
 similaire à celui que nous souhaitions réaliser).
 
 Afin de pouvoir rentrer dans les détails des méthodes existantes, ainsi que des
-idées que nous avons eu, une petite introduction aux déformations à base de cage
-est nécessaire. Ces déformations peuvent se faire dans $\mathbb{R}^2$ (la cage
-est un polygone) et dans $\mathbb{R}^3$ (la cage est une surface), mais pour
-simplifier la compréhension de la méthode, nous nous concentrerons sur des
-déformations dans $\mathbb{R}^2$.
+idées que nous avons eu, une introduction aux déformations à base de cage est
+nécessaire. Ces déformations peuvent se faire dans $\mathbb{R}^2$ (l'outil est
+un polygone) et dans $\mathbb{R}^3$ (l'outil est une surface), mais pour
+simplifier la compréhension de la méthode ainsi que les différents schémas, nous
+nous concentrerons sur des déformations dans $\mathbb{R}^2$.
 
 \section{Introduction} 
 
 L'outil permettant de réaliser les déformations est un polygone. Ce polygone
 peut-être de nature quelconque, sous réserve qu'il ne soit pas dégénéré (il doit
 avoir au moins 3 sommets) et qu'il ne comporte pas d'auto-intersection. Par la
-suite l'appelerons le \textit{polygone de contrôle}. L'idée est de définir une
-position paramétrique des sommets d'un objet contenus à l'intérieur du polygone
-de contrôle en fonction de la position de ses sommets. Cette méthode permet de
+suite l'appelerons indifféremment le \textit{polygone de contrôle} ou
+\textit{cage} par rapport au sommet $v_j$. L'idée est de définir une position
+paramétrique des sommets d'un objet contenus à l'intérieur du polygone de
+contrôle en fonction de la position de ses sommets. Cette méthode permet de
 déformer un objet uniquement en manipulant les sommets du polygone de contrôle,
 peu importe la complexité de cet objet. Cette déformation est dite globale, car
 un sommet du polygone de contrôle a une influence sur tous les points de
 l'espace (qui sont les sommets de l'objet) contenus à l'intérieur du polygone.
-\\
 
 Les premiers travaux dans ce domaine ont été réalisés par \cite{JSW05}
 \cite{FKR05} (réalisés simultanément), en utilisant la technique des
@@ -48,20 +48,20 @@ considérant plus des coordonnées calculées par rapport à un simplexe (triang
 dans $\mathbb{R}^2$), mais à une cellule (polygone dans $\mathbb{R}^2$).
 Néanmoins cette méthode comporte un important défaut : les coordonnées calculées
 peuvent être négatives (dans le cas d'un polygone de contrôle concave par
-exemple), ce qui peut amener à obtenir des résultats contre-intuitifs. \\
+exemple), ce qui peut amener à obtenir des résultats contre-intuitifs.
 
 \cite{JMDGS07} ont déclaré que l'importance de ce problème devait amener à ne
 pas utiliser les MVC pour l'animation de personnages. A la place, ils ont
 proposé une approche différente, qui ne produisait pas de coordonnées négatives
 : les Harmonic Coordinates (HC). Cette méthode a permis d'obtenir des
 déformations plus localisées, mais au prix d'une complexité en temps de calcul
-beaucoup plus importante et d'une discrétisation de l'espace assez fine. \\
+beaucoup plus importante et d'une discrétisation de l'espace assez fine.
 
 Dans la même optique, \cite{LKCL07} proposent une amélioration des Mean Value
 Coordinates qui les rend positives. L'idée est de se baser sur un test de
 visibilité lors du calcul des coordonnées. Ils ont pu obtenir des résultats
 similaires à \cite{JMDGS07} mais pour une complexité en temps de calcul proche
-de celle des MVC. \\
+de celle des MVC.
 
 \cite{LLC08} ont constaté que les détails de la surface n'étaient pas préservés,
 en particulier lors de déformations importantes. Ce qui les a amené à développer
@@ -77,8 +77,8 @@ méthode de calcul des coordonnées. Le choix que nous avons fait s'est porté s
 les MVC. C'est actuellement la méthode de calcul des coordonnées qui a la plus
 faible complexité en temps de calcul. De plus, ayant déjà travaillé sur cette
 méthode, nous avions déjà fait une première implémentation de la méthode. La
-réutiliser nous permettait de concentrer notre travail sur la partie mélange de
-coordonnées.
+réutiliser nous permettait de plus concentrer notre travail sur la partie
+mélange de coordonnées.
 
 \subsection{Coordonnées barycentriques}
 
@@ -144,14 +144,16 @@ $v_i$ :
 \end{equation}
 
 Le calcul des coordonnées $w_i$ n'est plus aussi évident que pour le cas du
-triangle. Plusieurs méthodes ont été mises en place, et nous nous sommes
-intéressés particulièrement au travail de \cite{Flo03}.
+triangle. Contrairement aux coordonnées barycentriques, les coordonnées
+barycentriques généralisées ne sont pas uniques. Plusieurs méthodes ont été
+mises en place, et nous nous sommes intéressés particulièrement au travail de
+\cite{Flo03}.
 
 \subsection{Calcul des coordonnées}
 
-La motivation derrière ce travail a été d'approximer des fonctions harmoniques.
-Une fonction $u$ définie dans un plan $\Omega$ est dite harmonique si elle est
-$C^2$ et qu'elle satisfait l'équation de Laplace :
+La motivation derrière ce travail a été de reproduire le comportement de
+fonctions harmoniques. Une fonction $u$ définie dans un plan $\Omega$ est dite
+harmonique si elle est $C^2$ et qu'elle satisfait l'équation de Laplace :
 
 \begin{equation}
   \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0
@@ -186,7 +188,7 @@ La méthode détermine donc ces coordonnées de la manière suivante :
 Ces coordonnées sont normalisées :
 
 \begin{equation}
-  \lambda_i = \frac{w_i}{\sum_{j=0}^n w_j}
+  \lambda_i = \frac{w_i}{\sum_{j=1}^n w_j}
 \end{equation}
 
 afin d'obtenir la coordonnée MVC du point $p$ par rapport au sommet $v_i$. On
@@ -222,8 +224,8 @@ et qu'elles respectent la propriété de Lagrange aux sommets du polygone : Si $
 
 En utilisant ces propriétés, on peut définir un calcul de coordonnées spécifique
 pour les points se trouvant le long d'une arête. Pour calculer la coordonnée
-$w_j$ du point $p$, se trouvant le long de l'arête $E = [v_i,v_{i+1}]$, par
-rapport au sommet $v_j$ on distingue deux cas :
+$w_j$ du point $p$ par rapport au sommet $v_j$, $p$ se trouvant le long de l'arête
+$E = [v_i,v_{i+1}]$, on distingue deux cas :
 
 \begin{itemize}
 \item Soit $v_j$ n'est pas incident à $E$ ($v_j \neq v_i$ et $v_j \neq
@@ -232,9 +234,3 @@ v_{i+1}$); dans ce cas là, $w_j = 0$
 cas $w_j$ est calculé comme étant le coefficient associé à $v_j$ lors du calcul
 du barycentre du segment E, en considérant $p$ comme étant le barycentre.
 \end{itemize}
-
-\section{Limitations}
-
-Les coordonnées peuvent être négatives pour des points n'appartenant pas au
-noyau du polygone. Ces coordonnées négatives affectent la déformation des points
-de contrôle concernés en réalisant des déformations contre-intuitives.
