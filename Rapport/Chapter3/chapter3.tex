@@ -12,17 +12,18 @@
   {Chapter3/Chapter3Figs/PDF/} {Chapter3/Chapter3Figs/} }
 
 Nous avons vu dans le premier chapitre que les outils de déformation avaient
-différentes caractéristiques. Celles-ci influent sur l'aspect de la déformation
-engendrée par le déplacement de points de contrôle, ainsi que sur la facilité de
-déformation de l'objet. Une modification grossière de l'apparence globale de
-l'objet sera plus facile à réaliser avec un outil permettant de réaliser des
-déformations globale ayant une faible résolution. A l'inverse, une modification
-fine un ensemble de points précis de l'objet nécessitera l'utilisation d'un
-outil de déformation ayant une zone d'influence limitée et une résolution
-élevée. On se demande alors comment combiner différents outils associé à un même
-objet, de façon à ce que la déformation soit visuellement lisse. Autrement dit,
-on recherche une méthode de combinaison de plusieurs outils qui conserve les
-propriétés de continuité des outils combinés.
+différentes caractéristiques. Celles-ci influent sur l'aspect de la
+déformation engendrée par le déplacement de points de contrôle, ainsi que sur
+la facilité de déformation de l'objet. Une modification grossière de
+l'apparence globale de l'objet sera plus facile à réaliser avec un outil
+permettant de réaliser des déformations globale ayant une faible résolution. A
+l'inverse, une modification fine un ensemble de points précis de l'objet
+nécessitera l'utilisation d'un outil de déformation ayant une zone d'influence
+limitée et une résolution élevée. On se demande alors comment combiner
+différents outils associé à un même objet, de façon à ce que la déformation
+soit visuellement lisse. Autrement dit, on recherche une méthode de
+combinaison de plusieurs outils qui conserve les propriétés de continuité des
+outils combinés.
 
 \section{Etat de l'art}
 
@@ -44,23 +45,23 @@ essentiels de notre travail est la minimisation des temps de calcul, c'est
 pourquoi nous avons décidé de pas continuer à étudier cette technique et à nous
 intéresser à un autre travail du domaine.
 
-\cite{GPCP13} quant à eux, proposent une méthode permettant le mélange d'outils
-de même dimension, en s'intéressant particulièrement aux cas des déformations à
-base de cage. Nous nous sommes intéressés à cet article de par sa récente
-publication, sa proximité avec \cite{Hur12}, un travail réalisé par un étudiant
-en Master ISI en 2012, et de l'utilisation de cages de déformation, le modèle
-semblant le plus utilisé ces dernières années parmi les outils à base de
-surfaces. L'idée est de réaliser un pavage de différentes cages collées ensemble
-le long de leurs arêtes sur tout l'espace à déformer et de considérer la
-position d'un point de l'espace, et pas seulement par rapport à sa cage
-\textit{propre} (à comprendre la cage englobant le point de l'espace) mais aussi
-par rapport aux cages adjacentes à celle-ci. Cette technique permet de localiser
-la déformation engendrée par un sommet d'une cage sur la zone couverte par sa
-cage propre et l'ensemble des cages incidentes à celle-ci. Cette méthode impose
-de placer des cages sur l'ensemble de l'objet, peu importe la déformation à
-appliquer dessus. De plus, il faut que les cages créées soient collées
-ensembles le long de leur arêtes, ce qui peut être contraignant lors de la
-création de celles-ci.
+\cite{GPCP13} quant à eux, proposent une méthode permettant le mélange
+d'outils de même dimension, en s'intéressant particulièrement aux cas des
+déformations à base de cage. Nous nous sommes intéressés à cet article de par
+sa récente publication, sa proximité avec \cite{Hur12}, un travail réalisé par
+un étudiant en Master ISI en 2012, et de l'utilisation de cages de
+déformation, le modèle semblant le plus utilisé ces dernières années parmi les
+outils à base de surfaces. L'idée est de réaliser un pavage de différentes
+cages collées ensemble le long de leurs arêtes sur tout l'espace à déformer et
+de considérer la position d'un point de l'espace, et pas seulement par rapport
+à sa cage \textit{propre} (à comprendre la cage englobant le point de
+l'espace) mais aussi par rapport aux cages adjacentes à celle-ci. Cette
+technique permet de localiser la déformation engendrée par un sommet d'une
+cage sur la zone couverte par sa cage propre et l'ensemble des cages
+incidentes à celle-ci. Cette méthode impose de placer des cages sur l'ensemble
+de l'objet, peu importe la déformation à appliquer dessus. De plus, il faut
+que les cages créées soient collées ensembles le long de leur arêtes, ce qui
+peut être contraignant lors de la création de celles-ci.
 
 Etant donné que les solutions existantes ne correspondaient pas vraiment à ce
 que nous souhaitions, nous avons décidé de travailler sur une autre approche.
@@ -69,25 +70,45 @@ autre vision au niveau des mélanges possibles d'outils de déformation.
 
 \section{Méthode proposée}
 
-La motivation derrière cette méthode se divise en 2 étapes :
+Nous nous sommes concentrés sur des déformations à base de cage, certaines
+idées de \cite{GPCP13} nous ont semblé intéressantes, et nous avons décidé de
+nous en inspirer. Notre contribution se décompose en 2 parties :
 
-\begin{itemize}
+\begin{enumerate}
+
 \item Modifier la zone d'influence des déformations à base de cages
-\item Combiner les effets de déformation des différentes cages
-\end{itemize}
 
-La motivation derrière ce travail a été de vouloir utiliser les cages pour
-déformer l'espace contenu non seulement en leur intérieur, mais aussi dans une
-zone autour de celle-ci. Mais cette opération ne peut pas être effectuée
-directement avec les formules proposées par \cite{Flo03}. D'après \cite{HF06}
-les coordonnées MVC $\lambda_i$ sont $C^{\infty}$ partout, sauf aux sommets où
-elles ne sont que $C^0$.
+\item Combiner les effets des déformations appliquées par les différentes cages
 
-Nous voulons une déformation qui soit $C^{\infty}$ sur tout l'espace. Une
-solution serait de travailler à chercher de nouvelles coordonnées ayant cette
-propriété, mais la difficulté du problème en fait un sujet de recherche en
-soi. A la place, il serait pratique de pouvoir utiliser des outils déjà
-existants. 
+\end{enumerate}
+
+\subsection{Déformation étendue}
+
+Les déformations à base de cage sont considérées comme des déformations
+globales, car la modification de la position d'un sommet de la cage affecte
+tout l'espace contenu à l'intérieur de la cage. Aussi, les cages ont toujours
+eu comme restriction d'englober strictement l'objet à déformer, car la
+transition entre la déformation à l'intérieur et à l'extérieur de la cage
+n'est pas visuellement lisse. Cela est dû au fait que la fonction résultant de
+la déformation n'est pas dérivable au niveau des sommets de la cage.
+
+Mais pourquoi les déformations à base de cage ne pourraient pas avoir le même
+comportement que les déformations à base de points? A savoir que la
+modification de la position d'un point de contrôle affecte l'espace autour de
+sa position dans un rayon donné, en diminuant son influence progressivement en
+fonction de la distance d'un point de l'espace au point de contrôle. On aurait
+alors une cage qui déformerait à la fois les points de l'espace en son
+intérieur et à l'extérieur. Son influence diminuerait progressivement au fur
+et à mesure que les points de l'espace sont éloignés du centre de la cage,
+jusqu'à n'avoir plus aucune influence au delà d'un certain rayon.
+
+Comme expliqué juste avant, la transition entre l'intérieur et l'extérieur
+d'une cage n'est pas visuellement lisse, on ne peut donc pas utiliser
+directement des coordonnées que l'on calculerait aussi bien pour les points de
+l'espace à l'intérieur que ceux à l'extérieur. On cherche donc une fonction de
+déformation qui soit au moins $C^1$ dans tout son domaine et qui puisse
+utiliser les méthodes de calcul de coordonnées existantes, comme les MVC par
+exemple.
 
 % \section{Cheminement de l'article}
 % Dans un premier temps, nous avons voulu reproduire le cheminement de
