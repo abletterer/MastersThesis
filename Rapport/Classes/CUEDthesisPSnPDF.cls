@@ -53,7 +53,7 @@
 \usepackage{pstricks}
 \usepackage{etex}
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.10}
+\pgfplotsset{compat=1.9}
 
 
 %Bibliography
