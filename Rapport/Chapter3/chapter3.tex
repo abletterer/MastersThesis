@@ -108,8 +108,7 @@ sommets de la cage, où elle n'est que $C^0$. On ne peut donc pas utiliser les
 méthodes de calcul des coordonnées telles qu'elles.
 
 Notre objectif est donc d'obtenir une fonction de déformation, définie par une
-cage, qui soit au moins $C^1$ et qui déforme l'espace à la fois à l'intérieur
-et à l'extérieur, dans une zone d'influence.
+cage, qui soit au moins $C^1$ et définie dans une certaine zone d'influence.
 
 On pourrait se pencher sur la mise en place d'une nouvelle méthode de calcul
 de coordonnées, ayant les propriétés que nous souhaitons, mais la difficulté
@@ -122,13 +121,16 @@ pouvoir se servir des différentes méthodes existantes.
 Considérons deux cages au lieu d'une. Nous appelerons \textit{Cage de
 contrôle} la cage avec laquelle l'utilisateur va interagir pour réaliser les
 déformations. Nous appelerons \textit{Cage d'influence} la cage qui va définir
-la zone d'influence, zone qui délimite la points de l'espace qui seront sous
+la zone d'influence, zone qui délimite les points de l'espace qui seront sous
 l'influence de la déformation. La cage d'influence correspond à une version
 mise à l'échelle de la cage de contrôle, de façon à ce que la cage d'influence
 englobe totalement la cage de contrôle.
 
-Nous avons décidé de voir les choses d'une autre façon. Déformer l'extérieur de
-la cage de contrôle correspond à déformer l'intérieur de la cage d'influence.
+Au lieu de voir la zone d'influence comme l'extérieur de la cage de contrôle,
+nous avons décidé de la voir comme l'intérieur de la cage d'influence. Les
+coordonnées MVC sont $C^{\infty}$ à l'intérieur de la cage d'influence, les
+déformations qui auront lieu à l'intérieur de celle-ci seront donc
+visuellement lisses.
 
 % \section{Cheminement de l'article}
 % Dans un premier temps, nous avons voulu reproduire le cheminement de
