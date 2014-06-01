@@ -86,32 +86,49 @@ nous en inspirer. Notre contribution se décompose en 2 parties :
 
 Les déformations à base de cage sont considérées comme des déformations
 globales, car la modification de la position d'un sommet de la cage affecte
-tout l'espace contenu à l'intérieur de la cage. Aussi, les cages ont toujours
+tout l'espace contenu à l'intérieur de celle-ci. Aussi, les cages ont toujours
 eu comme restriction d'englober strictement l'objet à déformer, car la
 transition entre la déformation à l'intérieur et à l'extérieur de la cage
 n'est pas visuellement lisse. Cela est dû au fait que la fonction résultant de
 la déformation n'est pas dérivable au niveau des sommets de la cage.
 
 Mais pourquoi les déformations à base de cage ne pourraient pas avoir le même
-comportement que les déformations à base de points? A savoir que la
-modification de la position d'un point de contrôle affecte l'espace autour de
-sa position dans un rayon donné, en diminuant son influence progressivement en
-fonction de la distance d'un point de l'espace au point de contrôle. On aurait
-alors une cage qui déformerait à la fois les points de l'espace en son
-intérieur et à l'extérieur. Son influence diminuerait progressivement au fur
-et à mesure que les points de l'espace sont éloignés du centre de la cage,
-jusqu'à n'avoir plus aucune influence au delà d'un certain rayon.
+comportement que les déformations à base de points? On aurait alors une cage
+qui déformerait à la fois les points de l'espace en son intérieur et à
+l'extérieur. Son influence diminuerait progressivement au fur et à mesure que
+les points de l'espace soient éloignés du centre de la cage, jusqu'à n'avoir
+plus aucune influence au delà d'un certain rayon.
 
 Comme expliqué juste avant, la transition de la déformation entre l'intérieur
-et l'extérieur d'une cage n'est pas visuellement lisse, on ne peut donc pas
-utiliser directement des coordonnées que l'on calculerait aussi bien pour les
-points de l'espace à l'intérieur que ceux à l'extérieur. 
+et l'extérieur d'une cage n'est pas visuellement lisse. Mathématiquement, cela
+revient à dire que la fonction de déformation (donnée par le calcul des MVC)
+est définie sur $\mathbb{R}^2$, mais qu'elle n'est pas dérivable sur tout le
+domaine. Plus précisément, elle est $C^{\infty}$ partout, sauf au niveau des
+sommets de la cage, où elle n'est que $C^0$. On ne peut donc pas utiliser les
+méthodes de calcul des coordonnées telles qu'elles.
 
-On cherche donc une fonction de déformation qui soit au moins $C^1$ dans tout
-son domaine et qui puisse utiliser les méthodes de calcul de coordonnées
-existantes, comme les MVC par exemple.
+Notre objectif est donc d'obtenir une fonction de déformation, définie par une
+cage, qui soit au moins $C^1$ et qui déforme l'espace à la fois à l'intérieur
+et à l'extérieur, dans une zone d'influence.
 
+On pourrait se pencher sur la mise en place d'une nouvelle méthode de calcul
+de coordonnées, ayant les propriétés que nous souhaitons, mais la difficulté
+de ce travail en fait un sujet de recherche en soi. Nous nous sommes plutôt
+intéressés à la réutilisation des méthodes de calcul existantes, afin de
+pouvoir se servir des différentes méthodes existantes.
 
+\subsubsection{Idée}
+
+Considérons deux cages au lieu d'une. Nous appelerons \textit{Cage de
+contrôle} la cage avec laquelle l'utilisateur va interagir pour réaliser les
+déformations. Nous appelerons \textit{Cage d'influence} la cage qui va définir
+la zone d'influence, zone qui délimite la points de l'espace qui seront sous
+l'influence de la déformation. La cage d'influence correspond à une version
+mise à l'échelle de la cage de contrôle, de façon à ce que la cage d'influence
+englobe totalement la cage de contrôle.
+
+Nous avons décidé de voir les choses d'une autre façon. Déformer l'extérieur de
+la cage de contrôle correspond à déformer l'intérieur de la cage d'influence.
 
 % \section{Cheminement de l'article}
 % Dans un premier temps, nous avons voulu reproduire le cheminement de
