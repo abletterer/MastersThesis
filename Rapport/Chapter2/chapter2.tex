@@ -12,50 +12,53 @@
   {Chapter2/Chapter2Figs/PDF/} {Chapter2/Chapter2Figs/} }
 
 Notre travail s'est porté particulièrement sur le mélange de différents outils
-de dimension 2 (faces). La technique retenue pour cette dimension est celle des
-déformations à base de cage. Ce choix a été motivé par l'efficacité de cette
-méthode et de son utilisation dans le travail de \cite{GPCP13} (un travail
-similaire à celui que nous souhaitions réaliser).
+de dimension 2 (faces). La technique retenue pour cette dimension est celle
+des déformations à base de cage. Ce choix a été motivé par l'efficacité de
+cette méthode et de son utilisation dans le travail de \cite{GPCP13} (un
+travail similaire à celui que nous souhaitions réaliser).
 
-Afin de pouvoir rentrer dans les détails des méthodes existantes, ainsi que des
-idées que nous avons eu, une introduction aux déformations à base de cage est
-nécessaire. Ces déformations peuvent se faire dans $\mathbb{R}^2$ (l'outil est
-un polygone) et dans $\mathbb{R}^3$ (l'outil est une surface), mais pour
-simplifier la compréhension de la méthode ainsi que les différents schémas, nous
-nous concentrerons sur des déformations dans $\mathbb{R}^2$.
+Afin de pouvoir rentrer dans les détails des méthodes existantes, ainsi que
+des idées que nous avons eu, une introduction aux déformations à base de cage
+est nécessaire. Ces déformations peuvent se faire dans $\mathbb{R}^2$ (l'outil
+est un polygone) et dans $\mathbb{R}^3$ (l'outil est une surface), mais pour
+simplifier la compréhension de la méthode ainsi que les différents schémas,
+nous nous concentrerons sur des déformations dans $\mathbb{R}^2$.
 
 \section{Introduction} 
 
 L'outil permettant de réaliser les déformations est un polygone. Ce polygone
-peut-être de nature quelconque, sous réserve qu'il ne soit pas dégénéré (il doit
-avoir au moins 3 sommets) et qu'il ne comporte pas d'auto-intersection. Par la
-suite l'appelerons indifféremment le \textit{polygone de contrôle} ou
+peut-être de nature quelconque, sous réserve qu'il ne soit pas dégénéré (il
+doit avoir au moins 3 sommets) et qu'il ne comporte pas d'auto-intersection.
+Par la suite l'appelerons indifféremment le \textit{polygone de contrôle} ou
 \textit{cage} par rapport au sommet $v_j$. L'idée est de définir une position
 paramétrique des sommets d'un objet contenus à l'intérieur du polygone de
 contrôle en fonction de la position de ses sommets. Cette méthode permet de
-déformer un objet uniquement en manipulant les sommets du polygone de contrôle,
-peu importe la complexité de cet objet. Cette déformation est dite globale, car
-un sommet du polygone de contrôle a une influence sur tous les points de
-l'espace (qui sont les sommets de l'objet) contenus à l'intérieur du polygone.
+déformer un objet uniquement en manipulant les sommets du polygone de
+contrôle, peu importe la complexité de cet objet. Cette déformation est dite
+globale, car un sommet du polygone de contrôle a une influence sur tous les
+points de l'espace (qui sont les sommets de l'objet) contenus à l'intérieur du
+polygone.
 
 Les premiers travaux dans ce domaine ont été réalisés par \cite{JSW05}
-\cite{FKR05} (réalisés simultanément), en utilisant la technique des
-Mean Value Coordinates (MVC) (développée par \cite{Flo03}). Il s'agit de la
+\cite{FKR05} (réalisés simultanément), en utilisant la technique des Mean
+Value Coordinates (MVC) (développée par \cite{Flo03}). Il s'agit de la
 première méthode à avoir appliqué des coordonnées barycentriques généralisées
 pour réaliser des déformations. Les coordonnées barycentriques généralisées
-correspondent à la généralisation du calcul de coordonnées barycentriques, en ne
-considérant plus des coordonnées calculées par rapport à un simplexe (triangle
-dans $\mathbb{R}^2$), mais à une cellule (polygone dans $\mathbb{R}^2$).
-Néanmoins cette méthode comporte un important défaut : les coordonnées calculées
-peuvent être négatives (dans le cas d'un polygone de contrôle concave par
-exemple), ce qui peut amener à obtenir des résultats contre-intuitifs.
+correspondent à la généralisation du calcul de coordonnées barycentriques, en
+ne considérant plus des coordonnées calculées par rapport à un simplexe
+(triangle dans $\mathbb{R}^2$), mais à une cellule (polygone dans
+$\mathbb{R}^2$). Néanmoins cette méthode comporte un important défaut : les
+coordonnées calculées peuvent être négatives (dans le cas d'un polygone de
+contrôle concave par exemple), ce qui peut amener à obtenir des résultats
+contre-intuitifs.
 
 \cite{JMDGS07} ont déclaré que l'importance de ce problème devait amener à ne
 pas utiliser les MVC pour l'animation de personnages. A la place, ils ont
-proposé une approche différente, qui ne produisait pas de coordonnées négatives
-: les Harmonic Coordinates (HC). Cette méthode a permis d'obtenir des
-déformations plus localisées, mais au prix d'une complexité en temps de calcul
-beaucoup plus importante et d'une discrétisation de l'espace assez fine.
+proposé une approche différente, qui ne produisait pas de coordonnées
+négatives : les Harmonic Coordinates (HC). Cette méthode a permis d'obtenir
+des déformations plus localisées, mais au prix d'une complexité en temps de
+calcul beaucoup plus importante et d'une discrétisation de l'espace assez
+fine.
 
 Dans la même optique, \cite{LKCL07} proposent une amélioration des Mean Value
 Coordinates qui les rend positives. L'idée est de se baser sur un test de
@@ -63,12 +66,12 @@ visibilité lors du calcul des coordonnées. Ils ont pu obtenir des résultats
 similaires à \cite{JMDGS07} mais pour une complexité en temps de calcul proche
 de celle des MVC.
 
-\cite{LLC08} ont constaté que les détails de la surface n'étaient pas préservés,
-en particulier lors de déformations importantes. Ce qui les a amené à développer
-une approche considérant plus de données lors de l'association entre la cage et
-l'objet : les Green Coordinates (GC). Au lieu d'utiliser uniquement la position
-des sommets de la cage, les Green Coordinates utilisent aussi les normales aux
-faces de la cage.
+\cite{LLC08} ont constaté que les détails de la surface n'étaient pas
+préservés, en particulier lors de déformations importantes. Ce qui les a amené
+à développer une approche considérant plus de données lors de l'association
+entre la cage et l'objet : les Green Coordinates (GC). Au lieu d'utiliser
+uniquement la position des sommets de la cage, les Green Coordinates utilisent
+aussi les normales aux faces de la cage.
 
 \section{Mean Value Coordinates}
 
@@ -87,9 +90,9 @@ commun.
 
 \cite{Mob27} a été le premier à exprimer une relation entre un polygone et un
 point contenu à l'intérieur de ce polygone (un triangle en l'occurence) : les
-Coordonnées Barycentriques. Le problème était de se demander : Quels poids doit-
-on donner à chacun des sommets d'un triangle de façon à ce qu'un point $p$ soit
-le centre de gravité de ces sommets?
+Coordonnées Barycentriques. Le problème était de se demander : Quels poids
+doit- on donner à chacun des sommets d'un triangle de façon à ce qu'un point
+$p$ soit le centre de gravité de ces sommets?
 
 Soit $V = \{v_1, v_2, v_3\}$ un triangle quelconque, ses sommets constituent ce
 qu'on appelle un repère barycentrique, et soit $p$ un point de l'espace. On dit
@@ -99,8 +102,8 @@ que $p$ est un barycentre de $V$ si et seulement si:
   p = \frac{w_1 v_1 + w_2 v_2 + w_3 v_3}{w_1+w_2+w_3}
 \end{equation}
 
-Où $w_i$ correspond à la coordonnée du point $p$ associée au sommet $v_i$, pour
-$0 < i < 3$. On peut réécrire cette formule en normalisant les $w_i$ :
+Où $w_i$ correspond à la coordonnée du point $p$ associée au sommet $v_i$,
+pour $0 < i < 3$. On peut réécrire cette formule en normalisant les $w_i$ :
 
 \begin{equation}
   \lambda_i = \frac{w_i}{w_1+w_2+w_3} ~, 1 \leq i \leq 3, 
@@ -112,13 +115,14 @@ On obtient donc la formulation suivante :
   p = \lambda_1 v_1 + \lambda_2 v_2 + \lambda_3 v_3
 \end{equation}
 
-Ces coordonnés ont l'avantage d'établir une relation entre les $w_i$ d'un point
-$p$ et l'aire du triangle $[v, v_{i+1}, v_{i+2}]$.
+Ces coordonnés ont l'avantage d'établir une relation entre les $w_i$ d'un
+point $p$ et l'aire du triangle $[v, v_{i+1}, v_{i+2}]$.
 
-Les coordonnées barycentriques sont une transformation linéaire des coordonnées
-cartésiennes, elles varient donc de façon linéaire sur le plan défini par le
-triangle $V$. Ce qui signifie qu'elle peuvent être utilisées comme une fonction
-d'interpolation $f(v)$ des valeurs au sommets du triangle $f(v_i)$:
+Les coordonnées barycentriques sont une transformation linéaire des
+coordonnées cartésiennes, elles varient donc de façon linéaire sur le plan
+défini par le triangle $V$. Ce qui signifie qu'elle peuvent être utilisées
+comme une fonction d'interpolation $f(v)$ des valeurs au sommets du triangle
+$f(v_i)$:
 
 \begin{equation}
   f(v) = \sum_{i=1}^{3} \lambda_i f(v_i)
@@ -162,11 +166,11 @@ harmonique si elle est $C^2$ et qu'elle satisfait l'équation de Laplace :
   \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0
 \end{equation}
 
-Ces fonctions n'ayant pas de forme analytique, la seule façon de connaître leur
-valeur en un points précis est de les évaluer sur tout le domaine. Ces
-traitements nécessitent beaucoup de calculs, c'est pour cela que \cite{Flo03} a
-décidé de les approximer au travers de fonctions linéaires définies par morceaux
-sur une triangulation donnée.
+Ces fonctions n'ayant pas de forme analytique, la seule façon de connaître
+leur valeur en un points précis est de les évaluer sur tout le domaine. Ces
+traitements nécessitent beaucoup de calculs, c'est pour cela que \cite{Flo03}
+a décidé de les approximer au travers de fonctions linéaires définies par
+morceaux sur une triangulation donnée.
 
 La coordonnnée $w_i$ associée au point $p$ est calculée en utilisant la
 position du point $p$, du sommet $v_i$ et des deux sommets adjacents à $v_i$ :
@@ -195,12 +199,12 @@ Ces coordonnées sont normalisées :
 \end{equation}
 
 afin d'obtenir la coordonnée MVC du point $p$ par rapport au sommet $v_i$. On
-appelle l'ensemble de ces coordonnées $\{\lambda_0, \lambda_1, ..., \lambda_n\}$
-les coordonnées MVC du point $p$.
+appelle l'ensemble de ces coordonnées $\{\lambda_0, \lambda_1, ...,
+\lambda_n\}$ les coordonnées MVC du point $p$.
 
-Ces formules sont correctes dans le cas où un point $p$ est strictement inclus à
-l'intérieur du polygone de contrôle. Des problèmes se posent lorsqu'un point de
-l'espace se trouve le long d'une arête de ce polygone. On peut facilement
+Ces formules sont correctes dans le cas où un point $p$ est strictement inclus
+à l'intérieur du polygone de contrôle. Des problèmes se posent lorsqu'un point
+de l'espace se trouve le long d'une arête de ce polygone. On peut facilement
 détecter cette situation en regardant la valeur des angles $\alpha_{i-1}$ et
 $\alpha_i$. Par exemple, quand le point $p$ se situe sur l'arête $E =
 [v_i,v_{i+1}]$, l'angle $\alpha_i$ vaut $\pi$ (Figure \ref{DEFinc}). Or :
