@@ -203,22 +203,67 @@ niveau du bord de la cage d'influence. Pour corriger ce problème, nous allons
 progressivement atténuer la déformation appliquée, en fonction de la distance
 d'un point de l'espace au bord de la cage d'influence.
 
-Nous cherchons une fonction $f_h(x)$, paramétrée par $h \in ]0, 1]$,
-permettant de lisser les valeurs des distances des points de l'espace au bord
-de la cage d'influence. Cette fonction doit satisfaire $f_h(0) = f_h'(0) =
-f_h'(1) = 0$ et $f'_h(x) \geq 0$. L'idée de cette fonction vient du travail de
-\cite{GPCP13}, où ils utilisaient cette fonction pour lisser les valeurs de
+On souhaite évaluer la distance d'un point de l'espace au bord de la cage
+d'influence. On pourrait le faire avec des calculs de distance, mais ça
+demanderait de réaliser des opérations supplémentaires. A la place, nous
+allons utiliser les coordonnées que nous avons déjà calculé pour chacun des
+points de l'espace par rapport aux sommets de la cage d'influence. On définit
+donc la distance au bord comme étant égale au produit des poids associés à
+chacune des arêtes de la cage d'influence. Où le poids associé à une arête
+correspond à la somme des poids associés aux sommets incidents à l'arête
+considérée :
+
+\begin{equation}
+  d_{inf}(p) = \prod_{e_i \in c_{inf}} (1 - \sum_{v_j \in e_i} \lambda_j)
+\end{equation}
+
+Les valeurs de $d_{inf}$ varient entre 0 (bord de la cage d'influence) et
+$\frac{2}{n}^n$ (centre de gravité du polygone) où $n$ correspond au nombre de
+sommets de la cage d'influence.
+
+Ce calcul s'inspire de la notion de "boundary weight function" de
+\cite{GPCP13}, où les auteurs utilisaient cette fonction pour évaluer la
+distance d'un point à chacune des arêtes d'une cage.
+
+Nous cherchons maintenant une fonction $f_h(x)$, paramétrée par $h \in ]0,
+1]$, permettant de lisser les valeurs des distances des points de l'espace au
+bord de la cage d'influence. Cette fonction doit satisfaire $f_h(0) = f_h'(0)
+= f_h'(1) = 0$, $f_h(x)=1$ pour $x \geq h$ et $f'_h(x) \geq 0$. L'idée de cette fonction vient du travail
+de \cite{GPCP13}, où ils utilisaient cette fonction pour lisser les valeurs de
 distance d'un point à une arête de la cage. Les auteurs proposaient plusieurs
 fonctions avec des comportements similaires, nous en avons donc gardé une
 arbitrairement :
 
 \begin{equation}
-  f_h(x) = \frac{1}{2} sin(\pi(x/h - \frac{1}{2})) + \frac{1}{2}
+  f_h(x) = \frac{1}{2} sin(\pi(\frac{x}{h} - \frac{1}{2})) + \frac{1}{2}
 \end{equation}
 
-Maintenant que nous avons cette fonction, l'influence de la déformation peut
-décroître de manière progressive. Il faut définir maintenant la valeur de $h$
-afin que ce paramètre prenne en compte la différence de taille entre la cage
-de contrôle et la cage d'influence.
+Il faut définir maintenant la valeur de $h$ afin que ce paramètre prenne en
+compte la différence de taille entre la cage de contrôle et la cage
+d'influence. On souhaite que la déformation ne soit pas atténuée pour
+l'ensemble des points de l'espace à l'intérieur de la cage de contrôle. On va
+donc définir une distance $d_{min}$ telle que si la distance d'un point de
+l'espace au bord de la cage d'influence est supérieure à $d_{min}$, alors la
+déformation de ce point ne sera pas atténuée. $d_min$ correspond à la plus
+courte distance d'un point de l'espace au bord de la cage d'influence. Plus
+précisément, il s'agit exactement de la valeur de distance du sommet de la
+cage de contrôle le plus proche du bord de la cage d'influence. Il nous suffit
+donc d'évaluer la valeur de distance en chacun des sommets de la cage de
+contrôle par rapport au bord de la cage d'influence.
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[scale=0.2]{BoundaryWeightFunction-Petite}
+    \includegraphics[scale=0.2]{BoundaryWeightFunction}
+    \includegraphics[scale=0.2]{BoundaryWeightFunction-Grande}
+
+    \caption{Variation de l'atténuation de la déformation. La couleur varie du
+rouge (représentant une atténuation nulle) au bleu (représentant une
+atténuation totale). De gauche à droite on peut voir la variation pour
+différentes tailles de cage de contrôle.}
+
+    \label{MELBou}
+  \end{center}
+\end{figure}
 
 \subsection{Combinaison des déformations}
