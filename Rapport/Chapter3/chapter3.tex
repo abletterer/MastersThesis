@@ -148,7 +148,7 @@ d'influence englobe totalement la cage de contrôle (Figure \ref{MELDou}).
 
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[scale=0.3]{DoubleCage}
+    \includegraphics[scale=0.2]{DoubleCage}
     \caption{Disposition des deux cages. En bleu la cage de contrôle, en orange
     la cage d'influence.}
     \label{MELDou}
@@ -186,7 +186,7 @@ d'influence comme une version mise à l'échelle de la cage de contrôle, on peu
 facilement lier les sommets de la cage de contrôle à leur homologues "mis à
 l'échelle" de la cage d'influence. Ainsi, quand on modifie la position d'un
 sommet de la cage de contrôle, un seul sommet de la cage d'influence est
-déplacé.
+déplacé (Figure \ref{MelHie}).
 
 On définit donc le lien établit par un vecteur $\overrightarrow{v}$
 représentant la différence de position entre un sommet de la cage d'influence
@@ -199,10 +199,14 @@ associé :
 
 \begin{figure}[ht]
 \begin{center}
-  \includegraphics[scale=0.3]{DoubleCage}
-  \includegraphics[scale=0.3]{DoubleCage-Hierarchie}
-  \caption{Modification de la position du sommet de la cage d'influence associé
-  au sommet de la cage de contrôle déplacé (en rouge).}
+  \includegraphics[scale=0.2]{DoubleCage}
+  \includegraphics[scale=0.2]{DoubleCage-Hierarchie}
+
+  \caption{Modification de la position du sommet de la cage d'influence
+associé au sommet de la cage de contrôle déplacé (en rouge). A gauche les
+cages avant déformation, à droite les cages après déformation.}
+
+  \label{MelHie}
 \end{center}
 \end{figure}
 
@@ -213,21 +217,35 @@ niveau du bord de la cage d'influence. Pour corriger ce problème, nous allons
 progressivement atténuer la déformation appliquée, en fonction de la distance
 d'un point de l'espace au bord de la cage d'influence.
 
-On souhaite évaluer la distance d'un point de l'espace au bord de la cage
-d'influence. On pourrait le faire avec des calculs de distance, mais ça
-demanderait de réaliser des opérations supplémentaires. A la place, nous
-allons utiliser les coordonnées que nous avons déjà calculé pour chacun des
-points de l'espace par rapport aux sommets de la cage d'influence. On définit
-donc la distance au bord comme étant égale au produit des poids associés à
-chacune des arêtes de la cage d'influence. Où le poids associé à une arête
-correspond à la somme des poids associés aux sommets incidents à l'arête
-considérée :
+Atténuer la déformation revient ici à interpoler linéairement la position
+qu'un point de l'espace aurait après la déformation avec la position qu'il
+avait au temps d'association de l'outil avec l'objet :
 
 \begin{equation}
-  d_{inf}(p) = \prod_{e_i \in c_{inf}} (1 - \sum_{v_j \in e_i} \lambda_j)
+  T_{att}(p) = \gamma p + (1-\gamma) T(p)
 \end{equation}
 
-Les valeurs de $d_{inf}$ varient entre 0 (bord de la cage d'influence) et
+où $p$ correspond à la position initiale du point, $T(p)$ la position que ce
+point aurait après la déformation et $T_{att}(p)$ la position finale du point.
+
+Pour obtenir ce critère $\gamma$, on souhaite évaluer la distance d'un point
+de l'espace au bord de la cage d'influence. On pourrait le faire avec des
+calculs de distance euclidiennes, mais ça demanderait de réaliser des
+opérations supplémentaires. De plus, certaines coordonnées (comme les HC),
+établissent des coordonnées avec des distances prenant en compte la forme de
+l'objet à déformer. Utiliser des distances euclidiennes ne correspondrait donc
+pas avec la nature de ces coordonnées. A la place, nous allons utiliser les
+coordonnées que nous avons déjà calculé pour chacun des points de l'espace par
+rapport aux sommets de la cage d'influence. On définit donc la distance au
+bord $d_{inf}(p)$ comme étant égale au produit des poids associés à chacune
+des arêtes de la cage d'influence. Où le poids associé à une arête correspond
+à la somme des poids associés aux sommets incidents à l'arête considérée :
+
+\begin{equation}
+  d_{inf}(p) = \prod_{e_i \in c_{inf}} (1 - \sum_{v_j \in e_i} \lambda_j(p))
+\end{equation}
+
+Les valeurs de $d_{inf}(p)$ varient entre 0 (bord de la cage d'influence) et
 $\frac{2}{n}^n$ (centre de gravité du polygone) où $n$ correspond au nombre de
 sommets de la cage d'influence.
 
@@ -248,8 +266,8 @@ similaires, nous en avons donc gardé une arbitrairement :
   f_h(x) = \frac{1}{2} sin(\pi(\frac{x}{h} - \frac{1}{2})) + \frac{1}{2}
 \end{equation}
 
-Il faut définir maintenant la valeur de $h$ afin que ce paramètre représente
-la différence de taille entre la cage de contrôle et la cage d'influence. On
+Il faut définir la valeur de $h$ afin que ce paramètre représente la
+différence de taille entre la cage de contrôle et la cage d'influence. On
 souhaite que la déformation ne soit pas atténuée pour l'ensemble des points de
 l'espace à l'intérieur de la cage de contrôle. On va donc définir une distance
 $d_{min}$ telle que si la distance d'un point de l'espace au bord de la cage
@@ -277,16 +295,59 @@ peut voir la variation pour différentes tailles de cage de contrôle.}
 \end{figure}
 
 Pour simplifier les écritures dans la suite du travail, nous nous réfèrerons à
-ce nouvel outil comme étant l'outil \textit{cage de contrôle d'influence} ou
-\textit{cage coninf}.
+ce nouvel outil (composé d'une cage de contrôle et d'une cage d'influence)
+comme étant l'outil \textit{cage de contrôle d'influence} ou \textit{cage
+coninf}.
 
 \subsection{Combinaison des déformations}
 
 Maintenant que nous avons établi un outil de déformation local, nous aimerions
-combiner plusieurs cages coninf sur un même objet. L'objectif de cette partie
-consiste à trouver une formule de mélange permettant la modification de la
-position d'un point de l'espace par rapport à plusieurs cages coninf.
+combiner plusieurs cages coninf sur un même objet (Figure \ref{MELMC}).
+L'objectif de cette partie consiste à trouver une formule de mélange
+permettant la modification de la position d'un point de l'espace par rapport à
+plusieurs cages coninf.
 
-Un point de l'espace aura autant de coordonnées que de cages coninf dans
-lesquelles il se situe.
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[scale=0.4]{Melange-CageConinf}
+
+    \caption{Exemple de configuration de deux cages de contrôle d'influence se
+chevauchant. Les points de l'espace (en vert) appartenant à la zone en rose
+sont sous l'influence des deux cages à la fois.}
+
+    \label{MELMC}
+  \end{center}
+\end{figure}
+
+Combiner les déformations revient à établir une combinaison linéaire pondérée
+de l'influence de chaque cage coninf. Pour établir la valeur du coefficient
+associé à chaque cage, il faut trouver un critère permettant de classer les
+cages selon l'importance de la déformation à appliquer. Le critère que nous
+avons décidé d'envisager est celui de distance. En effet, intuitivement, plus
+un point de l'espace est proche du centre d'une cage coninf, plus on aimerait
+que cette cage influe sur la déformation de ce point. Autrement dit, on va
+regarder la proximité d'un point de l'espace au centre de chaque cage coninf
+à laquelle il appartient.
+
+Comparer la proximité au centre d'une cage coninf revient au même que de
+comparer l'éloignement au bord de la cage d'influence. Ainsi, on peut
+réutiliser les valeurs de distance au bord de la cage d'influence $d_{inf}(p)$
+pour connaître la proximité d'un point au centre d'une cage coninf. Ces
+distances étant relatives à chaque cage, il est nécessaire de les normaliser
+afin de pouvoir les comparer entre elles :
+
+\begin{equation}
+  D_{inf_i}(p) = \frac{d_{inf_i}}{\sum_{j=0}^n d_{inf_j}}
+\end{equation}
+
+où $D_{inf_i}(p)$ correspond à la distance normalisée du $p$ par rapport au
+bord de la cage d'influence constituant la cage coninf $i$.
+
+On peut maintenant définir une fonction de mélange se basant sur la proximité
+d'un point de l'espace au centre des différentes cages coninf auquel il
+appartient :
+
+\begin{equation}
+  T_{mel}(p) = \sum_{i=0}^n D_{inf_i}(p) T_{att_i}(p)
+\end{equation}
 
