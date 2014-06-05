@@ -195,6 +195,7 @@
 \def\collegeordept#1{\gdef\@collegeordept{#1}}
 % The name of your University
 \def\university#1{\gdef\@university{#1}}
+\def\direction#1{\gdef\@direction{#1}}
 % Defining the crest
 \def\crest#1{\gdef\@crest{#1}}
 
@@ -223,11 +224,13 @@
     {{\@collegeordept} \par}
 \vspace*{1ex}
     {{\@university} \par}
-\vspace*{25mm}
+\vspace*{2ex}
+    {{\@direction} \par}
+\vspace*{2ex}
     {{\submittedtext} \par}
 \vspace*{1ex}
     {\it {\@degree} \par}
-\vspace*{2ex}
+\vspace*{1ex}
     {\@degreedate}}
   \end{center}
   \null\vfill
@@ -262,7 +265,7 @@
 \begin{alwayssingle}
 \begin{center}
 \vspace*{1.5cm}
-{\Large \bfseries Acknowledgements}
+{\Large \bfseries Remerciements}
 \end{center}
 \vspace{0.5cm}
 \begin{quote}}
@@ -277,7 +280,7 @@
 \begin{alwayssingle}
 \begin{center}
 \vspace*{1.5cm}
-{\Large \bfseries Acknowledgements}
+{\Large \bfseries Remerciements}
 \end{center}
 \vspace{0.5cm}\begin{quote}}
 {\end{quote}\end{alwayssingle}}
