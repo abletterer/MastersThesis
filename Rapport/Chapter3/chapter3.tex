@@ -84,6 +84,8 @@ inspirer. Notre contribution se décompose en 2 parties :
 
 \end{enumerate}
 
+
+
 \subsection{Modification de la zone d'influence des déformations}
 
 Une première solution serait de définir des coordonnées uniquement pour les
@@ -178,7 +180,8 @@ de la cage de contrôle. Cette technique pose un problème quant à la localité
 de la déformation. Car même si  la position de tous les points de l'espace
 appartenant à la zone d'influence de la cage est modifiée à la modification de
 la position d'un seul sommet de la cage, on souhaiterait que les points les
-plus éloignés du sommet modifié soient le moins affecté par la déformation.
+plus éloignés du sommet modifié soient le moins affecté par la déformation
+engendrée.
 
 A la place, on peut définir que chaque sommet de la cage d'influence est lié à
 un seul sommet de la cage de contrôle. Etant donné que l'on construit la cage
@@ -188,13 +191,12 @@ l'échelle" de la cage d'influence. Ainsi, quand on modifie la position d'un
 sommet de la cage de contrôle, un seul sommet de la cage d'influence est
 déplacé (Figure \ref{MelHie}).
 
-On définit donc le lien établit par un vecteur $\overrightarrow{v}$
-représentant la différence de position entre un sommet de la cage d'influence
-$v_{inf}$ par rapport au sommet de la cage de contrôle $v_{con}$ auquel il est
-associé :
+On définit donc le lien comme un vecteur $\overrightarrow{v}$ représentant la
+différence de position entre un sommet de la cage d'influence $v_{inf}$ par
+rapport au sommet de la cage de contrôle $v_{ctrl}$ auquel il est associé :
 
 \begin{displaymath}
-  \overrightarrow{v} = v_{inf}-v_{con}
+  \overrightarrow{v} = v_{inf}-v_{ctrl}
 \end{displaymath}
 
 \begin{figure}[ht]
@@ -278,7 +280,15 @@ exactement de la valeur de distance du sommet de la cage de contrôle le plus
 proche du bord de la cage d'influence. Il nous suffit donc d'évaluer la valeur
 de distance en chacun des sommets de la cage de contrôle par rapport au bord
 de la cage d'influence et de les comparer afin de trouver la distance
-minimale.
+minimale :
+
+\begin{equation}
+  d_{min} = \min_{\forall v_{ctrl}} d_{inf}(v_{ctrl})
+\end{equation}
+
+La variation de l'atténuation sera plus douce lorsque la différence de taille
+entre la cage de contrôle et la cage d'influence sera grande (Figure
+\ref{MELBou}).
 
 \begin{figure}[ht]
   \begin{center}
@@ -336,9 +346,9 @@ pour connaître la proximité d'un point au centre d'une cage coninf. Ces
 distances étant relatives à chaque cage, il est nécessaire de les normaliser
 afin de pouvoir les comparer entre elles :
 
-\begin{equation}
+\begin{displaymath}
   D_{inf_i}(p) = \frac{d_{inf_i}}{\sum_{j=0}^n d_{inf_j}}
-\end{equation}
+\end{displaymath}
 
 où $D_{inf_i}(p)$ correspond à la distance normalisée du $p$ par rapport au
 bord de la cage d'influence constituant la cage coninf $i$.
@@ -347,7 +357,7 @@ On peut maintenant définir une fonction de mélange se basant sur la proximité
 d'un point de l'espace au centre des différentes cages coninf auquel il
 appartient :
 
-\begin{equation}
+\begin{displaymath}
   T_{mel}(p) = \sum_{i=0}^n D_{inf_i}(p) T_{att_i}(p)
-\end{equation}
+\end{displaymath}
 
