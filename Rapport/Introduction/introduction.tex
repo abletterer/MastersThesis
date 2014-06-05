@@ -7,32 +7,31 @@
   {Introduction/IntroductionFigs/PDF/}
   {Introduction/IntroductionFigs/} }
 
-La modélisation géométrique a permis, dans un premier temps, de représenter des
-objets virtuels. Ces objets peuvent être de natures différentes, comme les
+La modélisation géométrique a permis, dans un premier temps, de représenter
+des objets virtuels. Ces objets peuvent être de natures différentes, comme les
 surface paramétriques ou les maillages. Pour notre part, nous nous sommes
 intéressés aux maillages, qui représente une discrétisation de l'espace sous
 forme de cellules (sommets, arêtes, faces, volumes). Une méthode déformation
 naïve consiste à déplacer des sommets d'un maillage. Mais d'autres types de
-déformations, plus élaborés, se sont instaurés. Ils sont pour la plupart propres
-à une représentation spécifique d'un maillage, mais d'autres, comme la
+déformations, plus élaborés, se sont instaurés. Ils sont pour la plupart
+propres à une représentation spécifique d'un maillage, mais d'autres, comme la
 déformation \textit{spatiale}, font abstraction de ces représentations. Nous
 nous sommes intéressés à ce type de déformation. Durant le reste du rapport,
 nous appellerons \textit{objet} un maillage auquel nous appliquons une
 déformation.
 	
 La déformation spatiale consiste à déformer un objet en modifiant son espace
-ambiant au travers de la modification d'un outil. Cet outil est un objet et les
-modifications qu'on peut lui appliquer sont réalisées au travers du déplacement
-de ses sommets. Cet outil a des caractéristiques spécifiques, comme sa dimension
-(point, courbe, surface, volume), la zone de l'espace qu'il déforme (limitée
-spatialement ou globale) et sa résolution (nombre de points de contrôle). On notera
-\cite{Bar84} et \cite{SP86} comme étant les premiers à avoir introduit ce type
-de déformation. L'avantage de ce procédé, par rapport aux méthodes déjà
-existantes, a été de pouvoir réaliser des déformations indépendantes de la
-représentation interne de l'objet à déformer.
-\newpage
-En pratique, la déformation d'un objet se décompose en 3 étapes :
-\begin{enumerate}  
+ambiant au travers de la modification d'un outil. Cet outil est un objet et
+les modifications qu'on peut lui appliquer sont réalisées au travers du
+déplacement de ses sommets. Cet outil a des caractéristiques spécifiques,
+comme sa dimension (point, courbe, surface, volume), la zone de l'espace qu'il
+déforme (limitée spatialement ou globale) et sa résolution (nombre de points
+de contrôle). On notera \cite{Bar84} et \cite{SP86} comme étant les premiers à
+avoir introduit ce type de déformation. L'avantage de ce procédé, par rapport
+aux méthodes déjà existantes, a été de pouvoir réaliser des déformations
+indépendantes de la représentation interne de l'objet à déformer. \newpage En
+pratique, la déformation d'un objet se décompose en 3 étapes :
+\begin{enumerate}
 
 \item Construction de l'outil permettant la déformation
 
@@ -44,9 +43,9 @@ déformation})
 
 \end{enumerate} 
 
-Les deux premières étapes ne sont réalisées qu'une seule fois. A la fin du temps
-d'association, la dernière étape est réalisée à chaque manipulation de l'outil
-de déformation. \\
+Les deux premières étapes ne sont réalisées qu'une seule fois. A la fin du
+temps d'association, la dernière étape est réalisée à chaque manipulation de
+l'outil de déformation. \\
 
 Ce travail s'inscrit dans une démarche de création d'un nouvel outil de
 déformation. Actuellement, pour déformer un objet, les artistes utilisent un
@@ -58,30 +57,32 @@ effet il est nécessaire de placer les différents points de contrôle de l'outi
 autour de l'objet à déformer et, en fonction de la déformation voulue, leur
 nombre peut devenir très important. Or le temps d'association de l'outil avec
 l'objet augmente quand le nombre de points de contrôle augmente. L'idée serait
-alors d'avoir un \textit {multi-outil} composé de plusieurs \textit{sous-outils}
-communiquant ensemble et déformant chacun diverses zones de l'objet. Aussi, il
-serait agréable de pouvoir générer automatiquement un multi-outil en fonction
-des caractéristiques d'un objet à déformer, afin de simplifier au maximum le
-travail des artistes. Dans la suite de ce travail, nous appelerons \textit{outil
-multidimensionnel}, un multi-outil composé de plusieurs sous-outils de
-dimensions différents. \\
+alors d'avoir un \textit {multi-outil} composé de plusieurs \textit{sous-
+outils} communiquant ensemble et déformant chacun diverses zones de l'objet.
+Aussi, il serait agréable de pouvoir générer automatiquement un multi-outil en
+fonction des caractéristiques d'un objet à déformer, afin de simplifier au
+maximum le travail des artistes. Dans la suite de ce travail, nous appelerons
+\textit{outil multidimensionnel}, un multi-outil composé de plusieurs sous-
+outils de dimensions différents. \\
 
-Considérons que notre objet soit un alligator (Figure \ref{INTall}), on aimerait
-ouvrir la bouche de l'alligator, élargir son ventre et bouger sa queue, mais ces
-déformations sont difficilement réalisables avec un seul et même outil. Pour
-obtenir ce comportement, une bonne proposition serait de créer un outil
-multidimensionnel composé d'axes pour la bouche, d'une cage pour le ventre et de
-points pour la queue. Comment mélanger alors les effets de ces outils de façon à
-ce que l'aspect de la déformation engendrée soit lisse. Il semblerait intuitif
-d'associer une zone d'influence limitée à un sous-outil. Toujours en considérant
-notre alligator, lors de l'ouverture de la bouche, le reste du corps ne devrait
-pas être déformé. \\
+Considérons que notre objet soit un alligator (Figure \ref{INTall}), on
+aimerait ouvrir la bouche de l'alligator, élargir son ventre et bouger sa
+queue, mais ces déformations sont difficilement réalisables avec un seul et
+même outil. Pour obtenir ce comportement, une bonne proposition serait de
+créer un outil multidimensionnel composé d'axes pour la bouche, d'une cage
+pour le ventre et de points pour la queue. Comment mélanger alors les effets
+de ces outils de façon à ce que l'aspect de la déformation engendrée soit
+lisse. Il semblerait intuitif d'associer une zone d'influence limitée à un
+sous-outil. Toujours en considérant notre alligator, lors de l'ouverture de la
+bouche, le reste du corps ne devrait pas être déformé. \\
 
 \begin{figure}[ht]
   \includegraphics[scale=0.25]{alligator-avant}
   \includegraphics[scale=0.25]{alligator-apres}
-  \caption{A gauche l'objet d'origine et à droite le même objet après
-    déplacement de certains points de contrôle}
+
+  \caption[Explication déformation multi-outil]   {A gauche l'objet d'origine
+et à droite le même objet après déplacement de certains points de contrôle}
+
   \label{INTall}
 \end{figure}
 
@@ -99,5 +100,4 @@ dimension 2. Notre travail se situe dans le prolongement de \cite{GPCP13}. Les
 points clés sont la minimisation des temps de calcul (tant au niveau du temps
 d'association que du temps de déformation) ainsi que l'élaboration de formules
 mathématiques simples et claires. Ces critères ont guidé nos choix lors des
-différentes étapes de ce travail. %%%
-----------------------------------------------------------------------
+différentes étapes de ce travail.
