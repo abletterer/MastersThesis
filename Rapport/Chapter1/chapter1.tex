@@ -22,10 +22,18 @@ de points de contrôle qui les composent). On dit qu'une déformation est
 globale lorsqu'un le déplacement d'un sommet de l'outil influe sur l'ensemble
 des points de l'espace.
 
-Ces caractéristiques nous permettent de classer les outils et d'en
-sélectionner certains. Cette sélection a pour but d'établir une base sur
-laquelle partir lors de la mise en place d'une méthode de mélange des
-déformations engendrées par les différents outils.
+En pratique, la déformation d'un objet se décompose en 3 étapes :
+\begin{enumerate}
+
+\item Construction de l'outil permettant la déformation
+
+\item Association des points de l'espace composant l'objet à l'outil
+(\textit{temps d'association})
+
+\item Déformation de l'objet par invariance de l'association (\textit{temps de
+déformation})
+
+\end{enumerate} 
 
 \section{Déformation à base de volumes}
 
