@@ -18,6 +18,19 @@ de deux cages. L'une dite cage d'influence, elle délimite la zone de l'espace
 sous l'influence de la déformation. L'autre dite de contrôle, elle permet à
 l'utilisateur de contrôler la déformation à appliquer.
 
+Ce sujet se tournait vers la création d'un outil multidimensionnel de
+déformation. Mais nous n'avons travaillé que sur des déformation à base
+d'outils de dimension 2. Il est naturel de se demander comment notre méthode
+pourrait être étendue à des outils de dimensions différentes. Deux approches
+sont possibles pour généraliser ce travail :
+
+\begin{enumerate}
+\item Modification de la nature de la cage de contrôle
+\item Généraliser le mélange à d'autres outils déjà existants
+\end{enumerate}
+
+\section{Modification de la nature de la cage de contrôle}
+
 Nous avions choisi de travailler avec une cage comme outil de contrôle puisque
 nous voulions une méthode de mélange d'outils de déformation à base de cage.
 Mais rien ne nous empêche de changer la nature de cette cage de contrôle. Pour
@@ -48,3 +61,42 @@ d'influence créées à partir d'un point comme outil de contrôle}
 
 \end{center}
 \end{figure}
+
+Dans le même esprit, nous pourrions obtenir une cage d'influence à partir
+d'une courbe. La cage d'influence pourrait être générée comme un
+épaississement de la courbe. Le lien entre la courbe et la cage d'influence
+pourrait se faire comme pour les cages de contrôle. Mis à part qu'ici au lieu
+de modifier la position d'un seul sommet, un point de contrôle modifierait la
+position des deux sommets résultants de l'épaissement de la courbe par rapport
+à ce point.
+
+\begin{figure}[ht]
+\begin{center}
+  \includegraphics[scale=0.3]{OutilControle-Courbe-4}
+  \includegraphics[scale=0.3]{OutilControle-Courbe-6}
+  \includegraphics[scale=0.3]{OutilControle-Courbe-10}
+
+  \caption[Cages d'influence à partir d'une courbe] {Différentes cages
+d'influence créées à partir de courbes de différentes résolutions comme outils
+de contrôle}
+
+  \label{EXTPoi}
+
+\end{center}
+\end{figure}
+
+\section{Généralisation de la méthode de mélange aux outils existants}
+
+Plusieurs outils existent déjà, comme nous avons pu le voir dans le chapitre
+qui fait l'état de l'art des outils de différentes dimensions. On se demande
+alors si notre technique peut se mélanger avec des outils de différentes
+dimensions (points ou courbes). Et si c'est possible, comment notre technique
+pourrait permettre de mélanger ces différents outils ensemble.
+
+Un point important de la méthode de mélange proposée dans ce travail est la
+notion de \textit{distance à l'outil}. En effet, c'est grâce à cette distance
+que l'importance de l'atténuation peut être évaluée. A partir du moment où un
+outil permet de connaître la position d'un point de l'espace par rapport à la
+position des points de contrôle de cet outil et au bord du domaine
+d'influence, la technique de mélange présentée au chapitre précédent pourrait
+fonctionner.
