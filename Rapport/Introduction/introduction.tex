@@ -53,13 +53,15 @@ seul outil à la fois. Mais les différentes déformations ne peuvent pas toutes
 être réalisées à l'aide des mêmes outils. Cette contrainte les force à recréer
 un nouvel outil lorsque la déformation qu'ils souhaitent appliquer n'est plus
 facilement réalisable avec l'outil qu'ils utilisaient actuellement. Cette
-étape est une tâche qui peut s'avérer longue et pénible. L'idée serait alors
-d'avoir un \textit {multi-outil} composé de plusieurs \textit{sous-outils}
+étape est une tâche qui peut s'avérer longue et pénible, de plus le temps
+d'association de l'objet à l'outil peut être assez important, on souhaiterait
+donc éviter de devoir reproduire cette opération. L'idée serait alors d'avoir
+un \textit {multi-outil} composé de plusieurs \textit{sous-outils}
 communiquant ensemble et déformant chacun diverses zones de l'objet. Aussi, il
 serait agréable de pouvoir générer automatiquement un multi-outil en fonction
 des caractéristiques d'un objet à déformer, afin de simplifier au maximum le
 travail des artistes. Dans la suite de ce travail, nous appelerons
-\textit{outil multidimensionnel}, un multi-outil composé de plusieurs sous-
+\textit{outil multidimensionnel}, un multi- outil composé de plusieurs sous-
 outils de dimensions différents. \\
 
 Considérons que notre objet soit un alligator (Figure \ref{INTall}), on

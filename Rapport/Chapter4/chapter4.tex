@@ -26,7 +26,7 @@ sont possibles pour généraliser ce travail :
 
 \begin{enumerate}
 \item Modification de la nature de la cage de contrôle
-\item Généraliser le mélange à d'autres outils déjà existants
+\item Mélanger des outils existants avec cette méthode
 \end{enumerate}
 
 \section{Modification de la nature de la cage de contrôle}
@@ -36,8 +36,8 @@ nous voulions une méthode de mélange d'outils de déformation à base de cage.
 Mais rien ne nous empêche de changer la nature de cette cage de contrôle. Pour
 généraliser un peu plus ces propos, nommons la cage de contrôle \textit{outil
 de contrôle}. A partir du moment où un outil (point, courbe, face) nous permet
-de définir une cage d'influence, nous pouvons l'utiliser comme outil de
-contrôle.
+de définir une cage d'influence (nécessaire aux méthodes d'atténuation et de
+mélange), nous pouvons l'utiliser comme outil de contrôle.
 
 Clarifions un peu ces explications. Imaginons que notre outil de contrôle soit
 un point. Pour obtenir la cage d'influence associée à ce point, nous pouvons
@@ -45,8 +45,8 @@ construire un polygone régulier (de résolution quelconque) de façon à ce que
 l'isobarycentre de ce polygone soit l'outil de contrôle (Figure \ref{EXTPoi}).
 Le lien entre l'outil de contrôle et la cage d'influence s'établit sur le
 principe que l'outil de contrôle doit rester l'isobarycentre de la cage
-d'influence. La modification de la position de l'outil de contrôle implique une
-modification de la position des sommets de la cage d'influence (par
+d'influence. La modification de la position de l'outil de contrôle implique
+une modification de la position des sommets de la cage d'influence (par
 invariance de l'association).
 
 \begin{figure}[ht]
@@ -67,8 +67,8 @@ d'une courbe. La cage d'influence pourrait être générée comme un
 épaississement de la courbe. Le lien entre la courbe et la cage d'influence
 pourrait se faire comme pour les cages de contrôle. Mis à part qu'ici au lieu
 de modifier la position d'un seul sommet, un point de contrôle modifierait la
-position des deux sommets résultants de l'épaissement de la courbe par rapport
-à ce point.
+position des deux sommets qui résultent de l'épaissement de la courbe au niveau
+de ce point de contrôle (Figure \ref{EXTCou}).
 
 \begin{figure}[ht]
 \begin{center}
@@ -80,12 +80,12 @@ position des deux sommets résultants de l'épaissement de la courbe par rapport
 d'influence créées à partir de courbes de différentes résolutions comme outils
 de contrôle}
 
-  \label{EXTPoi}
+  \label{EXTCou}
 
 \end{center}
 \end{figure}
 
-\section{Généralisation de la méthode de mélange aux outils existants}
+\section{Mélange d'outils existants}
 
 Plusieurs outils existent déjà, comme nous avons pu le voir dans le chapitre
 qui fait l'état de l'art des outils de différentes dimensions. On se demande
@@ -98,5 +98,17 @@ notion de \textit{distance à l'outil}. En effet, c'est grâce à cette distance
 que l'importance de l'atténuation peut être évaluée. A partir du moment où un
 outil permet de connaître la position d'un point de l'espace par rapport à la
 position des points de contrôle de cet outil et au bord du domaine
-d'influence, la technique de mélange présentée au chapitre précédent pourrait
+d'influence, la technique de mélange présentée au chapitre précédent devrait
 fonctionner.
+
+Il est évident que les outils de déformation dont l'influence est globale ne
+peuvent pas être utilisés tels quels, car ils n'ont pas un domaine d'influence
+fini. Néanmoins, comme nous l'avons fait pour les déformations à base de
+cages, il devrait être possible de rendre leur influence locale. Une fois le
+domaine d'influence défini, il serait possible d'évaluer le critère de
+"distance à l'outil". Cette distance calculée nous permettrait de mélanger ces
+outils avec les autres outils tenant aussi compte de la distance à l'outil.
+
+Ces réflexions sont purement théoriques et certaines suppositions pourraient
+être fausses, néanmoins nous pensons que des réflexions plus poussées dans ces
+directions seraient intéressantes pour les travaux futurs.

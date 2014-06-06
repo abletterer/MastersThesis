@@ -11,21 +11,21 @@
 \graphicspath{{Chapter1/Chapter1Figs/PNG/}{Chapter1/Chapter1Figs/PDF/}{Chapter1/Chapter1Figs/}}
 
 Ce chapitre propose un état de l'art sur les différentes outils de déformation
-spatiale, d'après le travail de \cite{GB08}. Les outils présentés
-fonctionnent aussi bien dans $\mathbb{R}^2$ que dans $\mathbb{R}^3$, mais dans
-ce chapitre nous considèrerons des déformations affectant l'espace
-$\mathbb{R}^3$.
+spatiale, d'après le travail de \cite{GB08}. Les outils présentés fonctionnent
+aussi bien dans $\mathbb{R}^2$ que dans $\mathbb{R}^3$, mais dans ce chapitre
+nous considèrerons des déformations affectant l'espace $\mathbb{R}^3$.
 
-Tous ces outils ont différentes caractéristiques, comme par exemple la dimension
-(point, courbe, surface, volume), la zone de l'espace qu'ils déforment (limitée
-spatialement ou globale) ou encore leur résolution (nombre de points de contrôle
-qui les composent). On dit qu'une déformation est globale lorsqu'un le
-déplacement d'un sommet de l'outil influe sur l'ensemble des points de l'espace.
+Tous ces outils ont différentes caractéristiques, comme par exemple la
+dimension (point, courbe, surface, volume), la zone de l'espace qu'ils
+déforment (limitée spatialement ou globale) ou encore leur résolution (nombre
+de points de contrôle qui les composent). On dit qu'une déformation est
+globale lorsqu'un le déplacement d'un sommet de l'outil influe sur l'ensemble
+des points de l'espace.
 
-Ces caractéristiques nous permettent de classer les outils et d'en sélectionner
-certains. Cette sélection a pour but d'établir une base sur laquelle partir lors
-de la mise en place d'une méthode de mélange des déformations engendrées par les
-différents outils.
+Ces caractéristiques nous permettent de classer les outils et d'en
+sélectionner certains. Cette sélection a pour but d'établir une base sur
+laquelle partir lors de la mise en place d'une méthode de mélange des
+déformations engendrées par les différents outils.
 
 \section{Déformation à base de volumes}
 
@@ -88,15 +88,14 @@ l'espace sont repositionnés grâce à leurs coordonnées paramétriques
 déformé. De même que pour les volumes paramétriques, cette technique déforme
 l'espace de façon globale.
 
-\item{\textbf{Surface étoilée :}} Un polyèdre de forme étoilée est un
-polyèdre contenant, en son intérieur, une région qu'on appelle le
-\textit{noyau}. On définit le noyau d'un polyèdre comme étant la région
-depuis laquelle un rayon émis dans n'importe quelle direction n'intersecte le
-bord du polyèdre qu'une seule fois (Figure \ref{SUReto}, représenté en 2D).
-Cette propriété est utile dans le domaine de la déformation car elle permet
-d'obtenir une unique paramétrisation en coordonnées polaires des points de
-l'espace, comme proposé par \cite{JL00}. Cette technique déforme aussi
-l'espace de façon globale.
+\item{\textbf{Surface étoilée :}} Un polyèdre de forme étoilée est un polyèdre
+contenant, en son intérieur, une région qu'on appelle le \textit{noyau}. On
+définit le noyau d'un polyèdre comme étant la région depuis laquelle un rayon
+émis dans n'importe quelle direction n'intersecte le bord du polyèdre qu'une
+seule fois (Figure \ref{SUReto}, représenté en 2D). Cette propriété est utile
+dans le domaine de la déformation car elle permet d'obtenir une unique
+paramétrisation en coordonnées polaires des points de l'espace, comme proposé
+par \cite{JL00}. Cette technique déforme aussi l'espace de façon globale.
 
  \begin{figure}[ht]
  \begin{center}
@@ -114,9 +113,9 @@ définissent que les triangles du maillage contribuent à déformer une zone
 sphérique autour de chacun d'entre eux. Les triangles définissent des
 coordonnées paramétriques pour les points de l'espace se trouvant dans leur
 zone d'influence, en fonction de leur distance au triangle. La position des
-points de l'espace se trouvant à l'intersection de plusieurs zones
-d'influence résultent d'une moyenne pondérée des coordonnées calculées par
-rapport à chaque triangle. L'avantage de cette technique est de permettre une
+points de l'espace se trouvant à l'intersection de plusieurs zones d'influence
+résultent d'une moyenne pondérée des coordonnées calculées par rapport à
+chaque triangle. L'avantage de cette technique est de permettre une
 configuration assez générale des triangles (non nécessairement connexes), à
 partir du moment où ceux-ci ne sont pas dégénérés (les triangles doivent être
 composés de 3 sommets distincts). La déformation engendrée par le déplacement
@@ -136,8 +135,7 @@ données dans le prochain chapitre.
 
 \section{Déformation à base de courbes} 
 
-L'étude étant encore en cours, l'analyse des outils de déformation à base de
-courbes n'est pas terminée. Leur explication sera donnée au rapport final.
+(A COMPLETER)
 
 \section{Déformation à base de points}
 
@@ -146,33 +144,32 @@ courbes n'est pas terminée. Leur explication sera donnée au rapport final.
 \item{\textbf{Déformation radiale simple :}} Dans cette méthode, les
 déformations sont déterminées par un certain nombre de contraintes, chacune
 définie par un rayon $r_i$ (permettant de faire varier la zone d'influence)
-centré sur un point de contrainte $C_i$ associé à un déplacement $\Delta
-C_i$. On définit une paramétrisation des points de l'espace uniquement par la
+centré sur un point de contrainte $C_i$ associé à un déplacement $\Delta C_i$.
+On définit une paramétrisation des points de l'espace uniquement par la
 distance de chacun aux points de contraintes. De ce fait, les déformations se
 répandent de façon uniforme dans toutes les directions. \cite{BR94} ont
-développé Scodef (Simple Constrained Deformations), le premier outil
-utilisant cette technique. La déformation appliquée par le déplacement d'un
-point de contrainte est limitée à la zone sphérique autour de ce point. Il
-est important de noter que ce modèle est juste une restriction des
-possibilités de déformation proposées par la technique suivante, en
-considérant le cas le plus simple avec des zones d'influence sphériques
-autour des contraintes.
+développé Scodef (Simple Constrained Deformations), le premier outil utilisant
+cette technique. La déformation appliquée par le déplacement d'un point de
+contrainte est limitée à la zone sphérique autour de ce point. Il est
+important de noter que ce modèle est juste une restriction des possibilités de
+déformation proposées par la technique suivante, en considérant le cas le plus
+simple avec des zones d'influence sphériques autour des contraintes.
 
 \item{\textbf{DOGME :}} \cite{BB91} ont introduit une méthode basée sur les
 contraintes appelée DOGME (Deformation Of Geometric Model Editor) afin de
-remplacer l'interface non-intuitive des grilles utilisés dans les
-déformations à base de volumes par une manipulation directe des points de
-l'espace. L'idée est de permettre à un utilisateur de déplacer un point de
-l'espace et de déformer son voisinage géométrique en conséquence de façon
-lisse. On peut comparer cette déformation au fait de pincer un objet pour
-étirer la zone avoisinant la partie pincée. Pour replacer le voisinage d'un
-point de l'espace, la méthode se base sur le déplacement de points qu'on
-appelle "contraintes". Des contraintes, dont la portée de chacune est définie
-par une zone d'influence, sont associées à chaque point de l'espace et
-permettent d'approcher au mieux la nouvelle position des points. Si un point
-de l'espace est sous l'influence de plusieurs contraintes, alors sa nouvelle
-position correspond à une pondération de celles-ci. De même que pour la
-déformation radiale simple, la déformation est locale, car chaque contrainte
-agit uniquement dans sa zone d'influence.
+remplacer l'interface non-intuitive des grilles utilisés dans les déformations
+à base de volumes par une manipulation directe des points de l'espace. L'idée
+est de permettre à un utilisateur de déplacer un point de l'espace et de
+déformer son voisinage géométrique en conséquence de façon lisse. On peut
+comparer cette déformation au fait de pincer un objet pour étirer la zone
+avoisinant la partie pincée. Pour replacer le voisinage d'un point de
+l'espace, la méthode se base sur le déplacement de points qu'on appelle
+"contraintes". Des contraintes, dont la portée de chacune est définie par une
+zone d'influence, sont associées à chaque point de l'espace et permettent
+d'approcher au mieux la nouvelle position des points. Si un point de l'espace
+est sous l'influence de plusieurs contraintes, alors sa nouvelle position
+correspond à une pondération de celles-ci. De même que pour la déformation
+radiale simple, la déformation est locale, car chaque contrainte agit
+uniquement dans sa zone d'influence.
 
 \end{itemize}

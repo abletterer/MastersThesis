@@ -228,18 +228,22 @@ quand $p$ est sur l'arête $[v_i,v_{i+1}]$.}
 Cela pose un problème par rapport au calcul donné par l'équation \ref{DEFcoo}.
 Les coordonnées barycentriques généralisées définissent que les coordonnées
 calculées varient de façon linéaire le long des arêtes du polygone de contrôle
-et qu'elles respectent la propriété de Lagrange aux sommets du polygone : Si $p
-= v_i$ alors $\lambda_i = 1$ et $\lambda_j = 0 ~\forall~ j \neq i$ 
+et qu'elles respectent la propriété de Lagrange aux sommets du polygone : Si
+$p = v_i$ alors $\lambda_i = 1$ et $\lambda_j = 0 ~\forall~ j \neq i$
 
-En utilisant ces propriétés, on peut définir un calcul de coordonnées spécifique
-pour les points se trouvant le long d'une arête. Pour calculer la coordonnée
-$w_j$ du point $p$ par rapport au sommet $v_j$, $p$ se trouvant le long de
-l'arête $E = [v_i,v_{i+1}]$, on distingue deux cas :
+En utilisant ces propriétés, on peut définir un calcul de coordonnées
+spécifique pour les points se trouvant le long d'une arête. Pour calculer la
+coordonnée $w_j$ du point $p$ par rapport au sommet $v_j$, $p$ se trouvant le
+long de l'arête $E = [v_i,v_{i+1}]$, on distingue deux cas :
 
 \begin{itemize}
+
 \item Soit $v_j$ n'est pas incident à $E$ ($v_j \neq v_i$ et $v_j \neq
 v_{i+1}$); dans ce cas là, $\lambda_j = 0$
+
 \item Soit $v_j$ est incident à $E$ ($v_j = v_i$ ou $v_j = v_{i+1}$); dans ce
-cas $\lambda_j$ est calculé comme étant le coefficient associé à $v_j$ lors du calcul
-du barycentre du segment E, en considérant $p$ comme étant le barycentre.
+cas $\lambda_j$ est calculé comme étant le coefficient associé au sommet $v_j$
+lors du calcul du barycentre du segment E, en considérant $p$ comme étant le
+barycentre.
+
 \end{itemize}
