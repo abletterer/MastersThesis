@@ -102,10 +102,11 @@ de la cage est brusque et la déformation n'est pas lisse (Figure \ref{MELVI}).
       \includegraphics{Deformation-Interieur-1Sommet-Apres}
     }
 
-    \caption{Visualisation des problèmes de continuité lorsque seuls les
-points à l'intérieur sont déformés. Le bord de la cage est représenté en bleu.
-Le sommet en rouge représente le sommet déplacé. A gauche le modèle avant
-déformation, à droite le même modèle après déformation.}
+    \caption[Problème de continuité déformation naïve] {Visualisation des
+problèmes de continuité lorsque seuls les points à l'intérieur sont déformés.
+Le bord de la cage est représenté en bleu. Le sommet en rouge représente le
+sommet déplacé. A gauche le modèle avant déformation, à droite le même modèle
+après déformation.}
 
     \label{MELVI}
   \end{center}
@@ -150,9 +151,11 @@ d'influence englobe totalement la cage de contrôle (Figure \ref{MELDou}).
 
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[scale=0.2]{DoubleCage}
-    \caption{Disposition des deux cages. En bleu la cage de contrôle, en orange
-    la cage d'influence.}
+    \includegraphics[scale=0.3]{DoubleCage}
+
+    \caption[Disposition des cages de contrôle et d'influence] {Disposition
+des deux cages. En bleu la cage de contrôle, en orange la cage d'influence.}
+
     \label{MELDou}
   \end{center}
 \end{figure}
@@ -201,12 +204,13 @@ rapport au sommet de la cage de contrôle $v_{ctrl}$ auquel il est associé :
 
 \begin{figure}[ht]
 \begin{center}
-  \includegraphics[scale=0.2]{DoubleCage}
-  \includegraphics[scale=0.2]{DoubleCage-Hierarchie}
+  \includegraphics[scale=0.3]{DoubleCage}
+  \includegraphics[scale=0.3]{DoubleCage-Hierarchie}
 
-  \caption{Modification de la position du sommet de la cage d'influence
-associé au sommet de la cage de contrôle déplacé (en rouge). A gauche les
-cages avant déformation, à droite les cages après déformation.}
+  \caption[Association des cages de contrôle et d'influence] {Modification de
+la position du sommet de la cage d'influence associé au sommet de la cage de
+contrôle déplacé (en rouge). A gauche les cages avant déformation, à droite
+les cages après déformation.}
 
   \label{MelHie}
 \end{center}
@@ -296,9 +300,10 @@ entre la cage de contrôle et la cage d'influence sera grande (Figure
     \includegraphics[scale=0.2]{BoundaryWeightFunction}
     \includegraphics[scale=0.2]{BoundaryWeightFunction-Grande}
 
-    \caption{Variation de l'atténuation de la déformation. La couleur varie du
-rouge (atténuation nulle) au bleu (atténuation totale). De gauche à droite on
-peut voir la variation pour différentes tailles de cage de contrôle.}
+    \caption[Variation de l'atténuation de la déformation] {Variation de
+l'atténuation de la déformation. La couleur varie du rouge (atténuation nulle)
+au bleu (atténuation totale). De gauche à droite on peut voir la variation
+pour différentes tailles de cage de contrôle.}
 
     \label{MELBou}
   \end{center}
@@ -321,9 +326,10 @@ plusieurs cages coninf.
   \begin{center}
     \includegraphics[scale=0.4]{Melange-CageConinf}
 
-    \caption{Exemple de configuration de deux cages de contrôle d'influence se
-chevauchant. Les points de l'espace (en vert) appartenant à la zone en rose
-sont sous l'influence des deux cages à la fois.}
+    \caption[Mélange de cages de contrôle d'influence] {Exemple de
+configuration de deux cages de contrôle d'influence se chevauchant. Les points
+de l'espace (en vert) appartenant à la zone en rose sont sous l'influence des
+deux cages à la fois.}
 
     \label{MELMC}
   \end{center}
