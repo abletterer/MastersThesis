@@ -30,14 +30,14 @@ L'outil permettant de réaliser les déformations est un polygone. Ce polygone
 peut-être de nature quelconque, sous réserve qu'il ne soit pas dégénéré (il
 doit avoir au moins 3 sommets) et qu'il ne comporte pas d'auto-intersection.
 Par la suite l'appelerons indifféremment le \textit{polygone de contrôle} ou
-\textit{cage} par rapport au sommet $v_j$. L'idée est de définir une position
-paramétrique des sommets d'un objet contenus à l'intérieur du polygone de
-contrôle en fonction de la position de ses sommets. Cette méthode permet de
-déformer un objet uniquement en manipulant les sommets du polygone de
-contrôle, peu importe la complexité de cet objet. Cette déformation est dite
-globale, car un sommet du polygone de contrôle a une influence sur tous les
-points de l'espace (qui sont les sommets de l'objet) contenus à l'intérieur du
-polygone.
+\textit{cage} par rapport au sommet $v_j$. L'idée est de paramétriser la
+position des sommets d'un objet contenus à l'intérieur d'un polygone de
+contrôle en fonction de la position des sommets de ce polygone. Cette méthode
+permet de déformer un objet uniquement en manipulant les sommets du polygone
+de contrôle, peu importe la complexité de cet objet. Cette déformation est
+dite globale, car un sommet du polygone de contrôle a une influence sur tous
+les points de l'espace (qui sont les sommets de l'objet) contenus à
+l'intérieur du polygone.
 
 Les méthodes présentées ci-dessous permettent de réaliser les étapes
 d'association d'un objet à un outil et de déformation d'un objet.
@@ -229,12 +229,12 @@ quand $p$ est sur l'arête $[v_i,v_{i+1}]$.}
 \end{figure}
 
 Cela pose un problème par rapport au calcul donné par l'équation \ref{DEFcoo}.
-Les coordonnées barycentriques généralisées définissent que les coordonnées
+Les coordonnées barycentriques généralisées établissent que les coordonnées
 calculées varient de façon linéaire le long des arêtes du polygone de contrôle
 et qu'elles respectent la propriété de Lagrange aux sommets du polygone : Si
 $p = v_i$ alors $\lambda_i = 1$ et $\lambda_j = 0 ~\forall~ j \neq i$
 
-En utilisant ces propriétés, on peut définir un calcul de coordonnées
+En utilisant ces propriétés, on peut mettre en place un calcul de coordonnées
 spécifique pour les points se trouvant le long d'une arête. Pour calculer la
 coordonnée $w_j$ du point $p$ par rapport au sommet $v_j$, $p$ se trouvant le
 long de l'arête $E = [v_i,v_{i+1}]$, on distingue deux cas :

@@ -15,6 +15,15 @@ spatiale, d'après le travail de \cite{GB08}. Les outils présentés fonctionnen
 aussi bien dans $\mathbb{R}^2$ que dans $\mathbb{R}^3$, mais dans ce chapitre
 nous considèrerons des déformations affectant l'espace $\mathbb{R}^3$.
 
+La déformation spatiale est une technique de déformation permettant de
+modifier la position des sommets d'un objet virtuel au travers de la
+modification de son espace ambiant. Cette déformation est appliquée grâce à un
+objet virtuel qu'on appelle un \textit{outil}. Un utilisateur va interagir
+avec un outil (en modifiant la position de ses sommets), et cette cage va
+modifier la position des points de l'espace contenus en son intérieur. Dans la
+suite du rapport, nous appellerons \textit{objet} l'objet virtuel que nous
+souhaitons déformer.
+
 Tous ces outils ont différentes caractéristiques, comme par exemple la
 dimension (point, courbe, surface, volume), la zone de l'espace qu'ils
 déforment (limitée spatialement ou globale) ou encore leur résolution (nombre
@@ -32,6 +41,9 @@ En pratique, la déformation d'un objet se décompose en 3 étapes :
 
 \item Déformation de l'objet par invariance de l'association (\textit{temps de
 déformation})
+
+Les explications ci-dessous se concentrent sur la partie association des
+points de l'espace composant l'objet à l'outil.
 
 \end{enumerate} 
 
@@ -117,7 +129,7 @@ par \cite{JL00}. Cette technique déforme aussi l'espace de façon globale.
 \item{\textbf{Maillage triangulaire :}} Une autre idée est d'utiliser un
 maillage triangulaire simple pour appliquer des déformations aux points de
 l'espace. \cite{KO03} ont été les premiers à utiliser ce genre d'outil. Ils
-définissent que les triangles du maillage contribuent à déformer une zone
+proposent que les triangles du maillage contribuent à déformer une zone
 sphérique autour de chacun d'entre eux. Les triangles définissent des
 coordonnées paramétriques pour les points de l'espace se trouvant dans leur
 zone d'influence, en fonction de leur distance au triangle. La position des
@@ -133,7 +145,7 @@ définie autour de ce triangle.
 \item{\textbf{Cage :}} La cage est l'outil surfacique le plus utilisé ces
 dernières années en terme de déformation spatiale. Son utilisation est
 notamment dûe aux travaux de \cite{JSW05} et de \cite{FKR05} qui ont utilisé
-les \textit{Mean Value Coordinates} définies par \cite{Flo03} et \cite{FKR05}.
+les \textit{Mean Value Coordinates} présentées par \cite{Flo03} et \cite{FKR05}.
 Un maillage surfacique triangulaire quelconque est créé et définit une
 position paramétrique des points de l'espace par rapport aux positions des
 points de contrôle de la cage. Plus de précisions sur cette méthode seront

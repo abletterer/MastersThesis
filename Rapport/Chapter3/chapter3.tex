@@ -37,7 +37,7 @@ dimensions différentes en fonction des zones à déformer, la gestion interne
 repose uniquement sur des déformations à base de points. L'aspect
 "multidimensionnel" est donc uniquement présent comme une contrainte
 supplémentaire lors du calcul des coordonnées. Par exemple pour des sommets
-reliés par une arête les auteurs définissent que les coordonnées évoluent de
+reliés par une arête les auteurs proposent que les coordonnées évoluent de
 façon linéaire le long de cette arête. De plus, pour évaluer l'influence d'un
 point de contrôle sur l'espace, la technique proposée se base sur une méthode
 de diffusion (nécessitant donc une discrétisation de l'espace). Or un des
@@ -114,7 +114,7 @@ après déformation.}
   \end{center}
 \end{figure}
 
-Une autre solution serait de définir des coordonnées pour les points de
+Une autre solution serait de calculer des coordonnées pour les points de
 l'espace à la fois à l'intérieur et à l'extérieur de la cage. Certaines
 méthodes de calcul des coordonnées (comme les MVC ou les GC) sont définies sur
 $\mathbb{R}^2$, il serait donc possible de définir des coordonnées pour tous
@@ -188,7 +188,7 @@ la position d'un seul sommet de la cage, on souhaiterait que les points les
 plus éloignés du sommet modifié soient le moins affecté par la déformation
 engendrée.
 
-A la place, on peut définir que chaque sommet de la cage d'influence est lié à
+A la place, on peut proposer que chaque sommet de la cage d'influence soit lié à
 un seul sommet de la cage de contrôle. Etant donné que l'on construit la cage
 d'influence comme une version mise à l'échelle de la cage de contrôle, on peut
 facilement lier les sommets de la cage de contrôle à leur homologues "mis à
@@ -244,10 +244,11 @@ opérations supplémentaires. De plus, certaines coordonnées (comme les HC),
 l'objet à déformer. Utiliser des distances euclidiennes ne correspondrait donc
 pas avec la nature de ces coordonnées. A la place, nous allons utiliser les
 coordonnées que nous avons déjà calculé pour chacun des points de l'espace par
-rapport aux sommets de la cage d'influence. On définit donc la distance au
-bord $d_{inf}(p)$ comme étant égale au produit des poids associés à chacune
-des arêtes de la cage d'influence. Où le poids associé à une arête correspond
-à la somme des poids associés aux sommets incidents à l'arête considérée :
+rapport aux sommets de la cage d'influence. On établit que la distance au bord
+$d_{inf}(p)$ doit être égale au produit des poids associés à chacune des
+arêtes de la cage d'influence. Où le poids associé à une arête $e_i$
+correspond à la somme des poids associés aux sommets incidents $v_j$ à l'arête
+considérée :
 
 \begin{equation}
   d_{inf}(p) = \prod_{e_i \in c_{inf}} (1 - \sum_{v_j \in e_i} \lambda_j(p))
@@ -274,8 +275,8 @@ similaires, nous en avons donc gardé une arbitrairement :
   f_h(x) = \frac{1}{2} sin(\pi(\frac{x}{h} - \frac{1}{2})) + \frac{1}{2}
 \end{equation}
 
-Il faut définir la valeur de $h$ afin que ce paramètre représente la
-différence de taille entre la cage de contrôle et la cage d'influence. On
+Il faut évaluer la valeur de $h$ de manière à ce que ce paramètre représente
+la différence de taille entre la cage de contrôle et la cage d'influence. On
 souhaite que la déformation ne soit pas atténuée pour l'ensemble des points de
 l'espace à l'intérieur de la cage de contrôle. On va donc définir une distance
 $d_{min}$ telle que si la distance d'un point de l'espace au bord de la cage
@@ -355,7 +356,7 @@ distances étant relatives à chaque cage, il est nécessaire de les normaliser
 afin de pouvoir les comparer entre elles :
 
 \begin{displaymath}
-  D_{inf_i}(p) = \frac{d_{inf_i}}{\sum_{j=0}^n d_{inf_j}}
+  D_{inf_i}(p) = \frac{d_{inf_i}(p)}{\sum_{j=0}^n d_{inf_j}(p)}
 \end{displaymath}
 
 où $D_{inf_i}(p)$ correspond à la distance normalisée du $p$ par rapport au
@@ -368,4 +369,34 @@ appartient :
 \begin{displaymath}
   T_{mel}(p) = \sum_{i=0}^n D_{inf_i}(p) T_{att_i}(p)
 \end{displaymath}
+
+Finalement, l'algorithme exprimant la déformation engendrée par la cage
+d'influence peut s'écrire ainsi : \\
+
+\begin{algorithm}[H]
+\KwData{SumTot : réel\\ 
+SumCur : réel\\ 
+sumCurN : réel\\ 
+pos : tableau de vecteurs}
+\ForEach{point de l'espace p}
+{
+  sumTot = 0\;
+  \ForEach{cage c associée à p}
+  {
+    sumTot += $d_{inf_c}(p)$\;
+  }
+  pos[p] = [0,0]\; 
+  \ForEach{cage c associée à p}
+  {
+    sumCur = $d_{inf_c}(p)$\;
+    sumCurNorm = sumCur / sumTot\;
+    \ForEach{sommet v de c}
+    {
+      pos[p] += $\lambda_s(p)$ * pos[v] * sumCur * sumCurNorm\;
+      pos[p] += $\lambda_s(p)$ * pos\_init[v] * (1-sumCurNorm) * sumCurN\;
+    }
+  }
+}
+\caption{Etape de déformation}
+\end{algorithm}
 
