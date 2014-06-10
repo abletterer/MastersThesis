@@ -370,14 +370,15 @@ appartient :
   T_{mel}(p) = \sum_{i=0}^n D_{inf_i}(p) T_{att_i}(p)
 \end{displaymath}
 
-Finalement, l'algorithme exprimant la déformation engendrée par la cage
-d'influence peut s'écrire ainsi : \\
+L'algorithme final de la déformation engendrée par la modification des sommets
+de la cage d'influence: \\
 
 \begin{algorithm}[H]
 \KwData{SumTot : réel\\ 
 SumCur : réel\\ 
-sumCurN : réel\\ 
-pos : tableau de vecteurs}
+sumCurN : réel
+}
+\KwIn{pos : tableau de tableau de réels}
 \ForEach{point de l'espace p}
 {
   sumTot = 0\;
@@ -397,6 +398,6 @@ pos : tableau de vecteurs}
     }
   }
 }
-\caption{Etape de déformation}
+\caption{Mélange des déformations}
 \end{algorithm}
 
