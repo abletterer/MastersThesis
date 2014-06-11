@@ -28,13 +28,12 @@ L'outil permettant de réaliser les déformations est un polygone. Ce polygone
 peut-être de nature quelconque, sans auto-intersection et non dégénéré: il
 doit avoir au moins 3 sommets. Dans la suite, nous appelons ce polygone
 \textit{cage}. L'idée est de paramétriser la position des sommets d'un modèle
-contenus à l'intérieur d'un polygone de contrôle en fonction de la position
-des sommets de ce polygone (Figure \ref{DEFMod}). Cette méthode permet de
-déformer un modèle uniquement en manipulant les sommets du polygone de
-contrôle, peu importe la complexité de cet modèle. Cette déformation est dite
-globale, car un sommet du polygone de contrôle a une influence sur tous les
-points de l'espace (qui sont les sommets du modèle) contenus à l'intérieur du
-polygone.
+contenus à l'intérieur d'une cage en fonction de la position des sommets de ce
+polygone (Figure \ref{DEFMod}). Cette méthode permet de déformer un modèle
+uniquement en manipulant les sommets de la cage, peu importe la
+complexité de cet modèle. Cette déformation est dite globale, car un sommet de
+la cage a une influence sur tous les points de l'espace (qui sont les sommets
+du modèle) contenus à l'intérieur de la cage.
 
 \begin{figure}[ht]
 \begin{center}
@@ -49,7 +48,20 @@ les sommets de la cage}
 \end{figure}
 
 Les méthodes présentées ci-dessous permettent de réaliser les étapes
-d'association d'un modèle à un outil et de déformation d'un modèle.
+d'association d'un modèle à un outil et de déformation d'un modèle. Afin de
+les illuster, nous allons déformer un même modèle (Figure \ref{DEFAva}, tiré
+de \cite{LLC08}) en utilisant chaque méthode.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.25]{Deformation-Texte-Avant}
+
+\caption[Texte avant déformation] {Texte avant déformation. La cage est
+représentée par son bord, en rose.}
+
+\label{DEFAva}
+\end{center}
+\end{figure}
 
 Les premiers travaux dans ce domaine ont été réalisés simultanément par
 \cite{JSW05} \cite{FKR05}, en utilisant la technique des Mean Value
@@ -60,17 +72,15 @@ calcul de coordonnées barycentriques, en ne considérant plus des coordonnées
 calculées par rapport à un simplexe (triangle dans $\mathbb{R}^2$), mais à une
 cellule (polygone dans $\mathbb{R}^2$). Néanmoins cette méthode comporte un
 important défaut : les coordonnées calculées peuvent être négatives (dans le
-cas d'un polygone de contrôle concave par exemple), ce qui peut aboutir à des
+cas d'une cage concave par exemple), ce qui peut aboutir à des
 résultats contre-intuitifs.
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.15]{Deformation-Texte-Avant}
-\includegraphics[scale=0.15]{Deformation-Texte-MVC}
+\includegraphics[scale=0.25]{Deformation-Texte-MVC}
 
 \caption[Déformation d'un texte (MVC)] {Déformation d'un texte en utilisant la
-méthode des MVC. A gauche le texte avant déformation, à droite le texte après
-déformation.}
+méthode des MVC}
 
 \label{DEFMea}
 \end{center}
@@ -79,23 +89,43 @@ déformation.}
 \cite{JMDGS07} ont déclaré que l'importance de ce problème devait amener à ne
 pas utiliser les MVC pour l'animation de personnages. A la place, ils ont
 proposé une approche différente, qui ne produisait pas de coordonnées
-négatives : les Harmonic Coordinates (HC). Cette méthode a permis d'obtenir
+négatives : les Harmonic Coordinates (Figure \ref{DEFHar}) (Figure. Cette méthode a permis d'obtenir
 des déformations plus localisées, au prix d'une complexité en temps de
 calcul beaucoup plus importante et d'une discrétisation de l'espace assez
 fine.
 
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.25]{Deformation-Texte-HC}
+
+\caption[Déformation d'un texte (HC)] {Déformation d'un texte en utilisant la
+méthode des HC}
+
+\label{DEFHar}
+\end{center}
+\end{figure}
+
 Dans la même optique, \cite{LKCL07} proposent une amélioration des Mean Value
 Coordinates qui les rend positives. L'idée est de se baser sur un test de
 visibilité lors du calcul des coordonnées. Ils ont pu obtenir des résultats
-similaires à \cite{JMDGS07} pour une complexité en temps de calcul proche
-de celle des MVC.
+similaires à \cite{JMDGS07} pour une complexité en temps de calcul proche de
+celle des MVC. \cite{LLC08} ont constaté que les détails de la surface
+n'étaient pas préservés, en particulier lors de déformations importantes. Ce
+qui les a amené à développer une approche considérant plus de données lors de
+l'association du modèle à la cage : les Green Coordinates (GC) (Figure
+\ref{DEFGre}). Au lieu d'utiliser uniquement la position des sommets de la
+cage, les Green Coordinates utilisent aussi les normales aux faces de la cage.
 
-\cite{LLC08} ont constaté que les détails de la surface n'étaient pas
-préservés, en particulier lors de déformations importantes. Ce qui les a amené
-à développer une approche considérant plus de données lors de l'association du
-modèle à la cage : les Green Coordinates (GC). Au lieu d'utiliser uniquement
-la position des sommets de la cage, les Green Coordinates utilisent aussi les
-normales aux faces de la cage.
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.25]{Deformation-Texte-GC}
+
+\caption[Déformation d'un texte (GC)] {Déformation d'un texte en utilisant la
+méthode des GC}
+
+\label{DEFGre}
+\end{center}
+\end{figure}
 
 \section{Mean Value Coordinates}
 
@@ -112,8 +142,8 @@ commun.
 
 \subsection{Coordonnées barycentriques}
 
-\cite{Mob27} a été le premier à exprimer une relation entre un polygone et un
-point contenu à l'intérieur de ce polygone (un triangle en l'occurence) : les
+\cite{Mob27} a été le premier à exprimer une relation entre un triangle et un
+point contenu à l'intérieur de celui-ci : les
 coordonnées barycentriques.
 
 Soit $V = \{v_1, v_2, v_3\}$ un triangle quelconque, ses sommets constituent ce
@@ -121,10 +151,10 @@ qu'on appelle un repère barycentrique, et soit $p$ un point de l'espace. On dit
 que $p$ est un barycentre de $V$ si et seulement si:
 
 \begin{equation}
-  p = \frac{w_1 v_1 + w_2 v_2 + w_3 v_3}{w_1+w_2+w_3}
+  p = \frac{w_1 v_1 + w_2 v_2 + w_3 v_3}{w_1+w_2+w_3},
 \end{equation}
 
-Où $w_i$ correspond à la coordonnée du point $p$ associée au sommet $v_i$,
+où $w_i$ correspond à la coordonnée du point $p$ associée au sommet $v_i$,
 pour $i \in \{1, 2, 3\}$. On peut réécrire cette formule en normalisant les
 $w_i$ :
 
@@ -132,46 +162,32 @@ $w_i$ :
   \lambda_i = \frac{w_i}{w_1+w_2+w_3} ~, i \in \{1, 2, 3\}, 
 \end{equation}
 
-On obtient donc la formulation suivante :
+et donc $\sum_{i=1}^3 \lambda_i = 1$. On obtient la formulation suivante :
 
 \begin{equation}
-  p = \lambda_1 v_1 + \lambda_2 v_2 + \lambda_3 v_3
-\end{equation}
-
-Ces coordonnés ont l'avantage d'établir une relation entre les $w_i$ d'un
-point $p$ et l'aire du triangle $[v, v_{i+1}, v_{i+2}]$.
-
-Les coordonnées barycentriques sont une transformation linéaire des
-coordonnées cartésiennes, elles varient donc de façon linéaire sur le plan
-défini par le triangle $V$. Ce qui signifie qu'elle peuvent être utilisées
-comme une fonction d'interpolation $f(v)$ des valeurs au sommets du triangle
-$f(v_i)$:
-
-\begin{equation}
-  f(v) = \sum_{i=1}^{3} \lambda_i f(v_i)
+  p = \lambda_1 v_1 + \lambda_2 v_2 + \lambda_3 v_3.
 \end{equation}
 
 \subsection{Coordonnées barycentriques généralisées}
 
-Soit $V = \{v_1, v_2, ..., v_n\}$ un polygone simple (sans auto-intersection),
-ses sommets constituent un repère barycentrique, et soit $p$ un point de
-l'espace. Le but est d'étudier les poids $\lambda_i$ tels que :
+Soit $V = \{v_1, v_2, ..., v_n\}$ un polygone sans auto-intersection et non-
+dégénéré, ses sommets constituent un repère barycentrique. Soit $p$ un
+point de l'espace. Le but est d'étudier les poids $\lambda_i$ tels que :
 
 \begin{equation}
   p = \sum_{i=1}^{n} \lambda_i v_i ,
   ~ \forall i \in \mathbb{N} ,~ 1 \leq i \leq n
 \end{equation}
 
-\begin{equation}
-  \sum_{i=1}^n \lambda_i = 1
-\end{equation}
-
-Où $\lambda_i$ est la coordonnée (normalisée) du point $p$ associée au sommet
-$v_i$ :
+où $\lambda_i$ est la coordonnée (normalisée) du point $p$ associée au sommet
+$v_i$ et vérifie :
 
 \begin{equation}
-  \lambda_i = \frac{w_i}{\sum_{j=1}^n w_j}
+  \lambda_i = \frac{w_i}{\sum_{j=1}^n w_j},
 \end{equation}
+
+de même que pour les coordonnées barycentriques $\sum_{i=1}^n \lambda_i = 1$.
+\\
 
 Le calcul des coordonnées $w_i$ n'est plus aussi évident que pour le cas du
 triangle. Contrairement aux coordonnées barycentriques, les coordonnées
@@ -181,19 +197,19 @@ mises en place, et nous nous sommes intéressés particulièrement au travail de
 
 \subsection{Calcul des coordonnées}
 
-La motivation derrière ce travail a été de reproduire le comportement de
-fonctions harmoniques. Une fonction $u$ définie dans un plan $\Omega$ est dite
+Sa motivation a été de reproduire le comportement de fonctions harmoniques.
+Une fonction $u$ définie dans un plan $\Omega \in \mathbb{R}^2$ est dite
 harmonique si elle est $C^2$ et qu'elle satisfait l'équation de Laplace :
 
 \begin{equation}
-  \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0
+  \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0.
 \end{equation}
 
-Ces fonctions n'ayant pas de forme analytique, la seule façon de connaître
-leur valeur en un points précis est de les évaluer sur tout le domaine. Ces
-traitements nécessitent beaucoup de calculs, c'est pour cela que \cite{Flo03}
-a décidé de les approximer au travers de fonctions linéaires définies par
-morceaux sur une triangulation donnée.
+Les fonctions harmoniques n'ayant pas de forme analytique, une manière de
+connaître leur valeur en un points précis est de les évaluer sur tout le
+domaine. Ces traitements nécessitent beaucoup de calculs, c'est pour cela que
+\cite{Flo03} a décidé de les approximer au travers de fonctions linéaires
+définies par morceaux sur une triangulation donnée.
 
 La coordonnnée $w_i$ associée au point $p$ est calculée en utilisant la
 position du point $p$, du sommet $v_i$ et des deux sommets adjacents à $v_i$ :
@@ -208,22 +224,22 @@ du point $p$ par rapport au sommet $v_i$}
 
     \label{DEFcal}   \end{center} \end{figure}
 
-La méthode détermine donc ces coordonnées de la manière suivante :
+La méthode détermine la coordonnée $w_i$ de la manière suivante :
 
 \begin{equation}
-  w_i = \frac{tan(\alpha_{i-1}/2) + tan(\alpha_i/2)}{\| v_i - p \|}
+  w_i = \frac{tan(\alpha_{i-1}/2) + tan(\alpha_i/2)}{\| v_i - p \|}.
   \label{DEFcoo}
 \end{equation}
 
-Ces coordonnées sont normalisées :
+Ces coordonnées sont ensuite normalisées :
 
 \begin{equation}
-  \lambda_i = \frac{w_i}{\sum_{j=1}^n w_j}
+  \lambda_i = \frac{w_i}{\sum_{j=1}^n w_j},
 \end{equation}
 
 afin d'obtenir la coordonnée MVC du point $p$ par rapport au sommet $v_i$. On
-appelle l'ensemble de ces coordonnées $\{\lambda_0, \lambda_1, ...,
-\lambda_n\}$ les coordonnées MVC du point $p$.
+appelle les coordonnées MVC du point $p$ l'ensemble de ces coordonnées
+$\{\lambda_0, \lambda_1, ..., \lambda_n\}$.
 
 % Une fois ces calculs effectués, la déformation se réalise par invariance de
 % l'association entre le modèle et l'outil. La modification de la position des
@@ -244,11 +260,12 @@ appelle l'ensemble de ces coordonnées $\{\lambda_0, \lambda_1, ...,
 % \end{figure}
 
 Ces formules sont correctes dans le cas où un point $p$ est strictement inclus
-à l'intérieur du polygone de contrôle. Des problèmes se posent lorsqu'un point
-de l'espace se trouve le long d'une arête de ce polygone. On peut facilement
-détecter cette situation en regardant la valeur des angles $\alpha_{i-1}$ et
-$\alpha_i$. Par exemple, quand le point $p$ se situe sur l'arête $E =
-[v_i,v_{i+1}]$, l'angle $\alpha_i$ vaut $\pi$ (Figure \ref{DEFinc}). Or :
+dans la cage : $p$ n'appartient à aucune arête de la cage. Des problèmes se
+posent lorsqu'un point de l'espace se trouve le long d'une arête de la cage.
+On peut détecter cette situation en regardant la valeur des angles
+$\alpha_{i-1}$ et $\alpha_i$. Par exemple, quand le point $p$ se situe sur
+l'arête $E = [v_i,v_{i+1}]$, l'angle $\alpha_i$ vaut $\pi$ (Figure
+\ref{DEFinc}). Or :
 
 \begin{displaymath}
   \lim\limits_{x \to \pi^-} tan(\frac{x}{2}) = +\infty
@@ -259,8 +276,7 @@ $\alpha_i$. Par exemple, quand le point $p$ se situe sur l'arête $E =
     \includegraphics[scale=0.9]{chapter2-pstricks-2.pdf}
 
     \caption[Cas particulier MVC] {Situation dans laquelle les
-formules de calcul de coordonnées ne sont plus correctes. $\alpha_i = \pi$
-quand $p$ est sur l'arête $[v_i,v_{i+1}]$.}
+formules de calcul de coordonnées ne sont plus correctes.}
 
     \label{DEFinc}
   \end{center}
@@ -268,19 +284,19 @@ quand $p$ est sur l'arête $[v_i,v_{i+1}]$.}
 
 Cela pose un problème par rapport au calcul donné par l'équation \ref{DEFcoo}.
 Les coordonnées barycentriques généralisées établissent que les coordonnées
-calculées varient de façon linéaire le long des arêtes du polygone de contrôle
-et qu'elles respectent la propriété de Lagrange aux sommets du polygone : Si
-$p = v_i$ alors $\lambda_i = 1$ et $\lambda_j = 0 ~\forall~ j \neq i$
+calculées varient de façon linéaire le long des arêtes de la cage et qu'elles
+respectent la propriété de Lagrange aux sommets de la cage: Si $p = v_i$ alors
+$\lambda_i = 1$ et $\lambda_j = 0 ~\forall~ j \neq i$
 
-En utilisant ces propriétés, on peut mettre en place un calcul de coordonnées
-spécifique pour les points se trouvant le long d'une arête. Pour calculer la
-coordonnée $w_j$ du point $p$ par rapport au sommet $v_j$, $p$ se trouvant le
-long de l'arête $E = [v_i,v_{i+1}]$, on distingue deux cas :
+En utilisant ces propriétés, on définit un calcul de coordonnées spécifique
+pour les points se trouvant le long d'une arête. Pour calculer la coordonnée
+$w_j$ du point $p$ par rapport au sommet $v_j$, $p$ se trouvant le long de
+l'arête $E = [v_i,v_{i+1}]$, on distingue deux cas :
 
 \begin{itemize}
 
 \item Soit $v_j$ n'est pas incident à $E$ ($v_j \neq v_i$ et $v_j \neq
-v_{i+1}$); dans ce cas là, $\lambda_j = 0$
+v_{i+1}$); dans ce cas $\lambda_j = 0$
 
 \item Soit $v_j$ est incident à $E$ ($v_j = v_i$ ou $v_j = v_{i+1}$); dans ce
 cas $\lambda_j$ est calculé comme étant le coefficient associé au sommet $v_j$
