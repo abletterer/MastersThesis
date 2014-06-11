@@ -12,69 +12,90 @@
   {Chapter2/Chapter2Figs/PDF/} {Chapter2/Chapter2Figs/} }
 
 Notre travail s'est porté particulièrement sur le mélange de différents outils
-de dimension 2 (faces). La technique retenue pour cette dimension est celle
+à base de surfaces. La technique retenue pour cette dimension est celle
 des déformations à base de cage. Ce choix a été motivé par l'efficacité de
 cette méthode et de son utilisation dans le travail de \cite{GPCP13} (un
 travail similaire à celui que nous souhaitions réaliser).
 
-Afin de pouvoir rentrer dans les détails des méthodes existantes, ainsi que
-des idées que nous avons eu, une introduction aux déformations à base de cage
-est nécessaire. Ces déformations peuvent se faire dans $\mathbb{R}^2$ (l'outil
-est un polygone) et dans $\mathbb{R}^3$ (l'outil est une surface), mais pour
+Ces déformations peuvent se faire dans $\mathbb{R}^2$ (l'outil
+est un polygone) et dans $\mathbb{R}^3$ (l'outil est une surface). Pour
 simplifier la compréhension de la méthode ainsi que les différents schémas,
-nous nous concentrerons sur des déformations dans $\mathbb{R}^2$.
+nous nous limiterons aux déformations dans $\mathbb{R}^2$.
 
 \section{Introduction} 
 
 L'outil permettant de réaliser les déformations est un polygone. Ce polygone
-peut-être de nature quelconque, sous réserve qu'il ne soit pas dégénéré (il
-doit avoir au moins 3 sommets) et qu'il ne comporte pas d'auto-intersection.
-Par la suite l'appelerons indifféremment le \textit{polygone de contrôle} ou
-\textit{cage} par rapport au sommet $v_j$. L'idée est de paramétriser la
-position des sommets d'un objet contenus à l'intérieur d'un polygone de
-contrôle en fonction de la position des sommets de ce polygone. Cette méthode
-permet de déformer un objet uniquement en manipulant les sommets du polygone
-de contrôle, peu importe la complexité de cet objet. Cette déformation est
-dite globale, car un sommet du polygone de contrôle a une influence sur tous
-les points de l'espace (qui sont les sommets de l'objet) contenus à
-l'intérieur du polygone.
+peut-être de nature quelconque, sans auto-intersection et non dégénéré: il
+doit avoir au moins 3 sommets. Dans la suite, nous appelons ce polygone
+\textit{cage}. L'idée est de paramétriser la position des sommets d'un modèle
+contenus à l'intérieur d'un polygone de contrôle en fonction de la position
+des sommets de ce polygone (Figure \ref{DEFMod}). Cette méthode permet de
+déformer un modèle uniquement en manipulant les sommets du polygone de
+contrôle, peu importe la complexité de cet modèle. Cette déformation est dite
+globale, car un sommet du polygone de contrôle a une influence sur tous les
+points de l'espace (qui sont les sommets du modèle) contenus à l'intérieur du
+polygone.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=1.5]{chapter2-casque-viking-pstricks}
+
+\caption[Association d'un modèle à une cage] {Association d'un modèle (casque
+viking) à une cage de déformation (en noir). Les disques noirs représentent
+les sommets de la cage}
+
+\label{DEFMod}
+\end{center}
+\end{figure}
 
 Les méthodes présentées ci-dessous permettent de réaliser les étapes
-d'association d'un objet à un outil et de déformation d'un objet.
+d'association d'un modèle à un outil et de déformation d'un modèle.
 
-Les premiers travaux dans ce domaine ont été réalisés par \cite{JSW05}
-\cite{FKR05} (réalisés simultanément), en utilisant la technique des Mean
-Value Coordinates (MVC) (développée par \cite{Flo03}). Il s'agit de la
-première méthode à avoir appliqué des coordonnées barycentriques généralisées
-pour réaliser des déformations. Les coordonnées barycentriques généralisées
-correspondent à la généralisation du calcul de coordonnées barycentriques, en
-ne considérant plus des coordonnées calculées par rapport à un simplexe
-(triangle dans $\mathbb{R}^2$), mais à une cellule (polygone dans
-$\mathbb{R}^2$). Néanmoins cette méthode comporte un important défaut : les
-coordonnées calculées peuvent être négatives (dans le cas d'un polygone de
-contrôle concave par exemple), ce qui peut amener à obtenir des résultats
-contre-intuitifs.
+Les premiers travaux dans ce domaine ont été réalisés simultanément par
+\cite{JSW05} \cite{FKR05}, en utilisant la technique des Mean Value
+Coordinates (MVC) (développée par \cite{Flo03}). Il s'agit d'utiliser des
+coordonnées barycentriques généralisées pour réaliser des déformations. Les
+coordonnées barycentriques généralisées correspondent à la généralisation du
+calcul de coordonnées barycentriques, en ne considérant plus des coordonnées
+calculées par rapport à un simplexe (triangle dans $\mathbb{R}^2$), mais à une
+cellule (polygone dans $\mathbb{R}^2$). Néanmoins cette méthode comporte un
+important défaut : les coordonnées calculées peuvent être négatives (dans le
+cas d'un polygone de contrôle concave par exemple), ce qui peut aboutir à des
+résultats contre-intuitifs.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.15]{Deformation-Texte-Avant}
+\includegraphics[scale=0.15]{Deformation-Texte-MVC}
+
+\caption[Déformation d'un texte (MVC)] {Déformation d'un texte en utilisant la
+méthode des MVC. A gauche le texte avant déformation, à droite le texte après
+déformation.}
+
+\label{DEFMea}
+\end{center}
+\end{figure}
 
 \cite{JMDGS07} ont déclaré que l'importance de ce problème devait amener à ne
 pas utiliser les MVC pour l'animation de personnages. A la place, ils ont
 proposé une approche différente, qui ne produisait pas de coordonnées
 négatives : les Harmonic Coordinates (HC). Cette méthode a permis d'obtenir
-des déformations plus localisées, mais au prix d'une complexité en temps de
+des déformations plus localisées, au prix d'une complexité en temps de
 calcul beaucoup plus importante et d'une discrétisation de l'espace assez
 fine.
 
 Dans la même optique, \cite{LKCL07} proposent une amélioration des Mean Value
 Coordinates qui les rend positives. L'idée est de se baser sur un test de
 visibilité lors du calcul des coordonnées. Ils ont pu obtenir des résultats
-similaires à \cite{JMDGS07} mais pour une complexité en temps de calcul proche
+similaires à \cite{JMDGS07} pour une complexité en temps de calcul proche
 de celle des MVC.
 
 \cite{LLC08} ont constaté que les détails de la surface n'étaient pas
 préservés, en particulier lors de déformations importantes. Ce qui les a amené
-à développer une approche considérant plus de données lors de l'association
-entre la cage et l'objet : les Green Coordinates (GC). Au lieu d'utiliser
-uniquement la position des sommets de la cage, les Green Coordinates utilisent
-aussi les normales aux faces de la cage.
+à développer une approche considérant plus de données lors de l'association du
+modèle à la cage : les Green Coordinates (GC). Au lieu d'utiliser uniquement
+la position des sommets de la cage, les Green Coordinates utilisent aussi les
+normales aux faces de la cage.
 
 \section{Mean Value Coordinates}
 
@@ -83,9 +104,9 @@ méthode de calcul des coordonnées. Le choix que nous avons fait s'est porté
 sur les MVC. C'est actuellement la méthode de calcul des coordonnées qui a la
 plus faible complexité en temps de calcul. De plus, ayant déjà travaillé sur
 cette méthode, nous avions déjà fait une première implémentation de la
-méthode. La réutiliser nous permettait de plus concentrer notre travail sur la
+méthode. La réutiliser nous permet de plus concentrer notre travail sur la
 partie mélange de coordonnées. Néanmoins, la méthode apportée par notre
-travail ne se limitera pas aux coordonnées MVC, mais pourra être généralisée à
+travail ne se limite pas aux coordonnées MVC, mais peut être généralisée à
 d'autres méthodes de calcul de coordonnées qui partagent des propriétés en
 commun.
 
@@ -93,9 +114,7 @@ commun.
 
 \cite{Mob27} a été le premier à exprimer une relation entre un polygone et un
 point contenu à l'intérieur de ce polygone (un triangle en l'occurence) : les
-Coordonnées Barycentriques. Le problème était de se demander : Quels poids
-doit- on donner à chacun des sommets d'un triangle de façon à ce qu'un point
-$p$ soit le centre de gravité de ces sommets?
+coordonnées barycentriques.
 
 Soit $V = \{v_1, v_2, v_3\}$ un triangle quelconque, ses sommets constituent ce
 qu'on appelle un repère barycentrique, et soit $p$ un point de l'espace. On dit
@@ -106,10 +125,11 @@ que $p$ est un barycentre de $V$ si et seulement si:
 \end{equation}
 
 Où $w_i$ correspond à la coordonnée du point $p$ associée au sommet $v_i$,
-pour $0 < i < 3$. On peut réécrire cette formule en normalisant les $w_i$ :
+pour $i \in \{1, 2, 3\}$. On peut réécrire cette formule en normalisant les
+$w_i$ :
 
 \begin{equation}
-  \lambda_i = \frac{w_i}{w_1+w_2+w_3} ~, 1 \leq i \leq 3, 
+  \lambda_i = \frac{w_i}{w_1+w_2+w_3} ~, i \in \{1, 2, 3\}, 
 \end{equation}
 
 On obtient donc la formulation suivante :
@@ -182,11 +202,11 @@ $v_{i-1}$ et $v_{i+1}$ (Figure \ref{DEFcal}).
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[scale=0.9]{chapter2-pstricks.pdf}
-    \caption[Méthode de calcul MVC] {Méthode de calcul de la coordonnée $w_i$ du point $p$ par rapport
-    au sommet $v_i$}
-    \label{DEFcal}
-  \end{center}
-\end{figure}
+
+    \caption[Méthode de calcul MVC] {Méthode de calcul de la coordonnée $w_i$
+du point $p$ par rapport au sommet $v_i$}
+
+    \label{DEFcal}   \end{center} \end{figure}
 
 La méthode détermine donc ces coordonnées de la manière suivante :
 
@@ -204,6 +224,24 @@ Ces coordonnées sont normalisées :
 afin d'obtenir la coordonnée MVC du point $p$ par rapport au sommet $v_i$. On
 appelle l'ensemble de ces coordonnées $\{\lambda_0, \lambda_1, ...,
 \lambda_n\}$ les coordonnées MVC du point $p$.
+
+% Une fois ces calculs effectués, la déformation se réalise par invariance de
+% l'association entre le modèle et l'outil. La modification de la position des
+% sommets de la cage modifie donc la position des points de l'espace (Figure
+% \ref{DEFCom}).
+
+% \begin{figure}
+% \begin{center}
+% \includegraphics{casque-viking}
+
+% \caption[Deformation à base de cage (MVC)] {Déformation d'un modèle (casque
+% viking) par rapport à la modification d'un sommet de la cage associée (en
+% noir). A gauche le modèle avant déformation, à droite le modèle après
+% déformation.}
+
+% \label{DEFCom}
+% \end{center}
+% \end{figure}
 
 Ces formules sont correctes dans le cas où un point $p$ est strictement inclus
 à l'intérieur du polygone de contrôle. Des problèmes se posent lorsqu'un point
