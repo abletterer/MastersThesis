@@ -11,55 +11,48 @@
 \graphicspath{ {Chapter3/Chapter3Figs/PNG/}
   {Chapter3/Chapter3Figs/PDF/} {Chapter3/Chapter3Figs/} }
 
-Nous avons vu dans le premier chapitre que les outils de déformation avaient
-différentes caractéristiques. Celles-ci influent sur l'aspect de la
-déformation engendrée par le déplacement de points de contrôle, ainsi que sur
-la facilité de déformation de l'objet. Une modification grossière de
-l'apparence globale de l'objet sera plus facile à réaliser avec un outil
-permettant de réaliser des déformations globale ayant une faible résolution. A
-l'inverse, la modification d'un ensemble de points précis de l'objet
-nécessitera l'utilisation d'un outil de déformation ayant une zone d'influence
-limitée et une résolution élevée. On se demande alors comment combiner
-différents outils associé à un même objet, de façon à ce que la déformation
-soit visuellement lisse. Autrement dit, on recherche une méthode de
-combinaison de plusieurs outils qui conserve les propriétés de continuité des
-outils combinés.
+Nous avons vu que les outils de déformation avaient différentes
+caractéristiques. Celles-ci influent sur l'aspect de la déformation engendrée
+par le déplacement de points de contrôle, ainsi que sur la facilité de
+déformation du modèle. Une modification grossière de l'apparence globale de le
+modèle sera plus facile à réaliser avec un outil permettant de réaliser des
+déformations globale ayant une faible résolution. A l'inverse, la modification
+d'un ensemble de points précis du modèle nécessitera l'utilisation d'un outil
+de déformation ayant une zone d'influence limitée et une résolution élevée. Il
+est naturel de se demander alors comment combiner différents outils associé à
+un même modèle, de façon à ce que la déformation soit visuellement lisse.
 
 \section{Etat de l'art}
 
-On peut citer \cite{JBPS11} comme étant les premiers à proposer une méthode
-permettant de mélanger des outils de déformation de différentes dimensions.
-C'est sur celui-ci que nous avons commencé à travailler car les résultats nous
-semblaient proches de ce que nous souhaitons réaliser. Une lecture approfondie
-de l'article nous a fait comprendre que la méthode n'était pas celle que nous
-souhaitions. En effet, s'ils semblent s'appuyer sur des outils ayant des
-dimensions différentes en fonction des zones à déformer, la gestion interne
-repose uniquement sur des déformations à base de points. L'aspect
-"multidimensionnel" est donc uniquement présent comme une contrainte
-supplémentaire lors du calcul des coordonnées. Par exemple pour des sommets
-reliés par une arête les auteurs proposent que les coordonnées évoluent de
-façon linéaire le long de cette arête. De plus, pour évaluer l'influence d'un
-point de contrôle sur l'espace, la technique proposée se base sur une méthode
-de diffusion (nécessitant donc une discrétisation de l'espace). Or un des
-critères essentiels de notre travail est la minimisation des temps de calcul,
-c'est pourquoi nous avons décidé de pas continuer à étudier cette technique et
-à nous intéresser à un autre travail du domaine.
+\cite{JBPS11} sont les premiers à proposer une méthode permettant de mélanger
+des outils de déformation de différentes dimensions. C'est sur cet article que
+nous avons commencé à travailler car les résultats nous semblaient proches de
+ce que nous souhaitons réaliser. Une lecture approfondie de l'article nous a
+fait comprendre que la méthode n'était pas celle que nous souhaitions. Même si
+l'article semble s'appuyer sur des outils ayant des dimensions différentes en
+fonction des zones à déformer, la gestion interne repose uniquement sur des
+déformations à base de points. Des contraintes supplémentaires sont imposées
+lors du calcul des coordonnées en fonction de la topologie existante entre les
+points de contrôle. Par exemple pour des sommets reliés par une arête les
+auteurs proposent que les coordonnées évoluent de façon linéaire le long de
+cette arête. De plus, pour évaluer l'influence d'un point de contrôle sur
+l'espace, la technique proposée se base sur une méthode de diffusion
+(nécessitant donc une discrétisation de l'espace). Or un des critères
+essentiels de notre travail est la minimisation des temps de calcul, c'est
+pourquoi nous avons décidé de pas continuer à étudier cette technique et à
+nous intéresser à un autre travail du domaine.
 
 \cite{GPCP13} quant à eux, proposent une méthode permettant le mélange
 d'outils de même dimension, en s'intéressant particulièrement aux cas des
-déformations à base de cage. Nous nous sommes intéressés à cet article de par
-sa récente publication, sa proximité avec \cite{Hur12}, un travail réalisé par
-un étudiant en Master ISI en 2012, et de l'utilisation de cages de
-déformation, le modèle semblant le plus utilisé ces dernières années parmi les
-outils à base de surfaces. L'idée est de réaliser un pavage de différentes
-cages collées ensemble le long de leurs arêtes sur tout l'espace à déformer et
-de considérer la position d'un point de l'espace, et pas seulement par rapport
-à sa cage \textit{propre} (à comprendre la cage englobant le point de
+déformations à base de cage. L'idée est de réaliser un pavage de différentes
+cages sur tout l'espace à déformer  collées ensemble le long de leurs arêtes
+et de considérer la position d'un point de l'espace, et pas seulement par
+rapport à sa cage \textit{propre} (à comprendre la cage englobant le point de
 l'espace) mais aussi par rapport aux cages adjacentes à celle-ci. Cette
 technique permet de localiser la déformation engendrée par un sommet d'une
 cage sur la zone couverte par sa cage propre et l'ensemble des cages
 incidentes à celle-ci. Cette méthode impose de placer des cages sur l'ensemble
-de l'objet, peu importe la déformation à appliquer dessus. Les cages créées
+du modèle, peu importe la déformation à appliquer dessus. Les cages créées
 doivent être collées ensembles le long de leurs arêtes pour que la méthode
 fonctionne, et cette contrainte alourdit les traitements à effectuer, du fait
 des nombreux cas spécifiques que la méthode doit traiter. Cette méthode repose
@@ -227,7 +220,7 @@ d'un point de l'espace au bord de la cage d'influence.
 
 Atténuer la déformation revient ici à interpoler linéairement la position
 qu'un point de l'espace aurait après la déformation avec la position qu'il
-avait au temps d'association de l'outil avec l'objet :
+avait au temps d'association du modèle avec l'outil :
 
 \begin{equation}
   T_{att}(p) = \gamma p + (1-\gamma) T(p)
@@ -241,7 +234,7 @@ de l'espace au bord de la cage d'influence. On pourrait le faire avec des
 calculs de distance euclidiennes, mais ça demanderait de réaliser des
 opérations supplémentaires. De plus, certaines coordonnées (comme les HC),
 établissent des coordonnées avec des distances prenant en compte la forme de
-l'objet à déformer. Utiliser des distances euclidiennes ne correspondrait donc
+le modèle à déformer. Utiliser des distances euclidiennes ne correspondrait donc
 pas avec la nature de ces coordonnées. A la place, nous allons utiliser les
 coordonnées que nous avons déjà calculé pour chacun des points de l'espace par
 rapport aux sommets de la cage d'influence. On établit que la distance au bord
@@ -320,7 +313,7 @@ coninf}.
 \subsection{Combinaison des déformations}
 
 Maintenant que nous avons établi un outil de déformation local, nous aimerions
-combiner plusieurs cages coninf sur un même objet (Figure \ref{MELMC}).
+combiner plusieurs cages coninf sur un même modèle (Figure \ref{MELMC}).
 L'objectif de cette partie consiste à trouver une formule de mélange
 permettant la modification de la position d'un point de l'espace par rapport à
 plusieurs cages coninf.
