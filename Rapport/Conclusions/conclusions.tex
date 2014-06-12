@@ -1,32 +1,37 @@
+%!TEX root = ../thesis.tex
+
 \def\baselinestretch{1}
-\chapter{Continuité du stage}
+\chapter{Bilan}
 \ifpdf
 \graphicspath{{Conclusions/ConclusionsFigs/PNG/}{Conclusions/ConclusionsFigs/PDF/}{Conclusions/ConclusionsFigs/}}
 \else
 \graphicspath{{Conclusions/ConclusionsFigs/EPS/}{Conclusions/ConclusionsFigs/}}
 \fi
 
-% \def\baselinestretch{1.66}
+Nos travaux ont abouti à deux contributions. D'une part il est désormais
+possible de déformer uniquement une partie d'un modèle grâce à une déformation
+à base de cage. Une zone d'influence a été mise en place, de façon à ce que la
+déformation puisse se produire dans une zone définie autour d'une cage. De
+cette façon il est possible d'associer seulement une partie d'un modèle avec
+une cage et d'obtenir une déformation qui soit visuellement lisse. Cette
+configuration permet de réaliser des déformations locales, réduisant le coût
+en temps de calcul des étapes d'association et de déformation, car moins de
+points de l'espace sont à considérer.
 
-Les prochaines semaines seront consacrées à l'étude de \cite{LS08} qui
-permettrait de définir des coordonnées MVC interpolant non seulement
-les positions des sommets du polygone de contrôle, mais aussi les
-dérivées premières (tangentes) en ces sommets. Cette méthode
-permettrait de corriger les soucis de dérivabilité de la fonction
-résultant de la déformation, en rendant la déformation $C^1$ dans tout
-le domaine.
+D'autre part, nous avons proposé un nouvel outil de déformation, composé de
+plusieurs outils de déformation à base de cage. La déformation. L'avantage de
+cette méthode par rapport au travail de \cite{GPCP13} est de permettre une
+disposition quelconque (avec ou sans recouvrement) des différentes cages de
+déformation. En comparaison au travail de \cite{JBPS11} et \cite{GPCP13},
+notre technique à l'avantage de ne pas avoir besoin de travailler avec des
+fonctions harmoniques, ce qui permet d'obtenir des temps d'association
+beaucoup plus courts que ces techniques.
 
-Quand le mélange de plusieurs cages sera possible, nous nous
-consacrerons à l'extension aux outils de différentes dimensions. De ce
-fait nous jugerons les outils les mieux adaptés (pour chaque
-dimension) à mélanger avec les cages de déformation.
-
+Ces méthodes utilisent les qualités des méthodes de calcul de coordonnées
+existantes. Notre apport se place donc comme un complément des méthodes
+existantes
+.
 %%% ----------------------------------------------------------------------
 
 % ------------------------------------------------------------------------
 
-%%% Local Variables: 
-%%% mode: latex
-%%% LaTeX-command: "latex -shell-escape"
-%%% TeX-master: "../thesis"
-%%% End: 
