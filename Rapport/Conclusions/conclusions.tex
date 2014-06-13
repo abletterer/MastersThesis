@@ -8,29 +8,61 @@
 \graphicspath{{Conclusions/ConclusionsFigs/EPS/}{Conclusions/ConclusionsFigs/}}
 \fi
 
+\section{Contribution}
+
 Nos travaux ont abouti à deux contributions. D'une part il est désormais
 possible de déformer uniquement une partie d'un modèle grâce à une déformation
 à base de cage. Une zone d'influence a été mise en place, de façon à ce que la
 déformation puisse se produire dans une zone définie autour d'une cage. De
-cette façon il est possible d'associer seulement une partie d'un modèle avec
-une cage et d'obtenir une déformation qui soit visuellement lisse. Cette
-configuration permet de réaliser des déformations locales, réduisant le coût
-en temps de calcul des étapes d'association et de déformation, car moins de
-points de l'espace sont à considérer.
+cette façon il est possible d'associer seulement une zone d'un modèle avec une
+cage et d'obtenir une transition qui soit visuellement lisse entre la zone
+déformée et la zone statique. Cette configuration permet de réaliser des
+déformations locales, réduisant le coût en temps de calcul des étapes
+d'association et de déformation.
 
-D'autre part, nous avons proposé un nouvel outil de déformation, composé de
-plusieurs outils de déformation à base de cage. La déformation. L'avantage de
-cette méthode par rapport au travail de \cite{GPCP13} est de permettre une
-disposition quelconque (avec ou sans recouvrement) des différentes cages de
-déformation. En comparaison au travail de \cite{JBPS11} et \cite{GPCP13},
-notre technique à l'avantage de ne pas avoir besoin de travailler avec des
-fonctions harmoniques, ce qui permet d'obtenir des temps d'association
-beaucoup plus courts que ces techniques.
+D'autre part, nous avons proposé un nouvel outil de déformation spatiale,
+composé de plusieurs outils de déformation à base de cage. La déformation.
+L'avantage de cette méthode par rapport au travail de \cite{GPCP13} est de
+permettre une disposition quelconque (avec ou sans recouvrement) des
+différentes cages de déformation. En comparaison au travail de \cite{JBPS11}
+et \cite{GPCP13}, notre technique à l'avantage de ne pas nécessiter
+l'utilisation de fonctions harmoniques, ce qui permet d'obtenir un temps
+d'association beaucoup plus rapide que ces méthodes.
 
-Ces méthodes utilisent les qualités des méthodes de calcul de coordonnées
-existantes. Notre apport se place donc comme un complément des méthodes
-existantes
-.
+\section{Discussions}
+
+Les cages d'influence doivent être convexes dans le cas d'utilisation de
+coordonnées MVC. Comme ces coordonnées peuvent être négatives dans le cas
+d'une cage concave, la distance au bord ne peut plus être évaluée
+correctement.
+
+La technique que nous utilisons pour lier une cage de contrôle à une cage
+d'influence ne permet de conserver la propriété d'homothétie entre les deux
+cages. Ce n'est pas un problème en soit, sachant que la relation d'homothétie
+n'est utile que lors de la création du lien entre les deux cages.
+
+\section{Ouvertures}
+
+A court terme, il serait intéressant d'utiliser notre technique avec d'autres
+méthodes de calcul de coordonnées. Notre travail s'est concentré sur les MVC,
+mais nous avons présenté d'autres techniques, comme les HC ou les GC, qui ont
+des propriétés intéressantes par rapport à la forme de la déformation. Notre
+méthode de déformation devrait aussi fonctionner avec ces techniques de calcul
+de coordonnées, cependant aucun test n'a été effectué pour vérifier ces
+intuitions.
+
+Les interactions avec l'outil de contrôle ne sont pas forcément intuitives.
+Pour les améliorer il serait intéressant de mettre en place une méthode
+permettant de modifier la position d'un point de l'espace directement, et de
+modifier la position des points de son voisinage en conséquence. Le modèle
+interne se baserait toujours sur des déformations à base de cage, mais l'outil
+ne serait plus directement contrôlable, seule la position des points de
+l'espace pourrait être modifiée.
+
+Il n'y a pour l'instant aucune gestion des problèmes tels que la conservation
+des propriétés du modèle (volume, angles) ou la gestion des auto-intersections
+du modèle sur lui-même.
+
 %%% ----------------------------------------------------------------------
 
 % ------------------------------------------------------------------------
