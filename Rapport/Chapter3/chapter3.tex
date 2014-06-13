@@ -115,7 +115,7 @@ l'intérieur et à l'extérieur de la cage le problème vient de la dérivabilit
 de la fonction résultant de la déformation. Plus précisément, pour les MVC et
 GC la fonction de déformation est définie dans $\mathbb{R}^2$ et est
 $C^{\infty}$ partout sauf au niveau des sommets de la cage où elle n'est que
-$C^0$. La déformation engendrée n'est pas visuellement lisse autour des
+$C^0$ (d'après \cite{LS08}). La déformation engendrée n'est pas visuellement lisse autour des
 sommets de la cage. Quant aux HC, elles ne sont définies qu'à l'intérieur de
 la cage où elles sont $C^{\infty}$, il n'y a donc aucun moyen de déformer
 l'extérieur de la cage de cette manière.
@@ -199,8 +199,8 @@ rapport au sommet de la cage de contrôle $v_{ctrl}$ auquel il est associé :
   \caption[Association des cages de contrôle et d'influence] {Modification de
 la position du sommet de la cage d'influence $v_{inf}$ associé au sommet de la
 cage de contrôle déplacé $v_{ctrl}$. A gauche les cages avant déformation, à
-droite les cages après déformation. En orange la cage d'influence, en bleu la
-cage de contrôle et en noir le vecteur $v$.}
+droite les cages après déformation. En bleu la cage de contrôle, en orange la
+cage d'influence et en noir le vecteur $v$.}
 
   \label{MelHie}
 \end{center}
@@ -294,21 +294,23 @@ pour différentes tailles de cage de contrôle.}
 Ci-dessous l'algorithme représentant l'étape de déformation du modèle avec
 atténuation de l'influence de la déformation: \\
 
-\begin{algorithm}[H]
-\KwIn{$pos$, $pos_{init}$ : tableau de tableau de réels}
-\ForEach{point de l'espace p}
-{
-  $pos$[p] $\leftarrow$ [0,0]\; 
-    \ForEach{sommet v de la cage d'influence c}
-    {
-      $pos$[p] $\leftarrow$ $pos$[p] + $\lambda_v(p)$ * $pos$[v] 
-      * $d_{inf}(c, p)$\;
-      $pos$[p] $\leftarrow$ $pos$[p] + $\lambda_v(p)$ * $pos_{init}$[v] 
-      * (1-$d_{inf}(c, p)$)\;
-    }
-}
-\caption{Déformation avec zone d'influence modifiée}
-\end{algorithm}
+\fbox{\begin{minipage}{0.9\textwidth}
+  \begin{algorithm}[H]
+  \KwIn{$pos$, $pos_{init}$ : tableau de tableau de réels}
+  \ForEach{point de l'espace p}
+  {
+    $pos$[p] $\leftarrow$ [0,0]\; 
+      \ForEach{sommet v de la cage d'influence c}
+      {
+        $pos$[p] $\leftarrow$ $pos$[p] + $\lambda_v(p)$ * $pos$[v] 
+        * $d_{inf}(c, p)$\;
+        $pos$[p] $\leftarrow$ $pos$[p] + $\lambda_v(p)$ * $pos_{init}$[v] 
+        * (1-$d_{inf}(c, p)$)\;
+      }
+  }
+  \caption{Déformation avec zone d'influence modifiée}
+  \end{algorithm}
+\end{minipage}} \\
 
 Pour simplifier les écritures dans la suite du travail, nous nous référons à
 ce nouvel outil (composé d'une cage de contrôle et d'une cage d'influence)
@@ -321,9 +323,10 @@ coninf}.
     \includegraphics[scale=0.3]{Deformation-Capricorne-Apres}
 
     \caption[Exemple de déformation cage de contrôle d'influence] {Exemple de
-déformation avec une cage de contrôle d'influence. A gauche le casque avant
-déformation, à droite après déformation de la partie basse du casque. On peut
-remarquer que les cornes du casque n'ont pas été modifiées par la déformation.}
+déformation avec une cage de contrôle d'influence. A gauche le casque et la
+cage coninf au temps d'association, à droite après modification de la position
+des sommets de la cage de contrôle. On peut remarquer que la partie haute du
+casque (cimier) n'a pas été modifiée par la déformation.}
 
   \end{center}
 \end{figure}
@@ -385,6 +388,7 @@ appartient :
 Ci-dessous l'algorithme représentant l'étape de déformation du modèle avec le
 mélange des déformations: \\
 
+\fbox{\begin{minipage}{0.9\textwidth}
 \begin{algorithm}[H]
 \KwData{$sumD_{inf}$, $D_{inf}$: réel}
 \KwIn{$pos$, $pos_{init}$ : tableau de tableau de réels}
@@ -410,4 +414,20 @@ mélange des déformations: \\
 }
 \caption{Mélange des déformations}
 \end{algorithm}
+\end{minipage}} \\
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[scale=0.3]{Deformation-Viking-Avant}
+    \includegraphics[scale=0.3]{Deformation-Viking-Apres}
+
+    \caption[Exemple de déformation cage de contrôle d'influence] {Exemple de
+déformation avec deux cages de contrôle d'influence (en bleu les cages de
+contrôle, en orange les cages d'influence) où les cages de contrôle ont été
+collées ensembles le long d'une arête commune. A gauche le casque avant
+déformation, à droite après modification de la position des sommets des deux
+cages de contrôle.}
+
+  \end{center}
+\end{figure}
 

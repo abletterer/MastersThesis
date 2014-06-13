@@ -29,35 +29,23 @@ peut-être de nature quelconque, sans auto-intersection et non dégénéré: il
 doit avoir au moins 3 sommets. Dans la suite, nous appelons ce polygone
 \textit{cage}. L'idée est de paramétriser la position des sommets d'un modèle
 contenus à l'intérieur d'une cage en fonction de la position des sommets de ce
-polygone (Figure \ref{DEFMod}). Cette méthode permet de déformer un modèle
-uniquement en manipulant les sommets de la cage, peu importe la
-complexité de cet modèle. Cette déformation est dite globale, car un sommet de
-la cage a une influence sur tous les points de l'espace (qui sont les sommets
-du modèle) contenus à l'intérieur de la cage.
-
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[scale=1.5]{chapter2-casque-viking-pstricks}
-
-\caption[Association d'un modèle à une cage] {Association d'un modèle (casque
-viking) à une cage de déformation (en noir). Les disques noirs représentent
-les sommets de la cage}
-
-\label{DEFMod}
-\end{center}
-\end{figure}
+polygone. Cette méthode permet de déformer un modèle uniquement en manipulant
+les sommets de la cage, peu importe la complexité de cet modèle. Cette
+déformation est dite globale, car un sommet de la cage a une influence sur
+tous les points de l'espace (qui sont les sommets du modèle) contenus à
+l'intérieur de la cage.
 
 Les méthodes présentées ci-dessous permettent de réaliser les étapes
 d'association d'un modèle à un outil et de déformation d'un modèle. Afin de
-les illuster, nous allons déformer un même modèle (Figure \ref{DEFAva}, tiré
-de \cite{LLC08}) en utilisant chaque méthode.
+les illuster, nous allons déformer un même modèle (Figure \ref{DEFAva}) en
+utilisant chaque méthode.
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.25]{Deformation-Texte-Avant}
 
 \caption[Texte avant déformation] {Texte avant déformation. La cage est
-représentée par son bord, en rose.}
+représentée par son bord, en rose. (Image de \cite{LLC08})}
 
 \label{DEFAva}
 \end{center}
@@ -80,7 +68,7 @@ résultats contre-intuitifs.
 \includegraphics[scale=0.25]{Deformation-Texte-MVC}
 
 \caption[Déformation d'un texte (MVC)] {Déformation d'un texte en utilisant la
-méthode des MVC}
+méthode des MVC. (Image de \cite{LLC08})}
 
 \label{DEFMea}
 \end{center}
@@ -99,29 +87,32 @@ fine.
 \includegraphics[scale=0.25]{Deformation-Texte-HC}
 
 \caption[Déformation d'un texte (HC)] {Déformation d'un texte en utilisant la
-méthode des HC}
+méthode des HC. (Image de \cite{LLC08})}
 
 \label{DEFHar}
 \end{center}
 \end{figure}
 
-Dans la même optique, \cite{LKCL07} proposent une amélioration des Mean Value
-Coordinates qui les rend positives. L'idée est de se baser sur un test de
-visibilité lors du calcul des coordonnées. Ils ont pu obtenir des résultats
-similaires à \cite{JMDGS07} pour une complexité en temps de calcul proche de
-celle des MVC. \cite{LLC08} ont constaté que les détails de la surface
-n'étaient pas préservés, en particulier lors de déformations importantes. Ce
-qui les a amené à développer une approche considérant plus de données lors de
-l'association du modèle à la cage : les Green Coordinates (GC) (Figure
-\ref{DEFGre}). Au lieu d'utiliser uniquement la position des sommets de la
-cage, les Green Coordinates utilisent aussi les normales aux faces de la cage.
+Dans la même optique, \cite{LKCL07} proposent une amélioration des MVC qui les
+rend positives : les Positive Mean Value Coordinates. L'idée est de se baser
+sur un test de visibilité lors du calcul des coordonnées. Si un point de
+l'espace ne se trouve pas dans la partie de la cage visible depuis un sommet
+donné, alors la coordonnée pour ce point vaut 0. Ils ont pu obtenir des
+résultats similaires à \cite{JMDGS07} pour une complexité en temps de calcul
+proche de celle des MVC. \cite{LLC08} ont constaté que les détails de la
+surface n'étaient pas préservés, en particulier lors de déformations
+importantes. Ce qui les a amené à développer une approche considérant plus de
+données lors de l'association du modèle à la cage : les Green Coordinates (GC)
+(Figure \ref{DEFGre}). Au lieu d'utiliser uniquement la position des sommets
+de la cage, les Green Coordinates utilisent aussi les normales aux faces de la
+cage.
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.25]{Deformation-Texte-GC}
 
 \caption[Déformation d'un texte (GC)] {Déformation d'un texte en utilisant la
-méthode des GC}
+méthode des GC. (Image de \cite{LLC08})}
 
 \label{DEFGre}
 \end{center}
@@ -166,6 +157,14 @@ et donc $\sum_{i=1}^3 \lambda_i = 1$. On obtient la formulation suivante :
 
 \begin{equation}
   p = \lambda_1 v_1 + \lambda_2 v_2 + \lambda_3 v_3.
+\end{equation}
+
+La coordonnée $w_i$ s'obtient en normalisant les aires (signées) des triangles
+$pv_1v_2$, $pv_2v_3$, $pv_3v_1$ par rapport à l'aire totale du triangle
+$v_1v_2v_3$ concernant les MVC.
+
+\begin{equation}
+  w_1 = \frac{A(pv_1v_2)}{A(pv_1v_2)+A(pv_2v_3)+A(pv_3v_1)}
 \end{equation}
 
 \subsection{Coordonnées barycentriques généralisées}
