@@ -291,7 +291,8 @@ pour différentes tailles de cage de contrôle.}
   \end{center}
 \end{figure}
 
-Ci-dessous l'algorithme représentant l'étape de déformation avec atténuation: \\
+Ci-dessous l'algorithme représentant l'étape de déformation du modèle avec
+atténuation de l'influence de la déformation: \\
 
 \begin{algorithm}[H]
 \KwIn{$pos$, $pos_{init}$ : tableau de tableau de réels}
@@ -314,6 +315,19 @@ ce nouvel outil (composé d'une cage de contrôle et d'une cage d'influence)
 comme étant l'outil \textit{cage de contrôle d'influence} ou \textit{cage
 coninf}.
 
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[scale=0.3]{Deformation-Capricorne-Avant}
+    \includegraphics[scale=0.3]{Deformation-Capricorne-Apres}
+
+    \caption[Exemple de déformation cage de contrôle d'influence] {Exemple de
+déformation avec une cage de contrôle d'influence. A gauche le casque avant
+déformation, à droite après déformation de la partie basse du casque. On peut
+remarquer que les cornes du casque n'ont pas été modifiées par la déformation.}
+
+  \end{center}
+\end{figure}
+
 \subsection{Combinaison des déformations}
 
 Maintenant que nous avons établi un outil de déformation local, nous voulons
@@ -321,15 +335,15 @@ combiner plusieurs cages coninf sur un même modèle (Figure \ref{MELMC}).
 L'objectif de cette partie consiste à trouver une formule de mélange
 permettant la modification de la position d'un point de l'espace par rapport à
 plusieurs cages coninf. De manière à ce que la déformation résultant du
-mélange soit visuellement lisse.
+mélange soit visuellement lisse
 
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[scale=0.4]{Melange-CageConinf}
+    \includegraphics[scale=1]{chapter3-doubleCage-melange-pstricks}
 
     \caption[Mélange de cages de contrôle d'influence] {Exemple de
 configuration de deux cages de contrôle d'influence se chevauchant. Les points
-de l'espace (en vert) appartenant à la zone en rose sont sous l'influence des
+de l'espace (en vert) appartenant à la zone en jaune sont sous l'influence des
 deux cages à la fois.}
 
     \label{MELMC}
@@ -368,8 +382,8 @@ appartient :
   T_{mel}(p) = \sum_{i=0}^n D_{inf_i}(p) T_{d_i}(p).
 \end{displaymath}
 
-Ci-dessous l'algorithme représentant l'étape de déformation avec le mélange
-des déformations: \\
+Ci-dessous l'algorithme représentant l'étape de déformation du modèle avec le
+mélange des déformations: \\
 
 \begin{algorithm}[H]
 \KwData{$sumD_{inf}$, $D_{inf}$: réel}
