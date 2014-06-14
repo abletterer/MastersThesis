@@ -16,6 +16,9 @@
 *.table
 *.gnuplot
 
+Rapport/thesis.pdf
+Presentation/presentation.pdf
+
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
 *.bcf
