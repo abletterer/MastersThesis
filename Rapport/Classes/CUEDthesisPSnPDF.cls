@@ -217,15 +217,15 @@
 %  \null\vfill
   \begin{center}
     { \Huge {\bfseries {\@title}} \par}
-{\large \vspace*{35mm} {{\@crest} \par} \vspace*{25mm}}
+{\large \vspace*{15mm} {{\@crest} \par} \vspace*{15mm}}
     {{\Large \@author} \par}
-{\large \vspace*{1ex}
+{\large \vspace*{0.5ex}
     {{\@collegeordept} \par}
 \vspace*{1ex}
     {{\@university} \par}
-\vspace*{2ex}
+\vspace*{3ex}
     {{\@direction} \par}
-\vspace*{2ex}
+\vspace*{3ex}
     {{\submittedtext} \par}
 \vspace*{1ex}
     {\it {\@degree} \par}
