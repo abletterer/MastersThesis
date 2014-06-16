@@ -163,14 +163,21 @@ $pv_1v_2$, $pv_2v_3$, $pv_3v_1$ par rapport à l'aire totale du triangle
 $v_1v_2v_3$ :
 
 \begin{equation}
-  w_1 = \frac{A(pv_1v_2)}{A(pv_1v_2)+A(pv_2v_3)+A(pv_3v_1)}
+  w_1 = \frac{A(pv_2v_3)}{A(v1v2v3)},~  w_2 = \frac{A(pv_3v_1)}{A(v1v2v3)},~  w_3 = \frac{A(pv_1v_2)}{A(v1v2v3)}
 \end{equation}
 
 \subsection{Coordonnées barycentriques généralisées}
 
+Contrairement aux coordonnées barycentriques, les coordonnées barycentriques
+généralisées ne sont pas uniques. Plusieurs méthodes ont été mises en place,
+et nous nous sommes intéressés particulièrement au travail de \cite{Flo03}.
+
+\subsection{Calcul des coordonnées}
+
 Soit $V = \{v_1, v_2, ..., v_n\}$ un polygone sans auto-intersection et non-
 dégénéré, ses sommets constituent un repère barycentrique. Soit $p$ un point
-de l'espace. Le but est d'étudier les coordonnées $\lambda_i$ tels que :
+de l'espace. Le but de \cite{Flo03} a été d'étudier les coordonnées
+$\lambda_i$ tels que :
 
 \begin{equation}
   p = \sum_{i=1}^{n} \lambda_i v_i ,
@@ -186,14 +193,6 @@ $v_i$ et vérifie :
 
 de même que pour les coordonnées barycentriques, $\sum_{i=1}^n \lambda_i = 1$.
 \\
-
-Le calcul des coordonnées $w_i$ n'est plus aussi évident que pour le cas du
-triangle. Contrairement aux coordonnées barycentriques, les coordonnées
-barycentriques généralisées ne sont pas uniques. Plusieurs méthodes ont été
-mises en place, et nous nous sommes intéressés particulièrement au travail de
-\cite{Flo03}.
-
-\subsection{Calcul des coordonnées}
 
 Sa motivation a été de reproduire le comportement de fonctions harmoniques.
 Une fonction $u$ définie dans un plan $\Omega \in \mathbb{R}^2$ est dite
@@ -235,27 +234,9 @@ Ces coordonnées sont ensuite normalisées :
   \lambda_i = \frac{w_i}{\sum_{j=1}^n w_j},
 \end{equation}
 
-afin d'obtenir la coordonnée MVC du point $p$ par rapport au sommet $v_i$. On
-appelle les coordonnées MVC du point $p$ l'ensemble de ces coordonnées
-$\{\lambda_0, \lambda_1, ..., \lambda_n\}$.
-
-% Une fois ces calculs effectués, la déformation se réalise par invariance de
-% l'association entre le modèle et l'outil. La modification de la position des
-% sommets de la cage modifie donc la position des points de l'espace (Figure
-% \ref{DEFCom}).
-
-% \begin{figure}
-% \begin{center}
-% \includegraphics{casque-viking}
-
-% \caption[Deformation à base de cage (MVC)] {Déformation d'un modèle (casque
-% viking) par rapport à la modification d'un sommet de la cage associée (en
-% noir). A gauche le modèle avant déformation, à droite le modèle après
-% déformation.}
-
-% \label{DEFCom}
-% \end{center}
-% \end{figure}
+afin d'obtenir la coordonnée MVC du point $p$ par rapport au sommet $v_i$.
+L'ensemble des coordonnées $\{\lambda_0, \lambda_1, ..., \lambda_n\}$ est
+appellé les coordonnées MVC du point $p$.
 
 Ces formules sont correctes dans le cas où un point $p$ est strictement inclus
 dans la cage : $p$ n'appartient à aucune arête de la cage. Des problèmes se
@@ -286,10 +267,10 @@ calculées varient de façon linéaire le long des arêtes de la cage et qu'elle
 respectent la propriété de Lagrange aux sommets de la cage: Si $p = v_i$ alors
 $\lambda_i = 1$ et $\lambda_j = 0 ~\forall~ j \neq i$
 
-En utilisant ces propriétés, on définit un calcul de coordonnées spécifique
-pour les points se trouvant le long d'une arête. Pour calculer la coordonnée
-$w_j$ du point $p$ par rapport au sommet $v_j$, $p$ se trouvant le long de
-l'arête $E = [v_i,v_{i+1}]$, on distingue deux cas :
+En utilisant ces propriétés, nous avons définit un calcul de coordonnées
+spécifique pour les points se trouvant le long d'une arête. Pour calculer la
+coordonnée $w_j$ du point $p$ par rapport au sommet $v_j$, $p$ se trouvant le
+long de l'arête $E = [v_i,v_{i+1}]$, nous distinguons deux cas :
 
 \begin{itemize}
 

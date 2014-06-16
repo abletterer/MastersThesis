@@ -18,10 +18,6 @@
 
 Rapport/thesis.pdf
 Presentation/presentation.pdf
-Rapport/Chapter1/Chapter1Figs/PDF/*-pstricks.pdf
-Rapport/Chapter2/Chapter2Figs/PDF/*-pstricks.pdf
-Rapport/Chapter3/Chapter3Figs/PDF/*-pstricks.pdf
-Rapport/Chapter4/Chapter4Figs/PDF/*-pstricks.pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl

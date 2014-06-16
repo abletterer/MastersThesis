@@ -14,13 +14,13 @@
 Nous avons vu que les outils de déformation avaient différentes
 caractéristiques. Celles-ci influent sur l'aspect de la déformation engendrée
 par le déplacement de points de contrôle, ainsi que sur la facilité de
-déformation du modèle. Une modification grossière de l'apparence globale de le
-modèle est plus facile à réaliser avec un outil de déformation gloable ayant
+déformation du modèle. Une modification grossière de l'apparence globale du
+modèle est plus facile à réaliser avec un outil de déformation globale ayant
 une faible résolution. A l'inverse, la modification d'un ensemble de points
 précis du modèle nécessite l'utilisation d'un outil de déformation locale et
 une résolution élevée. Il est naturel de se demander alors comment combiner
-différents outils associé à un même modèle, de façon à ce que la déformation
-soit visuellement lisse.
+différents outils associés à un même modèle, de façon à ce que la déformation
+résultant de la combinaison soit visuellement lisse.
 
 \section{Etat de l'art}
 
@@ -82,7 +82,7 @@ cages
 
 \subsection{Modification de la zone d'influence des déformations}
 
-Pour d'apporter plus d'explications quant à l'origine de nos contributions,
+Afin d'apporter plus d'explications quant à l'origine de nos contributions,
 nous illustrons les problèmes qui peuvent se produire lorsqu'un modèle n'est
 qu'inclus partiellement dans une cage.
 
@@ -101,10 +101,11 @@ déformation n'est pas lisse.
     }
 
     \caption[Problème de continuité déformation naïve] {Visualisation des
-problèmes de continuité lorsque seuls les points à l'intérieur sont déformés.
-Le bord de la cage est représenté en orange, le modèle est représenté par une
-grille régulière. Le sommet en rouge représente le sommet déplacé. A gauche le
-modèle avant déformation, à droite le même modèle après déformation.}
+problèmes de continuité lorsque seuls les points à l'intérieur de la cage sont
+déformés. Le bord de la cage est représenté en orange, le modèle est
+représenté par une grille régulière en noir. Le sommet en rouge représente le
+sommet déplacé. A gauche le modèle avant déformation, à droite le même modèle
+après déformation.}
 
     \label{MELVI}
   \end{center}
@@ -125,8 +126,9 @@ cage, qui soit au moins $C^1$ partout (visuellement lisse) et dont la zone
 d'influence soit limitée.
 
 Plutôt que de mettre en place une nouvelle méthode de calcul de coordonnées
-ayant les propriétés que nous souhaitons nous nous intéressons plutôt à la
-réutilisation des méthodes de calcul existantes afin d'exploiter leur qualités.
+ayant les propriétés que nous souhaitons, ce qui au demeurant serait un sujet
+de recherche en soi, nous nous intéressons plutôt à la réutilisation des
+méthodes de calcul existantes.
 
 \subsubsection{Principe}
 
@@ -140,7 +142,7 @@ homothétique à la cage de contrôle et contient strictement cette dernière
 
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[scale=0.5]{chapter3-doubleCage-pstricks}
+    \includegraphics[scale=0.5]{chapter3-doubleCage-description-pstricks}
 
     \caption[Disposition des cages de contrôle et d'influence] {Disposition
 des deux cages. En bleu la cage de contrôle, en orange la cage d'influence.}
@@ -166,12 +168,14 @@ modification de la position des sommets de la cage de contrôle affecte la
 position des sommets de la cage d'influence.
 
 Une première idée est d'utiliser des coordonnées barycentriques généralisées
-pour définir la position de chacun des sommets de la cage d'influence comme
+pour évaluer la position de chacun des sommets de la cage d'influence comme
 une combinaison linéaire pondérée des positions des sommets de la cage de
 contrôle. Cette technique pose un problème quant à la localité de la
-déformation. Même si la déformation s'effectue dans toute la zone d'influence,
-on souhaite que les points les plus éloignés du sommet modifié soient le moins
-affectés par la déformation engendrée.
+déformation : la déformation d'un sommet de la cage de contrôle modifie la
+position de tous les sommets de la cage d'influence. Même si la déformation
+s'effectue dans toute la zone d'influence, nous voulons que les points les
+plus éloignés du sommet modifié soient le moins affectés par la déformation
+engendrée.
 
 A la place, on peut proposer que chaque sommet de la cage d'influence soit lié à
 un seul sommet de la cage de contrôle. Etant donné que l'on construit la cage

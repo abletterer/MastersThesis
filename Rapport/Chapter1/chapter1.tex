@@ -175,13 +175,31 @@ le prochain chapitre.
 
 \section{Déformation à base de courbes} 
 
-
-
 \begin{itemize}
+
+\item{\textbf{Déformation de De Casteljau généralisée :}} \cite{CR94} ont
+introduit une méthode de déformation à base de courbe qui peut-être vue comme
+une déformation de forme libre de Bézier limitée. L'idée est d'associer les
+points de l'espace autour de la courbe aux points de contrôle de la courbe.
+Cette méthode est confrontée au même problème que la déformation de forme
+libre de Bézier, où la courbe doit être une ligne droite au moment de
+l'association du modèle à l'outil.
 
 \item{\textbf{Déformation axiale :}} \cite{LCJ94} ont proposé une méthode
 permettant d'associer des points de l'espace à une courbe (échantillonnée par
-des points de contrôle)
+des points de contrôle) qui pouvait avoir une forme quelconque. Les points de
+l'espace sont déformés en fonction de leur écart à la courbe. Plus un point
+est éloigné moins il sera déformé par la modification de la position des
+sommets de contrôle de la courbe. Pour connaître la distance d'un point à la
+courbe, les auteurs définissent des paramètres scalaires $r_min$ et $r_max$,
+propres à chaque sommet de contrôle. Ils établissent que la déformation doit
+s'effectuer en fonction de la distance $d$ d'un point à un sommet de la
+courbe. La déformation peut-être totale ($d < r_{min}$), atténuée ($r_{min} <
+d < r_{max}$) ou inexistante ($d > r_{max}$).
+
+\item{\textbf{Déformation de "cables" :}} La méthode présentée par \cite{SF98}
+s'inspire de la déformation axiale. Elle permet de combiner les effets de
+différents outils de déformations à base de courbe.
 
 \end{itemize}
 
@@ -196,13 +214,12 @@ centré sur un point de contrainte $C_i$ associé à un déplacement $\Delta C_i
 On définit une paramétrisation des points de l'espace uniquement par la
 distance de chacun aux points de contraintes. De ce fait, les déformations
 s'opèrent de façon uniforme dans toutes les directions. \cite{BR94} ont
-développé Scodef (Simple Constrained Deformations), le premier outil utilisant
-cette technique. La déformation appliquée par le déplacement d'un point de
-contrainte est limitée à la zone sphérique autour de ce point. Il est
-important de noter que ce modèle est juste une restriction des possibilités de
-déformation proposées par la technique DOGME (ci-dessous), en considérant le
-cas le plus simple avec des zones d'influence sphériques autour des
-contraintes.
+développé Scodef (Simple Constrained Deformations). La déformation appliquée
+par le déplacement d'un point de contrainte est limitée à la zone sphérique
+autour de ce point. Il est important de noter que ce modèle est juste une
+restriction des possibilités de déformation proposées par la technique DOGME
+(ci-dessous), en considérant le cas le plus simple avec des zones d'influence
+sphériques autour des contraintes.
 
 \item{\textbf{DOGME :}} \cite{BB91} ont introduit une méthode basée sur les
 contraintes appelée DOGME (Deformation Of Geometric Model Editor) afin de
