@@ -22,15 +22,14 @@ modification de son espace ambiant. Cette déformation est appliquée grâce à 
 modèle virtuel qu'on appelle un \textit{outil}. Un utilisateur va interagir
 avec un outil (en modifiant la position de ses sommets), et cet outil va
 modifier la position des points de l'espace. Dans la suite du rapport, nous
-appelons \textit{modèle} un maillage auquel nous appliquons une déformation,
-et \textit{point de l'espace} un sommet du modèle à déformer.
+appelons \textit{modèle} un modèle virtuel auquel nous appliquons une
+déformation, et \textit{point de l'espace} un sommet du modèle à déformer.
 
-Ces outils ont différentes caractéristiques, comme par exemple la
-dimension (point, courbe, surface, volume), la zone de l'espace qu'ils
-déforment (locale ou globale) ou encore leur résolution (nombre
-de points de contrôle qui les composent). On dit qu'une déformation est
-globale lorsqu'un le déplacement d'un sommet de l'outil influe sur l'ensemble
-des points de l'espace.
+Ces outils ont différentes caractéristiques, comme par exemple leur dimension
+(point, courbe, surface, volume), la zone de l'espace qu'ils déforment (locale
+ou globale) ou encore leur résolution (nombre de points de contrôle qui les
+composent). On dit qu'une déformation est globale lorsqu'un le déplacement
+d'un sommet de l'outil influe sur l'ensemble des points de l'espace.
 
 En pratique, la déformation d'un modèle se décompose en 3 étapes :
 \begin{enumerate}
@@ -63,7 +62,7 @@ des courbes de Bézier au cas 3D. Ils ont utilisé les polynômes de Bernstein
 pour définir le volume. Ce modèle, attribuant une forme parallépipédique au
 volume (Figure \ref{SURPar}), permet d'obtenir une paramétrisation des
 coordonnées des points de l'espace presque automatiquement. Cette technique
-déforme l'espace de façon globale.Les volumes paramétriques souffrent des
+déforme l'espace de façon globale. Les volumes paramétriques souffrent des
 mêmes problèmes que leurs homologues de dimensions inférieures (surface et
 courbes paramétriques), à savoir le manque de contrôle local.
 
@@ -95,7 +94,7 @@ version étendue des déformations de forme libre, en permettant la modification
 de la position des points de contrôle avant l'étape d'association. Le calcul
 des coordonnées du modèle par rapport à l'outil n'est donc plus trivial, il
 devient beaucoup plus coûteux. \cite{BBT97} ont proposé de considérer des
-volumes de Bézier tétraédriques (Figure \ref{SURTet}). tandis que \cite{MJ96}
+volumes de Bézier tétraédriques (Figure \ref{SURTet}) tandis que \cite{MJ96}
 se sont plutôt intéressés aux volumes de subdivision de topologie quelconque.
 
 \begin{figure}[ht]
@@ -122,7 +121,7 @@ projetés les points de l'espace, le long de la normale au plan du carreau,
 dans l'espace paramétrique du carreau. Ainsi pour déformer l'espace,
 l'utilisateur déplace les différents points de contrôle. Les points de
 l'espace sont repositionnés grâce à leurs coordonnées paramétriques
-(précédemment calculées) et ``reprojetées'' le long de la normale au carreau
+(précédemment calculées) et "reprojetées" le long de la normale au carreau
 déformé. De même que pour les volumes paramétriques, cette technique déforme
 l'espace de façon globale.
 
@@ -176,7 +175,15 @@ le prochain chapitre.
 
 \section{Déformation à base de courbes} 
 
-(A COMPLETER)
+
+
+\begin{itemize}
+
+\item{\textbf{Déformation axiale :}} \cite{LCJ94} ont proposé une méthode
+permettant d'associer des points de l'espace à une courbe (échantillonnée par
+des points de contrôle)
+
+\end{itemize}
 
 \section{Déformation à base de points}
 
