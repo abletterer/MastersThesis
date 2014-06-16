@@ -12,15 +12,15 @@
   {Chapter2/Chapter2Figs/PDF/} {Chapter2/Chapter2Figs/} }
 
 Notre travail s'est porté particulièrement sur le mélange de différents outils
-à base de surfaces. La technique retenue pour cette dimension est celle
-des déformations à base de cage. Ce choix a été motivé par l'efficacité de
-cette méthode et de son utilisation dans le travail de \cite{GPCP13} (un
-travail similaire à celui que nous souhaitions réaliser).
+à base de surfaces. La technique retenue pour cette dimension est celle des
+déformations à base de cage. Ce choix a été motivé par l'efficacité de cette
+méthode et de son utilisation dans le travail de \cite{GPCP13} (un travail
+similaire à celui que nous souhaitions réaliser).
 
-Ces déformations peuvent se faire dans $\mathbb{R}^2$ (l'outil
-est un polygone) et dans $\mathbb{R}^3$ (l'outil est une surface). Pour
-simplifier la compréhension de la méthode ainsi que les différents schémas,
-nous nous limiterons aux déformations dans $\mathbb{R}^2$.
+Ces déformations peuvent se faire dans $\mathbb{R}^2$ (l'outil est un
+polygone) et dans $\mathbb{R}^3$ (l'outil est une surface). Pour simplifier la
+compréhension de la méthode ainsi que les différents schémas, nous nous
+limitons aux déformations dans $\mathbb{R}^2$.
 
 \section{Introduction} 
 
@@ -28,11 +28,11 @@ L'outil permettant de réaliser les déformations est un polygone. Ce polygone
 peut-être de nature quelconque, sans auto-intersection et non dégénéré: il
 doit avoir au moins 3 sommets. Dans la suite, nous appelons ce polygone
 \textit{cage}. L'idée est de paramétriser la position des sommets d'un modèle
-contenus à l'intérieur d'une cage en fonction de la position des sommets de ce
-polygone. Cette méthode permet de déformer un modèle uniquement en manipulant
-les sommets de la cage, peu importe la complexité de cet modèle. Cette
-déformation est dite globale, car un sommet de la cage a une influence sur
-tous les points de l'espace (qui sont les sommets du modèle) contenus à
+contenus à l'intérieur d'une cage en fonction de la position des sommets de
+cette cage. Cette méthode permet de déformer un modèle uniquement en
+manipulant les sommets de la cage, peu importe la complexité de ce modèle.
+Cette déformation est dite globale, car un sommet de la cage a une influence
+sur tous les points de l'espace (qui sont les sommets du modèle) contenus à
 l'intérieur de la cage.
 
 Les méthodes présentées ci-dessous permettent de réaliser les étapes
@@ -60,8 +60,8 @@ calcul de coordonnées barycentriques, en ne considérant plus des coordonnées
 calculées par rapport à un simplexe (triangle dans $\mathbb{R}^2$), mais à une
 cellule (polygone dans $\mathbb{R}^2$). Néanmoins cette méthode comporte un
 important défaut : les coordonnées calculées peuvent être négatives (dans le
-cas d'une cage concave par exemple), ce qui peut aboutir à des
-résultats contre-intuitifs.
+cas d'une cage concave par exemple), ce qui peut aboutir à des résultats
+contre-intuitifs.
 
 \begin{figure}[ht]
 \begin{center}
@@ -77,10 +77,10 @@ méthode des MVC. (Image de \cite{LLC08})}
 \cite{JMDGS07} ont déclaré que l'importance de ce problème devait amener à ne
 pas utiliser les MVC pour l'animation de personnages. A la place, ils ont
 proposé une approche différente, qui ne produisait pas de coordonnées
-négatives : les Harmonic Coordinates (Figure \ref{DEFHar}) (Figure. Cette méthode a permis d'obtenir
-des déformations plus localisées, au prix d'une complexité en temps de
-calcul beaucoup plus importante et d'une discrétisation de l'espace assez
-fine.
+négatives : les Harmonic Coordinates (Figure \ref{DEFHar}). Cette méthode a
+permis d'obtenir des déformations plus localisées, au prix d'une complexité en
+temps de calcul au temps d'association beaucoup plus importante et d'une
+discrétisation de l'espace assez fine.
 
 \begin{figure}[ht]
 \begin{center}
@@ -104,8 +104,8 @@ surface n'étaient pas préservés, en particulier lors de déformations
 importantes. Ce qui les a amené à développer une approche considérant plus de
 données lors de l'association du modèle à la cage : les Green Coordinates (GC)
 (Figure \ref{DEFGre}). Au lieu d'utiliser uniquement la position des sommets
-de la cage, les Green Coordinates utilisent aussi les normales aux faces de la
-cage.
+de la cage, les Green Coordinates prennent aussi en compte les normales aux
+faces de la cage.
 
 \begin{figure}[ht]
 \begin{center}
@@ -124,18 +124,16 @@ Dans le cadre de notre travail, nous avons choisi de travailler avec une seule
 méthode de calcul des coordonnées. Le choix que nous avons fait s'est porté
 sur les MVC. C'est actuellement la méthode de calcul des coordonnées qui a la
 plus faible complexité en temps de calcul. De plus, ayant déjà travaillé sur
-cette méthode, nous avions déjà fait une première implémentation de la
+cette méthode, nous avions déjà effectué une première implémentation de la
 méthode. La réutiliser nous permet de plus concentrer notre travail sur la
 partie mélange de coordonnées. Néanmoins, la méthode apportée par notre
 travail ne se limite pas aux coordonnées MVC, mais peut être généralisée à
-d'autres méthodes de calcul de coordonnées qui partagent des propriétés en
-commun.
+d'autres méthodes de calcul de coordonnées.
 
 \subsection{Coordonnées barycentriques}
 
 \cite{Mob27} a été le premier à exprimer une relation entre un triangle et un
-point contenu à l'intérieur de celui-ci : les
-coordonnées barycentriques.
+point contenu à l'intérieur de celui-ci : les coordonnées barycentriques.
 
 Soit $V = \{v_1, v_2, v_3\}$ un triangle quelconque, ses sommets constituent ce
 qu'on appelle un repère barycentrique, et soit $p$ un point de l'espace. On dit
@@ -143,6 +141,7 @@ que $p$ est un barycentre de $V$ si et seulement si:
 
 \begin{equation}
   p = \frac{w_1 v_1 + w_2 v_2 + w_3 v_3}{w_1+w_2+w_3},
+  \label{DEFPos}
 \end{equation}
 
 où $w_i$ correspond à la coordonnée du point $p$ associée au sommet $v_i$,
@@ -153,7 +152,7 @@ $w_i$ :
   \lambda_i = \frac{w_i}{w_1+w_2+w_3} ~, i \in \{1, 2, 3\}, 
 \end{equation}
 
-et donc $\sum_{i=1}^3 \lambda_i = 1$. On obtient la formulation suivante :
+et donc $\sum_{i=1}^3 \lambda_i = 1$. L'équation \ref{DEFPos} devient :
 
 \begin{equation}
   p = \lambda_1 v_1 + \lambda_2 v_2 + \lambda_3 v_3.
@@ -161,7 +160,7 @@ et donc $\sum_{i=1}^3 \lambda_i = 1$. On obtient la formulation suivante :
 
 La coordonnée $w_i$ s'obtient en normalisant les aires (signées) des triangles
 $pv_1v_2$, $pv_2v_3$, $pv_3v_1$ par rapport à l'aire totale du triangle
-$v_1v_2v_3$ concernant les MVC.
+$v_1v_2v_3$ :
 
 \begin{equation}
   w_1 = \frac{A(pv_1v_2)}{A(pv_1v_2)+A(pv_2v_3)+A(pv_3v_1)}
@@ -170,12 +169,12 @@ $v_1v_2v_3$ concernant les MVC.
 \subsection{Coordonnées barycentriques généralisées}
 
 Soit $V = \{v_1, v_2, ..., v_n\}$ un polygone sans auto-intersection et non-
-dégénéré, ses sommets constituent un repère barycentrique. Soit $p$ un
-point de l'espace. Le but est d'étudier les poids $\lambda_i$ tels que :
+dégénéré, ses sommets constituent un repère barycentrique. Soit $p$ un point
+de l'espace. Le but est d'étudier les coordonnées $\lambda_i$ tels que :
 
 \begin{equation}
   p = \sum_{i=1}^{n} \lambda_i v_i ,
-  ~ \forall i \in \mathbb{N} ,~ 1 \leq i \leq n
+  ~ \forall i \in \mathbb{N} ,~ i \in \{1,\text{...}, n\}
 \end{equation}
 
 où $\lambda_i$ est la coordonnée (normalisée) du point $p$ associée au sommet
@@ -185,7 +184,7 @@ $v_i$ et vérifie :
   \lambda_i = \frac{w_i}{\sum_{j=1}^n w_j},
 \end{equation}
 
-de même que pour les coordonnées barycentriques $\sum_{i=1}^n \lambda_i = 1$.
+de même que pour les coordonnées barycentriques, $\sum_{i=1}^n \lambda_i = 1$.
 \\
 
 Le calcul des coordonnées $w_i$ n'est plus aussi évident que pour le cas du
@@ -205,7 +204,7 @@ harmonique si elle est $C^2$ et qu'elle satisfait l'équation de Laplace :
 \end{equation}
 
 Les fonctions harmoniques n'ayant pas de forme analytique, une manière de
-connaître leur valeur en un points précis est de les évaluer sur tout le
+connaître leur valeur en un point précis est de les évaluer sur tout le
 domaine. Ces traitements nécessitent beaucoup de calculs, c'est pour cela que
 \cite{Flo03} a décidé de les approximer au travers de fonctions linéaires
 définies par morceaux sur une triangulation donnée.
