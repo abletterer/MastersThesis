@@ -125,10 +125,8 @@ cage, qui soit au moins $C^1$ partout (visuellement lisse) et dont la zone
 d'influence soit limitée.
 
 Plutôt que de mettre en place une nouvelle méthode de calcul de coordonnées
-ayant les propriétés que nous souhaitons, mais la difficulté de ce travail en
-fait un sujet de recherche en soi. Nous nous intéressons plutôt à la
-réutilisation des méthodes de calcul existantes tout en exploitant leurs
-qualités.
+ayant les propriétés que nous souhaitons nous nous intéressons plutôt à la
+réutilisation des méthodes de calcul existantes afin d'exploiter leur qualités.
 
 \subsubsection{Principe}
 
@@ -173,7 +171,7 @@ une combinaison linéaire pondérée des positions des sommets de la cage de
 contrôle. Cette technique pose un problème quant à la localité de la
 déformation. Même si la déformation s'effectue dans toute la zone d'influence,
 on souhaite que les points les plus éloignés du sommet modifié soient le moins
-affecté par la déformation engendrée.
+affectés par la déformation engendrée.
 
 A la place, on peut proposer que chaque sommet de la cage d'influence soit lié à
 un seul sommet de la cage de contrôle. Etant donné que l'on construit la cage
@@ -225,14 +223,14 @@ où $p$ correspond à la position initiale du point, $T(p)$ la position que ce
 point aurait après la déformation et $T_{d}(p)$ la position finale du point.
 
 Nous avons choisi d'interpréter ce critère $\gamma$ comme représentant la
-distance du point $p$ au centre de la cage d'influence. Nous allons utiliser
-les coordonnées que nous avons déjà calculé pour chacun des points de l'espace
-par rapport aux sommets de la cage d'influence. Ce choix a deux avantages,
-d'une part il n'est pas nécessaire de faire des calculs supplémentaires et
-d'autre part. On établit que la distance au bord $d_{inf}(p)$ doit être égale
-au produit des poids associés à chacune des arêtes de la cage d'influence. Où
-le poids associé à une arête $e_i$ correspond à la somme des poids associés
-aux sommets incidents $v_j$ à cette arête :
+distance du point $p$ au centre de la cage d'influence. Nous utilisons les
+coordonnées que nous avons déjà calculé pour chacun des points de l'espace par
+rapport aux sommets de la cage d'influence. Ce choix a l'avantage de ne pas
+nécessiter de réaliser des calculs supplémentaires. On établit que la distance
+au bord $d_{inf}(p)$ doit être égale au produit des poids associés à chacune
+des arêtes de la cage d'influence. Où le poids associé à une arête $e_i$
+correspond à la somme des poids associés aux sommets incidents $v_j$ à cette
+arête :
 
 \begin{equation}
   d_{inf}(p) = f_h( \prod_{e_i \in c_{inf}} (1 - \sum_{v_j \in e_i} \lambda_j(p)))
@@ -261,19 +259,19 @@ l'espace à l'intérieur de la cage de contrôle. On va donc définir une distan
 $d_{min}$ telle que si la distance d'un point de l'espace au bord de la cage
 d'influence est supérieure à $d_{min}$, alors la déformation de ce point ne
 sera pas atténuée. $d_{min}$ correspond à la plus courte distance d'un point
-de l'espace au bord de la cage d'influence. Plus précisément, il s'agit
-exactement de la valeur de distance du sommet de la cage de contrôle le plus
-proche du bord de la cage d'influence. Il nous suffit donc d'évaluer la valeur
-de distance en chacun des sommets de la cage de contrôle par rapport au bord
-de la cage d'influence et de les comparer afin de trouver la distance minimale
-:
+de l'espace (inclus dans la cage de contrôle) au bord de la cage d'influence.
+Plus précisément, il s'agit exactement de la valeur de distance du sommet de
+la cage de contrôle le plus proche du bord de la cage d'influence. Il nous
+suffit donc d'évaluer la valeur de distance en chacun des sommets de la cage
+de contrôle par rapport au bord de la cage d'influence et de les comparer afin
+de trouver la distance minimale :
 
 \begin{equation}
-  d_{min} = \min_{\forall v_{ctrl}} d_{inf}(v_{ctrl})
+  d_{min} = \min_{\forall v_{ctrl}} d_{inf}(v_{ctrl}).
 \end{equation}
 
-La variation de l'atténuation sera plus douce lorsque la différence de taille
-entre la cage de contrôle et la cage d'influence sera grande (Figure
+Plus la différence de taille entre la cage de contrôle et la cage d'influence
+est grande, plus l'atténuation de la déformation est douce (Figure
 \ref{MELBou}).
 
 \begin{figure}[ht]
@@ -338,7 +336,7 @@ combiner plusieurs cages coninf sur un même modèle (Figure \ref{MELMC}).
 L'objectif de cette partie consiste à trouver une formule de mélange
 permettant la modification de la position d'un point de l'espace par rapport à
 plusieurs cages coninf. De manière à ce que la déformation résultant du
-mélange soit visuellement lisse
+mélange soit visuellement lisse.
 
 \begin{figure}[ht]
   \begin{center}
