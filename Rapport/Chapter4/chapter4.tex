@@ -6,28 +6,33 @@
 % \hspace*{1cm}
 % \pagebreak[4]
 
-\chapter{Extensions}
+\chapter{Perspectives}
 
 \graphicspath{ {Chapter4/Chapter4Figs/PNG/}
   {Chapter4/Chapter4Figs/PDF/} {Chapter4/Chapter4Figs/} }
 
 Dans le dernier chapitre, nous avons vu une nouvelle méthode permettant
 combiner des outils de déformation à base de cage. Cette méthode utilise un
-nouveau type d'outil, la cage de contrôle d'influence. Cet outil est composé
-de deux cages. L'une dite d'influence, elle délimite la zone de l'espace
-sous l'influence de la déformation. L'autre dite de contrôle, elle permet à
-l'utilisateur de contrôler la déformation à appliquer.
+nouveau type d'outil, la double-cage. Cet outil est composé de deux cages.
+L'une dite d'influence, délimitant la zone de l'espace sous l'influence de la
+déformation. L'autre dite de contrôle, permettant à l'utilisateur de contrôler
+la déformation à appliquer.
 
-Ce sujet se tourne vers la création d'un outil multidimensionnel de
-déformation. Mais nous n'avons pour l'instant travaillé que sur des
-déformation à base d'outils de dimension 2. Il est naturel de se demander
-comment notre méthode pourrait être étendue à des outils de dimensions
-différentes. Deux approches sont possibles pour généraliser ce travail :
+Pour l'instant nous n'avons travaillé qu'avec des outils de dimension 2, mais
+l'objectif de ce sujet était de mettre en place un outil multidimensionnel de
+déformation. Il est naturel de se demander comment notre méthode pourrait être
+étendue à des outils de dimensions différentes. Deux approches sont possibles
+pour généraliser ce travail :
 
 \begin{enumerate}
 \item Modifier la nature de la cage de contrôle
 \item Mélanger des outils existants avec cette méthode
 \end{enumerate}
+
+Ce chapitre a pour but d'expliquer des extensions directes au travail qui a
+été effectué. Ces extensions auraient pu être directement ajoutées au travail
+effectué, mais par manque de temps nous les expliquons dans une section à
+part.
 
 \section{Modification de la nature de la cage de contrôle}
 
@@ -35,7 +40,7 @@ Nous avions choisi de travailler avec une cage comme outil de contrôle puisque
 nous voulions une méthode de mélange d'outils de déformation à base de cage.
 Mais rien ne nous empêche de changer la nature de cette cage de contrôle. Pour
 généraliser un peu plus ces propos, nommons la cage de contrôle \textit{outil
-de contrôle}. A partir du moment où un outil (point, courbe, face) nous permet
+de contrôle}. A partir du moment où un outil (point, courbe, surface) nous permet
 de définir une cage d'influence (nécessaire aux méthodes d'atténuation et de
 mélange), nous pouvons l'utiliser comme outil de contrôle.
 

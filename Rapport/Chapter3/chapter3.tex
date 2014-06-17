@@ -22,6 +22,11 @@ une résolution élevée. Il est naturel de se demander alors comment combiner
 différents outils associés à un même modèle, de façon à ce que la déformation
 résultant de la combinaison soit visuellement lisse.
 
+L'ensemble du travail a été réalisé dans $\mathbb{R}^2$, bien que les méthodes
+de calcul de coordonnées fonctionnent dans $\mathbb{R}^3$. Ce choix a été fait
+pour simplifier le travail effectué, lors de la recherche d'une nouvelle
+méthode de déformation.
+
 \section{Etat de l'art}
 
 \cite{JBPS11} sont les premiers à proposer une méthode permettant de mélanger
@@ -51,23 +56,45 @@ rapport à sa cage \textit{propre} (à comprendre la cage englobant le point de
 l'espace) mais aussi par rapport aux cages adjacentes à celle-ci. Cette
 technique permet de localiser la déformation engendrée par un sommet d'une
 cage sur la zone couverte par sa cage propre et l'ensemble des cages
-incidentes à celle-ci. Cette méthode impose de placer des cages sur l'ensemble
-du modèle, sans présumer de la déformation qui est à appliquer. Les cages
-créées doivent être collées le long de leurs arêtes pour que la méthode
-fonctionne, et cette contrainte alourdit les traitements à effectuer, du fait
-des nombreux cas spécifiques que la méthode doit traiter. En particulier,
-cette méthode repose en interne sur une discrétisation de l'espace par
-l'utilisation de coordonnées harmoniques, ce qui est incompatible avec la
-minimisation du temps de calcul qui est une de nos priorités.
+incidentes à celle-ci. Les auteurs proposent une nouvelle fonction de
+déformation qui résulte d'un mélange entre une déformation classique
+$T_{c_i}(p),$ et une déformation dite "de jointure" $J_{c_i}(p)$:
+
+\begin{equation}
+  S_{c_i}(p) = b_{c_i}(p) T_{c_i}(p) + (1-b_{c_i}(p)) J_{c_i}(p)
+\end{equation}
+
+Ces deux déformations sont interpolées linéairement en fonction de la distance
+$b_{c_i}(p)$ du point $p$ aux arêtes de sa \textit{cage propre} $c_i$ (cage
+dans laquelle le point $p$ est inclus strictement) qui sont partagées par
+d'autres cages. Cette méthode impose de placer des cages sur l'ensemble du
+modèle, sans présumer de la déformation qui est à appliquer. Les cages créées
+doivent être collées le long de leurs arêtes pour que la méthode fonctionne.
+
+Pour obtenir la déformation de jointure $J_{c_i}(p)$, les auteurs proposent de
+considérer des cages résultant de l'union de plusieurs cages. Ainsi un point
+qui se trouve sur une arête commune à deux cages, se trouvera à l'intérieur de
+l'union de ces cages. Ce choix impose de calculer de nouvelles coordonnées
+pour chaque cage jointure considérée, ce qui augmente le temps de calcul
+nécessaire au temps d'association du modèle à l'outil. Un point est donc
+déformé en partie par sa cage propre et en partie par sa cage de jointure.
+
+Cette interprétation amène à des cas spécifiques que les auteurs sont obligés
+de traiter au travers de fonctions supplémentaires, ce qui alourdit les
+calculs et l'expression mathématique globale. De plus, les distances au bord
+considérées par les auteurs sont basées sur des coordonnées harmoniques, dont
+le calcul nécessite une discrétisation de l'espace. Cette spécificité est
+incompatible avec la minimisation du temps de calcul qui est une de nos
+priorités.
 
 Comme les solutions existantes ne correspondent pas exactement à ce que nous
-souhaitons, nous avons décidé de travailler sur une autre approche afin
+souhaitons, nous décidons de travailler sur une autre approche afin
 d'apporter une contribution originale au niveau des mélanges d'outils de
-déformations.
+déformations. 
 
 \section{Méthode proposée}
 
-Nous nous sommes concentrés sur des déformations à base de cage, certaines
+Nous nous sommes concentrés sur des déformations à base de cage. Certaines
 idées de \cite{GPCP13} nous ont semblé intéressantes, et nous avons décidé de
 nous en inspirer. Notre contribution est double :
 
@@ -155,7 +182,7 @@ Avec cette disposition, l'extérieur de la cage de contrôle peut-être
 interprêté comme l'intérieur de la cage d'influence. Il se trouve que les
 coordonnées MVC sont $C^{\infty}$ à l'intérieur de la cage d'influence (par
 définition), les déformations qui ont lieu à l'intérieur de celle-ci sont donc
-visuellement lisses. On introduit une notion de hiérarchie de déformation, où
+visuellement lisses. Nous introduisons une notion de hiérarchie de déformation, où
 la modification de la position des sommets de la cage de contrôle va modifier
 la position des sommets de la cage d'influence, qui elle- même va modifier
 l'espace contenu en son intérieur, grâce aux méthodes de calcul de coordonnées
@@ -193,20 +220,20 @@ d'influence est modifiée à la modification de la position du sommet en rouge.}
 \end{center}
 \end{figure}
 
-A la place, on peut proposer que chaque sommet de la cage d'influence soit lié à
+A la place, nous proposons que chaque sommet de la cage d'influence soit lié à
 un seul sommet de la cage de contrôle. Etant donné que l'on construit la cage
-d'influence comme une version mise à l'échelle de la cage de contrôle, on peut
-facilement lier les sommets de la cage de contrôle à leur homologues "mis à
-l'échelle" de la cage d'influence. Ainsi, quand on modifie la position d'un
-sommet de la cage de contrôle, un seul sommet de la cage d'influence est
-déplacé (Figure \ref{MELHie}).
+d'influence comme une version mise à l'échelle de la cage de contrôle, nous
+lions les sommets de la cage de contrôle à leur homologues "mis à l'échelle"
+de la cage d'influence. Ainsi, quand la position d'un sommet de la cage de
+contrôle est modifiée, la position d'un seul sommet de la cage d'influence est
+modifiée (Figure \ref{MELHie}).
 
 On définit donc le lien comme un vecteur $\overrightarrow{v}$ représentant la
 différence de position entre un sommet de la cage d'influence $v_{inf}$ par
-rapport au sommet de la cage de contrôle $v_{ctrl}$ auquel il est associé :
+rapport au sommet de la cage de contrôle $v_{ctr}$ auquel il est associé :
 
 \begin{displaymath}
-  \overrightarrow{v} = v_{inf}-v_{ctrl}
+  \overrightarrow{v} = v_{inf}-v_{ctr}
 \end{displaymath}
 
 \begin{figure}[ht]
@@ -216,7 +243,7 @@ rapport au sommet de la cage de contrôle $v_{ctrl}$ auquel il est associé :
 
   \caption[Association des cages de contrôle et d'influence] {Modification de
 la position du sommet de la cage d'influence $v_{inf}$ associé au sommet de la
-cage de contrôle déplacé $v_{ctrl}$. A gauche les cages avant déformation, à
+cage de contrôle déplacé $v_{ctr}$. A gauche les cages avant déformation, à
 droite les cages après déformation. En bleu la cage de contrôle, en orange la
 cage d'influence et en noir le vecteur $v$.}
 
@@ -227,20 +254,22 @@ cage d'influence et en noir le vecteur $v$.}
 \subsubsection{Atténuation de la déformation}
 
 Pour l'instant, la déformation souffre toujours de problème de continuité au
-niveau du bord de la cage d'influence. Pour corriger ce problème, nous allons
-progressivement atténuer la déformation appliquée, en fonction de la distance
+niveau du bord de la cage d'influence. Pour corriger ce problème, nous
+atténuons progressivement la déformation appliquée, en fonction de la distance
 d'un point de l'espace au bord de la cage d'influence.
 
 Pour atténuer la déformation nous avons choisi d'interpoler linéairement la
-position qu'un point de l'espace avait initialement (au temps d'association)
-avec la position qu'il devrait avoir avec une déformation classique:
+position qu'un point de l'espace devrait avoir avec une déformation classique
+avec la position qu'il avait initialement (au temps d'association):
 
 \begin{equation}
-  T_{d}(p) = \gamma(p) p + (1-\gamma(p)) T(p)
+  T_{d}(p) = \gamma(p) T(p) + (1-\gamma(p)) p
+  \label{MELAtt}
 \end{equation}
 
-où $p$ correspond à la position initiale du point, $T(p)$ la position que ce
-point aurait après la déformation et $T_{d}(p)$ la position finale du point.
+où $T(p)$ correspond à la position que ce point aurait après une déformation
+classique, $p$ la position initiale du point et $T_{d}(p)$ la position finale
+du point.
 
 \textbf{Distance au bord de la cage d'influence :}
 
@@ -248,14 +277,14 @@ Nous avons choisi d'interpréter la fonction $\gamma$ comme représentant la
 distance du point $p$ au bord de la cage d'influence. Nous utilisons les
 coordonnées que nous avons déjà calculé pour chacun des points de l'espace par
 rapport aux sommets de la cage d'influence. Ce choix a l'avantage de ne pas
-nécessiter de réaliser des calculs supplémentaires. On établit que la distance
-au bord $d_{inf}(p)$ doit être égale au produit des poids associés à chacune
-des arêtes de la cage d'influence. Où le poids associé à une arête $e_i$
-correspond à la somme des poids associés aux sommets incidents $v_j$ à cette
-arête :
+nécessiter de réaliser des calculs supplémentaires. Nous introduisons une
+distance au bord $d_{inf}(p)$ qui est égale au produit des poids associés à
+chacune des arêtes $e$ de la cage d'influence $c_{inf}$. Où le poids associé à
+une arête $e$ correspond à la somme des coordonnées $\lambda_j(p)$ associés
+aux sommets incidents $v_j$ à cette arête :
 
 \begin{equation}
-  d_{inf}(p) = \prod_{e_i \in c_{inf}} (1 - \sum_{v_j \in e_i} \lambda_j(p))
+  d_{inf}(p) = \prod_{e \in c_{inf}} (1 - \sum_{v_j \in e} \lambda_j(p))
   \label{MELInf}
 \end{equation}
 
@@ -263,32 +292,129 @@ Ce calcul s'inspire de la notion de "boundary weight function" de
 \cite{GPCP13}, où les auteurs utilisaient cette fonction pour évaluer la
 distance d'un point à chacune des arêtes d'une cage.
 
-$0 \leq d_{inf}(p) \leq \frac{2}{n}^n$, donc pour 
+De base, les valeurs de $d_{inf}(p)$ sont comprises dans l'intervalle
+$[0,(\frac{2}{n})^n]$ où $n$ représente le nombre de sommets de la cage
+d'influence. Pour utiliser ces valeurs comme interpolant dans l'équation
+\ref{MELAtt}, il faut étendre ces valeurs au domaine $[0,1]$. Pour cela on
+divise l'ensemble des valeurs de $d_{inf}(p)$ par $(\frac{2}{n})^n$. \\
 
-Cette fonction n'est pas dérivable au bord de la cage d'influence (Figure
-\ref{MELAtN}).
+Illustrons cette fonction par quelques exemples afin de mieux comprendre son
+utilité :
+
+\textit{Exemple 1 :} Soit $p$ un point de l'espace. Il se situe au centre de
+gravité de la cage d'influence (Figure \ref{MELEx1}).
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.4]{Deformation-Attenuation-Exemple1}
+
+\caption[Atténuation : Exemple 1] {En orange la cage de contrôle, en bleu la cage d'influence
+et en vert le point de l'espace $p$ considéré. $p$ se situe au niveau du centre
+de gravité de la cage, toutes ses coordonnées $\lambda_i$ sont donc égales.}
+
+\label{MELEx1}
+\end{center}
+\end{figure}
+
+\begin{center}
+\fbox{\begin{minipage}{1.\textwidth}
+Les coordonnées $\lambda_i$ qui lui sont attribuées sont toutes égales (par
+définition) : $\lambda_1 = \lambda_2 = \lambda_3 = \lambda_4 = \frac{1}{4}$.
+Sa distance au bord de la cage d'influence vaut donc:
+\begin{displaymath}
+d_{inf}(p) = \frac{(1 - (\lambda_1 + \lambda_2)) * (1 - (\lambda_2 + \lambda_3)) 
+* (1 - (\lambda_3 + \lambda_4)) * (1 - (\lambda_4 + \lambda_1))}{(\frac{2}{4})^4},
+\end{displaymath}
+
+ou, en remplaçant par les valeurs numériques :
+\begin{displaymath}
+\begin{split}
+d_{inf}(p) & = \frac{(1 - (\frac{1}{4} + \frac{1}{4})) * (1 - (\frac{1}{4} +
+\frac{1}{4})) * (1 - (\frac{1}{4} + \frac{1}{4})) * (1 - (\frac{1}{4} +
+\frac{1}{4}))}{(\frac{2}{4})^4} \\
+& = \frac{(1 - \frac{1}{2}) * (1 - \frac{1}{2}) * (1 - \frac{1}{2}) 
+* (1 - \frac{1}{2})}{(\frac{2}{4})^4}
+\\
+& = \frac{(\frac{1}{2})^4}{(\frac{1}{2})^4} = 1.
+\end{split}
+\end{displaymath}
+
+Donc pour un point $p$ situé au centre de gravité de la cage d'influence, sa
+distance au bord $d_{inf}(p)$ vaut 1, cela signifie qu'il n'y a pas de point
+plus éloigné du bord (par définition de la fonction), ce qui est cohérent
+avec la construction du point $p$.
+\end{minipage}}
+\end{center}
+
+\textit{Exemple 2 :} 
+
+Soit $p$ un point de l'espace. Il se situe sur le bord de la cage d'influence,
+sur l'arête formée par les sommets $v_4$ et $v_1$ (Figure \ref{MELEx2}).
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.4]{Deformation-Attenuation-Exemple2}
+
+\caption[Atténuation : Exemple 2] {En orange la cage de contrôle, en bleu la cage d'influence
+et en vert le point de l'espace $p$ considéré. $p$ se situe sur le bord de la
+cage d'influence, entre les sommets $v_4$ et $v_1$.}
+
+\label{MELEx2}
+\end{center}
+\end{figure}
+
+\begin{center}
+\fbox{\begin{minipage}{1.\textwidth}
+Par définition, comme les coordonnées évoluent de façon linéaire le long des
+arêtes de la cage $v_2$ et $v_3$ n'ont aucune influence sur la position de
+$p$. Autrement dit : $\lambda_2(p) = \lambda_3(p) = 0$ et $\lambda_1 +
+\lambda_4 = 1$. De la même manière qu'avant :
+\begin{displaymath}
+d_{inf}(p) = \frac{(1 - (\lambda_1 + \lambda_2)) * (1 - (\lambda_2 + \lambda_3)) 
+* (1 - (\lambda_3 + \lambda_4)) * (1 - (\lambda_4 + \lambda_1))}{(\frac{2}{4})^4},
+\end{displaymath}
+
+or, $\lambda_1 + \lambda_4 = 1$, nous pouvons donc réécrire l'équation :
+\begin{displaymath}
+d_{inf}(p) = \frac{(1 - (\lambda_1 + \lambda_2)) * (1 - (\lambda_2 + \lambda_3)) 
+* (1 - (\lambda_3 + \lambda_4)) * (1 - 1)}{(\frac{2}{4})^4} = 0.
+\end{displaymath}
+
+La distance au bord d'un point $p$ situé sur une arête de la cage d'influence
+vaut 0, cela signifie que $p$ est sur le bord de la cage (par définition de la
+fonction), ce qui est cohérent avec la construction du point $p$.
+\end{minipage}}
+\end{center}
+
+Cette fonction n'est pas dérivable aux extrémités de la cage d'influence
+(Figure \ref{MELAtN}). La fonction $\gamma(p)$ ne peut donc pas être
+directement égale à $d_{inf}(p)$.
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{Fonction-Attenuation-Sans}
 
-\caption[Fonction d'atténuation (non lissée)] {Vue en coupe de la fonction
-d'atténuation $d_{inf}(p)$ (non lissée). On peut remarquer que la fonction
-n'est pas dérivable au niveau du bord de la cage d'influence.}
+\caption[Fonction d'atténuation $d_{inf}(p)$] {Vue en coupe de la fonction
+d'atténuation $d_{inf}(p)$. On remarque que la fonction n'est pas
+dérivable au niveau des extrémités de la cage d'influence.}
 
 \label{MELAtN}
 
 \end{center}
 \end{figure}
 
-Nous utilisons donc une fonction $f_h(x)$, paramétrisée par $h \in ]0, 1]$,
-permettant de lisser les valeurs des distances des points de l'espace au bord de
-la cage d'influence. Cette fonction doit satisfaire $f_h(0) = f_h'(0) =
-f_h'(1) = 0$, $f_h(x)=1$ pour $x \geq h$ et $f'_h(x) \geq 0$. L'idée vient du
-travail de \cite{GPCP13}, où ils utilisaient cette fonction pour lisser les
-valeurs de distance d'un point à une arête de la cage. Les auteurs proposaient
-plusieurs fonctions avec des comportements similaires, nous en avons donc
-gardé une arbitrairement :
+Nous utilisons une fonction $f_h(x)$, paramétrisée par $h \in ]0, 1]$,
+permettant de lisser les valeurs des distances des points de l'espace au bord
+de la cage d'influence $d_{inf}(p)$. Cette fonction doit satisfaire $f_h(0) =
+f_h'(0) = f_h'(1) = 0$, $f_h(x)=1$ pour $x \geq h$ et $f'_h(x) \geq 0$. Ce
+sont ces propriétés qui permettent d'obtenir de la continuité au niveau du
+raccord entre les points de l'espace affectés par la déformation et ceux qui
+ne le sont pas. De plus, cette fonction va directement étendre les valeurs au
+domaine $[0,1]$, il n'est donc plus nécessaire de diviser par
+$(\frac{2}{n})^n$. L'idée vient du travail de \cite{GPCP13}, où ils
+utilisaient cette fonction pour lisser les valeurs de distance d'un point à
+une arête de la cage. Les auteurs proposaient plusieurs fonctions avec des
+comportements similaires, nous en avons donc gardé une arbitrairement :
 
 \begin{equation}
   f_h(x) = \frac{1}{2} sin(\pi(\frac{x}{h} - \frac{1}{2})) + \frac{1}{2}
@@ -297,30 +423,43 @@ gardé une arbitrairement :
 \textbf{Calcul du paramètre $h$ :}
 
 Il faut évaluer la valeur de $h$ de manière à ce que ce paramètre représente
-la différence de taille entre la cage de contrôle et la cage d'influence. On
-souhaite que la déformation ne soit pas atténuée pour l'ensemble des points de
-l'espace à l'intérieur de la cage de contrôle. On va donc définir $h$ comme
-étant la distance minimale à partir de laquelle la déformation ne doit pas
+la différence de taille entre la cage de contrôle et la cage d'influence. Nous
+souhaitons que la déformation ne soit pas atténuée pour l'ensemble des points
+de l'espace à l'intérieur de la cage de contrôle. Pour cela nous définissons
+$h$ comme étant la distance à partir de laquelle la déformation ne doit pas
 être atténuée. Cette valeur correspond à la plus courte distance d'un point de
-l'espace (inclus dans la cage de contrôle) au bord de la cage d'influence.
-Plus précisément, il s'agit exactement de la valeur de distance du sommet de
-la cage de contrôle le plus proche du bord de la cage d'influence. Il nous
-suffit donc d'évaluer la valeur de distance en chacun des sommets de la cage
-de contrôle par rapport au bord de la cage d'influence et de les comparer afin
-de trouver la distance minimale :
+l'espace (inclus dans la cage de contrôle) au bord de la cage d'influence. Il
+se trouve qu'un des sommets de la cage de contrôle est l'un de ces points. Il
+nous suffit donc d'évaluer la valeur de distance en chacun des sommets de la
+cage de contrôle par rapport au bord de la cage d'influence et de les comparer
+afin de trouver la distance minimale:
 
 \begin{equation}
-  h = \min_{\forall v_{ctrl}} d_{inf}(v_{ctrl}).
+  h = \min_{\forall v_{ctr}} d_{inf}(v_{ctr}),
 \end{equation}
 
-On peut maintenant écrire $\gamma(p)$ comme étant le résultat du lissage de la
-fonction \ref{MELInf} :
+où $v_{ctr}$ correspond à chaque sommet de la cage de contrôle. L'espace est à
+présent découpé en 3 sous-ensembles : \begin{itemize}
+
+\item l'intérieur de la cage de contrôle, où la déformation n'est pas atténuée,
+
+\item la zone résultant de la différence entre la cage d'influence et la cage
+de contrôle, où la déformation est progressivement atténuée en fonction de la
+distance au bord de la cage d'influence,
+
+\item l'extérieur de la cage d'influence, où la déformation n'est pas
+appliquée.
+
+\end{itemize}
+
+Nous pouvons maintenant écrire $\gamma(p)$ comme étant le résultat du lissage
+de la fonction \ref{MELInf} :
 
 \begin{equation}
   \gamma(p) = f_h(d_{inf}(p)).
 \end{equation}
 
-En regardant la fonction $\gamma(p)$, on peut remarquer qu'il n'y a plus de
+En regardant la fonction $\gamma(p)$, nous remarquons qu'il n'y a plus de
 problèmes de continuité au niveau du bord de la cage d'influence (Figure
 \ref{MELAtL}).
 
@@ -329,7 +468,7 @@ problèmes de continuité au niveau du bord de la cage d'influence (Figure
 \includegraphics[scale=0.5]{Fonction-Attenuation-Avec}
 
 \caption[Fonction d'atténuation $\gamma$(p)] {Vue en coupe de la fonction
-d'atténuation $\gamma$(p). On peut remarquer que la fonction est maintenant
+d'atténuation $\gamma$(p). On remarque que la fonction est maintenant
 dérivable au niveau du bord de la cage d'influence.}
 
 \label{MELAtL}
@@ -349,8 +488,8 @@ est grande, plus l'atténuation de la déformation est douce (Figure
 
     \caption[Variation de l'atténuation de la déformation] {Variation de
 l'atténuation de la déformation. La couleur varie du rouge (atténuation nulle)
-au bleu (atténuation totale). De gauche à droite on peut voir la variation
-pour différentes tailles de cage de contrôle.}
+au bleu (atténuation totale). De gauche à droite nous obtenons différentes
+variations pour différentes tailles de cage de contrôle.}
 
     \label{MELBou}
   \end{center}
@@ -368,9 +507,9 @@ atténuation de l'influence de la déformation: \\
       \ForEach{sommet v de la cage d'influence c}
       {
         $pos$[p] $\leftarrow$ $pos$[p] + $\lambda_v(p)$ * $pos$[v] 
-        * $d_{inf}(c, p)$\;
+        * $\gamma(p)$\;
         $pos$[p] $\leftarrow$ $pos$[p] + $\lambda_v(p)$ * $pos_{init}$[v] 
-        * (1-$d_{inf}(c, p)$)\;
+        * (1-$\gamma(p)$)\;
       }
   }
   \caption{Déformation avec zone d'influence modifiée}
@@ -379,19 +518,18 @@ atténuation de l'influence de la déformation: \\
 
 Pour simplifier les écritures dans la suite du travail, nous nous référons à
 ce nouvel outil (composé d'une cage de contrôle et d'une cage d'influence)
-comme étant l'outil \textit{cage de contrôle d'influence} ou \textit{cage
-coninf}.
+comme étant l'outil \textit{double-cage}.
 
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[scale=0.3]{Deformation-Capricorne-Avant}
-    \includegraphics[scale=0.3]{Deformation-Capricorne-Apres}
+    \includegraphics[scale=0.5]{Deformation-Capricorne-Avant}
+    \includegraphics[scale=0.5]{Deformation-Capricorne-Apres}
 
-    \caption[Exemple de déformation cage de contrôle d'influence] {Exemple de
-déformation avec une cage de contrôle d'influence. A gauche le casque et la
-cage coninf au temps d'association, à droite après modification de la position
-des sommets de la cage de contrôle. On peut remarquer que la partie haute du
-casque (cimier) n'a pas été modifiée par la déformation.}
+    \caption[Exemple de déformation double-cage] {Exemple de
+déformation avec une double-cage. A gauche le casque et la
+double-cage au temps d'association, à droite après modification de la position
+des sommets de la cage de contrôle. On remarque que le cimier (partie
+haute du casque) n'a pas été modifié par la déformation.}
 
   \end{center}
 \end{figure}
@@ -399,18 +537,18 @@ casque (cimier) n'a pas été modifiée par la déformation.}
 \subsection{Combinaison des déformations}
 
 Maintenant que nous avons établi un outil de déformation local, nous voulons
-combiner plusieurs cages coninf sur un même modèle (Figure \ref{MELMC}).
+combiner plusieurs double-cages sur un même modèle (Figure \ref{MELMC}).
 L'objectif de cette partie consiste à trouver une formule de mélange
 permettant la modification de la position d'un point de l'espace par rapport à
-plusieurs cages coninf. De manière à ce que la déformation résultant du
+plusieurs double-cages. De manière à ce que la déformation résultant du
 mélange soit visuellement lisse.
 
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[scale=1]{chapter3-doubleCage-melange-pstricks}
 
-    \caption[Mélange de cages de contrôle d'influence] {Exemple de
-configuration de deux cages de contrôle d'influence se chevauchant. Les points
+    \caption[Mélange de double-cages] {Exemple de
+configuration de deux double-cages se chevauchant. Les points
 de l'espace (en vert) appartenant à la zone en jaune sont sous l'influence des
 deux cages à la fois}
 
@@ -419,61 +557,65 @@ deux cages à la fois}
 \end{figure}
 
 Combiner les déformations revient à établir une combinaison linéaire pondérée
-de l'influence de chaque cage coninf. Pour établir la valeur du coefficient
+de l'influence de chaque double-cage. Pour établir la valeur du coefficient
 associé à chaque cage, il faut trouver un critère permettant de classer les
 cages selon l'importance de la déformation à appliquer. Le critère que nous
-décidons d'envisager est celui de distance. En effet, intuitivement, plus
-un point de l'espace est proche du centre d'une cage coninf, plus on aimerait
-que cette cage influe sur la déformation de ce point. Autrement dit, on va
-regarder la proximité d'un point de l'espace au centre de chaque cage coninf à
-laquelle il appartient.
+décidons d'envisager est celui de distance. En effet, intuitivement, plus un
+point de l'espace est proche du centre d'une double-cage, plus nous voulons
+que cette cage influe sur la déformation de ce point. Autrement dit, nous
+regardons la proximité d'un point de l'espace au centre de chaque double-cage
+à laquelle il appartient.
 
-Comparer la proximité au centre d'une cage coninf revient au même que de
-comparer l'éloignement au bord de la cage d'influence. Ainsi, on peut
-réutiliser les valeurs de distance au bord de la cage d'influence $d_{inf}(p)$
-pour connaître la proximité d'un point au centre d'une cage coninf. Ces
-distances étant relatives à chaque cage, il est nécessaire de les normaliser
-afin de pouvoir les comparer entre elles :
+Comparer la proximité au centre d'une double-cage revient au même que de
+comparer l'éloignement au bord de la cage d'influence. Ainsi, nous réutilisons
+les valeurs de distance $d_{inf}(c, p)$ au bord de la cage d'influence
+constituant la double-cage $c$ pour connaître la proximité d'un point au
+centre de chaque double-cage dans laquelle il est inclus. Ces distances étant
+relatives à chaque cage, il est nécessaire de les normaliser afin de pouvoir
+les comparer entre elles :
 
 \begin{displaymath}
-  D_{inf_i}(p) = \frac{d_{inf_i}(p)}{\sum_{j=0}^n d_{inf_j}(p)}, 
+  D(c, p) = \frac{\gamma(c, p)}{\sum_{j=0}^n d_{inf}(j, p)}, 
 \end{displaymath}
 
-où $D_{inf_i}(p)$ correspond à la distance normalisée du $p$ par rapport au
-bord de la cage d'influence constituant la cage coninf $i$.
+où $D(c, p)$ correspond à la distance normalisée du $p$ par rapport au
+bord de la cage d'influence constituant la double-cage $c$.
 
 On peut maintenant définir une fonction de mélange se basant sur la proximité
-d'un point de l'espace au centre des différentes cages coninf auquel il
+d'un point de l'espace au centre des différentes double-cages auquel il
 appartient :
 
 \begin{displaymath}
-  T_{mel}(p) = \sum_{i=0}^n D_{inf_i}(p) T_{d_i}(p).
+  T_{mel}(c, p) = \sum_{i=0}^n D(c, p) T_{d}(c, p),
 \end{displaymath}
+
+où $T_{d}(c, p)$ représente la position du point $p$ relativement à la double-
+cage $c$
 
 Ci-dessous l'algorithme représentant l'étape de déformation du modèle avec le
 mélange des déformations: \\
 
 \fbox{\begin{minipage}{0.9\textwidth}
 \begin{algorithm}[H]
-\KwData{$sumD_{inf}$, $D_{inf}$: réel}
+\KwData{$sumD$, $D$: réel}
 \KwIn{$pos$, $pos_{init}$ : tableau de tableau de réels}
 \ForEach{point de l'espace p}
 {
-  $sumD_{inf}$ $\leftarrow$ 0\;
+  $sumD$ $\leftarrow$ 0\;
   \ForEach{cage d'influence c associée à p}
   {
-    $sumD_{inf}$ $\leftarrow$ $sumD_{inf}$ + $d_{inf}(c, p)$\;
+    $sumD$ $\leftarrow$ $sumD$ + $\gamma(c, p)$\;
   }
   $pos$[p] = [0,0]\; 
   \ForEach{cage d'influence c associée à p}
   {
-    $D_{inf}$ $\leftarrow$ $d_{inf}(c, p)$ / $sumD_{inf}$\;
+    $D$ $\leftarrow$ $\gamma(c, p)$ / $sumD$\;
     \ForEach{sommet v de c}
     {
       $pos$[p] $\leftarrow$ $pos$[p] + $\lambda_v(p)$ * $pos$[v] 
-      * $d_{inf}(c, p)$ * $D_{inf}$\;
+      * $\gamma(c, p)$ * $D$\;
       $pos$[p] $\leftarrow$ $pos$[p] + $\lambda_v(p)$ * $pos_{init}$[v] 
-      * (1-$d_{inf}(c, p)$) * $D_{inf}$\;
+      * (1-$\gamma(c, p)$) * $D$\;
     }
   }
 }
@@ -486,12 +628,11 @@ mélange des déformations: \\
     \includegraphics[scale=0.3]{Deformation-Viking-Avant}
     \includegraphics[scale=0.3]{Deformation-Viking-Apres}
 
-    \caption[Exemple de déformation cage de contrôle d'influence] {Exemple de
-déformation avec deux cages de contrôle d'influence (en bleu les cages de
-contrôle, en orange les cages d'influence) où les cages de contrôle ont été
-collées ensembles le long d'une arête commune. A gauche le casque avant
-déformation, à droite après modification de la position des sommets des deux
-cages de contrôle.}
+    \caption[Exemple de déformation double-cages] {Exemple de déformation avec
+deux double-cages (en bleu les cages de contrôle, en orange les cages
+d'influence) où les cages de contrôle ont été collées ensembles le long d'une
+arête commune. A gauche le casque avant déformation, à droite après
+modification de la position des sommets des deux cages de contrôle.}
 
   \end{center}
 \end{figure}
