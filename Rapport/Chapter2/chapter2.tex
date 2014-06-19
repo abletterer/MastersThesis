@@ -27,18 +27,17 @@ limitons aux déformations dans $\mathbb{R}^2$.
 L'outil permettant de réaliser les déformations est un polygone. Ce polygone
 peut-être de nature quelconque, sans auto-intersection et non dégénéré: il
 doit avoir au moins 3 sommets. Dans la suite, nous appelons ce polygone
-\textit{cage}. L'idée est de paramétriser la position des sommets d'un modèle
-contenus à l'intérieur d'une cage en fonction de la position des sommets de
-cette cage. Cette méthode permet de déformer un modèle uniquement en
-manipulant les sommets de la cage, peu importe la complexité de ce modèle.
-Cette déformation est dite globale, car un sommet de la cage a une influence
-sur tous les points de l'espace (qui sont les sommets du modèle) contenus à
-l'intérieur de la cage.
+\textit{cage}. L'idée est de paramétrer les points de l'espace contenus à
+l'intérieur d'une cage en fonction de la position des sommets de cette cage.
+Cette méthode permet de déformer un objet uniquement en manipulant les sommets
+de la cage, peu importe la complexité de cet objet. Cette déformation est dite
+globale, car un sommet de la cage a une influence sur tous les points de
+l'espace contenus à l'intérieur de la cage.
 
 Les méthodes présentées ci-dessous permettent de réaliser les étapes
-d'association d'un modèle à un outil et de déformation d'un modèle. Afin de
-les illuster, nous allons déformer un même modèle (Figure \ref{DEFAva}) en
-utilisant chaque méthode.
+d'association d'un objet à un outil et de déformation d'un objet. Afin de les
+illuster, nous allons déformer un même objet (Figure \ref{DEFAva}) en
+utilisant les différentes méthodes existantes.
 
 \begin{figure}[ht]
 \begin{center}
@@ -53,15 +52,15 @@ représentée par son bord, en orange. (Image de \cite{LLC08})}
 
 Les premiers travaux dans ce domaine ont été réalisés simultanément par
 \cite{JSW05} \cite{FKR05}, en utilisant la technique des Mean Value
-Coordinates (MVC) (développée par \cite{Flo03}). Il s'agit d'utiliser des
-coordonnées barycentriques généralisées pour réaliser des déformations. Les
-coordonnées barycentriques généralisées correspondent à la généralisation du
-calcul de coordonnées barycentriques, en ne considérant plus des coordonnées
-calculées par rapport à un simplexe (triangle dans $\mathbb{R}^2$), mais à une
-cellule (polygone dans $\mathbb{R}^2$). Néanmoins cette méthode comporte un
-important défaut : les coordonnées calculées peuvent être négatives (dans le
-cas d'une cage concave par exemple), ce qui peut aboutir à des résultats
-contre-intuitifs.
+Coordinates (MVC) développée par \cite{Flo03} (Figure \ref{DEFMea}). Il s'agit
+d'utiliser des coordonnées barycentriques généralisées pour réaliser des
+déformations. Les coordonnées barycentriques généralisées correspondent à la
+généralisation du calcul de coordonnées barycentriques, en ne considérant plus
+des coordonnées calculées par rapport à un simplexe (triangle dans
+$\mathbb{R}^2$), mais à une cellule (polygone dans $\mathbb{R}^2$). Néanmoins
+cette méthode comporte un important défaut : les coordonnées calculées peuvent
+être négatives (dans le cas d'une cage concave par exemple), ce qui peut
+aboutir à des résultats contre-intuitifs.
 
 \begin{figure}[ht]
 \begin{center}
@@ -74,13 +73,13 @@ méthode des MVC. (Image de \cite{LLC08})}
 \end{center}
 \end{figure}
 
-\cite{JMDGS07} ont déclaré que l'importance de ce problème devait amener à ne
-pas utiliser les MVC pour l'animation de personnages. A la place, ils ont
-proposé une approche différente, qui ne produisait pas de coordonnées
-négatives : les Harmonic Coordinates (Figure \ref{DEFHar}). Cette méthode a
-permis d'obtenir des déformations plus localisées, au prix d'une complexité en
-temps de calcul au temps d'association beaucoup plus importante et d'une
-discrétisation de l'espace assez fine.
+\cite{JMDGS07} déclarnt que l'importance de ce problème devait amener à ne pas
+utiliser les MVC pour l'animation de personnages. A la place, ils proposent
+une approche différente, qui ne produit pas de coordonnées négatives : les
+Harmonic Coordinates (Figure \ref{DEFHar}). Cette méthode permet d'obtenir
+des déformations plus localisées, au prix d'une complexité en temps de calcul
+au temps d'association beaucoup plus importante et d'une discrétisation de
+l'espace assez fine.
 
 \begin{figure}[ht]
 \begin{center}
@@ -97,15 +96,15 @@ Dans la même optique, \cite{LKCL07} proposent une amélioration des MVC qui les
 rend positives : les Positive Mean Value Coordinates. L'idée est de se baser
 sur un test de visibilité lors du calcul des coordonnées. Si un point de
 l'espace ne se trouve pas dans la partie de la cage visible depuis un sommet
-donné, alors la coordonnée pour ce point vaut 0. Ils ont pu obtenir des
-résultats similaires à \cite{JMDGS07} pour une complexité en temps de calcul
-proche de celle des MVC. \cite{LLC08} ont constaté que les détails de la
-surface n'étaient pas préservés, en particulier lors de déformations
-importantes. Ce qui les a amené à développer une approche considérant plus de
-données lors de l'association du modèle à la cage : les Green Coordinates (GC)
-(Figure \ref{DEFGre}). Au lieu d'utiliser uniquement la position des sommets
-de la cage, les Green Coordinates prennent aussi en compte les normales aux
-faces de la cage.
+donné, alors la coordonnée pour ce point vaut 0. Ils obtiennent des résultats
+similaires à \cite{JMDGS07} pour une complexité en temps de calcul proche de
+celle des MVC. \cite{LLC08} ont constaté que les détails de la surface
+n'étaient pas préservés, en particulier lors de déformations importantes. Ce
+qui les a amené à développer une approche considérant plus de données lors de
+l'association du modèle à la cage : les Green Coordinates (GC) (Figure
+\ref{DEFGre}). Au lieu d'utiliser uniquement la position des sommets de la
+cage, les Green Coordinates prennent aussi en compte les normales aux faces de
+la cage.
 
 \begin{figure}[ht]
 \begin{center}
@@ -136,7 +135,7 @@ d'autres méthodes de calcul de coordonnées.
 point contenu à l'intérieur de celui-ci : les coordonnées barycentriques.
 
 Soit $V = \{v_1, v_2, v_3\}$ un triangle quelconque, ses sommets constituent ce
-qu'on appelle un repère barycentrique, et soit $p$ un point de l'espace. On dit
+qu'on appelle un repère barycentrique. Soit $p$ un point de l'espace. On dit
 que $p$ est un barycentre de $V$ si et seulement si:
 
 \begin{equation}
@@ -158,9 +157,9 @@ et donc $\sum_{i=1}^3 \lambda_i = 1$. L'équation \ref{DEFPos} devient :
   p = \lambda_1 v_1 + \lambda_2 v_2 + \lambda_3 v_3.
 \end{equation}
 
-La coordonnée $w_i$ s'obtient en normalisant les aires (signées) des triangles
-$pv_1v_2$, $pv_2v_3$, $pv_3v_1$ par rapport à l'aire totale du triangle
-$v_1v_2v_3$ :
+La coordonnée $w_i$ s'obtient en calculant le rapport entre les aires
+(signées) des triangles $pv_1v_2$, $pv_2v_3$, $pv_3v_1$ et l'aire totale du
+triangle $v_1v_2v_3$ :
 
 \begin{equation}
   w_1 = \frac{A(pv_2v_3)}{A(v1v2v3)},~  w_2 = \frac{A(pv_3v_1)}{A(v1v2v3)},~  w_3 = \frac{A(pv_1v_2)}{A(v1v2v3)}
@@ -177,21 +176,19 @@ et nous nous sommes intéressés particulièrement au travail de \cite{Flo03}.
 Soit $V = \{v_1, v_2, ..., v_n\}$ un polygone sans auto-intersection et non-
 dégénéré, ses sommets constituent un repère barycentrique. Soit $p$ un point
 de l'espace. Le but de \cite{Flo03} a été d'étudier les coordonnées
-$\lambda_i$ tels que :
+$\lambda_i$ telles que :
 
 \begin{equation}
   p = \sum_{i=1}^{n} \lambda_i v_i ,
   ~ \forall i \in \mathbb{N} ,~ i \in \{1,\text{...}, n\}
 \end{equation}
 
-où $\lambda_i$ est la coordonnée (normalisée) du point $p$ associée au sommet
-$v_i$ et vérifie :
+où $\lambda_i$ est la coordonnée du point $p$ associée au sommet $v_i$ et qui
+vérifie :
 
 \begin{equation}
-  \lambda_i = \frac{w_i}{\sum_{j=1}^n w_j},
+  \lambda_i = \frac{w_i}{\sum_{j=1}^n w_j},~ \text{et} \sum_{i=1}^n \lambda_i = 1.
 \end{equation}
-
-de même que pour les coordonnées barycentriques, $\sum_{i=1}^n \lambda_i = 1$.
 \\
 
 Sa motivation a été de reproduire le comportement de fonctions harmoniques.
@@ -216,8 +213,8 @@ $v_{i-1}$ et $v_{i+1}$ (Figure \ref{DEFcal}).
   \begin{center}
     \includegraphics[scale=0.9]{chapter2-MVC-pstricks}
 
-    \caption[Méthode de calcul MVC] {Méthode de calcul de la coordonnée $w_i$
-du point $p$ par rapport au sommet $v_i$}
+    \caption[Configuration pour calcul MVC] {Configuration pour le calcul de
+la coordonnée $w_i$ du point $p$ par rapport au sommet $v_i$}
 
     \label{DEFcal}   \end{center} \end{figure}
 
@@ -228,23 +225,15 @@ La méthode détermine la coordonnée $w_i$ de la manière suivante :
   \label{DEFcoo}
 \end{equation}
 
-Ces coordonnées sont ensuite normalisées :
+L'ensemble des coordonnées $\{\lambda_0, \lambda_1, ..., \lambda_n\}$ obtenues
+est appellé les coordonnées MVC du point $p$.
 
-\begin{equation}
-  \lambda_i = \frac{w_i}{\sum_{j=1}^n w_j},
-\end{equation}
-
-afin d'obtenir la coordonnée MVC du point $p$ par rapport au sommet $v_i$.
-L'ensemble des coordonnées $\{\lambda_0, \lambda_1, ..., \lambda_n\}$ est
-appellé les coordonnées MVC du point $p$.
-
-Ces formules sont correctes dans le cas où un point $p$ est strictement inclus
-dans la cage : $p$ n'appartient à aucune arête de la cage. Des problèmes se
-posent lorsqu'un point de l'espace se trouve le long d'une arête de la cage.
-On peut détecter cette situation en regardant la valeur des angles
-$\alpha_{i-1}$ et $\alpha_i$. Par exemple, quand le point $p$ se situe sur
-l'arête $E = [v_i,v_{i+1}]$, l'angle $\alpha_i$ vaut $\pi$ (Figure
-\ref{DEFinc}). Or :
+Ces formules sont correctes dans le cas où le point $p$ est strictement inclus
+dans la cage. Des problèmes se posent lorsqu'un point de l'espace se trouve le
+long d'une arête de la cage. On peut détecter cette situation en regardant la
+valeur des angles $\alpha_{i-1}$ et $\alpha_i$. Par exemple, quand le point
+$p$ se situe sur l'arête $E = [v_i,v_{i+1}]$, l'angle $\alpha_i$ vaut $\pi$
+(Figure \ref{DEFinc}). Or :
 
 \begin{displaymath}
   \lim\limits_{x \to \pi^-} tan(\frac{x}{2}) = +\infty
@@ -254,7 +243,7 @@ l'arête $E = [v_i,v_{i+1}]$, l'angle $\alpha_i$ vaut $\pi$ (Figure
   \begin{center}
     \includegraphics[scale=0.9]{chapter2-MVC-notWorking-pstricks}
 
-    \caption[Cas particulier MVC] {Situation dans laquelle les
+    \caption[Cas particulier MVC] {Configuration dans laquelle les
 formules de calcul de coordonnées ne sont plus correctes.}
 
     \label{DEFinc}
@@ -264,13 +253,13 @@ formules de calcul de coordonnées ne sont plus correctes.}
 Cela pose un problème par rapport au calcul donné par l'équation \ref{DEFcoo}.
 Les coordonnées barycentriques généralisées établissent que les coordonnées
 calculées varient de façon linéaire le long des arêtes de la cage et qu'elles
-respectent la propriété de Lagrange aux sommets de la cage: Si $p = v_i$ alors
+respectent la propriété de Lagrange aux sommets de la cage: si $p = v_i$ alors
 $\lambda_i = 1$ et $\lambda_j = 0 ~\forall~ j \neq i$
 
-En utilisant ces propriétés, nous avons définit un calcul de coordonnées
-spécifique pour les points se trouvant le long d'une arête. Pour calculer la
-coordonnée $w_j$ du point $p$ par rapport au sommet $v_j$, $p$ se trouvant le
-long de l'arête $E = [v_i,v_{i+1}]$, nous distinguons deux cas :
+En utilisant ces propriétés, un calcul de coordonnées spécifique est défini
+par \cite{HF06} pour les points se trouvant le long d'une arête. Pour calculer
+la coordonnée $w_j$ du point $p$ par rapport au sommet $v_j$, $p$ se trouvant
+le long de l'arête $E = [v_i,v_{i+1}]$, nous distinguons deux cas :
 
 \begin{itemize}
 

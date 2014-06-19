@@ -17,33 +17,33 @@ ce chapitre nous considèrerons des déformations affectant l'espace
 $\mathbb{R}^3$
 
 La déformation spatiale est une technique de déformation permettant de
-modifier la position des sommets d'un modèle virtuel au travers de la
-modification de son espace ambiant. Cette déformation est appliquée grâce à un
-modèle virtuel qu'on appelle un \textit{outil}. Un utilisateur va interagir
-avec un outil (en modifiant la position de ses sommets), et cet outil va
-modifier la position des points de l'espace. Dans la suite du rapport, nous
-appelons \textit{modèle} un modèle virtuel auquel nous appliquons une
-déformation, et \textit{point de l'espace} un sommet du modèle à déformer.
+modifier la position des sommets d'un objet virtuel au travers de la
+modification de son espace ambiant. Cette déformation est appliquée au travers
+de la manipulation d'un \textit{outil}. Un utilisateur va interagir avec un
+outil (en modifiant la position de ses sommets), et cet outil va modifier la
+position des points de l'espace. Dans la suite du rapport, nous appelons
+\textit{objet} un objet virtuel auquel nous appliquons une déformation, et
+\textit{point de l'espace} un sommet du objet à déformer.
 
 Ces outils ont différentes caractéristiques, comme par exemple leur dimension
 (point, courbe, surface, volume), la zone de l'espace qu'ils déforment (locale
 ou globale) ou encore leur résolution (nombre de points de contrôle qui les
-composent). On dit qu'une déformation est globale lorsqu'un le déplacement
-d'un sommet de l'outil influe sur l'ensemble des points de l'espace.
+composent). On dit qu'une déformation est globale lorsque le déplacement d'un
+sommet de l'outil influe sur l'ensemble des points de l'espace.
 
-En pratique, la déformation d'un modèle se décompose en 3 étapes :
+En pratique, la déformation d'un objet se décompose en 3 étapes :
 \begin{enumerate}
 
 \item Construction de l'outil permettant la déformation
 
-\item Association des points de l'espace composant le modèle à l'outil
-(\textit{temps d'association})
+\item Association des points de l'espace à l'outil (\textit{temps
+d'association})
 
-\item Déformation du modèle par invariance de l'association (\textit{temps de
+\item Déformation de l'objet par invariance de l'association (\textit{temps de
 déformation})
 
 Les explications ci-dessous se concentrent sur la partie association des
-points de l'espace composant le modèle à l'outil.
+points de l'espace à l'outil.
 
 \end{enumerate} 
 
@@ -89,13 +89,14 @@ Les déformations de forme libre ont une grosse limitation, celle de la forme
 de l'outil. En effet, comme les volumes de déformations sont uniquement
 composés de cubes alignés sur les axes du repère de l'espace, la forme globale
 correspond à un pavé. Par conséquent, il n'est pas possible d'obtenir un outil
-qui épouse la forme du modèle à déformer. \cite{Coq90} a donc proposé une
+qui épouse la forme de l'objet à déformer. \cite{Coq90} a donc proposé une
 version étendue des déformations de forme libre, en permettant la modification
 de la position des points de contrôle avant l'étape d'association. Le calcul
-des coordonnées du modèle par rapport à l'outil n'est donc plus trivial, il
-devient beaucoup plus coûteux. \cite{BBT97} ont proposé de considérer des
-volumes de Bézier tétraédriques (Figure \ref{SURTet}) tandis que \cite{MJ96}
-se sont plutôt intéressés aux volumes de subdivision de topologie quelconque.
+des coordonnées des points de l'espace par rapport à l'outil n'est donc plus
+trivial, il devient beaucoup plus coûteux. \cite{BBT97} ont proposé de
+considérer des volumes de Bézier tétraédriques (Figure \ref{SURTet}) tandis
+que \cite{MJ96} se sont plutôt intéressés aux volumes de subdivision de
+topologie quelconque.
 
 \begin{figure}[ht]
 \begin{center}
@@ -158,9 +159,9 @@ zones d'influence résultent d'une moyenne pondérée des coordonnées calculée
 par rapport à chaque triangle. L'avantage de cette technique est de permettre
 une configuration assez générale des triangles (non nécessairement connexes),
 à partir du moment où ceux-ci ne sont pas dégénérés (les triangles doivent
-être composés de 3 sommets distincts). La déformation engendrée par le
-déplacement d'un sommet d'un triangle est locale et définie par la zone
-d'influence définie autour de ce triangle.
+être composés de 3 sommets linéairement indépendants). La déformation
+engendrée par le déplacement d'un sommet d'un triangle est locale et définie
+par la zone d'influence de ce triangle.
 
 \item{\textbf{Cage :}} La cage est l'outil surfacique le plus utilisé ces
 dernières années en terme de déformation spatiale. Son utilisation s'est
@@ -187,15 +188,15 @@ l'association du modèle à l'outil.
 
 \item{\textbf{Déformation axiale :}} \cite{LCJ94} ont proposé une méthode
 permettant d'associer des points de l'espace à une courbe (échantillonnée par
-des points de contrôle) qui pouvait avoir une forme quelconque. Les points de
+des points de contrôle) qui peut avoir une forme quelconque. Les points de
 l'espace sont déformés en fonction de leur écart à la courbe. Plus un point
 est éloigné moins il sera déformé par la modification de la position des
 sommets de contrôle de la courbe. Pour connaître la distance d'un point à la
-courbe, les auteurs définissent des paramètres scalaires $r_min$ et $r_max$,
-propres à chaque sommet de contrôle. Ils établissent que la déformation doit
-s'effectuer en fonction de la distance $d$ d'un point à un sommet de la
-courbe. La déformation peut-être totale ($d < r_{min}$), atténuée ($r_{min} <
-d < r_{max}$) ou inexistante ($d > r_{max}$).
+courbe, les auteurs définissent des paramètres scalaires $r_{min}$ et
+$r_{max}$, propres à chaque sommet de contrôle. Ils établissent que la
+déformation doit s'effectuer en fonction de la distance $d$ d'un point à un
+sommet de la courbe. La déformation peut-être totale ($d < r_{min}$), atténuée
+($r_{min} < d < r_{max}$) ou inexistante ($d > r_{max}$).
 
 \item{\textbf{Déformation de "cables" :}} La méthode présentée par \cite{SF98}
 s'inspire de la déformation axiale. Elle permet de combiner les effets de
