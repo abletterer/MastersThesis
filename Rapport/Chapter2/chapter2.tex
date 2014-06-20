@@ -39,15 +39,13 @@ d'association d'un objet à un outil et de déformation d'un objet. Afin de les
 illuster, nous allons déformer un même objet (Figure \ref{DEFAva}) en
 utilisant les différentes méthodes existantes.
 
-\begin{figure}[ht]
-\begin{center}
+\begin{figure}[!ht]
 \includegraphics[scale=0.25]{Deformation-Texte-Avant}
 
 \caption[Texte avant déformation] {Texte avant déformation. La cage est
 représentée par son bord, en orange. (Image de \cite{LLC08})}
 
 \label{DEFAva}
-\end{center}
 \end{figure}
 
 Les premiers travaux dans ce domaine ont été réalisés simultanément par
@@ -62,15 +60,13 @@ cette méthode comporte un important défaut : les coordonnées calculées peuve
 être négatives (dans le cas d'une cage concave par exemple), ce qui peut
 aboutir à des résultats contre-intuitifs.
 
-\begin{figure}[ht]
-\begin{center}
+\begin{figure}[!ht]
 \includegraphics[scale=0.25]{Deformation-Texte-MVC}
 
 \caption[Déformation d'un texte (MVC)] {Déformation d'un texte en utilisant la
 méthode des MVC. (Image de \cite{LLC08})}
 
 \label{DEFMea}
-\end{center}
 \end{figure}
 
 \cite{JMDGS07} déclarnt que l'importance de ce problème devait amener à ne pas
@@ -81,15 +77,13 @@ des déformations plus localisées, au prix d'une complexité en temps de calcul
 au temps d'association beaucoup plus importante et d'une discrétisation de
 l'espace assez fine.
 
-\begin{figure}[ht]
-\begin{center}
+\begin{figure}[!ht]
 \includegraphics[scale=0.25]{Deformation-Texte-HC}
 
 \caption[Déformation d'un texte (HC)] {Déformation d'un texte en utilisant la
 méthode des HC. (Image de \cite{LLC08})}
 
 \label{DEFHar}
-\end{center}
 \end{figure}
 
 Dans la même optique, \cite{LKCL07} proposent une amélioration des MVC qui les
@@ -106,15 +100,13 @@ l'association du modèle à la cage : les Green Coordinates (GC) (Figure
 cage, les Green Coordinates prennent aussi en compte les normales aux faces de
 la cage.
 
-\begin{figure}[ht]
-\begin{center}
+\begin{figure}[!ht]
 \includegraphics[scale=0.25]{Deformation-Texte-GC}
 
 \caption[Déformation d'un texte (GC)] {Déformation d'un texte en utilisant la
 méthode des GC. (Image de \cite{LLC08})}
 
 \label{DEFGre}
-\end{center}
 \end{figure}
 
 \section{Mean Value Coordinates}
@@ -209,14 +201,14 @@ La coordonnnée $w_i$ associée au point $p$ est calculée en utilisant la
 position du point $p$, du sommet $v_i$ et des deux sommets adjacents à $v_i$ :
 $v_{i-1}$ et $v_{i+1}$ (Figure \ref{DEFcal}).
 
-\begin{figure}[ht]
-  \begin{center}
+\begin{figure}[!ht]
     \includegraphics[scale=0.9]{chapter2-MVC-pstricks}
 
     \caption[Configuration pour calcul MVC] {Configuration pour le calcul de
 la coordonnée $w_i$ du point $p$ par rapport au sommet $v_i$}
 
-    \label{DEFcal}   \end{center} \end{figure}
+    \label{DEFcal}   
+\end{figure}
 
 La méthode détermine la coordonnée $w_i$ de la manière suivante :
 
@@ -239,15 +231,13 @@ $p$ se situe sur l'arête $E = [v_i,v_{i+1}]$, l'angle $\alpha_i$ vaut $\pi$
   \lim\limits_{x \to \pi^-} tan(\frac{x}{2}) = +\infty
 \end{displaymath}
 
-\begin{figure}[ht]
-  \begin{center}
+\begin{figure}[!ht]
     \includegraphics[scale=0.9]{chapter2-MVC-notWorking-pstricks}
 
     \caption[Cas particulier MVC] {Configuration dans laquelle les
 formules de calcul de coordonnées ne sont plus correctes.}
 
     \label{DEFinc}
-  \end{center}
 \end{figure}
 
 Cela pose un problème par rapport au calcul donné par l'équation \ref{DEFcoo}.
