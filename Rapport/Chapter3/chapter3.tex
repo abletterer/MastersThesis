@@ -50,12 +50,12 @@ nous intéresser à un autre travail du domaine.
 d'outils de même dimension, en s'intéressant particulièrement aux cas des
 déformations à base de cage. L'idée est de réaliser un pavage de l'objet à
 l'aide de cages collées ensemble le long de leurs arêtes et de considérer la
-position d'un point de l'espace non seulement par rapport à sa cage
-\textit{propre} (qui le contient) mais aussi par rapport aux cages adjacentes
-à celle-ci. Cette technique permet de localiser la déformation engendrée par
-un sommet d'une cage sur la zone couverte par sa cage propre et l'ensemble des
-cages incidentes à celle-ci. Les auteurs proposent une fonction de déformation
-qui résulte d'un mélange entre une déformation classique $T_{c_i}(p),$ et une
+position d'un point de l'espace non seulement par rapport à sa \textit{cage
+propre} (qui le contient) mais aussi par rapport aux cages adjacentes à celle-
+ci. Cette technique permet de localiser la déformation engendrée par un sommet
+d'une cage sur la zone couverte par sa cage propre et l'ensemble des cages
+incidentes à celle-ci. Les auteurs proposent une fonction de déformation qui
+résulte d'un mélange entre une déformation classique $T_{c_i}(p),$ et une
 déformation dite "de jointure" $J_{c_i}(p)$:
 
 \begin{equation}
@@ -63,7 +63,7 @@ déformation dite "de jointure" $J_{c_i}(p)$:
 \end{equation}
 
 Ces deux déformations sont interpolées linéairement en fonction de la distance
-$b_{c_i}(p)$ du point $p$ aux arêtes de sa \textit{cage propre} $c_i$  qui
+$b_{c_i}(p)$ du point $p$ aux arêtes de sa cage propre $c_i$  qui
 sont partagées par d'autres cages. Cette méthode impose de placer des cages
 sur l'ensemble de l'objet, sans présumer de la déformation qui est à
 appliquer. Les cages créées doivent être collées le long de leurs arêtes pour
@@ -301,8 +301,8 @@ cage d'influence.}
 
 \textbf{Lissage de la fonction d'atténuation $d_{inf}(p)$ :}
 
-L'idée vient du travail de \cite{GPCP13}, proposant une fonction pour lisser
-les valeurs de distance d'un point à une arête de la cage. Considérons une
+L'idée vient du travail de \cite{GPCP13}, proposant une fonction lissant les
+valeurs de distance d'un point à une arête de la cage. Considérons une
 fonction $f_h(x)$, paramétrée par $h \in ]0, 1]$, permettant de lisser la
 fonction de distance $d_{inf}(p)$. Cette fonction doit satisfaire $f_h(0) =
 f_h'(0) = f_h'(1) = 0$, $f_h(x)=1$ pour $x \geq h$ et $f_h(x) \geq 0$, afin
@@ -321,13 +321,13 @@ de calcul :
 
 La valeur de $h$ modifie la pente de la fonction d'atténuation (Figure
 \ref{MELFAt}). En d'autres termes, la valeur de $h$ permet de contrôler la
-zone à partir de laquelle la déformation est atténuée.
+zone de l'espace à partir de laquelle la déformation est atténuée.
 
 \begin{figure}[!ht]
 \includegraphics[scale=1.2]{chapter3-attenuationfonction}
 
-\caption[Fonction d'atténuation $f_h(x)$] {Visualisation de la fonction
-d'atténuation $f_h(x)$ en fonction de différentes valeurs de $h$. $h=1$,
+\caption[Fonction de lissage $f_h(x)$] {Visualisation de la fonction
+de lissage $f_h(x)$ en fonction de différentes valeurs de $h$. $h=1$,
 $h=0.6$, $h=0.2$ pour les figures de gauche, au centre et à droite
 respectivement.}
 
@@ -341,7 +341,7 @@ de la fonction \ref{MELInf} :
   \gamma(p) = f_h(d_{inf}(p)),
 \end{equation}
 
-Nous remarquons qu'il n'y a plus de problèmes de continuité au niveau du bord
+Nous remarquons qu'il n'y a pas de problème de continuité au niveau du bord
 de la cage d'influence pour la fonction $\gamma(p)$ (Figure \ref{MELAtL}).
 
 \begin{figure}[!ht]
@@ -365,15 +365,24 @@ fonction d'atténuation mise en place, l'effet inverse se produit, car la
 déformation est entièrement atténuée au bord de la cage, et en particulier au
 sommet de celle-ci.
 
-Pour corriger ce problème nous allons introduire une deuxième cage, la
-\textit{cage de contrôle}. Cette cage a pour but de fournir un contrôle plus
-intuitif sur la déformation. La modification de la position de ses sommets
-modifie la position des sommets de la cage d'influence, qui elle-même déforme
-les points de l'espace. La cage de contrôle est homothétique à la cage
-d'influence et est strictement contenue dans cette dernière (Figure
+Pour corriger ce problème nous introduisons une deuxième cage, la \textit{cage
+de contrôle}. Cette cage a pour but de fournir un contrôle plus intuitif sur
+la déformation. La modification de la position de ses sommets modifie la
+position des sommets de la cage d'influence, qui eux-même modifient la
+position des points de l'espace. La cage de contrôle est homothétique à la
+cage d'influence et est strictement contenue dans cette dernière (Figure
 \ref{MELDou}). Pour simplifier les écritures dans la suite du travail, nous
 nous référons à l'outil composé d'une cage de contrôle et d'une cage
 d'influence comme l'outil \textit{double-cage}.
+
+\begin{figure}[!ht]
+    \includegraphics[scale=0.4]{chapter3-doubleCage-description-pstricks}
+
+    \caption[Composition de la double-cage] {Composition de la double-cage. En
+    bleu la cage de contrôle, en orange la cage d'influence.}
+
+    \label{MELDou}
+\end{figure}
 
 \subsubsection{Hiérarchie de la déformation}
 
@@ -434,24 +443,15 @@ cage d'influence et en noir le vecteur $v$.}
   \label{MELHie}
 \end{figure}
 
-\begin{figure}[!ht]
-    \includegraphics[scale=0.4]{chapter3-doubleCage-description-pstricks}
-
-    \caption[Composition de la double-cage] {Composition de la double-cage. En
-    bleu la cage de contrôle, en orange la cage d'influence.}
-
-    \label{MELDou}
-\end{figure}
-
 \textbf{Calcul du paramètre $h$ :}
 
-Comme expliqué précédemment, la valeur de $h$ permet de contrôler la zone à
-partir de laquelle la déformation est atténuée. Or nous souhaitons que la
-déformation ne soit pas atténuée pour l'ensemble des points de l'espace à
-l'intérieur de la cage de contrôle. Pour cela nous définissons $h$ comme étant
-la plus courte distance d'un point contenu dans la cage de contrôle au bord de
-la cage d'influence. Il se trouve que c'est exactement la distance du sommet
-de la cage de contrôle le plus proche de la cage d'influence (par
+Comme expliqué précédemment, la valeur de $h$ permet de contrôler la zone de
+l'espace à partir de laquelle la déformation est atténuée. Or nous souhaitons
+que la déformation ne soit pas atténuée pour l'ensemble des points de l'espace
+à l'intérieur de la cage de contrôle. Pour cela nous définissons $h$ comme
+étant la plus courte distance d'un point contenu dans la cage de contrôle au
+bord de la cage d'influence. Il se trouve que c'est exactement la distance du
+sommet de la cage de contrôle le plus proche de la cage d'influence (par
 construction). Il nous suffit donc d'évaluer la valeur de distance en chacun
 des sommets de la cage de contrôle par rapport au bord de la cage d'influence
 et de les comparer afin de trouver la distance minimale:
@@ -467,7 +467,7 @@ présent découpé en 3 sous-ensembles :
 
 \item l'intérieur de la cage de contrôle, où la déformation n'est pas atténuée,
 
-\item la zone résultant de la différence entre la cage d'influence et la cage
+\item l'ensemble résultant de la différence entre la cage d'influence et la cage
 de contrôle, où la déformation est progressivement atténuée en fonction de la
 distance au bord de la cage d'influence,
 
@@ -476,9 +476,8 @@ appliquée.
 
 \end{itemize}
 
-Plus la différence de taille entre la cage de contrôle et la cage d'influence
-est grande, plus l'atténuation de la déformation est douce (Figure
-\ref{MELBou}).
+Plus la valeur de $h$ est grande, plus la différence de taille entre la cage
+de contrôle et la cage d'influence est importante(Figure \ref{MELBou}).
 
 \begin{figure}[!ht]
     \includegraphics[scale=0.2]{BoundaryWeightFunction-Petite}
@@ -488,13 +487,15 @@ est grande, plus l'atténuation de la déformation est douce (Figure
     \caption[Variation de l'atténuation de la déformation] {Variation de
 l'atténuation de la déformation. La couleur varie du rouge (atténuation nulle)
 au bleu (atténuation totale). De gauche à droite nous obtenons différentes
-variations pour différentes tailles de cage de contrôle.}
+variations pour différentes valeurs de $h$.}
 
     \label{MELBou}
 \end{figure}
 
 Ci-dessous l'algorithme représentant l'étape de déformation de l'objet avec
-atténuation de l'influence de la déformation: \\
+atténuation de l'influence de la déformation ainsi qu'un exemple de différence
+entre une déformation sans atténuation et une déformation avec atténuation
+(Figure \ref{MELDef1}). \\
 
 \fbox{\begin{minipage}{0.9\textwidth}
   \begin{algorithm}[H]
@@ -525,6 +526,8 @@ En haut l'objet et la double-cage au temps d'association, en bas à gauche
 sans atténuation, en bas à droite avec atténuation. On peut
 remarquer que la déformation n'est pas visuellement lisse au bord de la cage
 d'influence lors de la déformation sans atténuation.}
+
+  \label{MELDef1}
 
 \end{figure}
 
@@ -586,7 +589,8 @@ où $T_{d}(c, p)$ représente la position du point $p$ relativement à la double
 cage $c$
 
 Ci-dessous l'algorithme représentant l'étape de déformation de l'objet avec le
-mélange des déformations: \\
+mélange des déformations ainsi qu'un exemple de déformation d'un objet à
+l'aide de deux double-cages partageant une arête commune. \\
 
 \fbox{\begin{minipage}{0.9\textwidth}
 \begin{algorithm}[H]
@@ -625,5 +629,7 @@ deux double-cages (en bleu les cages de contrôle, en orange les cages
 d'influence) où les cages de contrôle ont été collées ensembles le long d'une
 arête commune. A gauche le casque avant déformation, à droite après
 modification de la position des sommets des deux cages de contrôle.}
+
+  \label{MELDef2}
 
 \end{figure}
