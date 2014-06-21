@@ -336,48 +336,6 @@ citestyle=authoryear]{biblatex}
   \end{figure}
 \end{frame}
 
-\setbeamercovered{transparent}
-
-\begin{frame}{*Cages $_{\text{\citep{GPCP13}}}$}
-  \fontsize{8pt}{7.2}\selectfont
-  \begin{equation}
-    S_{c_i}(p) = b_{c_i}(p) T_{c_i}(p) + (1-b_{c_i}(p)) \highlightR{J_{c_i}(p)}
-  \end{equation}
-  \pause
-  \begin{equation}
-    \highlightR{J_{c_i}(p)} = \sum_{v \in B_{c_i}} \highlightB{W(v,p)}{~} L(v,p)
-  \end{equation}
-  \pause
-  \begin{equation}
-    \highlightB{W(v,p)} = \highlightG{\Omega(v,p)}{~} \highlightGR{I(v,p)}
-  \end{equation}  
-  \pause
-  \begin{equation}
-    \highlightG{\Omega(v,p)} = \prod_{t \in F(jc(v), v)} \highlightO{f_h} \left( \frac
-      {\highlightV{d_{jc(v)}(t,p)}} {d_{jc(v)}(t,v)} \right)
-  \end{equation}
-  \pause
-  \begin{equation}
-    \highlightO{f_h(x)} = \frac{1}{2} \sin(\pi(\frac{x}{h}-\frac{1}{2}))
-  \end{equation}
-  \begin{tikzpicture}[remember picture,overlay]
-    \begin{axis}[colormap/bluered, width=0.37\textwidth,
-      height=0.3\textwidth]
-      \addplot gnuplot[scatter, samples=300, domain=0:1, mark=*, mark
-      size=0.5]{1/2.*sin(pi*(x-1/2.))+1/2.};
-    \end{axis} node[midway]
-  \end{tikzpicture}
-  \pause
-  \begin{equation}
-    \highlightV{d_c(t,p)} = 1 - \sum_{u \in V(t)} \lambda_c(u,p)
-  \end{equation}
-  \pause
-  \begin{equation}
-    \highlightGR{I(v,p)} = \prod_{u \in Int(jc(v)) -\{v\}} f_h \left( \frac
-      {1-\Omega(u,p)} {1-\Omega(u,v)} \right)
-  \end{equation}
-\end{frame}
-
 \begin{frame}{*Cages $_{\text{\citep{GPCP13}}}$}
   \begin{alertblock}{Points négatifs :}
     \setbeamercolor{itemize item}{fg=MRed}
