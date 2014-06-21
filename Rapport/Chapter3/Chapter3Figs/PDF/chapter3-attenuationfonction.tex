@@ -16,7 +16,7 @@
         ymin=0,     % start the diagram at this y-coordinate
         ymax=1.1   % end   the diagram at this y-coordinate
       ]
-        \addplot[samples=400] {(cos(pi*(deg(x+1.)))+1.)/2.};
+        \addplot[samples=400] {(sin(pi*(deg(x-1./2.)))/2.+1./2.};
       \end{axis}
     \end{tikzpicture}
     \begin{tikzpicture}
@@ -27,7 +27,7 @@
         ymin=0,     % start the diagram at this y-coordinate
         ymax=1.1   % end   the diagram at this y-coordinate
       ]
-        \addplot[samples=240, domain=0:0.6] {(cos(pi*(deg(x/0.6+1.)))+1.)/2.};
+        \addplot[samples=240, domain=0:0.6] {(sin(pi*(deg(x/0.6-1./2.)))/2.+1./2.};
         \addplot[samples=160, domain=0.6:1] {1};
       \end{axis}
     \end{tikzpicture}
@@ -39,7 +39,7 @@
         ymin=0,     % start the diagram at this y-coordinate
         ymax=1.1   % end   the diagram at this y-coordinate
       ]
-        \addplot[samples=80, domain=0:0.2] {(cos(pi*(deg(x/0.2+1.)))+1.)/2.};
+        \addplot[samples=80, domain=0:0.2] {(sin(pi*(deg(x/0.2-1./2.)))/2.+1./2.};
         \addplot[samples=320, domain=0.2:1] {1};
       \end{axis}
     \end{tikzpicture}

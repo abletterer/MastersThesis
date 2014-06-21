@@ -6,28 +6,33 @@
 % \hspace*{1cm}
 % \pagebreak[4]
 
-\chapter{Extensions}
+\chapter{Perspectives}
 
 \graphicspath{ {Chapter4/Chapter4Figs/PNG/}
   {Chapter4/Chapter4Figs/PDF/} {Chapter4/Chapter4Figs/} }
 
 Dans le dernier chapitre, nous avons vu une nouvelle méthode permettant
 combiner des outils de déformation à base de cage. Cette méthode utilise un
-nouveau type d'outil, la cage de contrôle d'influence. Cet outil est composé
-de deux cages. L'une dite cage d'influence, elle délimite la zone de l'espace
-sous l'influence de la déformation. L'autre dite de contrôle, elle permet à
-l'utilisateur de contrôler la déformation à appliquer.
+nouveau type d'outil, la double-cage. Cet outil est composé de deux cages.
+L'une dite d'influence, délimitant la zone de l'espace sous l'influence de la
+déformation. L'autre dite de contrôle, permettant à l'utilisateur de contrôler
+la déformation à appliquer.
 
-Ce sujet se tourne vers la création d'un outil multidimensionnel de
-déformation. Mais nous n'avons pour l'instant travaillé que sur des
-déformation à base d'outils de dimension 2. Il est naturel de se demander
-comment notre méthode pourrait être étendue à des outils de dimensions
-différentes. Deux approches sont possibles pour généraliser ce travail :
+Pour l'instant nous n'avons travaillé qu'avec des outils de dimension 2, mais
+l'objectif de ce sujet était de mettre en place un outil multidimensionnel de
+déformation. Il est naturel de se demander comment notre méthode pourrait être
+étendue à des outils de dimensions différentes. Deux approches sont possibles
+pour généraliser ce travail :
 
 \begin{enumerate}
-\item Modification de la nature de la cage de contrôle
+\item Modifier la nature de la cage de contrôle
 \item Mélanger des outils existants avec cette méthode
 \end{enumerate}
+
+Ce chapitre a pour but d'expliquer des extensions directes au travail qui a
+été effectué. Ces extensions auraient pu être directement ajoutées au travail
+effectué, mais par manque de temps nous les expliquons dans une section à
+part.
 
 \section{Modification de la nature de la cage de contrôle}
 
@@ -35,7 +40,7 @@ Nous avions choisi de travailler avec une cage comme outil de contrôle puisque
 nous voulions une méthode de mélange d'outils de déformation à base de cage.
 Mais rien ne nous empêche de changer la nature de cette cage de contrôle. Pour
 généraliser un peu plus ces propos, nommons la cage de contrôle \textit{outil
-de contrôle}. A partir du moment où un outil (point, courbe, face) nous permet
+de contrôle}. A partir du moment où un outil (point, courbe, surface) nous permet
 de définir une cage d'influence (nécessaire aux méthodes d'atténuation et de
 mélange), nous pouvons l'utiliser comme outil de contrôle.
 
@@ -49,28 +54,28 @@ d'influence. La modification de la position de l'outil de contrôle implique
 une modification de la position des sommets de la cage d'influence (par
 invariance de l'association).
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
 \begin{center}
   \includegraphics[scale=0.8]{chapter4-outilPoint4-pstricks}
   \includegraphics[scale=0.8]{chapter4-outilPoint6-pstricks}
   \includegraphics[scale=0.8]{chapter4-outilPoint8-pstricks}
 
   \caption[Cages d'influence à partir d'un point] {Différentes cages
-d'influence créées à partir d'un point comme outil de contrôle}
+d'influence créées à partir d'un point comme outil de contrôle.}
   \label{EXTPoi}
 
 \end{center}
 \end{figure}
 
 Dans le même esprit, nous pourrions obtenir une cage d'influence à partir
-d'une courbe. La cage d'influence pourrait être générée comme un
-épaississement de la courbe. Le lien entre la courbe et la cage d'influence
-pourrait se faire comme pour les cages de contrôle. Mis à part qu'ici au lieu
-de modifier la position d'un seul sommet, un point de contrôle modifierait la
-position des deux sommets qui résultent de l'épaissement de la courbe au niveau
-de ce point de contrôle (Figure \ref{EXTCou}).
+d'une courbe. La cage d'influence serait générée comme un épaississement de la
+courbe. Le lien entre la courbe et la cage d'influence pourrait se faire comme
+pour les cages de contrôle. Mis à part qu'ici au lieu de modifier la position
+d'un seul sommet, un point de contrôle modifierait la position des deux
+sommets qui résultent de l'épaissement de la courbe au niveau de ce point de
+contrôle (Figure \ref{EXTCou}).
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
 \begin{center}
   \includegraphics[scale=0.8]{chapter4-outilCourbe4-pstricks}
   \includegraphics[scale=0.8]{chapter4-outilCourbe6-pstricks}
@@ -78,7 +83,7 @@ de ce point de contrôle (Figure \ref{EXTCou}).
 
   \caption[Cages d'influence à partir d'une courbe] {Différentes cages
 d'influence créées à partir de courbes de différentes résolutions comme outils
-de contrôle}
+de contrôle.}
 
   \label{EXTCou}
 
@@ -88,10 +93,10 @@ de contrôle}
 \section{Mélange d'outils existants}
 
 Plusieurs outils existent déjà, comme nous avons pu le voir dans le chapitre
-qui fait l'état de l'art des outils de différentes dimensions. On se demande
-alors si notre technique peut se mélanger avec des outils de différentes
-dimensions (points ou courbes). Et si c'est possible, comment notre technique
-pourrait permettre de mélanger ces différents outils ensemble.
+qui fait l'état de l'art des outils de déformation spatiale. On se demande
+alors si notre technique permet le mélange de certains de ces outils. Et si
+c'est possible, comment notre technique pourrait permettre de mélanger ces
+différents outils ensemble.
 
 Un point important de la méthode de mélange proposée dans ce travail est la
 notion de \textit{distance à l'outil}. En effet, c'est grâce à cette distance
@@ -106,8 +111,10 @@ peuvent pas être utilisés tels quels, car ils n'ont pas un domaine d'influence
 fini. Néanmoins, comme nous l'avons fait pour les déformations à base de
 cages, il devrait être possible de rendre leur influence locale. Une fois le
 domaine d'influence défini, il serait possible d'évaluer le critère de
-"distance à l'outil". Cette distance calculée nous permettrait de mélanger ces
-outils avec les autres outils tenant aussi compte de la distance à l'outil.
+"distance à l'outil". Cette distance calculée nous permettrait dans un premier
+temps de modifier partiellement un modèle grâce à un outil de déformation,
+mais aussi de mélanger plusieurs outils ensembles (à condition que chacun
+puisse définir cette notion de distance).
 
 Ces réflexions sont purement théoriques et certaines suppositions pourraient
 être fausses, néanmoins nous pensons que des réflexions plus poussées dans ces

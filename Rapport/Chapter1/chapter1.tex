@@ -17,34 +17,33 @@ ce chapitre nous considèrerons des déformations affectant l'espace
 $\mathbb{R}^3$
 
 La déformation spatiale est une technique de déformation permettant de
-modifier la position des sommets d'un modèle virtuel au travers de la
-modification de son espace ambiant. Cette déformation est appliquée grâce à un
-modèle virtuel qu'on appelle un \textit{outil}. Un utilisateur va interagir
-avec un outil (en modifiant la position de ses sommets), et cet outil va
-modifier la position des points de l'espace. Dans la suite du rapport, nous
-appelons \textit{modèle} un maillage auquel nous appliquons une déformation,
-et \textit{point de l'espace} un sommet du modèle à déformer.
+modifier la position des sommets d'un objet virtuel au travers de la
+modification de son espace ambiant. Cette déformation est appliquée au travers
+de la manipulation d'un \textit{outil}. Un utilisateur va interagir avec un
+outil (en modifiant la position de ses sommets), et cet outil va modifier la
+position des points de l'espace. Dans la suite du rapport, nous appelons
+\textit{objet} un objet virtuel auquel nous appliquons une déformation, et
+\textit{point de l'espace} un sommet du objet à déformer.
 
-Ces outils ont différentes caractéristiques, comme par exemple la
-dimension (point, courbe, surface, volume), la zone de l'espace qu'ils
-déforment (locale ou globale) ou encore leur résolution (nombre
-de points de contrôle qui les composent). On dit qu'une déformation est
-globale lorsqu'un le déplacement d'un sommet de l'outil influe sur l'ensemble
-des points de l'espace.
+Ces outils ont différentes caractéristiques, comme par exemple leur dimension
+(point, courbe, surface, volume), la zone de l'espace qu'ils déforment (locale
+ou globale) ou encore leur résolution (nombre de points de contrôle qui les
+composent). On dit qu'une déformation est globale lorsque le déplacement d'un
+sommet de l'outil influe sur l'ensemble des points de l'espace.
 
-En pratique, la déformation d'un modèle se décompose en 3 étapes :
+En pratique, la déformation d'un objet se décompose en 3 étapes :
 \begin{enumerate}
 
 \item Construction de l'outil permettant la déformation
 
-\item Association des points de l'espace composant le modèle à l'outil
-(\textit{temps d'association})
+\item Association des points de l'espace à l'outil (\textit{temps
+d'association})
 
-\item Déformation du modèle par invariance de l'association (\textit{temps de
+\item Déformation de l'objet par invariance de l'association (\textit{temps de
 déformation})
 
 Les explications ci-dessous se concentrent sur la partie association des
-points de l'espace composant le modèle à l'outil.
+points de l'espace à l'outil.
 
 \end{enumerate} 
 
@@ -63,17 +62,15 @@ des courbes de Bézier au cas 3D. Ils ont utilisé les polynômes de Bernstein
 pour définir le volume. Ce modèle, attribuant une forme parallépipédique au
 volume (Figure \ref{SURPar}), permet d'obtenir une paramétrisation des
 coordonnées des points de l'espace presque automatiquement. Cette technique
-déforme l'espace de façon globale.Les volumes paramétriques souffrent des
+déforme l'espace de façon globale. Les volumes paramétriques souffrent des
 mêmes problèmes que leurs homologues de dimensions inférieures (surface et
 courbes paramétriques), à savoir le manque de contrôle local.
 
-\begin{figure}[ht]
-\begin{center}
+\begin{figure}[!ht]
   \includegraphics{chapter1-bezierPara-pstricks}
   \caption[Volume de Bézier parallélépipédique] {Vue en coupe d'un volume de
-  Bézier parallélépipédique}
+  Bézier parallélépipédique.}
   \label{SURPar}
-\end{center}
 \end{figure}
 
 \item{\textbf{Déformation de forme libre avec contrôle local :}} Pour corriger
@@ -90,21 +87,20 @@ Les déformations de forme libre ont une grosse limitation, celle de la forme
 de l'outil. En effet, comme les volumes de déformations sont uniquement
 composés de cubes alignés sur les axes du repère de l'espace, la forme globale
 correspond à un pavé. Par conséquent, il n'est pas possible d'obtenir un outil
-qui épouse la forme du modèle à déformer. \cite{Coq90} a donc proposé une
+qui épouse la forme de l'objet à déformer. \cite{Coq90} a donc proposé une
 version étendue des déformations de forme libre, en permettant la modification
 de la position des points de contrôle avant l'étape d'association. Le calcul
-des coordonnées du modèle par rapport à l'outil n'est donc plus trivial, il
-devient beaucoup plus coûteux. \cite{BBT97} ont proposé de considérer des
-volumes de Bézier tétraédriques (Figure \ref{SURTet}). tandis que \cite{MJ96}
-se sont plutôt intéressés aux volumes de subdivision de topologie quelconque.
+des coordonnées des points de l'espace par rapport à l'outil n'est donc plus
+trivial, il devient beaucoup plus coûteux. \cite{BBT97} ont proposé de
+considérer des volumes de Bézier tétraédriques (Figure \ref{SURTet}) tandis
+que \cite{MJ96} se sont plutôt intéressés aux volumes de subdivision de
+topologie quelconque.
 
-\begin{figure}[ht]
-\begin{center}
+\begin{figure}[!ht]
 	\includegraphics{chapter1-bezierTetra-pstricks}
   \caption[Volume de Bézier tétraédrique] {Vue en coupe d'un volume de
-  Bézier tétraédrique}
+  Bézier tétraédrique.}
   \label{SURTet}
-\end{center}
 \end{figure}
 
 \end{itemize}
@@ -122,7 +118,7 @@ projetés les points de l'espace, le long de la normale au plan du carreau,
 dans l'espace paramétrique du carreau. Ainsi pour déformer l'espace,
 l'utilisateur déplace les différents points de contrôle. Les points de
 l'espace sont repositionnés grâce à leurs coordonnées paramétriques
-(précédemment calculées) et ``reprojetées'' le long de la normale au carreau
+(précédemment calculées) et "reprojetées" le long de la normale au carreau
 déformé. De même que pour les volumes paramétriques, cette technique déforme
 l'espace de façon globale.
 
@@ -135,16 +131,14 @@ dans le domaine de la déformation car elle permet d'obtenir une unique
 paramétrisation en coordonnées polaires des points de l'espace, comme proposé
 par \cite{JL00}. Cette technique déforme aussi l'espace de façon globale.
 
- \begin{figure}[ht]
- \begin{center}
-  \includegraphics[scale=0.5]{chapter1-pstricks.pdf}
+ \begin{figure}[!ht]
+  \includegraphics[scale=0.5]{chapter1-noyau-pstricks}
 
   \caption[Noyau d'un polygone] {En rouge le noyau d'un polygone de forme
 étoilée représenté par son bord, en noir (en 2D). Les points de contrôle sont
 représentés par les disques noirs.}
 
   \label{SUReto}
- \end{center}
  \end{figure}
 
 \item{\textbf{Maillage triangulaire :}} Une autre idée est d'utiliser un
@@ -159,9 +153,9 @@ zones d'influence résultent d'une moyenne pondérée des coordonnées calculée
 par rapport à chaque triangle. L'avantage de cette technique est de permettre
 une configuration assez générale des triangles (non nécessairement connexes),
 à partir du moment où ceux-ci ne sont pas dégénérés (les triangles doivent
-être composés de 3 sommets distincts). La déformation engendrée par le
-déplacement d'un sommet d'un triangle est locale et définie par la zone
-d'influence définie autour de ce triangle.
+être composés de 3 sommets linéairement indépendants). La déformation
+engendrée par le déplacement d'un sommet d'un triangle est locale et définie
+par la zone d'influence de ce triangle.
 
 \item{\textbf{Cage :}} La cage est l'outil surfacique le plus utilisé ces
 dernières années en terme de déformation spatiale. Son utilisation s'est
@@ -176,7 +170,33 @@ le prochain chapitre.
 
 \section{Déformation à base de courbes} 
 
-(A COMPLETER)
+\begin{itemize}
+
+\item{\textbf{Déformation de De Casteljau généralisée :}} \cite{CR94} ont
+introduit une méthode de déformation à base de courbe qui peut-être vue comme
+une déformation de forme libre de Bézier limitée. L'idée est d'associer les
+points de l'espace autour de la courbe aux points de contrôle de la courbe.
+Cette méthode est confrontée au même problème que la déformation de forme
+libre de Bézier, où la courbe doit être une ligne droite au moment de
+l'association du modèle à l'outil.
+
+\item{\textbf{Déformation axiale :}} \cite{LCJ94} ont proposé une méthode
+permettant d'associer des points de l'espace à une courbe (échantillonnée par
+des points de contrôle) qui peut avoir une forme quelconque. Les points de
+l'espace sont déformés en fonction de leur écart à la courbe. Plus un point
+est éloigné moins il sera déformé par la modification de la position des
+sommets de contrôle de la courbe. Pour connaître la distance d'un point à la
+courbe, les auteurs définissent des paramètres scalaires $r_{min}$ et
+$r_{max}$, propres à chaque sommet de contrôle. Ils établissent que la
+déformation doit s'effectuer en fonction de la distance $d$ d'un point à un
+sommet de la courbe. La déformation peut-être totale ($d < r_{min}$), atténuée
+($r_{min} < d < r_{max}$) ou inexistante ($d > r_{max}$).
+
+\item{\textbf{Déformation de "cables" :}} La méthode présentée par \cite{SF98}
+s'inspire de la déformation axiale. Elle permet de combiner les effets de
+différents outils de déformations à base de courbe.
+
+\end{itemize}
 
 \section{Déformation à base de points}
 
@@ -189,13 +209,12 @@ centré sur un point de contrainte $C_i$ associé à un déplacement $\Delta C_i
 On définit une paramétrisation des points de l'espace uniquement par la
 distance de chacun aux points de contraintes. De ce fait, les déformations
 s'opèrent de façon uniforme dans toutes les directions. \cite{BR94} ont
-développé Scodef (Simple Constrained Deformations), le premier outil utilisant
-cette technique. La déformation appliquée par le déplacement d'un point de
-contrainte est limitée à la zone sphérique autour de ce point. Il est
-important de noter que ce modèle est juste une restriction des possibilités de
-déformation proposées par la technique DOGME (ci-dessous), en considérant le
-cas le plus simple avec des zones d'influence sphériques autour des
-contraintes.
+développé Scodef (Simple Constrained Deformations). La déformation appliquée
+par le déplacement d'un point de contrainte est limitée à la zone sphérique
+autour de ce point. Il est important de noter que ce modèle est juste une
+restriction des possibilités de déformation proposées par la technique DOGME
+(ci-dessous), en considérant le cas le plus simple avec des zones d'influence
+sphériques autour des contraintes.
 
 \item{\textbf{DOGME :}} \cite{BB91} ont introduit une méthode basée sur les
 contraintes appelée DOGME (Deformation Of Geometric Model Editor) afin de

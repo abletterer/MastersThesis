@@ -10,63 +10,76 @@
 
 \section{Contribution}
 
-Nos travaux ont abouti à deux contributions originales. D'une part il est
-désormais possible de déformer uniquement une partie d'un modèle grâce à une
-déformation à base de cage. Une zone d'influence a été mise en place, de façon
-à ce que la déformation puisse se produire dans une zone définie autour d'une
-cage. De cette façon il est possible d'associer seulement une zone d'un modèle
-avec une cage et d'obtenir une transition qui soit visuellement lisse entre la
-zone déformée et la zone qui n'est pas sous l'influence de la déformation.
-Cette configuration permet de réaliser des déformations locales, réduisant la
-résolution de la cage au minimum nécessaire pour appliquer la déformation
-souhaitée ainsi que le nombre de points de l'espace à considérer lors de la
-déformation. Ce qui amène à une diminution du coût en temps de calcul à
-l'étape d'association par rapport à la méthode classique de déformation à base
-de cage.
+Nos travaux ont abouti à deux contributions originales et à la création d'un
+nouvel outil, la double-cage. D'une part il est désormais possible de déformer
+uniquement une partie d'un objet grâce à une déformation à base de cage. Une
+zone d'influence a été mise en place, de façon à ce que la déformation puisse
+se produire dans une zone définie autour d'une cage. De cette façon il est
+possible d'associer seulement une zone d'un objet avec une cage et d'obtenir
+une transition qui soit visuellement lisse entre la zone déformée et la zone
+qui n'est pas sous l'influence de la déformation. Cette configuration permet
+de réaliser des déformations locales, réduisant la résolution de la cage au
+minimum nécessaire pour appliquer la déformation souhaitée ainsi que le nombre
+de points de l'espace à considérer lors de la déformation. Ce qui amène à une
+diminution du coût en temps de calcul à l'étape d'association par rapport à la
+méthode classique de déformation à base de cage.
 
 D'autre part, nous avons proposé un nouvel outil de déformation spatiale,
-composé de plusieurs outils de déformation à base de cage. La déformation.
-L'avantage de cette méthode par rapport au travail de \cite{GPCP13} est de
-permettre une disposition quelconque (avec ou sans recouvrement) des
-différentes cages de déformation. De nombreux cas spécifiques que
-\cite{GPCP13} ont rencontré sont évités par notre méthode. Ce qui nous permet
-d'avoir une formulation plus simple et plus concise. En comparaison au travail
-de \cite{JBPS11} et \cite{GPCP13} notre technique à l'avantage de ne pas
+composé de plusieurs outils de déformation à base de cage. L'avantage de cette
+méthode par rapport au travail de \cite{GPCP13} est de permettre une
+disposition quelconque (avec ou sans recouvrement) des différentes cages de
+déformation. De nombreux cas spécifiques que \cite{GPCP13} ont rencontré sont
+évités par notre méthode. Ce qui nous permet d'avoir une formulation
+mathématique plus simple et plus concise. En comparaison au travail de
+\cite{JBPS11} et \cite{GPCP13} notre technique à l'avantage de ne pas
 nécessiter l'utilisation de fonctions harmoniques, ce qui permet d'obtenir un
-coput en temps de calcul au temps d'association beaucoup plus faible que ces
-méthodes.
+coût en temps de calcul au temps d'association beaucoup plus faible que ces
+méthodes. De plus, à la moindre modification d'un outil, ces techniques
+nécessitent de recommencer depuis le début de l'étape d'association. Notre
+méthode permet de localiser la zone de l'espace sur laquelle faire l'étape
+d'association. Par exemple à l'ajout d'une nouvelle double-cage il est
+seulement nécessaire de réaliser l'étape d'association pour les points de
+l'espace qui sont sous l'influence de cette double-cage. A la prochaine étape
+d'association, les calculs prendront en compte l'influence de la double-cage
+créée.
 
 \section{Discussions}
 
 Les cages d'influence doivent être convexes dans le cas de l'utilisation de
 coordonnées MVC. Comme ces coordonnées peuvent être négatives dans le cas
 d'une cage concave, la distance au bord ne peut plus être évaluée
-correctement. Néanmoins, les autres méthodes de calcul de coordonnées (HC et GC)
-ne connaissent pas ces problèmes de coordonnées négatives, la technique
-pourrait 
+correctement. Néanmoins, les autres méthodes de calcul de coordonnées (HC et
+GC) ne connaissent pas ces problèmes de coordonnées négatives, la technique
+pourrait donc fonctionner avec des cages concaves en utilisant ces méthodes de
+calcul de coordonnées.
 
 La technique que nous utilisons pour lier une cage de contrôle à une cage
 d'influence ne permet de conserver la propriété d'homothétie entre les deux
 cages. Ce n'est pas un problème en soit, sachant que la relation d'homothétie
-n'est utile que lors de la création du lien entre les deux cages. La
-modification de la cage d'influence gagnerait à être "mieux" déformée en
-fonction de la modification de la cage de contrôle.
+n'est utile que lors de la création du lien entre les deux cages. La cage
+d'influence gagnerait à être "mieux" déformée par rapport à la modification de
+la cage de contrôle, ce qui implique une déformation de l'objet légèrement
+différente.
 
 \section{Ouvertures}
 
-A court terme, il serait intéressant d'utiliser notre technique avec d'autres
-méthodes de calcul de coordonnées (comme expliqué précédemment). Notre travail
-s'est concentré sur les MVC, mais nous avons présenté d'autres techniques,
-comme les HC ou les GC, qui ont des propriétés intéressantes par rapport à la
-forme de la déformation. Notre méthode de déformation devrait aussi
-fonctionner avec ces techniques de calcul de coordonnées, cependant aucun test
-n'a été effectué pour vérifier ces intuitions.
+A court terme, il faudrait essayer le fonctionnement des double-cages dans
+$\mathbb{R}^3$. Il n'y a pas de raison que la méthode implémentée ne soit pas
+directement généralisable, sachant qu'elle se base sur des calculs de
+coordonnées qui sont bien définis dans $\mathbb{R}^3$. Il serait intéressant
+d'utiliser notre technique avec d'autres méthodes de calcul de coordonnées
+(comme expliqué précédemment). Notre travail s'est concentré sur les MVC, mais
+nous avons présenté d'autres techniques, comme les HC ou les GC, qui ont des
+propriétés intéressantes par rapport à la forme de la déformation. Notre
+méthode de déformation devrait aussi fonctionner avec ces techniques de calcul
+de coordonnées, cependant aucun test n'a été effectué pour vérifier ces
+intuitions.
 
 A plus long terme, il faudrait s'intéresser aux interactions utilisateur. Les
 interactions avec l'outil de contrôle ne sont pas intuitives (l'utilisateur
 modifie un outil, qui modifie un autre outil, qui lui-même modifie le modèle).
 Pour les améliorer il serait intéressant de mettre en place une méthode
-permettant de modifier la position d'un point de l'espace directement, et de
+permettant de manipuler directement la position des points de l'espace, et de
 modifier la position des points de son voisinage en conséquence. Le modèle
 interne se baserait toujours sur des déformations à base de cage, mais l'outil
 ne serait plus directement contrôlable, seule la position des points de
