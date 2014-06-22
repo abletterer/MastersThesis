@@ -15,11 +15,6 @@
 
 \usepackage{pgffor} 
 
-\usepackage{tikz}
-\usetikzlibrary{shapes.callouts}
-
-\usepackage{pgfplots}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[frenchb]{babel}
@@ -29,7 +24,7 @@
 \usepackage{lastpage}
 
 \usepackage[natbib=true, bibstyle=authoryear,
-citestyle=authoryear]{biblatex}
+citestyle=authoryear, backend=biber]{biblatex}
 
 \usepackage{caption}
 \captionsetup{figurename=}
@@ -40,7 +35,8 @@ citestyle=authoryear]{biblatex}
 
 %% Beamer Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \useoutertheme[subsection=false,shadow]{miniframes}
-\useinnertheme{default} \usefonttheme{serif} \usepackage{palatino}
+\useinnertheme{default} \usefonttheme{serif} 
+\usepackage{palatino}
 
 \setbeamerfont{title like}{shape=\scshape}
 \setbeamerfont{title}{shape=\scshape}
@@ -153,249 +149,46 @@ citestyle=authoryear]{biblatex}
     \vspace{-0.5cm} \date{\today} } \titlepage
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\scshape Introduction}
 
-\begin{frame}{Contexte}
-  \begin{itemize}
-  \item Objet
-    \begin{itemize}
-    \item Discrétisé en cellules (sommet, arête, face, volume)
-    \end{itemize}
-  \item Déformation spatiale
-    \begin{itemize}
-    \item Déformation de l'espace ambiant
-    \item Manipulation à l'aide d'un outil
-      \begin{itemize}
-      \item Un outil est un objet
-      \item Manipulation directe des points de contrôle
-      \item Différentes caractéristiques (dimension, résolution, zone
-        d'influence)
-      \end{itemize}
-    \item Indépendante de la représentation interne
-    \end{itemize}
-  \end{itemize}
+\begin{frame}{Outils de déformation}
+\begin{columns}[t]
+  \begin{column}{0.5\textwidth}
+    \includegraphics[scale=0.16]{Outil-Mono-Sans}
+  \end{column}
+  \pause
+  \begin{column}{0.5\textwidth}
+    \includegraphics[scale=0.16]{Outil-Mono-Points}
+  \end{column}
+  \pause
+\end{columns} 
+\begin{columns}[t]
+  \begin{column}{0.5\textwidth}
+    \includegraphics[scale=0.16]{Outil-Mono-Courbes}
+  \end{column}
+  \pause
+  \begin{column}{0.5\textwidth}
+    \includegraphics[scale=0.16]{Outil-Mono-Surfaces}
+  \end{column}
+\end{columns} 
 \end{frame}
 
-\begin{frame}{Création d'un outil multidimensionnel}
-  \begin{alertblock}{Problèmes}
-    \setbeamercolor{itemize item}{fg=MRed}
-    \begin{itemize}
-    \item Finesse d'une déformation liée au nombre de DDL
-    \item Complexité en temps de calcul liée au nombre de DDL
-    \item Déformation difficile avec certains outils
-    \end{itemize}
-  \end{alertblock}
-  \begin{figure}[h]
-    \begin{center}
-      \includegraphics[scale=0.15]{alligator-ferme}
-      \includegraphics[scale=0.15]{alligator-ouvert}
-    \end{center}
-    \caption{\citep{JBPS11}}
-  \end{figure}
-\end{frame}
-
-\begin{frame}{Création d'un outil multidimensionnel}
-  \begin{block}{Mélanger plusieurs outils}
-    \begin{itemize}
-    \item Différentes dimensions/résolutions
-    \item Déformation lisse (au moins $C^1$)
-    \item Choisir l'outil le plus adapté aux déformations à appliquer
-    \end{itemize}
-  \end{block}
-  \begin{figure}[h]
-    \begin{center}
-      \includegraphics[scale=0.15]{alligator-avant}
-      \includegraphics[scale=0.15]{alligator-apres}
-    \end{center}
-    \caption{\citep{JBPS11}}
-  \end{figure}
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\scshape Etat de l'art}
-
-\begin{frame}{Outils existants}
-  \begin{figure}[h]
-    \begin{center}
-      \begin{tabular}{|l|c|c|c|}
-        \hline
-        \textbf{Outil} & \textbf{Dim.} & \textbf{Type Def.} & \textbf{Forme du bord} \\
-        \hline
-        \hline
-        Bézier & V & Globale & Cubique\\
-        \hline
-        Contrôle local & V & Locale & Cubique\\
-        \hline
-        Non-parallélépipédique & V & Locale & Libre\\
-        \hline
-        \hline
-        Carreau paramétrique & S & Globale & Rectangulaire\\
-        \hline
-        Surface étoilée & S & Globale & /\\
-        \hline
-        Maillage triangulaire & S & Locale & Union de sphères\\
-        \hline
-        Cage & S & Globale & Libre\\
-        \hline
-        \hline
-        Radiale simple & P & Locale & Union de sphères\\
-        \hline
-        DOGME & P & Locale & Cubique\\
-        \hline
-      \end{tabular}
-      \caption{\citep{GB08}}
-    \end{center}
-  \end{figure}
-\end{frame}
-
-\begin{frame}{Etat de l'art}
-  \begin{itemize}
-  \item Bounded Biharmonic Weights for Real-Time Deformation
-    $_{\text{\citep{JBPS11}}}$
-  \item *Cages: A Multilevel, Multi-cage-based System for Mesh
-    Deformation $_{\text{\citep{GPCP13}}}$
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Bounded Biharmonic Weights $_{\text{\citep{JBPS11}}}$}
-  \begin{itemize}
-  \item Mélange d'outils de différentes dimensions
-  \item Associer manuellement plusieurs outils sur différentes zones
-    d'un même objet
-  \item Méthode d'optimisation globale
-    \begin{alertblock}{Points négatifs : }
-      \setbeamercolor{itemize subitem}{fg=MRed}
-      \begin{itemize}
-      \item Déformation à base de points
-      \item Contraintes sur le calcul des coordonnées
-      \item Calcul des coordonnées par diffusion
-      \end{itemize}
-    \end{alertblock}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Déformation à base de cages}
-  \begin{itemize}
-\item $_{\text{\citep{JSW05}}}$ $_{\text{\citep{HF06}}}$
-  \item Déformation globale
-  \item Forme épousant celle de l'objet à déformer
-  \end{itemize}
-  \begin{equation}
-    T(p) = \sum^n_{i=1} \lambda(c_i,p) \cdot c_i
-  \end{equation}
-  Où : \\
-  $\lambda(c_i,p)$ est la coordonnée du point $p$ par rapport au
-  sommet $c_i$
-\end{frame}
-
-\begin{frame}{Déformation à base de cages}
-\begin{itemize}
-\item Plusieurs méthodes de calcul (MVC, GC, HC)
-\end{itemize}
-\begin{figure}[h]
-  \begin{center}
-    \begin{tabular}{|l|c|c|c|}
-      \hline
-      \textbf{Domaine} & MVC & Harmoniques & Green\\
-      \hline
-      \textbf{Intérieur} & $\highlightG{C^\infty}$
-      & $\highlightG{C^\infty} $
-      & $\highlightG{C^\infty}$ \\
-      \hline
-      \textbf{Bord} & $\highlightR{C^0}$
-      & $\highlightR{C^0}$
-      & $\highlightR{C^0}$ \\
-      \hline
-      \textbf{Extérieur} & $\highlightG{C^\infty}$
-      & $\highlightR{C^0}$
-      & $\highlightG{C^\infty}$ \\
-      \hline
-    \end{tabular}
-    \caption{\citep{GPCP13}}
-  \end{center}
-\end{figure}
-\end{frame}
-
-\begin{frame}{*Cages $_{\text{\citep{GPCP13}}}$}
-  \begin{itemize}
-  \item Position d'un point définie par rapport à une cage
-    \textit{propre} et plusieurs cages \textit{jointure}
-  \item Cage \textit{jointure} est l'union des cages incidentes à un
-    sommet de la cage \textit{propre}
-  \end{itemize}
-  \begin{figure}[h]
-    \begin{center}
-      \includegraphics[scale=0.07]{joinCages}
-    \end{center}
-    \caption{\citep{GPCP13}}
-  \end{figure}
-\end{frame}
-
-\begin{frame}{*Cages $_{\text{\citep{GPCP13}}}$}
-  \begin{alertblock}{Points négatifs :}
-    \setbeamercolor{itemize item}{fg=MRed}
-    \begin{itemize}
-    \item Nombreuses fonctions imbriquées
-    \item Utilisation de coordonnées harmoniques
-    \end{itemize}
-  \end{alertblock}
-  \begin{exampleblock}{A retenir :}
-    \setbeamercolor{itemize item}{fg=MGreen}
-    \begin{itemize}
-    \item Déformations localisées et lisses
-    \item Différentes méthodes de calcul des coordonnées
-    \end{itemize}
-  \end{exampleblock}
-\end{frame}
-
-\section{\scshape Méthode proposée}
-
-\begin{frame}{Méthode proposée}
-  \begin{block}{Idée}
-    \begin{itemize}
-    \item Coordonnées barycentriques sont définies dans $\mathbb{R}^2$
-    \item Zone d'influence autour d'une cage
-    \item Estompement progressif des coordonnées au bord
-    \item Mélanger les coordoonnées aux zones de rencontre
-    \end{itemize}
-  \end{block}
-  \begin{figure}[h]
-    \includegraphics[scale=0.2]{bordure-cage}
-  \end{figure}
-\end{frame}
-
-\begin{frame}{Méthode proposée}
-  \begin{alertblock}{Points clés}
-    \setbeamercolor{itemize item}{fg=MRed}
-    \begin{itemize}
-    \item Coordonnées MVC seulement $C^0$ autour des sommets
-    \item Mélanger les différentes positions calculées de façon lisse
-    \end{itemize}
-  \end{alertblock}
+\begin{frame}{Problématique}
+  \centering
+\begin{columns}[t]
+  \begin{column}{0.5\textwidth}
+    \includegraphics[scale=0.2]{Outil-Mono-Sans}
+  \end{column}
+  \pauses
+  \begin{column}{0.5\textwidth}
+    \includegraphics[scale=0.2]{Outil-Multi}
+  \end{column}
+\end{columns} 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\scshape Suite du stage}
-\begin{frame}{Suite du stage}
-  A court terme
-  \begin{itemize}
-  \item Corriger les problèmes de continuité des MVC
-    $_{\text{\citep{LS08}}}$
-  \item Etude des outils à base de courbes
-  \end{itemize}
-  A "long" terme
-  \begin{itemize}
-  \item Gestion des différents niveaux de résolution $_{\text{\citep{Hur12}}}$
-  \item Généralisation de la technique de mélange aux outils de
-    différentes dimensions
-  \end{itemize}
-\end{frame}
 
 \begin{frame}{}
 \begin{center}
@@ -406,8 +199,3 @@ citestyle=authoryear]{biblatex}
 \appendix
 
 \end{document}
-
-%%% Local Variables: 
-%%% mode: latex
-%%% LaTeX-command: "latex -shell-escape"
-%%% End: 
