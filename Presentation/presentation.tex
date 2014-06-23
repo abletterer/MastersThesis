@@ -127,10 +127,6 @@ citestyle=authoryear, backend=bibtex]{biblatex}
 \newcommand{\highlightGR}[1]{%
   \colorbox{gray!50}{$\displaystyle#1$}}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \bibliography{../Rapport/References/references.bib}
 \begin{document}
 
@@ -150,115 +146,192 @@ citestyle=authoryear, backend=bibtex]{biblatex}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                   INTRODUCTION                     %
+%                    INTRODUCTION                    %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{\scshape Introduction}
+
 \begin{frame}{Déformation spatiale}
-\begin{columns}[t]
-  \begin{column}{0.5\textwidth}
-    \includegraphics[scale=0.16]{Outil-Mono-Sans}
-  \end{column}
-  \pause
-  \begin{column}{0.5\textwidth}
-    \includegraphics[scale=0.16]{Outil-Mono-Points}
-  \end{column}
-\end{columns}
-\pause
-\begin{block}{Etapes}
-\begin{enumerate}
-  \item Création de l'outil épousant la forme de l'objet
-  \item Association des points de l'espace à l'outil
-  \item Déformation de l'objet par invariance de l'association
-\end{enumerate}
-\end{block}
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.16]{Outil-Mono-Sans}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.16]{Outil-Mono-Points}
+    \end{column}
+  \end{columns}
+  \begin{block}{Etapes}
+    \begin{enumerate}
+      \item Création de l'outil épousant la forme de l'objet
+      \item Association des points de l'espace à l'outil
+      \item Déformation de l'objet par invariance de l'association
+    \end{enumerate}
+  \end{block}
 \end{frame}
 
 \begin{frame}{Outils de déformation}
   \begin{exampleblock}{Propriétés}
+  \setbeamercolor{itemize item}{fg=MGreen}
     \begin{itemize}
-      \item Résolution : Nombre de points de contrôle
       \item Dimension : Point, Courbe, Surface, Volume
+      \item Résolution : Nombre de points de contrôle
       \item Influence : Locale ou Globale
     \end{itemize}
   \end{exampleblock}
-\begin{columns}[t]
-  \begin{column}{0.5\textwidth}
-  \centering
-    \includegraphics[scale=0.1]{Outil-Mono-Sans}
-  \end{column}
   \pause
-  \begin{column}{0.5\textwidth}
-  \centering
-    \includegraphics[scale=0.1]{Outil-Mono-Points}
-  \end{column}
-  \pause
-\end{columns} 
-\begin{columns}[t]
-  \begin{column}{0.5\textwidth}
-  \centering
-    \includegraphics[scale=0.1]{Outil-Mono-Courbes}
-  \end{column}
-  \pause
-  \begin{column}{0.5\textwidth}
-  \centering
-    \includegraphics[scale=0.1]{Outil-Mono-Surfaces}
-  \end{column}
-\end{columns} 
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.1]{Outil-Mono-Sans}
+    \end{column}
+    \pause
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.1]{Outil-Mono-Points}
+    \end{column}
+    \pause
+  \end{columns} 
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.1]{Outil-Mono-Courbes}
+    \end{column}
+    \pause
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.1]{Outil-Mono-Surfaces}
+    \end{column}
+  \end{columns} 
 \end{frame}
 
 \begin{frame}{Problématique}
-\begin{alertblock}{Problèmes}
+  \begin{alertblock}{Problèmes}
+    \setbeamercolor{itemize item}{fg=MRed}
+    \begin{itemize}
+      \item Re-création d'outils lors de nouvelles déformations
+      \item Impossible de déformer une partie d'un objet
+    \end{itemize}
+  \end{alertblock}
+  \pause
+  Comment mélanger plusieurs outils pour déformer un même objet? 
+  \vspace{0.1in}
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+    \centering
+      \includegraphics[scale=0.16]{Outil-Mono-Sans}
+    \end{column}
+    \pauses
+    \begin{column}{0.5\textwidth}
+    \centering
+      \includegraphics[scale=0.16]{Outil-Multi}
+    \end{column}
+  \end{columns} 
+\end{frame}
+
+\begin{frame}{Objectifs du travail}
+\begin{itemize}
+\item Association d'un outil à une partie d'un objet
+\item Mélange de différents outils sur un même objet
+\end{itemize}
+\begin{block}{Critères}
+  \setbeamercolor{itemize item}{fg=MBlue}  
   \begin{itemize}
-    \item Chaque outil est plus adapté à certaines déformations
-    \item Impossible de déformer une partie d'un objet
+    \item Minimisation des temps de calcul
+    \item Formulations mathématiques simples et claires
+    \item Déformation visuellement lisse
   \end{itemize}
-\end{alertblock}
-\pause
-Comment mélanger des outils pour déformer un même objet? 
-\vspace{0.1in}
-\begin{columns}[t]
-  \begin{column}{0.5\textwidth}
-  \centering
-    \includegraphics[scale=0.16]{Outil-Mono-Sans}
-  \end{column}
-  \pauses
-  \begin{column}{0.5\textwidth}
-  \centering
-    \includegraphics[scale=0.16]{Outil-Multi}
-  \end{column}
-\end{columns} 
+\end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                 MELANGE D'OUTILS                   %
+%                  MELANGE D'OUTILS                  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Etat de l'art}
+\section{\scshape Mélange d'outils}
 
+\begin{frame}{Etat de l'art}
 \begin{itemize}
   \item Bounded Biharmonic Weights for Real-Time Deformation
-  $_{\text{\cite{JBPS11}}}$
+  $_{[\text{\cite{JBPS11}}]}$
   \begin{itemize}
     \item Mélange d'outils de différentes dimensions
     \item Méthode d'optimisation globale
   \end{itemize}
   \item *Cages : A Multilevel, Multi-cage-based System for Mesh Deformation 
-  $_{\text{\cite{GPCP13}}}$
+  $_{[\text{\cite{GPCP13}}]}$
   \begin{itemize}
     \item Mélange d'outils de déformation à base de cages
+    \item Pavage de l'objet (Pas de recouvrements d'outils)
   \end{itemize}
 \end{itemize}
-  
 \end{frame}
 
-\begin{frame}{}
-  
+\begin{frame}{Points à améliorer}
+  \begin{alertblock}{Points négatifs}
+    \setbeamercolor{itemize item}{fg=MRed}
+    \begin{itemize}
+      \item Temps d'association important (fonctions harmoniques)
+      \item Association des outils sur tout l'objet
+      \item Ajout d'un point de contrôle $\Rightarrow$ Recommencer
+      l'association
+      \item Nombreuses formules imbriquées
+    \end{itemize}
+  \end{alertblock}
+  \begin{block}{Notre travail}
+  \setbeamercolor{itemize item}{fg=MBlue}  
+    \begin{itemize}
+      \item Basé sur le travail de $_{[\text{\cite{GPCP13}}]}$
+      \item Déformation partielle d'un objet
+      \item Recouvrement d'outils
+    \end{itemize}
+  \end{block}
 \end{frame}
 
+\begin{frame}{Déformation partielle}
+  \begin{itemize}
+    \item Atténuer la déformation au bord de la cage.
+  \end{itemize}
+  \begin{displaymath}
+    T_{d}(p) = \gamma(p) T(p) + (1-\gamma(p)) p
+  \end{displaymath}
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.16]{Deformation-Viking-DoubleCage-Sans}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.16]{Deformation-Viking-DoubleCage-Avec}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Mélange de déformations}
+  \begin{itemize}
+    \item Exprimer l'influence de la déformation de chaque outil
+  \end{itemize}
+  \begin{displaymath}
+    T_{mel}(p) = \sum_{i=1}^n D(i, p) T_{d}(i, p)
+  \end{displaymath}
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.13]{Deformation-Viking-Avant}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.13]{Deformation-Viking-Apres}
+    \end{column}
+  \end{columns}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                   CONCLUSION                       %
+%                     CONCLUSION                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\scshape Conclusion}
 
 \begin{frame}{}
 \begin{center}
