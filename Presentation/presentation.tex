@@ -180,28 +180,18 @@ citestyle=authoryear, backend=bibtex]{biblatex}
       \item Influence : Locale ou Globale
     \end{itemize}
   \end{exampleblock}
-  \pause
   \begin{columns}[t]
-    \begin{column}{0.5\textwidth}
+    \begin{column}{0.3\textwidth}
       \centering
-      \includegraphics[scale=0.1]{Outil-Mono-Sans}
+      \includegraphics[scale=0.12]{Outil-Mono-Points}
     \end{column}
-    \pause
-    \begin{column}{0.5\textwidth}
+    \begin{column}{0.3\textwidth}
       \centering
-      \includegraphics[scale=0.1]{Outil-Mono-Points}
+      \includegraphics[scale=0.12]{Outil-Mono-Courbes}
     \end{column}
-    \pause
-  \end{columns} 
-  \begin{columns}[t]
-    \begin{column}{0.5\textwidth}
+    \begin{column}{0.3\textwidth}
       \centering
-      \includegraphics[scale=0.1]{Outil-Mono-Courbes}
-    \end{column}
-    \pause
-    \begin{column}{0.5\textwidth}
-      \centering
-      \includegraphics[scale=0.1]{Outil-Mono-Surfaces}
+      \includegraphics[scale=0.12]{Outil-Mono-Surfaces}
     \end{column}
   \end{columns} 
 \end{frame}
@@ -214,18 +204,16 @@ citestyle=authoryear, backend=bibtex]{biblatex}
       \item Impossible de déformer une partie d'un objet
     \end{itemize}
   \end{alertblock}
-  \pause
   Comment mélanger plusieurs outils pour déformer un même objet? 
   \vspace{0.1in}
   \begin{columns}[t]
     \begin{column}{0.5\textwidth}
     \centering
-      \includegraphics[scale=0.16]{Outil-Mono-Sans}
+      \includegraphics[scale=0.15]{Outil-Mono-Sans}
     \end{column}
-    \pauses
     \begin{column}{0.5\textwidth}
     \centering
-      \includegraphics[scale=0.16]{Outil-Multi}
+      \includegraphics[scale=0.15]{Outil-Multi}
     \end{column}
   \end{columns} 
 \end{frame}
@@ -262,8 +250,8 @@ citestyle=authoryear, backend=bibtex]{biblatex}
   \item *Cages : A Multilevel, Multi-cage-based System for Mesh Deformation 
   $_{[\text{\cite{GPCP13}}]}$
   \begin{itemize}
-    \item Mélange d'outils de déformation à base de cages
-    \item Pavage de l'objet (Pas de recouvrements d'outils)
+    \item Mélange d'outils de déformation à base de surfaces (cages)
+    \item Pavage de l'objet
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -274,7 +262,7 @@ citestyle=authoryear, backend=bibtex]{biblatex}
     \begin{itemize}
       \item Temps d'association important (fonctions harmoniques)
       \item Association des outils sur tout l'objet
-      \item Ajout d'un point de contrôle $\Rightarrow$ Recommencer
+      \item Modification d'un des outils $\Rightarrow$ Recommencer
       l'association
       \item Nombreuses formules imbriquées
     \end{itemize}
@@ -282,9 +270,9 @@ citestyle=authoryear, backend=bibtex]{biblatex}
   \begin{block}{Notre travail}
   \setbeamercolor{itemize item}{fg=MBlue}  
     \begin{itemize}
-      \item Basé sur le travail de $_{[\text{\cite{GPCP13}}]}$
-      \item Déformation partielle d'un objet
-      \item Recouvrement d'outils
+      \item Outil de déformation partielle d'un objet
+      \item Mélange d'outils de déformation à base de cage
+      \item Disposition quelconque des outils
     \end{itemize}
   \end{block}
 \end{frame}
@@ -327,11 +315,38 @@ citestyle=authoryear, backend=bibtex]{biblatex}
   \end{columns}
 \end{frame}
 
+\begin{frame}{Contributions}
+  \begin{exampleblock}{Avantages}
+    \setbeamercolor{itemize item}{fg=MGreen}  
+    \begin{itemize}
+      \item Temps d'association court
+      \item Localisation de l'étape d'association
+      \item Disposition quelconque des outils créés
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                     CONCLUSION                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{\scshape Conclusion}
+
+\begin{frame}{Ouvertures}
+  \begin{block}{A court terme}
+    \setbeamercolor{itemize item}{fg=MBlue}  
+    \begin{itemize}
+      \item Déformations dans $\mathbb{R}^3$
+      \item Généralisation de la méthode à des cages concaves
+    \end{itemize}
+  \end{block}
+  \begin{block}{A long terme}
+    \setbeamercolor{itemize item}{fg=MBlue}  
+    \begin{itemize}
+      \item Etudier la partie interaction utilisateur
+    \end{itemize}
+  \end{block}
+\end{frame}
 
 \begin{frame}{}
 \begin{center}
