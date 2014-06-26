@@ -181,7 +181,16 @@ citestyle=authoryear, backend=bibtex]{biblatex}
     \end{itemize}
   \end{exampleblock}
   \centering
-  \includegraphics[scale=0.3]{Bounded-InfluenceLocale}
+  \begin{columns}[t]
+    \begin{column}{0.3\textwidth}
+    \centering
+      \includegraphics[scale=0.25]{Bounded-InfluenceLocale}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+    \centering
+      \includegraphics[scale=0.25]{Bounded-InfluenceGlobale}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Objectifs multi-outil}
@@ -217,7 +226,7 @@ $_{[\text{\cite{JBPS11}}]}$}
     \begin{column}{0.5\textwidth}
       \begin{itemize}
         \item Mélange d'outils existants
-        \item Pavage de l'objet
+        \item Pavage de l'espace
         \item Chaque cage modifie une partie de l'objet
       \end{itemize}
       \begin{alertblock}{Points négatifs}
@@ -403,9 +412,10 @@ $_{[\text{\cite{JBPS11}}]}$}
   \begin{itemize}
     \item Temps d'association court
     \item Calcul de coordonnées local
-    \item Configuration de l'atténuation
+    \item Atténuation rendant la déformation visuellement lisse
+    \item Configuration de la zone d'atténuation
     \item Disposition quelconque des outils créés
-    \item Déformation visuellement lisse
+    \item Ajout/Suppression dynamique d'outils
   \end{itemize}
 \end{frame}
 
@@ -413,7 +423,7 @@ $_{[\text{\cite{JBPS11}}]}$}
 
 \begin{frame}{Aspect multidimensionnel}
   \begin{itemize}
-    \item Point qui remplace la cage de contrôle
+    \item Point
   \end{itemize}
   \begin{columns}[t]
     \begin{column}{0.3\textwidth}
@@ -430,7 +440,7 @@ $_{[\text{\cite{JBPS11}}]}$}
     \end{column}
   \end{columns}
   \begin{itemize}
-    \item Courbe qui remplace la cage de contrôle
+    \item Courbe
   \end{itemize}
   \begin{columns}[t]
     \begin{column}{0.3\textwidth}
