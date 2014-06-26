@@ -184,7 +184,7 @@ citestyle=authoryear, backend=bibtex]{biblatex}
   \includegraphics[scale=0.3]{Bounded-InfluenceLocale}
 \end{frame}
 
-\begin{frame}{Limitations des techniques mono-outil}
+\begin{frame}{Objectifs multi-outil}
   \centering  
   \includegraphics[scale=0.3]<1>{Outil-Mono-Sans}
   \includegraphics[scale=0.3]<2>{Outil-Courbe}
@@ -262,56 +262,89 @@ $_{[\text{\cite{JBPS11}}]}$}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Fils directeurs}
-  \begin{itemize}
-    \item Minimisation des temps de calcul
-    \item Formulations mathématiques simples et claires
-    \item Déformation visuellement lisse
-  \end{itemize}
+\begin{frame}{Objectifs}
+\begin{itemize}
+  \item Associer un outil à un sous-ensemble de points de l'espace
+  \item Mélanger plusieurs outils sur un même objet
+\end{itemize}
+  \begin{block}{Fils directeurs}
+    \begin{itemize}
+      \item Minimisation des temps de calcul
+      \item Formulations mathématiques simples et claires
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                  MELANGE D'OUTILS                  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{\scshape Contribution}
+\section{\scshape Contributions}
 
 \begin{frame}{Déformation à base de cages}
-  \begin{displaymath}
-    p = \sum_{i=1}^n \lambda_i v_i
-  \end{displaymath}
-  \centering
-  \includegraphics[scale=0.3]{Deformation-Cages}
-\end{frame}
-
-\begin{frame}{Problème actuel}
-\begin{columns}[t]
-  \begin{column}{0.5\textwidth}
-    \centering
-    \includegraphics[scale=0.15]{Deformation-Viking-DoubleCage-Avant}
+\begin{columns}[T]
+  \begin{column}{0.6\textwidth}
+    \begin{displaymath}
+      p = \sum_{i=1}^n \lambda_i v_i
+    \end{displaymath}
+    \begin{itemize}
+      \item $[\lambda_1, ..., \lambda_n]$ sont les coordonnées barycentriques
+      généralisées du point $p$
+      \item Plusieurs méthodes pour obtenir ces coordonnées (MVC, HC, GC)
+    \end{itemize}
   \end{column}
-  \begin{column}{0.5\textwidth}
+  \begin{column}{0.4\textwidth}
     \centering
-    \includegraphics[scale=0.15]{Deformation-Viking-DoubleCage-Sans}
+    \includegraphics[scale=0.3]{Deformation-Cages}
   \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Déformation partielle}
-  \begin{itemize}
-    \item Atténuer la déformation au bord de la cage.
-  \end{itemize}
-  \begin{displaymath}
-    T_{d}(p) = \gamma(p) T(p) + (1-\gamma(p)) p
-  \end{displaymath}
+\begin{frame}{Problème actuel}
   \begin{columns}[t]
     \begin{column}{0.5\textwidth}
       \centering
-      \includegraphics[scale=0.16]{Deformation-Viking-DoubleCage-Sans}
+      \includegraphics[scale=0.3]<1>{Deformation-Interieur-1Sommet-Avant}
+      \includegraphics[scale=0.15]<2>{Deformation-Viking-Simple-Avant}
     \end{column}
     \begin{column}{0.5\textwidth}
       \centering
-      \includegraphics[scale=0.16]{Deformation-Viking-DoubleCage-Avec}
+      \includegraphics[scale=0.3]<1>{Deformation-Interieur-1Sommet-Apres}
+      \includegraphics[scale=0.15]<2>{Deformation-Viking-Simple-Sans}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Déformation partielle}
+  \begin{itemize}
+    \item Atténuer la déformation au bord de la cage
+    \begin{displaymath}
+      T_{d}(p) = \gamma(p) T(p) + (1-\gamma(p)) p
+    \end{displaymath}
+    \item Contrôle de l'atténuation
+  \end{itemize}
+  \begin{columns}[t]
+    \begin{column}{0.3\textwidth}
+      \includegraphics[scale=0.15]{BoundaryWeightFunction-Petite}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \includegraphics[scale=0.15]{BoundaryWeightFunction}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \includegraphics[scale=0.15]{BoundaryWeightFunction-Grande}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Résultat de l'atténuation}
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.15]{Deformation-Viking-Double-Avant}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.15]{Deformation-Viking-Simple-Avec}
     \end{column}
   \end{columns}
 \end{frame}
@@ -326,31 +359,93 @@ $_{[\text{\cite{JBPS11}}]}$}
 \begin{frame}{Mélange de déformations}
   \begin{itemize}
     \item Exprimer l'influence de la déformation de chaque outil
+    \begin{displaymath}
+      T_{mel}(p) = \sum_{i=1}^n D(i, p) T_{d}(i, p)
+    \end{displaymath}
+    \item Réutilisation de la fonction de distance $\gamma(p)$
+    \begin{displaymath}
+      D(i, p) = \frac{\gamma(i,p)}{\sum_{j=1}^n \gamma(j,p)}
+    \end{displaymath}
   \end{itemize}
-  \begin{displaymath}
-    T_{mel}(p) = \sum_{i=1}^n D(i, p) T_{d}(i, p)
-  \end{displaymath}
+\end{frame}
+
+\begin{frame}{Résultat du mélange}
   \begin{columns}[t]
     \begin{column}{0.5\textwidth}
       \centering
-      \includegraphics[scale=0.13]{Deformation-Viking-Avant}
+      \includegraphics[scale=0.15]{Deformation-Viking-Avant}
     \end{column}
     \begin{column}{0.5\textwidth}
       \centering
-      \includegraphics[scale=0.13]{Deformation-Viking-Apres}
+      \includegraphics[scale=0.15]{Deformation-Viking-Apres-Sans}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Contributions}
-  \begin{exampleblock}{Avantages}
-    \setbeamercolor{itemize item}{fg=MGreen}  
-    \begin{itemize}
-      \item Temps d'association court
-      \item Localisation de l'étape d'association
-      \item Disposition quelconque des outils créés
-    \end{itemize}
-  \end{exampleblock}
+\begin{frame}{Amélioration de l'interaction}
+  \begin{itemize}
+    \item Manipulation peu intuitive
+    \item Manipuler directement la cage contrôlant l'atténuation
+  \end{itemize}
+  \begin{columns}[t]
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.15]{Deformation-Viking-Avant}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[scale=0.15]{Deformation-Viking-Apres-Avec}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Récapitulatif des contributions}
+  \begin{itemize}
+    \item Temps d'association court
+    \item Calcul de coordonnées local
+    \item Configuration de l'atténuation
+    \item Disposition quelconque des outils créés
+    \item Déformation visuellement lisse
+  \end{itemize}
+\end{frame}
+
+\section{\scshape Extension}
+
+\begin{frame}{Aspect multidimensionnel}
+  \begin{itemize}
+    \item Point qui remplace la cage de contrôle
+  \end{itemize}
+  \begin{columns}[t]
+    \begin{column}{0.3\textwidth}
+      \centering
+      \includegraphics[scale=0.4]{OutilPoint4}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \centering
+      \includegraphics[scale=0.4]{OutilPoint6}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \centering
+      \includegraphics[scale=0.4]{OutilPoint8}
+    \end{column}
+  \end{columns}
+  \begin{itemize}
+    \item Courbe qui remplace la cage de contrôle
+  \end{itemize}
+  \begin{columns}[t]
+    \begin{column}{0.3\textwidth}
+      \centering
+      \includegraphics[scale=0.4]{OutilCourbe4}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \centering
+      \includegraphics[scale=0.4]{OutilCourbe6}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \centering
+      \includegraphics[scale=0.4]{OutilCourbe10}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -359,20 +454,10 @@ $_{[\text{\cite{JBPS11}}]}$}
 
 \section{\scshape Conclusion}
 
-\begin{frame}{Ouvertures}
-  \begin{block}{A court terme}
-    \setbeamercolor{itemize item}{fg=MBlue}  
-    \begin{itemize}
-      \item Mélange de déformations dans $\mathbb{R}^3$
-      \item Généralisation de la méthode à des cages concaves
-    \end{itemize}
-  \end{block}
-  \begin{block}{A long terme}
-    \setbeamercolor{itemize item}{fg=MBlue}  
-    \begin{itemize}
-      \item Etudier la partie interaction utilisateur
-    \end{itemize}
-  \end{block}
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item Mélange de déformations dans $\mathbb{R}^3$
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{}
